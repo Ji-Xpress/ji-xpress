@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cibrv4k5r22m1"]
+
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="1_f4dxy"]
+
+[node name="rect_extents_test" type="Node2D"]
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("1_f4dxy")
