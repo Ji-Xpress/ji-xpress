@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://be2ogxixyowlv"]
+
+[ext_resource type="Script" path="res://nodes/design_canvas.gd" id="1_675is"]
+
+[node name="DesignCanvas" type="Node2D"]
+script = ExtResource("1_675is")
+
+[node name="NodeInstances" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]

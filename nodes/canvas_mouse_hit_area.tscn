@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://mln36kda074"]
+
+[ext_resource type="Script" path="res://nodes/canvas_mouse_hit_area.gd" id="1_12yj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y4f8"]
+
+[node name="CanvasMouseHitArea" type="Area2D"]
+script = ExtResource("1_12yj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2y4f8")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://0j1kwpowp0iy"]
+
+[ext_resource type="Texture2D" uid="uid://benj0lsnh3cke" path="res://icon.svg" id="1_tb1m1"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_gilxy"]
+
+[node name="SelectableSpriteNode" type="Sprite2D"]
+texture = ExtResource("1_tb1m1")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_gilxy")
+size = Vector2(124, 124)

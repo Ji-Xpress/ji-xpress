@@ -1,4 +1,5 @@
 @tool
+class_name RectExtents2D
 extends Node2D
 
 const Consts := preload("res://addons/rect_extents_2D/Consts.gd")
@@ -18,9 +19,8 @@ func _ready() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	if not Engine.is_editor_hint:
-		return
-	draw_rect(_rect, color, false)
+	if Engine.is_editor_hint:
+		draw_rect(_rect, color, false)
 
 
 #== functions ==

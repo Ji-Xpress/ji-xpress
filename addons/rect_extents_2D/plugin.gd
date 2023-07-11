@@ -125,4 +125,4 @@ func drag_to(event_position: Vector2) -> void:
 	# Update the rectangle's size. Only resizes uniformly around the center for now
 	var target_size = (target_position).abs() * 2.0
 	rect_extents.size = target_size
-	rect_extents.update()
+	rect_extents.queue_redraw()

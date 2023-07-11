@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5nr0ntteel30"]
+
+[ext_resource type="Script" path="res://tests/design_canvas_test.gd" id="1_hs7gx"]
+[ext_resource type="PackedScene" uid="uid://be2ogxixyowlv" path="res://nodes/design_canvas.tscn" id="1_mscqe"]
+
+[sub_resource type="Theme" id="Theme_trgj1"]
+
+[node name="design_canvas_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_hs7gx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_trgj1")
+theme_override_constants/separation = 5
+
+[node name="AddSpriteNode" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add Sprite Node"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 603)
+render_target_update_mode = 4
+
+[node name="DesignCanvas" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_mscqe")]
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddSpriteNode" to="." method="_on_add_sprite_node_pressed"]
