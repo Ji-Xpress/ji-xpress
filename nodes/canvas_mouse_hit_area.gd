@@ -1,6 +1,7 @@
 extends Area2D
 
 signal node_clicked(node: Node2D, node_index: int)
+signal node_unclicked(node: Node2D, node_index: int)
 signal node_hover(node: Node2D, node_index: int)
 signal node_hover_out(node: Node2D, node_index: int)
 
@@ -16,6 +17,8 @@ func set_hit_size(vector: Vector2) -> void:
 func _on_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton and event.pressed and event.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		emit_signal("node_clicked", get_parent(), node_index)
+	elif (event is InputEventMouseButton and not event.pressed):
+		emit_signal("node_unclicked", get_parent(), node_index)
 
 
 func _on_mouse_entered():

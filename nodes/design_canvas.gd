@@ -9,6 +9,8 @@ var node_count: int = 0
 # Signal for when a node is selected
 signal node_selected(node: Node2D, node_index: int)
 # Signal for when a node is selected
+signal node_deselected(node: Node2D, node_index: int)
+# Signal for when a node is selected
 signal node_hover(node: Node2D, node_index: int)
 # Signal for when a node is selected
 signal node_hover_out(node: Node2D, node_index: int)
@@ -17,6 +19,11 @@ signal node_hover_out(node: Node2D, node_index: int)
 # A node has been clicked
 func on_node_clicked(node: Node2D, node_index: int):
 	emit_signal("node_selected", node, node_index)
+
+
+# A node has been clicked
+func on_node_unclicked(node: Node2D, node_index: int):
+	emit_signal("node_deselected", node, node_index)
 
 
 # A node has hover focus
@@ -48,6 +55,7 @@ func add_new_node(new_node: Node2D):
 			
 			# Connect the signals form the hit area for handling
 			new_hit_area.connect("node_clicked", Callable(self, "on_node_clicked"))
+			new_hit_area.connect("node_unclicked", Callable(self, "on_node_unclicked"))
 			new_hit_area.connect("node_hover", Callable(self, "on_node_hover"))
 			new_hit_area.connect("node_hover_out", Callable(self, "on_node_hover_out"))
 			
