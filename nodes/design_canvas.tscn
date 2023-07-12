@@ -5,6 +5,12 @@
 [node name="DesignCanvas" type="Node2D"]
 script = ExtResource("1_675is")
 
-[node name="NodeInstances" type="Node2D" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="Nodes" type="Node2D" parent="Background"]
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="Foreground" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]

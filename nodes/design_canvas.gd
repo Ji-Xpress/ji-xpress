@@ -2,7 +2,9 @@ extends Node2D
 
 const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 
-@onready var node_instances: Node2D = $NodeInstances
+@onready var foreground: Node2D = $Foreground
+@onready var background: Node2D = $Background/Nodes
+@onready var tiles: Node2D = $Tiles
 
 var node_count: int = 0
 
@@ -169,7 +171,13 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 			new_hit_area.connect("node_hover_out", Callable(self, "on_node_hover_out"))
 			
 			# Add the new node to the canvas
-			call_deferred("add_child", new_node)
+			match node_kind:
+				ActiveHoverNode.NodeKind.foreground:
+					foreground.call_deferred("add_child", new_node)
+				ActiveHoverNode.NodeKind.tile:
+					tiles.call_deferred("add_child", new_node)
+				ActiveHoverNode.NodeKind.background:
+					background.call_deferred("add_child", new_node)
 			
 			# Increase node count
 			node_count += 1
