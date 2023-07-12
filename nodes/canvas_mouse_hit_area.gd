@@ -1,15 +1,10 @@
 extends Area2D
 
-signal node_clicked(node: Node2D)
+signal node_clicked(node: Node2D, node_index: int)
+signal node_hover(node: Node2D, node_index: int)
+signal node_hover_out(node: Node2D, node_index: int)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+var node_index: int = 0
 
 
 # Hit area size
@@ -20,12 +15,12 @@ func set_hit_size(vector: Vector2) -> void:
 # Handle mouse input
 func _on_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton and event.pressed and event.button_mask & MOUSE_BUTTON_MASK_LEFT):
-		emit_signal("node_clicked", get_parent())
+		emit_signal("node_clicked", get_parent(), node_index)
 
 
 func _on_mouse_entered():
-	print("mouse_entered")
+	emit_signal("node_hover", get_parent(), node_index)
 
 
 func _on_mouse_exited():
-	print("mouse_exited")
+	emit_signal("node_hover_out", get_parent(), node_index)
