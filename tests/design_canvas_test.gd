@@ -32,31 +32,37 @@ func on_node_selected(node: Node2D, node_index: int):
 	if current_active_node != null:
 		current_active_node.set_rect_extents_visibility(false)
 	
+	# Iterate through all active hover nodes and find the node that has the highest order
 	for node_item in active_hover_nodes:
-		if node_item.node_index_int > greater_node_index:
-			greater_node_index = node_item.node_index_int
-			greater_node_reference = node_item.node
+		var current_node = active_hover_nodes[node_item]
+		if current_node.node_index_int > greater_node_index:
+			# New higher order node found
+			greater_node_index = current_node.node_index_int
+			greater_node_reference = current_node.node
 	
-	# Record the current active rect
-	if greater_node_index > 1 and greater_node_reference != null:
-		current_active_node.set_rect_extents_visibility(true)
+	# Record the current active node if found
+	if greater_node_index > -1 and greater_node_reference != null:
 		current_active_node = greater_node_reference
+		current_active_node.set_rect_extents_visibility(true)
+		
+		# debug
+		print("selected " + str(node_index))
 	
 	await design_canvas.node_deselected
-	
-	print("selected " + str(node_index))
 
 
 # A node has been clicked
 func on_node_deselected(node: Node2D, node_index: int):
-	pass
+	# debug
+	print("deselected " + str(node_index))
 
 
 # A node has hover focus
 func on_node_hover(node: Node2D, node_index: int):
 	var node_key = str(node_index)
 	
-	if active_hover_nodes.has(node_key):
+	# If no node key exists for that index in the hover nodes, add it
+	if not active_hover_nodes.has(node_key):
 		var node_data = ActiveHoverNode.new()
 		node_data.node = node
 		node_data.node_index_int = node_index
@@ -64,6 +70,7 @@ func on_node_hover(node: Node2D, node_index: int):
 		
 		active_hover_nodes[node_key] = node_data
 	
+	# debug
 	print("hover " + str(node_index))
 
 
@@ -71,12 +78,15 @@ func on_node_hover(node: Node2D, node_index: int):
 func on_node_hover_out(node: Node2D, node_index: int):
 	var node_key = str(node_index)
 	
+	# Remove the node index in the hover nodes if the key exists
 	if active_hover_nodes.has(node_key):
 		active_hover_nodes.erase(node_key)
 	
+	# debug
 	print("hover out " + str(node_index))
 
 
+# Test: Add a new test node
 func _on_add_sprite_node_pressed():
 	var new_node: Node2D = selectable_spite_node.instantiate()
 	new_node.position += position_offset

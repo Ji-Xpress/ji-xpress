@@ -38,12 +38,15 @@ func on_node_hover_out(node: Node2D, node_index: int):
 
 # Adding a new node to the node tree
 func add_new_node(new_node: Node2D):
+	# Check to see if it has the RectExtents2D child
 	if new_node.has_node("RectExtents2D"):
+		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
-			# Make the rect_extents node invisible
+			# Make the rect_extents node invisible by default
 			rect_extents_node.visible = false
 			
+			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size
 			var extents_position: Vector2 = rect_extents_node.position
 			
@@ -59,6 +62,7 @@ func add_new_node(new_node: Node2D):
 			new_hit_area.connect("node_hover", Callable(self, "on_node_hover"))
 			new_hit_area.connect("node_hover_out", Callable(self, "on_node_hover_out"))
 			
+			# Add the new node to the canvas
 			call_deferred("add_child", new_node)
 			
 			# Increase node count
