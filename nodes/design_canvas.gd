@@ -28,6 +28,9 @@ func add_new_node(new_node: Node2D):
 	if new_node.has_node("RectExtents2D"):
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
+			# Make the rect_extents node invisible
+			rect_extents_node.visible = false
+			
 			var extents_size: Vector2 = rect_extents_node.size
 			var extents_position: Vector2 = rect_extents_node.position
 			
