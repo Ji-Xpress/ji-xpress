@@ -5,6 +5,7 @@ const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 @onready var foreground: Node2D = $Foreground
 @onready var background: Node2D = $Background/Nodes
 @onready var tiles: Node2D = $Tiles
+@onready var camera: Camera2D = $Camera2D
 
 var node_count: int = 0
 
@@ -29,6 +30,12 @@ var current_active_node: Node2D = null
 
 # Track is mouse down or not
 var is_mouse_down: bool = false
+# Panning the viewport
+var is_panning: bool = false
+
+# For panning
+var mouse_pan_start_position: Vector2 = Vector2.ZERO
+var pan_screen_start_position: Vector2 = Vector2.ZERO
 
 
 # Handling drag and drop
@@ -45,8 +52,23 @@ func _process(delta):
 
 # Track mouse events
 func _input(event):
+	# Event handling for different mouse button events
+	if (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_MIDDLE):
+		is_panning = true
+		mouse_pan_start_position = event.position
+		pan_screen_start_position = camera.position
+	elif (event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_MIDDLE):
+		is_panning = false
+		mouse_pan_start_position = Vector2.ZERO
+		pan_screen_start_position = Vector2.ZERO
+		
 	if (event is InputEventMouseButton and not event.pressed):
 		is_mouse_down = false
+	
+	
+	# Mouse motion events
+	if event is InputEventMouseMotion and is_panning:
+		camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
 
 
 ## Scans a group of tiles to present which one is being selected
