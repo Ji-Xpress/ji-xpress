@@ -10,7 +10,7 @@ const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 @onready var tiles: Node2D = $Tiles
 @onready var camera: Camera2D = $Camera2D
 
-var node_count: int = 0
+var node_count: int = -1
 
 # Signal for when a node is selected
 signal node_selected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
@@ -20,6 +20,10 @@ signal node_deselected(node: Node2D, node_index: int, node_kind: ActiveHoverNode
 signal node_hover(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 # Signal for when a node is selected
 signal node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+# Signal for when node is rotated
+signal node_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+# Signal for when node is moved
+signal node_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 
 # The nodes that currently have a hover over them
 var active_hover_nodes_foreground: Dictionary = {}
@@ -60,6 +64,9 @@ func _input(event):
 	
 	# When the mouse press is released anywhere in the screen
 	if (event is InputEventMouseButton and not event.pressed):
+		if is_dragging_node and current_active_node != null:
+			emit_signal("node_moved", current_active_node, current_active_node.node_index, current_active_node.node_kind)
+		
 		is_mouse_down = false
 		is_dragging_node = false
 		node_drag_start_position = Vector2.ZERO
@@ -201,12 +208,17 @@ func on_node_hover_out(node: Node2D, node_index: int):
 
 
 ## Adds a new node to the node tree
-func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground):
+func add_new_node(new_node: Node2D, node_kind: \
+	ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground, \
+	node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign) -> int:
 	# Check to see if it has the RectExtents2D child
 	if new_node.has_node("RectExtents2D"):
 		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
+			# Increase node count
+			node_count += 1
+			
 			# Make the rect_extents node invisible by default
 			rect_extents_node.visible = false
 			
@@ -215,8 +227,8 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 			new_node.node_index = node_count
 			# Explicity set the node kind
 			new_node.node_kind = node_kind
-			# Set design mode
-			new_node.node_mode = SharedEnums.NodeCanvasMode.ModeDesign
+			# Set node mode
+			new_node.node_mode = node_mode
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size
@@ -242,11 +254,13 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 				ActiveHoverNode.NodeKind.background:
 					background.call_deferred("add_child", new_node)
 			
-			# Increase node count
-			node_count += 1
+			return node_count
+	
+	return -1
 
 
 ## Sets the current selected node rotation
 func set_current_node_rotation(degrees: int):
 	if current_active_node != null:
 		current_active_node.rotation_degrees = degrees
+		emit_signal("node_rotated", current_active_node, current_active_node.node_index, current_active_node.node_kind)

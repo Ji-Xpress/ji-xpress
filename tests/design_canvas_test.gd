@@ -21,6 +21,8 @@ func _ready():
 	design_canvas.connect("node_deselected", Callable(self, "on_node_deselected"))
 	design_canvas.connect("node_hover", Callable(self, "on_node_hover"))
 	design_canvas.connect("node_hover_out", Callable(self, "on_node_hover_out"))
+	design_canvas.connect("node_moved", Callable(self, "on_node_hover_moved"))
+	design_canvas.connect("node_rotated", Callable(self, "on_node_hover_rotated"))
 
 
 # A node has been clicked
@@ -45,12 +47,24 @@ func on_node_hover_out(node: Node2D, node_index: int):
 	print("hover out " + str(node_index))
 
 
+# A node has been moved
+func on_node_hover_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
+	# debug
+	print(str(node_index) + " moved to " + str(node.position))
+
+
+# A node has been rotated
+func on_node_hover_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
+	# debug
+	print(str(node_index) + " rotated to " + str(node.rotation_degrees))
+
+
 # Test: Add a new test node
 func _on_add_sprite_node_pressed():
 	var new_node: Node2D = selectable_spite_node.instantiate()
 	new_node.position += position_offset
 	position_offset += Vector2(20, 20)
-	design_canvas.add_new_node(new_node)
+	var designeer_node_index: int = design_canvas.add_new_node(new_node)
 
 
 # Test: Add a new test wide node
@@ -58,7 +72,7 @@ func _on_add_wide_node_pressed():
 	var new_node: Node2D = selectable_wide_node.instantiate()
 	new_node.position += position_offset
 	position_offset += Vector2(20, 20)
-	design_canvas.add_new_node(new_node)
+	var designeer_node_index: int = design_canvas.add_new_node(new_node)
 
 
 # Add an even bigger node
@@ -66,7 +80,7 @@ func _on_add_bigger_node_pressed():
 	var new_node: Node2D = selectable_bigger_node.instantiate()
 	new_node.position += position_offset
 	position_offset += Vector2(20, 20)
-	design_canvas.add_new_node(new_node)
+	var designeer_node_index: int = design_canvas.add_new_node(new_node)
 
 
 # Rotate node
