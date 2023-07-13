@@ -207,12 +207,16 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
+			# Make the rect_extents node invisible by default
+			rect_extents_node.visible = false
+			
+			# Set node level properties
 			# Set the node index
 			new_node.node_index = node_count
 			# Explicity set the node kind
 			new_node.node_kind = node_kind
-			# Make the rect_extents node invisible by default
-			rect_extents_node.visible = false
+			# Set design mode
+			new_node.node_mode = SharedEnums.NodeCanvasMode.ModeDesign
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size
