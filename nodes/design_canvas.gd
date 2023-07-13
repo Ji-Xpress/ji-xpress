@@ -46,18 +46,6 @@ var pan_screen_start_position: Vector2 = Vector2.ZERO
 var node_drag_start_position: Vector2 = Vector2.ZERO
 
 
-# Handling drag and drop
-func _process(delta):
-	if is_mouse_down and current_active_node != null:
-		var current_node_index_str: String = str(current_active_node.node_index)
-		
-		if active_hover_nodes_foreground.has(current_node_index_str) or \
-			active_hover_nodes_backgound.has(current_node_index_str) or \
-			active_hover_nodes_tiles.has(current_node_index_str):
-			# Process drag and drop event for the current active object
-			pass
-
-
 # Track mouse events
 func _input(event):
 	# Handling panning (Mouse Middle Button)
@@ -85,6 +73,13 @@ func _input(event):
 		if current_active_node != null:
 			current_active_node.position += (event.position - node_drag_start_position).snapped(grid_snapping)
 			node_drag_start_position = event.position.snapped(grid_snapping)
+	
+	# Keyboard events
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ESCAPE:
+			if current_active_node != null:
+				current_active_node.set_rect_extents_visibility(false)
+				current_active_node = null
 
 
 ## Scans a group of tiles to present which one is being selected
