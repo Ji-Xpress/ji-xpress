@@ -26,23 +26,23 @@ func _ready():
 
 
 # A node has been clicked
-func on_node_selected(node: Node2D, node_index: int):
+func on_node_selected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
 	current_node_angle = node.rotation_degrees
 
 
 # A node has been clicked
-func on_node_deselected(node: Node2D, node_index: int):
+func on_node_deselected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
 	pass
 
 
 # A node has hover focus
-func on_node_hover(node: Node2D, node_index: int):
+func on_node_hover(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
 	# debug
 	print("hover " + str(node_index))
 
 
 # A node has lost hover focus
-func on_node_hover_out(node: Node2D, node_index: int):
+func on_node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind):
 	# debug
 	print("hover out " + str(node_index))
 

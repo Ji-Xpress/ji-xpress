@@ -150,13 +150,13 @@ func on_node_clicked(node: Node2D, node_index: int):
 			node_drag_start_position = get_viewport().get_mouse_position()
 			
 			# Emit node has been selected
-			emit_signal("node_selected", node, node_index)
+			emit_signal("node_selected", node, node_index, current_active_node.node_kind)
 
 
 # A node has been clicked
 func on_node_unclicked(node: Node2D, node_index: int):
 	# Allow click processing
-	emit_signal("node_deselected", node, node_index)
+	emit_signal("node_deselected", node, node_index, node.node_kind)
 
 
 # A node has hover focus
@@ -183,7 +183,7 @@ func on_node_hover(node: Node2D, node_index: int):
 				active_hover_nodes_backgound[node_key] = node_data
 	
 	# Emit node has been hovered
-	emit_signal("node_hover", node, node_index)
+	emit_signal("node_hover", node, node_index, node_kind)
 
 
 # A node has lost hover focus
@@ -204,7 +204,7 @@ func on_node_hover_out(node: Node2D, node_index: int):
 				active_hover_nodes_backgound.erase(node_key)
 	
 	# Emit node has been hovered out
-	emit_signal("node_hover_out", node, node_index)
+	emit_signal("node_hover_out", node, node_index, node_kind)
 
 
 ## Adds a new node to the node tree
