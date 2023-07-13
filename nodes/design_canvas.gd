@@ -32,10 +32,15 @@ var current_active_node: Node2D = null
 var is_mouse_down: bool = false
 # Panning the viewport
 var is_panning: bool = false
+# Dragging a node
+var is_dragging_node: bool = false
 
 # For panning
 var mouse_pan_start_position: Vector2 = Vector2.ZERO
 var pan_screen_start_position: Vector2 = Vector2.ZERO
+
+# For node dragging
+var node_drag_start_position: Vector2 = Vector2.ZERO
 
 
 # Handling drag and drop
@@ -52,7 +57,7 @@ func _process(delta):
 
 # Track mouse events
 func _input(event):
-	# Event handling for different mouse button events
+	# Handling panning (Mouse Middle Button)
 	if (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_MIDDLE):
 		is_panning = true
 		mouse_pan_start_position = event.position
@@ -61,15 +66,22 @@ func _input(event):
 		is_panning = false
 		mouse_pan_start_position = Vector2.ZERO
 		pan_screen_start_position = Vector2.ZERO
-		
+	
+	# When the mouse press is released anywhere in the screen
 	if (event is InputEventMouseButton and not event.pressed):
 		is_mouse_down = false
-	
+		is_dragging_node = false
+		node_drag_start_position = Vector2.ZERO
 	
 	# Mouse motion events
 	if event is InputEventMouseMotion and is_panning:
+		# Viewport panning
 		camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
-
+	elif event is InputEventMouseMotion and is_dragging_node:
+		# Moving the current active node
+		if current_active_node != null:
+			current_active_node.position += event.position - node_drag_start_position
+			node_drag_start_position = event.position
 
 ## Scans a group of tiles to present which one is being selected
 func scan_hovered_nodes(node_group: Dictionary):
@@ -120,10 +132,14 @@ func on_node_clicked(node: Node2D, node_index: int):
 		if node_search != null:
 			# Mouse is down on selected node
 			is_mouse_down = true
+			is_dragging_node = true
 			
 			# Set current active node
 			current_active_node = node_search
 			current_active_node.set_rect_extents_visibility(true)
+			
+			# Initiate the drag position
+			node_drag_start_position = get_viewport().get_mouse_position()
 			
 			# Emit node has been selected
 			emit_signal("node_selected", node, node_index)
