@@ -33,8 +33,20 @@ var is_mouse_down: bool = false
 
 # Handling drag and drop
 func _process(delta):
-	if is_mouse_down:
-		pass
+	if is_mouse_down and current_active_node != null:
+		var current_node_index_str: String = str(current_active_node.node_index)
+		
+		if active_hover_nodes_foreground.has(current_node_index_str) or \
+			active_hover_nodes_backgound.has(current_node_index_str) or \
+			active_hover_nodes_tiles.has(current_node_index_str):
+			# Process drag and drop event for the current active object
+			pass
+
+
+# Track mouse events
+func _input(event):
+	if (event is InputEventMouseButton and not event.pressed):
+		is_mouse_down = false
 
 
 ## Scans a group of tiles to present which one is being selected
@@ -84,19 +96,20 @@ func on_node_clicked(node: Node2D, node_index: int):
 		var node_search: Node2D = scan_node_group_array(node_group_search_order)
 		
 		if node_search != null:
+			# Mouse is down on selected node
+			is_mouse_down = true
+			
+			# Set current active node
 			current_active_node = node_search
 			current_active_node.set_rect_extents_visibility(true)
 			
 			# Emit node has been selected
 			emit_signal("node_selected", node, node_index)
-			# Mouse is down on selected node
-			var is_mouse_down = true
 
 
 # A node has been clicked
 func on_node_unclicked(node: Node2D, node_index: int):
 	# Allow click processing
-	is_mouse_down = false
 	emit_signal("node_deselected", node, node_index)
 
 
@@ -155,6 +168,7 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
+			# Set the node index
 			new_node.node_index = node_count
 			# Explicity set the node kind
 			new_node.node_kind = node_kind
