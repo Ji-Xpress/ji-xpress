@@ -7,16 +7,20 @@ signal node_hover(node: Node2D, node_index: int)
 signal node_hover_out(node: Node2D, node_index: int)
 
 var parent_node: Node2D = null
+var hit_box_size: Vector2 = Vector2.ZERO
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 # Initialization
 func _ready():
 	parent_node = get_parent()
+	collision_shape.shape.size = hit_box_size
 
 
 # Hit area size
 func set_hit_size(vector: Vector2) -> void:
-	$CollisionShape2D.shape.size = vector
+	hit_box_size = vector
 
 
 # Handle mouse input

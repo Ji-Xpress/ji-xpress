@@ -1,6 +1,8 @@
 extends Control
 
-const selectable_spite_node = preload("res://tests/selectable_sprite_node.tscn")
+const selectable_spite_node: PackedScene = preload("res://tests/selectable_sprite_node.tscn")
+const selectable_wide_node: PackedScene = preload("res://tests/selectable_sprite_node_wide.tscn")
+const selectable_bigger_node: PackedScene = preload("res://tests/selectable_sprite_node_bigger.tscn")
 
 # Design Canvas
 @onready var design_canvas: Node2D = $VBoxContainer/SubViewportContainer/SubViewport/DesignCanvas
@@ -43,6 +45,21 @@ func on_node_hover_out(node: Node2D, node_index: int):
 # Test: Add a new test node
 func _on_add_sprite_node_pressed():
 	var new_node: Node2D = selectable_spite_node.instantiate()
+	new_node.position += position_offset
+	position_offset += Vector2(20, 20)
+	design_canvas.add_new_node(new_node)
+
+
+# Test: Add a new test wide node
+func _on_add_wide_node_pressed():
+	var new_node: Node2D = selectable_wide_node.instantiate()
+	new_node.position += position_offset
+	position_offset += Vector2(20, 20)
+	design_canvas.add_new_node(new_node)
+
+
+func _on_add_bigger_node_pressed():
+	var new_node: Node2D = selectable_bigger_node.instantiate()
 	new_node.position += position_offset
 	position_offset += Vector2(20, 20)
 	design_canvas.add_new_node(new_node)
