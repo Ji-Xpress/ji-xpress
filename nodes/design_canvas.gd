@@ -31,6 +31,12 @@ var current_active_node: Node2D = null
 var is_mouse_down: bool = false
 
 
+# Handling drag and drop
+func _process(delta):
+	if is_mouse_down:
+		pass
+
+
 ## Scans a group of tiles to present which one is being selected
 func scan_hovered_nodes(node_group: Dictionary):
 	var greater_node_index: int = -1
@@ -149,6 +155,7 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
+			new_node.node_index = node_count
 			# Explicity set the node kind
 			new_node.node_kind = node_kind
 			# Make the rect_extents node invisible by default
@@ -161,7 +168,6 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 			var new_hit_area = canvas_mouse_hit_area.instantiate()
 			new_hit_area.position = extents_position
 			new_hit_area.set_hit_size(extents_size)
-			new_hit_area.node_index = node_count
 			new_node.call_deferred("add_child", new_hit_area)
 			
 			# Connect the signals form the hit area for handling
