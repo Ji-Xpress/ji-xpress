@@ -78,6 +78,8 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
 			if current_active_node != null:
+				emit_signal("node_deselected", current_active_node, current_active_node.node_index)
+				# Reset selected node status
 				current_active_node.set_rect_extents_visibility(false)
 				current_active_node = null
 
@@ -198,7 +200,7 @@ func on_node_hover_out(node: Node2D, node_index: int):
 	emit_signal("node_hover_out", node, node_index)
 
 
-# Adding a new node to the node tree
+## Adds a new node to the node tree
 func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground):
 	# Check to see if it has the RectExtents2D child
 	if new_node.has_node("RectExtents2D"):
@@ -238,3 +240,9 @@ func add_new_node(new_node: Node2D, node_kind: ActiveHoverNode.NodeKind = Active
 			
 			# Increase node count
 			node_count += 1
+
+
+## Sets the current selected node rotation
+func set_current_node_rotation(degrees: int):
+	if current_active_node != null:
+		current_active_node.rotation_degrees = degrees

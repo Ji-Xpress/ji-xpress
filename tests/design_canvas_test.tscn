@@ -49,6 +49,10 @@ text = "Add Wide Sprite Node"
 layout_mode = 2
 text = "Add Bigger Node"
 
+[node name="Rotate45" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Rotate + 45 degrees"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -66,3 +70,4 @@ grid_snapping = Vector2(8, 8)
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddSpriteNode" to="." method="_on_add_sprite_node_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddWideNode" to="." method="_on_add_wide_node_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddBiggerNode" to="." method="_on_add_bigger_node_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Rotate45" to="." method="_on_rotate_45_pressed"]

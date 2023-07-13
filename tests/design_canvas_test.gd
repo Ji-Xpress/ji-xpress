@@ -10,6 +10,9 @@ const selectable_bigger_node: PackedScene = preload("res://tests/selectable_spri
 # When a new node is added what positional offset will it have?
 var position_offset: Vector2 = Vector2(0, 0)
 
+# Current selected node angle
+var current_node_angle: int = 0
+
 
 # Node is ready
 func _ready():
@@ -22,7 +25,7 @@ func _ready():
 
 # A node has been clicked
 func on_node_selected(node: Node2D, node_index: int):
-	pass
+	current_node_angle = node.rotation_degrees
 
 
 # A node has been clicked
@@ -58,8 +61,15 @@ func _on_add_wide_node_pressed():
 	design_canvas.add_new_node(new_node)
 
 
+# Add an even bigger node
 func _on_add_bigger_node_pressed():
 	var new_node: Node2D = selectable_bigger_node.instantiate()
 	new_node.position += position_offset
 	position_offset += Vector2(20, 20)
 	design_canvas.add_new_node(new_node)
+
+
+# Rotate node
+func _on_rotate_45_pressed():
+	current_node_angle += 45
+	design_canvas.set_current_node_rotation(current_node_angle)
