@@ -2,6 +2,9 @@ extends Node2D
 
 const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 
+@export var grid_snapping: Vector2 = Vector2(1, 1)
+
+# Node references
 @onready var foreground: Node2D = $Foreground
 @onready var background: Node2D = $Background/Nodes
 @onready var tiles: Node2D = $Tiles
@@ -80,8 +83,9 @@ func _input(event):
 	elif event is InputEventMouseMotion and is_dragging_node:
 		# Moving the current active node
 		if current_active_node != null:
-			current_active_node.position += event.position - node_drag_start_position
-			node_drag_start_position = event.position
+			current_active_node.position += (event.position - node_drag_start_position).snapped(grid_snapping)
+			node_drag_start_position = event.position.snapped(grid_snapping)
+
 
 ## Scans a group of tiles to present which one is being selected
 func scan_hovered_nodes(node_group: Dictionary):
