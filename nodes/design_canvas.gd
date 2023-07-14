@@ -39,6 +39,8 @@ var current_active_node: Node2D = null
 var is_mouse_down: bool = false
 # Panning the viewport
 var is_panning: bool = false
+# Ctrl key down
+var is_ctrl_key_down: bool = false
 # Dragging a node
 var is_dragging_node: bool = false
 
@@ -53,16 +55,20 @@ var node_drag_start_position: Vector2 = Vector2.ZERO
 # Track mouse events
 func _input(event):
 	# Handling panning (Mouse Middle Button)
-	if (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_MIDDLE):
+	# Panning is handled by middle mouse button being down or ctrl + left click
+	if (event is InputEventMouseButton and event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
+		(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
 		is_panning = true
 		mouse_pan_start_position = event.position
 		pan_screen_start_position = camera.position
-	elif (event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_MIDDLE):
+	elif (event is InputEventMouseButton and not event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
+		(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
 		is_panning = false
 		mouse_pan_start_position = Vector2.ZERO
 		pan_screen_start_position = Vector2.ZERO
 	
 	# When the mouse press is released anywhere in the screen
+	# We need to deactivate all flags
 	if (event is InputEventMouseButton and not event.pressed):
 		if is_dragging_node and current_active_node != null:
 			emit_signal("node_moved", current_active_node, current_active_node.node_index, current_active_node.node_kind)
@@ -84,11 +90,19 @@ func _input(event):
 	# Keyboard events
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
+			# Escape key handling - ESC down
 			if current_active_node != null:
 				emit_signal("node_deselected", current_active_node, current_active_node.node_index)
 				# Reset selected node status
 				current_active_node.set_rect_extents_visibility(false)
 				current_active_node = null
+		elif event.keycode == KEY_CTRL:
+			# Track if ctrl key is pressed
+			is_ctrl_key_down = true
+	elif event is InputEventKey and not event.pressed:
+		if event.keycode == KEY_CTRL:
+			# Track if ctrl key is released
+			is_ctrl_key_down = false
 
 
 ## Scans a group of tiles to present which one is being selected
@@ -123,7 +137,7 @@ func scan_node_group_array(node_group_array: Array):
 func on_node_clicked(node: Node2D, node_index: int):
 	# These events are notorious for firing multiple times esp for overlapping controls
 	# So we need to block this if the mouse down event is already handled
-	if not is_mouse_down:
+	if not is_mouse_down and not is_ctrl_key_down:
 		# Deactivate the selected rect
 		if current_active_node != null:
 			current_active_node.set_rect_extents_visibility(false)
