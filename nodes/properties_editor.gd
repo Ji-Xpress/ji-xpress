@@ -44,6 +44,15 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			value_control.value = float(value)
 		SharedEnums.PropertyType.TypeDropDown:
 			value_control = dropdown_property_node.instantiate()
+			value_control.text = prop_name
+			value_control.values = value
+			var popup_menu: PopupMenu = value_control.get_popup()
+			
+			var item_index: int = 0
+			
+			for item in value:
+				popup_menu.add_item(value[item_index], item_index)
+				item_index += 1
 	
 	if value_control != null:
 		value_control.property_id = property_id
