@@ -78,6 +78,7 @@ func _input(event):
 		node_drag_start_position = Vector2.ZERO
 	
 	# Mouse motion events
+	# This section handles viewport panning and also dragging
 	if event is InputEventMouseMotion and is_panning:
 		# Viewport panning
 		camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
@@ -88,6 +89,7 @@ func _input(event):
 			node_drag_start_position = event.position.snapped(grid_snapping)
 	
 	# Keyboard events
+	# In this section we track the use of <ESC> key and <Ctrl> key
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
 			# Escape key handling - ESC down

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c2oi1kwu32qii"]
+
+[node name="dropdown_property" type="MenuButton"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+text = "Property"
+alignment = 0
