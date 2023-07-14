@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dghonk3ev1503"]
+
+[ext_resource type="Script" path="res://tests/test_property_fields.gd" id="1_5f1dr"]
+[ext_resource type="PackedScene" uid="uid://isb48lm6fuvj" path="res://nodes/properties_editor.tscn" id="1_ujao0"]
+
+[node name="TestPropertyFields" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5f1dr")
+
+[node name="PropertiesEditor" parent="." instance=ExtResource("1_ujao0")]
+layout_mode = 1

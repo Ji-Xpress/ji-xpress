@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c2oi1kwu32qii"]
+[gd_scene load_steps=2 format=3 uid="uid://c2oi1kwu32qii"]
+
+[ext_resource type="Script" path="res://nodes/property_nodes/dropdown_property.gd" id="1_cgcyi"]
 
 [node name="dropdown_property" type="MenuButton"]
 anchors_preset = 10
@@ -8,3 +10,4 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 text = "Property"
 alignment = 0
+script = ExtResource("1_cgcyi")

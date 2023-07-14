@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dyuv137scwhdh"]
+[gd_scene load_steps=2 format=3 uid="uid://dyuv137scwhdh"]
+
+[ext_resource type="Script" path="res://nodes/property_nodes/text_property.gd" id="1_lwdo3"]
 
 [node name="TextProperty" type="LineEdit"]
 anchors_preset = 10
@@ -6,3 +8,6 @@ anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+script = ExtResource("1_lwdo3")
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
