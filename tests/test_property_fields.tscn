@@ -14,3 +14,6 @@ script = ExtResource("1_5f1dr")
 
 [node name="PropertiesEditor" parent="." instance=ExtResource("1_ujao0")]
 layout_mode = 1
+property_set_id = "sample_properties"
+
+[connection signal="property_changed" from="PropertiesEditor" to="." method="_on_properties_editor_property_changed"]

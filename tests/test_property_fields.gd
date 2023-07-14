@@ -27,3 +27,8 @@ func _ready():
 	for prop in properties:
 		var prop_data = properties[prop]
 		properties_editor.add_property(prop, prop_data.type, prop_data.value)
+
+
+# Test chnage property value
+func _on_properties_editor_property_changed(property_set_id, property_id, new_value):
+	print("Set id :" + property_set_id + " / Prop ID:" + property_id + " / Value: " + str(new_value))
