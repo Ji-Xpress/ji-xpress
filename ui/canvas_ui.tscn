@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvfoq86emh3b6"]
+[gd_scene load_steps=4 format=3 uid="uid://dvfoq86emh3b6"]
 
 [ext_resource type="PackedScene" uid="uid://isb48lm6fuvj" path="res://nodes/properties_editor.tscn" id="1_cdey2"]
 [ext_resource type="PackedScene" uid="uid://be2ogxixyowlv" path="res://nodes/design_canvas.tscn" id="1_swthp"]
+[ext_resource type="Script" path="res://ui/canvas_ui.gd" id="1_umxca"]
 
 [node name="CanvasUI" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_umxca")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -66,6 +68,7 @@ layout_mode = 2
 
 [node name="PropertiesMenu" type="HBoxContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer/PropertiesMenu"]
 layout_mode = 2
@@ -81,3 +84,11 @@ text = "Button A"
 [node name="PropertiesEditor" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer" instance=ExtResource("1_cdey2")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[connection signal="node_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deselected"]
+[connection signal="node_hover" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover"]
+[connection signal="node_hover_out" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover_out"]
+[connection signal="node_moved" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_moved"]
+[connection signal="node_rotated" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_rotated"]
+[connection signal="node_selected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_selected"]
+[connection signal="property_changed" from="PanelContainer/HSplitContainer/RightPanel/ControlContainer/PropertiesEditor" to="." method="_on_properties_editor_property_changed"]
