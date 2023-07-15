@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwqsoxuan5702"]
+
+[ext_resource type="Script" path="res://launcher.gd" id="1_lw4sm"]
+[ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://nodes/dialogs.tscn" id="2_ktfgy"]
+
+[node name="Launcher" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lw4sm")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Recent Projects"
+
+[node name="ProjectList" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackgroundPanel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/ProjectList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProjectList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/ProjectList"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 852.0
+offset_bottom = 373.0
+size_flags_vertical = 3
+
+[node name="NoRecentProjects" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ProjectList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "There have been no recent projects"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="OpenExternalProject" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Open External Project"
+
+[node name="Dialogs" parent="." instance=ExtResource("2_ktfgy")]
+layout_mode = 1
+
+[connection signal="item_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ProjectList/ProjectList" to="." method="_on_project_list_item_clicked"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]
