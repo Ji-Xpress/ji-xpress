@@ -26,6 +26,13 @@ func _on_project_list_item_clicked(index, at_position, mouse_button_index):
 	pass # Replace with function body.
 
 
+# Reset status flags for file dialogs
+func invalidate_file_dialog_result_flags():
+	file_dialog_result = FileDialogResult.None
+	current_selected_dir_name = ""
+	current_selected_dir_path = ""
+
+
 # Open External Project Button clicked
 func _on_open_external_project_pressed():
 	dialogs.set_file_open_dialog_mode_dir()
@@ -37,13 +44,6 @@ func _on_open_external_project_pressed():
 		pass
 	
 	invalidate_file_dialog_result_flags()
-
-
-# Reset status flags for file dialogs
-func invalidate_file_dialog_result_flags():
-	file_dialog_result = FileDialogResult.None
-	current_selected_dir_name = ""
-	current_selected_dir_path = ""
 
 
 # Create a new project

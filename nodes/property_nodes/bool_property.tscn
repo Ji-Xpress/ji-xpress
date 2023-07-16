@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1xkfghkvlnrp"]
+
+[ext_resource type="Script" path="res://nodes/property_nodes/bool_property.gd" id="1_76cix"]
+
+[node name="BoolPorperty" type="CheckBox"]
+script = ExtResource("1_76cix")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

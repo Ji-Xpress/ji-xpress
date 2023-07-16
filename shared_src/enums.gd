@@ -8,5 +8,5 @@ enum NodeCanvasMode {
 
 ## For property types
 enum PropertyType {
-	TypeString, TypeInt, TypeFloat, TypeDropDown
+	TypeString, TypeInt, TypeFloat, TypeDropDown, TypeBool
 }

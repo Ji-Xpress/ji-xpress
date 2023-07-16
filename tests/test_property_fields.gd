@@ -16,6 +16,10 @@ var properties: Dictionary = {
 	"property_num_four": {
 		"type" : SharedEnums.PropertyType.TypeDropDown,
 		"value": ["Value", "Value 2", "Value 3", "Value 4"]
+	},
+	"property_number_five": {
+		"type" : SharedEnums.PropertyType.TypeBool,
+		"value": true
 	}
 }
 
