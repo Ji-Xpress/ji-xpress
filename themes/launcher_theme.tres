@@ -1,0 +1,92 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bpuu0k8y00f6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyna3"]
+resource_local_to_scene = true
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16s42"]
+resource_local_to_scene = true
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2k6d"]
+resource_local_to_scene = true
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 7.0
+expand_margin_top = 7.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcf4y"]
+resource_local_to_scene = true
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8l5j"]
+resource_local_to_scene = true
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ok6qk"]
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxFlat_iyna3")
+Button/styles/focus = SubResource("StyleBoxFlat_16s42")
+Button/styles/hover = SubResource("StyleBoxFlat_y2k6d")
+Button/styles/normal = SubResource("StyleBoxFlat_mcf4y")
+Button/styles/pressed = SubResource("StyleBoxFlat_r8l5j")
+PanelProjectList/styles/panel = SubResource("StyleBoxFlat_ok6qk")

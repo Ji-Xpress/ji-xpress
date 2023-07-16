@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwqsoxuan5702"]
+[gd_scene load_steps=4 format=3 uid="uid://bwqsoxuan5702"]
 
+[ext_resource type="Theme" uid="uid://bpuu0k8y00f6d" path="res://themes/launcher_theme.tres" id="1_abyt1"]
 [ext_resource type="Script" path="res://launcher.gd" id="1_lw4sm"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://nodes/dialogs.tscn" id="2_ktfgy"]
 
@@ -10,7 +11,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_abyt1")
 script = ExtResource("1_lw4sm")
+
+[node name="Dialogs" parent="." instance=ExtResource("2_ktfgy")]
+layout_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -46,12 +51,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"PanelProjectList"
 
 [node name="ProjectList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/ProjectList"]
-layout_mode = 2
-offset_top = 4.0
-offset_right = 852.0
-offset_bottom = 373.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 
 [node name="NoRecentProjects" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ProjectList"]
@@ -67,19 +75,16 @@ vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="OpenExternalProject" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Open External Project"
-
-[node name="Dialogs" parent="." instance=ExtResource("2_ktfgy")]
-layout_mode = 1
 
 [connection signal="item_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ProjectList/ProjectList" to="." method="_on_project_list_item_clicked"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]

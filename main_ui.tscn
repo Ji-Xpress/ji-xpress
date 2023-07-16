@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bymo0mo27kepp"]
+[gd_scene load_steps=5 format=3 uid="uid://bymo0mo27kepp"]
 
 [ext_resource type="PackedScene" uid="uid://csdd3cuagwfma" path="res://ui/project_tree_ui.tscn" id="1_4j2qr"]
 [ext_resource type="Script" path="res://main_ui.gd" id="1_4jq4c"]
+[ext_resource type="Theme" uid="uid://vbdjw2o5urhh" path="res://themes/main_ui_theme.tres" id="1_055gw"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://nodes/dialogs.tscn" id="3_hq754"]
 
 [node name="MainUI" type="Control"]
@@ -11,7 +12,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_055gw")
 script = ExtResource("1_4jq4c")
+
+[node name="Dialogs" parent="." instance=ExtResource("3_hq754")]
+layout_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -53,6 +58,3 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
 use_hidden_tabs_for_min_size = true
-
-[node name="Dialogs" parent="." instance=ExtResource("3_hq754")]
-layout_mode = 1
