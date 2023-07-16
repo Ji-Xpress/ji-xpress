@@ -9,17 +9,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_wi8qs")
 
 [node name="FileSaveDialog" type="FileDialog" parent="."]
 initial_position = 1
-size = Vector2i(450, 162)
+size = Vector2i(675, 324)
 access = 2
 
 [node name="FileOpenDialog" type="FileDialog" parent="."]
 title = "Open a File"
 initial_position = 1
-size = Vector2i(450, 162)
+size = Vector2i(675, 324)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
@@ -29,3 +30,14 @@ initial_position = 1
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 1
+
+[connection signal="canceled" from="FileSaveDialog" to="." method="_on_file_save_dialog_canceled"]
+[connection signal="dir_selected" from="FileSaveDialog" to="." method="_on_file_save_dialog_dir_selected"]
+[connection signal="file_selected" from="FileSaveDialog" to="." method="_on_file_save_dialog_file_selected"]
+[connection signal="canceled" from="FileOpenDialog" to="." method="_on_file_open_dialog_canceled"]
+[connection signal="dir_selected" from="FileOpenDialog" to="." method="_on_file_open_dialog_dir_selected"]
+[connection signal="file_selected" from="FileOpenDialog" to="." method="_on_file_open_dialog_file_selected"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="canceled" from="AcceptDialog" to="." method="_on_accept_dialog_canceled"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]

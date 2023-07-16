@@ -80,11 +80,23 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="OpenExternalProject" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="OpenExternalProject" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Open External Project"
 
+[node name="CreateNewProject" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Create New Project"
+
+[connection signal="dir_opened" from="Dialogs" to="." method="_on_dialogs_dir_opened"]
+[connection signal="file_open_cancelled" from="Dialogs" to="." method="_on_dialogs_file_open_cancelled"]
 [connection signal="item_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ProjectList/ProjectList" to="." method="_on_project_list_item_clicked"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CreateNewProject" to="." method="_on_create_new_project_pressed"]
