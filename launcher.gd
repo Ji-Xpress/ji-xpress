@@ -4,8 +4,8 @@ enum FileDialogResult {
 	Success, Cancelled, None
 }
 
-@onready var no_project_label: Label = $PanelContainer/MarginContainer/VBoxContainer/ProjectList/NoRecentProjects
-@onready var project_list: ItemList = $PanelContainer/MarginContainer/VBoxContainer/ProjectList/ProjectList
+@onready var no_activity_label: Label = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/NoRecentActivity
+@onready var activity_list: ItemList = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityList
 @onready var dialogs: Control = $Dialogs
 
 # Checks on the file dialog result status
