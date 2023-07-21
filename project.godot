@@ -13,11 +13,13 @@ config_version=5
 config/name="Story Creator"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
+config/app_version="0.0.1"
 
 [autoload]
 
 Constants="*res://project_src/constants.gd"
 ProjectManager="*res://project_src/project_manager.gd"
+Globals="*res://project_src/globals.gd"
 
 [dotnet]
 
