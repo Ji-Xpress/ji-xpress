@@ -7,6 +7,8 @@ const project_scripts_dir: String = "scripts"
 # Project config dir
 const project_config_dir: String = "config"
 
+const project_file_name: String = "project.scr"
+
 # Collection of project directories
 const project_directories: Array[String] = [
 	project_scenes_dir,
