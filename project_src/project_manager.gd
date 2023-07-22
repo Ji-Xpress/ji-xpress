@@ -3,7 +3,7 @@ extends Node
 ## The path of the currently opened project
 var current_project_path: String = ""
 ## Current project metadata
-var project_metadata: ProjectMetadata = null
+var project_metadata = null
 ## Collection of scenes in the current project
 var scenes = []
 ## Collection of objects in the current project
@@ -28,14 +28,14 @@ func clear_project_metadata():
 
 ## Creates a new project configuration
 func create_project_configuration():
-	project_metadata = ProjectMetadata.new()
-	project_metadata.app_version = Globals.get_app_version()
+	project_metadata = ProjectMetadata.model_template()
+	project_metadata[ProjectMetadata.prop_app_version] = Globals.get_app_version()
 
 
 ## Save project configuration
 func save_project_configuration():
 	if current_project_path != "":
-		var project_json: String = JSONUtils.class_to_json_string(project_metadata)
+		var project_json: String = JSON.stringify(project_metadata)
 		save_file_to_folder(current_project_path + Constants.project_file_name, true, [], project_json)
 
 
@@ -66,7 +66,7 @@ func save_file_to_folder(file_name: String, is_absolute: bool, folder_name: Arra
 		var file: FileAccess = null
 		
 		if is_absolute:
-			FileAccess.open(file_name, FileAccess.WRITE)
+			file = FileAccess.open(file_name, FileAccess.WRITE)
 		else:
 			file = FileAccess.open(current_project_path + relative_path + file_name, FileAccess.WRITE)
 		
@@ -115,7 +115,7 @@ func open_project(project_path: String):
 			
 			# Get file contents
 			var project_metadata_str: String = file.get_as_text()
-			var metadata: ProjectMetadata = JSONUtils.json_string_to_class(project_metadata_str, ProjectMetadata.new())
+			var metadata = JSON.parse_string(project_metadata_str)
 			project_metadata = metadata
 			
 			# Load all project objects
@@ -131,7 +131,7 @@ func open_project(project_path: String):
 
 ## Saves a scene to the project folder
 func save_scene(file_name: String, scene_metadata: SceneMetaData):
-	save_file_to_folder(file_name, false, [ Constants.project_scenes_dir ], JSONUtils.class_to_json_string(scene_metadata))
+	save_file_to_folder(file_name, false, [ Constants.project_scenes_dir ], JSON.stringify(scene_metadata))
 
 
 ## Opens a scene from the scenes folder
@@ -149,14 +149,14 @@ func open_scene(file_name: String):
 			file.close()
 			
 			# Return results
-			return JSONUtils.json_string_to_class(scene_metadata_str, SceneMetaData.new())
+			return JSON.parse_string(scene_metadata_str)
 	else:
 		return false
 
 
 ## Saves a script instance to code folder
 func save_script(file_name: String, script_metadata: ScriptMetaData):
-	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSONUtils.class_to_json_string(script_metadata))
+	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSON.stringify(script_metadata))
 
 
 ## Opens a script instance
@@ -174,7 +174,7 @@ func open_script(file_name: String):
 			file.close()
 			
 			# Return results
-			return JSONUtils.json_string_to_class(scene_metadata_str, ScriptMetaData.new())
+			return JSON.parse_string(scene_metadata_str)
 	else:
 		return false
 
