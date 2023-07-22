@@ -24,9 +24,31 @@ func show_file_open_dialog():
 	file_open_dialog.show()
 
 
+## Hides the open dialog
+func hide_file_open_dialog():
+	file_open_dialog.hide()
+
+
 ## Shows the save dialog
 func show_file_save_dialog():
 	file_save_dialog.show()
+
+
+## Hides the save dialog
+func hide_file_save_dialog():
+	file_save_dialog.hide()
+
+
+## Shows the accept dialog with a message
+func show_accept_dialog(message: String):
+	accept_dialog.dialog_text = message
+	accept_dialog.show()
+
+
+## Hide the accept dialog with a message
+func hide_accept_dialog():
+	accept_dialog.dialog_text = ""
+	accept_dialog.hide()
 
 
 func set_file_open_dialog_mode_dir():
@@ -35,6 +57,7 @@ func set_file_open_dialog_mode_dir():
 
 func set_file_open_dialog_mode_file():
 	file_open_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+
 
 # Signal handling
 # When file is selcted from save file dialog
@@ -49,12 +72,13 @@ func _on_file_save_dialog_dir_selected(dir):
 
 # When file is selcted from open file dialog
 func _on_file_open_dialog_file_selected(path):
-	emit_signal("file_opened", file_save_dialog.current_path, file_save_dialog.current_file)
+	emit_signal("file_opened", file_open_dialog.current_path, file_save_dialog.current_file)
 
 
 # When folder is selcted from open file dialog
 func _on_file_open_dialog_dir_selected(dir):
-	emit_signal("dir_opened", file_save_dialog.current_path, file_save_dialog.current_dir)
+	emit_signal("dir_opened", file_open_dialog.current_path, file_save_dialog.current_dir)
+
 
 # Confirmation dialog confirmed
 func _on_confirmation_dialog_confirmed():

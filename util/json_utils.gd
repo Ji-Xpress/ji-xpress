@@ -42,12 +42,12 @@ static func class_to_json(_class: Object) -> Dictionary:
 	var dictionary: Dictionary = {}
 	var properties: Array = _class.get_property_list()
 	for property in properties:
-		if not property["name"].empty() and property.usage >= (1 << 13):
+		if not property["name"].is_empty() and property.usage >= (1 << 13):
 			if (property["class_name"] in ["Reference", "Object"] and property["type"] == 17):
 				dictionary[property.name] = class_to_json(_class.get(property.name))
 			else:
 				dictionary[property.name] = _class.get(property.name)
-		if not property["hint_string"].empty() and property.usage >= (1 << 13):
+		if not property["hint_string"].is_empty() and property.usage >= (1 << 13):
 			if (property["class_name"] in ["Reference", "Object"] and property["type"] == 17):
 				dictionary[property.hint_string] = class_to_json(_class.get(property.name))
 			else:

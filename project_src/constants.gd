@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 ## Folder that stores scenes
 const project_scenes_dir: String = "scenes"

@@ -1,15 +1,29 @@
-extends Object
+extends Node
 
 ## The path of the currently opened project
 var current_project_path: String = ""
 ## Current project metadata
 var project_metadata: ProjectMetadata = null
 ## Collection of scenes in the current project
-var scenes: Array[String] = []
+var scenes = []
 ## Collection of objects in the current project
-var objects: Array[String] = []
+var objects = []
 ## Collection of code files in the current project
-var scripts: Array[String] = []
+var scripts = []
+
+
+# When initializing
+func _ready():
+	clear_project_metadata()
+
+
+## Clears project metadata
+func clear_project_metadata():
+	scenes = []
+	objects = []
+	scripts = []
+	current_project_path = ""
+	project_metadata = null
 
 
 ## Creates a new project configuration
@@ -22,7 +36,7 @@ func create_project_configuration():
 func save_project_configuration():
 	if current_project_path != "":
 		var project_json: String = JSONUtils.class_to_json_string(project_metadata)
-		save_file_to_folder(Constants.project_file_name, [], project_json)
+		save_file_to_folder(current_project_path + Constants.project_file_name, true, [], project_json)
 
 
 ## Creates a folder if it does not exist
@@ -36,19 +50,26 @@ func create_folder_if_not_exists(folder_name: String):
 
 
 ## Saves file to folder
-func save_file_to_folder(file_name: String, folder_name: Array[String], contents: String):
-	if current_project_path != "":
+func save_file_to_folder(file_name: String, is_absolute: bool, folder_name: Array[String], contents: String):
+	if current_project_path != "" or is_absolute:
 		# Create folder it belongs to if it doesn't exist
 		var relative_path: String = ""
 		
 		# Create folders from the folder array
-		for folder in folder_name:
-			if not create_folder_if_not_exists(folder):
-				return false
-			relative_path += folder + "/"
+		if not is_absolute:
+			for folder in folder_name:
+				if not create_folder_if_not_exists(folder):
+					return false
+				relative_path += folder + "/"
 		
 		# Open destination file
-		var file: FileAccess = FileAccess.open(current_project_path + relative_path + file_name, FileAccess.WRITE)
+		var file: FileAccess = null
+		
+		if is_absolute:
+			FileAccess.open(file_name, FileAccess.WRITE)
+		else:
+			file = FileAccess.open(current_project_path + relative_path + file_name, FileAccess.WRITE)
+		
 		if file == null:
 			return false
 		
@@ -68,6 +89,8 @@ func create_new_project(project_path: String):
 				if not create_folder_if_not_exists(project_path + directory):
 					return false
 		
+		current_project_path = project_path
+		
 		# Create a new project config set and save it
 		create_project_configuration()
 		save_project_configuration()
@@ -75,9 +98,6 @@ func create_new_project(project_path: String):
 		objects = get_project_objects()
 		scenes = get_project_scenes()
 		scripts = get_project_scripts()
-		
-		# Set the current project path
-		current_project_path = project_path
 		
 		return true
 	return false
@@ -111,7 +131,7 @@ func open_project(project_path: String):
 
 ## Saves a scene to the project folder
 func save_scene(file_name: String, scene_metadata: SceneMetaData):
-	save_file_to_folder(file_name, [ Constants.project_scenes_dir ], JSONUtils.class_to_json_string(scene_metadata))
+	save_file_to_folder(file_name, false, [ Constants.project_scenes_dir ], JSONUtils.class_to_json_string(scene_metadata))
 
 
 ## Opens a scene from the scenes folder
@@ -136,7 +156,7 @@ func open_scene(file_name: String):
 
 ## Saves a script instance to code folder
 func save_script(file_name: String, script_metadata: ScriptMetaData):
-	save_file_to_folder(file_name, [ Constants.project_scripts_dir ], JSONUtils.class_to_json_string(script_metadata))
+	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSONUtils.class_to_json_string(script_metadata))
 
 
 ## Opens a script instance
@@ -161,7 +181,7 @@ func open_script(file_name: String):
 
 ## Get all project objects
 func get_project_objects():
-	var extensions: Array[String] = get_dir_files("user://" + Constants.extensions_folder, ".pck")
+	var extensions = get_dir_files("user://" + Constants.extensions_folder, ".pck")
 	
 	if extensions.size() > 0:
 		# TODO: Object detection logic in PCK
@@ -169,6 +189,8 @@ func get_project_objects():
 	else:
 		# TODO: Internal objects loading
 		pass
+	
+	return []
 
 
 ## Get all scene instances

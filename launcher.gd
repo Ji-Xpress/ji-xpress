@@ -18,7 +18,7 @@ signal file_dialog_result_triggered
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Item on the project List has been clicked
@@ -40,8 +40,15 @@ func _on_open_external_project_pressed():
 	
 	await file_dialog_result_triggered
 	
+	# Hide the dialog
+	dialogs.hide_file_open_dialog()
+	
+	# Attempt to load the project
 	if file_dialog_result == FileDialogResult.Success:
-		pass
+		if ProjectManager.open_project(current_selected_dir_path):
+			get_tree().change_scene_to_file("res://main_ui.tscn")
+		else:
+			dialogs.show_accept_dialog("The folder does not contain a valid project")
 	
 	invalidate_file_dialog_result_flags()
 
@@ -53,8 +60,13 @@ func _on_create_new_project_pressed():
 	
 	await file_dialog_result_triggered
 	
+	dialogs.hide_file_open_dialog()
+	
 	if file_dialog_result == FileDialogResult.Success:
-		pass
+		if ProjectManager.create_new_project(current_selected_dir_path):
+			get_tree().change_scene_to_file("res://main_ui.tscn")
+		else:
+			dialogs.show_accept_dialog("There was a problem creating the project")
 	
 	invalidate_file_dialog_result_flags()
 
