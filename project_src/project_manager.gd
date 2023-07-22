@@ -110,28 +110,65 @@ func open_project(project_path: String):
 
 
 ## Saves a scene to the project folder
-func save_scene(file_name: String):
-	pass
+func save_scene(file_name: String, scene_metadata: SceneMetaData):
+	save_file_to_folder(file_name, [ Constants.project_scenes_dir ], JSONUtils.class_to_json_string(scene_metadata))
 
 
 ## Opens a scene from the scenes folder
 func open_scene(file_name: String):
-	pass
+	if current_project_path != "":
+		var scene_filename: String = current_project_path + Constants.project_scenes_dir + "/" + file_name
+		if FileAccess.file_exists(scene_filename):
+			var file: FileAccess = FileAccess.open(scene_filename, FileAccess.READ)
+			
+			if file == null:
+				return false
+			
+			# Get file contents
+			var scene_metadata_str: String = file.get_as_text()
+			file.close()
+			
+			# Return results
+			return JSONUtils.json_string_to_class(scene_metadata_str, SceneMetaData.new())
+	else:
+		return false
 
 
 ## Saves a script instance to code folder
-func save_script(file_name: String):
-	pass
+func save_script(file_name: String, script_metadata: ScriptMetaData):
+	save_file_to_folder(file_name, [ Constants.project_scripts_dir ], JSONUtils.class_to_json_string(script_metadata))
 
 
 ## Opens a script instance
 func open_script(file_name: String):
-	pass
+	if current_project_path != "":
+		var script_filename: String = current_project_path + Constants.project_scripts_dir + "\\" + file_name
+		if FileAccess.file_exists(script_filename):
+			var file: FileAccess = FileAccess.open(script_filename, FileAccess.READ)
+			
+			if file == null:
+				return false
+			
+			# Get file contents
+			var scene_metadata_str: String = file.get_as_text()
+			file.close()
+			
+			# Return results
+			return JSONUtils.json_string_to_class(scene_metadata_str, ScriptMetaData.new())
+	else:
+		return false
 
 
 ## Get all project objects
 func get_project_objects():
-	pass
+	var extensions: Array[String] = get_dir_files("user://" + Constants.extensions_folder, ".pck")
+	
+	if extensions.size() > 0:
+		# TODO: Object detection logic in PCK
+		pass
+	else:
+		# TODO: Internal objects loading
+		pass
 
 
 ## Get all scene instances
