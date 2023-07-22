@@ -1,7 +1,7 @@
 extends Node
 
-# Current project metadata
-var project_metadata: ProjectMetadata = null
+# Current project manager
+var project_manager: ProjectManager = ProjectManager.new()
 
 
 ## Get the app version setting

@@ -15,3 +15,7 @@ const project_directories: Array[String] = [
 	project_scripts_dir,
 	project_config_dir
 ]
+
+# Extensions for various file types
+const scene_extension = ".scn"
+const scripts_extension = ".scr"
