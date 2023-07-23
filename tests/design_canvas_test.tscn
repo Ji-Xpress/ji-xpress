@@ -71,3 +71,5 @@ grid_snapping = Vector2(8, 8)
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddWideNode" to="." method="_on_add_wide_node_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/AddBiggerNode" to="." method="_on_add_bigger_node_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Rotate45" to="." method="_on_rotate_45_pressed"]
+[connection signal="mouse_clicked" from="VBoxContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
+[connection signal="mouse_released" from="VBoxContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_released"]

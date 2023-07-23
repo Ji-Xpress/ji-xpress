@@ -87,3 +87,11 @@ func _on_add_bigger_node_pressed():
 func _on_rotate_45_pressed():
 	current_node_angle += 45
 	design_canvas.set_current_node_rotation(current_node_angle)
+
+
+func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
+	print(str(mouse_button) + " clicked at: " + str(mouse_position))
+
+
+func _on_design_canvas_mouse_released(mouse_button, mouse_position):
+	print(str(mouse_button) + " released at: " + str(mouse_position))

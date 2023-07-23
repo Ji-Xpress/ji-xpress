@@ -5,55 +5,70 @@ const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 @export var grid_snapping: Vector2 = Vector2(1, 1)
 
 # Node references
+## Node to store foreground nodes
 @onready var foreground: Node2D = $Foreground
+## Node to store background nodes
 @onready var background: Node2D = $Background/Nodes
+## Node to store tiles
 @onready var tiles: Node2D = $Tiles
+## Reference to the current camera
 @onready var camera: Camera2D = $Camera2D
 
+## Tracks the number of nodes currently added to canvas
 var node_count: int = -1
 
-# Signal for when a node is selected
+## Signal for when a node is selected
 signal node_selected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
-# Signal for when a node is selected
+## Signal for when a node is selected
 signal node_deselected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
-# Signal for when a node is selected
+## Signal for when a node is selected
 signal node_hover(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
-# Signal for when a node is selected
+## Signal for when a node is selected
 signal node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
-# Signal for when node is rotated
+## Signal for when node is rotated
 signal node_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
-# Signal for when node is moved
+## Signal for when node is moved
 signal node_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+## Signal for when the mouse button is pressed on canvas
+signal mouse_clicked(mouse_button: int, mouse_position: Vector2)
+## Signal for when the mouse button is released on canvas
+signal mouse_released(mouse_button: int, mouse_position: Vector2)
 
-# The nodes that currently have a hover over them
+## The nodes that currently have a hover over them
 var active_hover_nodes_foreground: Dictionary = {}
-# The nodes that currently have a hover over them
+## The nodes that currently have a hover over them
 var active_hover_nodes_tiles: Dictionary = {}
-# The nodes that currently have a hover over them
+## The nodes that currently have a hover over them
 var active_hover_nodes_backgound: Dictionary = {}
 
-# The current active node
+## The current active node
 var current_active_node: Node2D = null
 
-# Track is mouse down or not
+## Track is mouse down or not
 var is_mouse_down: bool = false
-# Panning the viewport
+## Panning the viewport
 var is_panning: bool = false
-# Ctrl key down
+## Ctrl key down
 var is_ctrl_key_down: bool = false
-# Dragging a node
+## Dragging a node
 var is_dragging_node: bool = false
 
 # For panning
 var mouse_pan_start_position: Vector2 = Vector2.ZERO
 var pan_screen_start_position: Vector2 = Vector2.ZERO
 
-# For node dragging
+## For node dragging
 var node_drag_start_position: Vector2 = Vector2.ZERO
 
 
 # Track mouse events
 func _input(event):
+	# Generic event handling
+	if (event is InputEventMouseButton and event.pressed):
+		emit_signal("mouse_clicked", event.button_index, event.position)
+	elif (event is InputEventMouseButton and not event.pressed):
+		emit_signal("mouse_released", event.button_index, event.position)
+	
 	# Handling panning (Mouse Middle Button)
 	# Panning is handled by middle mouse button being down or ctrl + left click
 	if (event is InputEventMouseButton and event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
@@ -135,7 +150,7 @@ func scan_node_group_array(node_group_array: Array):
 	return null
 
 
-# A node has been clicked
+## Event handler - A node has been clicked
 func on_node_clicked(node: Node2D, node_index: int):
 	# These events are notorious for firing multiple times esp for overlapping controls
 	# So we need to block this if the mouse down event is already handled
@@ -169,13 +184,13 @@ func on_node_clicked(node: Node2D, node_index: int):
 			emit_signal("node_selected", node, node_index, current_active_node.node_kind)
 
 
-# A node has been clicked
+## Event handler - A node has been unclicked
 func on_node_unclicked(node: Node2D, node_index: int):
 	# Allow click processing
 	emit_signal("node_deselected", node, node_index, node.node_kind)
 
 
-# A node has hover focus
+## Event handler - A node has hover focus
 func on_node_hover(node: Node2D, node_index: int):
 	var node_key = str(node_index)
 	var node_kind: ActiveHoverNode.NodeKind = node.node_kind
@@ -202,7 +217,7 @@ func on_node_hover(node: Node2D, node_index: int):
 	emit_signal("node_hover", node, node_index, node_kind)
 
 
-# A node has lost hover focus
+## Event handler - A node has lost hover focus
 func on_node_hover_out(node: Node2D, node_index: int):
 	var node_key = str(node_index)
 	var node_kind: ActiveHoverNode.NodeKind = node.node_kind
