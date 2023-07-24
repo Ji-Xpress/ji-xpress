@@ -13,6 +13,9 @@ var position_offset: Vector2 = Vector2(0, 0)
 # Current selected node angle
 var current_node_angle: int = 0
 
+# Reports on the mouse position if on
+var report_position: bool = false
+
 
 # Node is ready
 func _ready():
@@ -23,6 +26,11 @@ func _ready():
 	design_canvas.connect("node_hover_out", Callable(self, "on_node_hover_out"))
 	design_canvas.connect("node_moved", Callable(self, "on_node_hover_moved"))
 	design_canvas.connect("node_rotated", Callable(self, "on_node_hover_rotated"))
+
+
+func _process(delta):
+	if report_position:
+		print("mouse position: " + str(design_canvas.current_canvas_mouse_position))
 
 
 # A node has been clicked
@@ -90,8 +98,16 @@ func _on_rotate_45_pressed():
 
 
 func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
-	print(str(mouse_button) + " clicked at: " + str(mouse_position))
+	print(str(mouse_button) + " clicked at: " + str(position))
 
 
 func _on_design_canvas_mouse_released(mouse_button, mouse_position):
-	print(str(mouse_button) + " released at: " + str(mouse_position))
+	print(str(mouse_button) + " released at: " + str(position))
+
+
+func _on_design_canvas_node_added(node, node_index, node_kind):
+	print("Node index :" + str(node_index) + " added at: " + str(node.position))
+
+
+func _on_button_toggled(button_pressed):
+	report_position = button_pressed

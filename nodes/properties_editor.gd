@@ -5,7 +5,6 @@ const property_label_node: PackedScene = preload("res://nodes/property_nodes/pro
 const text_property_node: PackedScene = preload("res://nodes/property_nodes/text_property.tscn")
 const numeric_property_node: PackedScene = preload("res://nodes/property_nodes/numeric_property.tscn")
 const dropdown_property_node: PackedScene = preload("res://nodes/property_nodes/dropdown_property.tscn")
-const bool_property_node: PackedScene = preload("res://nodes/property_nodes/bool_property.tscn")
 
 # To identify what the properties are for
 @export var property_set_id: String = ""
@@ -54,9 +53,6 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			for item in value:
 				popup_menu.add_item(value[item_index], item_index)
 				item_index += 1
-		SharedEnums.PropertyType.TypeBool:
-			value_control = bool_property_node.instantiate()
-			value_control.button_pressed = value
 	
 	if value_control != null:
 		value_control.property_id = property_id

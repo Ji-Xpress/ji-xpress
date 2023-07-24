@@ -17,10 +17,10 @@ var properties: Dictionary = {
 		"type" : SharedEnums.PropertyType.TypeDropDown,
 		"value": ["Value", "Value 2", "Value 3", "Value 4"]
 	},
-	"property_number_five": {
+	"property_num_five": {
 		"type" : SharedEnums.PropertyType.TypeBool,
 		"value": true
-	}
+	},
 }
 
 @onready var properties_editor: Control = $PropertiesEditor

@@ -2,7 +2,10 @@ extends Node2D
 
 const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 
+## Grid snapping. If set it snaps the object movement
 @export var grid_snapping: Vector2 = Vector2(1, 1)
+## Override node selection operations
+@export var override_node_selection: bool = false
 
 # Node references
 ## Node to store foreground nodes
@@ -17,6 +20,8 @@ const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
 ## Tracks the number of nodes currently added to canvas
 var node_count: int = -1
 
+## Signal for when a node is added
+signal node_added(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
 signal node_selected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
@@ -60,6 +65,9 @@ var pan_screen_start_position: Vector2 = Vector2.ZERO
 ## For node dragging
 var node_drag_start_position: Vector2 = Vector2.ZERO
 
+## For tracking the current mouse position
+var current_canvas_mouse_position: Vector2 = Vector2.ZERO
+
 
 # Track mouse events
 func _input(event):
@@ -68,6 +76,10 @@ func _input(event):
 		emit_signal("mouse_clicked", event.button_index, event.position)
 	elif (event is InputEventMouseButton and not event.pressed):
 		emit_signal("mouse_released", event.button_index, event.position)
+	
+	# Track the current mouse position
+	if (event is InputEventMouseMotion):
+		current_canvas_mouse_position = event.position
 	
 	# Handling panning (Mouse Middle Button)
 	# Panning is handled by middle mouse button being down or ctrl + left click
@@ -154,7 +166,7 @@ func scan_node_group_array(node_group_array: Array):
 func on_node_clicked(node: Node2D, node_index: int):
 	# These events are notorious for firing multiple times esp for overlapping controls
 	# So we need to block this if the mouse down event is already handled
-	if not is_mouse_down and not is_ctrl_key_down:
+	if not is_mouse_down and not is_ctrl_key_down and not override_node_selection:
 		# Deactivate the selected rect
 		if current_active_node != null:
 			current_active_node.set_rect_extents_visibility(false)
@@ -284,6 +296,9 @@ func add_new_node(new_node: Node2D, node_kind: \
 					tiles.call_deferred("add_child", new_node)
 				ActiveHoverNode.NodeKind.background:
 					background.call_deferred("add_child", new_node)
+
+			# Notify of an added node
+			emit_signal("node_added", new_node, node_count, node_kind)
 			
 			return node_count
 	
