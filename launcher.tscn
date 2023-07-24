@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwqsoxuan5702"]
+[gd_scene load_steps=5 format=3 uid="uid://bwqsoxuan5702"]
 
 [ext_resource type="Theme" uid="uid://bpuu0k8y00f6d" path="res://themes/launcher_theme.tres" id="1_abyt1"]
 [ext_resource type="Script" path="res://launcher.gd" id="1_lw4sm"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://nodes/dialogs.tscn" id="2_ktfgy"]
+[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="4_y4rtg"]
 
 [node name="Launcher" type="Control"]
 layout_mode = 3
@@ -38,7 +39,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Recent Activity"
+text = "Recent Projects"
 
 [node name="ActivityList" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -61,6 +62,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_y4rtg")
+theme_override_font_sizes/font_size = 14
 
 [node name="NoRecentActivity" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ActivityList"]
 layout_mode = 1
@@ -69,9 +72,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "There has been no recent activity"
+text = "There has been no recent projects"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ActivityListDoubleClickTimer" type="Timer" parent="PanelContainer/MarginContainer/VBoxContainer/ActivityList"]
+wait_time = 0.5
+one_shot = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -10,6 +10,8 @@ const project_config_dir: String = "config"
 const project_file_name: String = "project.prj"
 ## Used to keep track of extensions
 const extensions_folder: String = "extensions"
+## Data store for recent projects
+const recent_projects_file_name: String = "user://recent_projects.dat"
 
 # Collection of project directories
 const project_directories: Array[String] = [
