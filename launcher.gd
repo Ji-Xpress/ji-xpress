@@ -14,6 +14,9 @@ var file_dialog_result: FileDialogResult = FileDialogResult.None
 var current_selected_dir_name: String = ""
 var current_selected_dir_path: String = ""
 
+# Tracks list item clicked
+var list_click_index: int = -1
+
 # Keeps track of all files
 var all_current_files: Dictionary = {}
 
@@ -96,11 +99,13 @@ func save_recent_project_to_dict(path: String):
 # Item on the project List has been clicked
 func _on_project_list_item_clicked(index, at_position, mouse_button_index):
 	if not activity_list_double_click_timer.is_stopped():
-		var path: String = activity_list.get_item_text(index)
-		
-		if ProjectManager.open_project(path):
-			get_tree().change_scene_to_file("res://main_ui.tscn")
+		if index == list_click_index:
+			var path: String = activity_list.get_item_text(index)
+			
+			if ProjectManager.open_project(path):
+				get_tree().change_scene_to_file("res://main_ui.tscn")
 	else:
+		list_click_index = index
 		activity_list_double_click_timer.start()
 
 
@@ -159,3 +164,8 @@ func _on_dialogs_dir_opened(file_path: String, dir_name: String):
 func _on_dialogs_file_open_cancelled():
 	file_dialog_result = FileDialogResult.Cancelled
 	emit_signal("file_dialog_result_triggered")
+
+
+# Reset the click index
+func _on_activity_list_double_click_timer_timeout():
+	list_click_index = -1
