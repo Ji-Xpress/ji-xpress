@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bymo0mo27kepp"]
+[gd_scene load_steps=9 format=3 uid="uid://bymo0mo27kepp"]
 
 [ext_resource type="PackedScene" uid="uid://csdd3cuagwfma" path="res://ui/project_tree_ui.tscn" id="1_4j2qr"]
 [ext_resource type="Script" path="res://main_ui.gd" id="1_4jq4c"]
 [ext_resource type="Theme" uid="uid://vbdjw2o5urhh" path="res://themes/main_ui_theme.tres" id="1_055gw"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://nodes/dialogs.tscn" id="3_hq754"]
-[ext_resource type="Script" path="res://menu_handlers/file_menu_handler.gd" id="4_6oq6v"]
+[ext_resource type="Texture2D" uid="uid://ce2qi4lx01q4" path="res://assets/icons/save.png" id="4_gd7uf"]
+[ext_resource type="Texture2D" uid="uid://dk5t7sh81ajnp" path="res://assets/icons/video.png" id="5_de6tr"]
+[ext_resource type="Texture2D" uid="uid://dca8jrwi6j21c" path="res://assets/icons/power.png" id="5_jrc2n"]
+[ext_resource type="Texture2D" uid="uid://cpr6lfkmtcxgn" path="res://assets/icons/forward.png" id="7_nt2rc"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -36,18 +39,38 @@ theme_override_constants/separation = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Menu"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="FileMenuButton" type="MenuButton" parent="PanelContainer/VBoxContainer/Menu/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Menu/MarginContainer"]
 layout_mode = 2
-text = "File"
-item_count = 1
-popup/item_0/text = "Save"
-popup/item_0/id = 0
-script = ExtResource("4_6oq6v")
+theme_override_constants/separation = 15
+
+[node name="SaveProjectButton" type="Button" parent="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("4_gd7uf")
+expand_icon = true
+
+[node name="CloseProjectButton" type="Button" parent="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_jrc2n")
+expand_icon = true
+
+[node name="RunProjectSceneButton" type="Button" parent="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_de6tr")
+expand_icon = true
+
+[node name="RunProjectButton" type="Button" parent="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("7_nt2rc")
+expand_icon = true
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -64,4 +87,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
 use_hidden_tabs_for_min_size = true
 
-[connection signal="save_pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/FileMenuButton" to="." method="_on_file_menu_button_save_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/SaveProjectButton" to="." method="_on_save_project_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton" to="." method="_on_close_project_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectSceneButton" to="." method="_on_run_project_scene_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectButton" to="." method="_on_run_project_button_pressed"]

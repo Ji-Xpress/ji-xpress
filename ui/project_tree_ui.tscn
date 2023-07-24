@@ -23,6 +23,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Menu" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 5
 
