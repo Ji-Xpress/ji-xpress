@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca1nmslw6vqvx"]
+[gd_scene load_steps=3 format=3 uid="uid://ca1nmslw6vqvx"]
 
-[ext_resource type="Script" path="res://nodes/dialogs.gd" id="1_wi8qs"]
+[ext_resource type="Script" path="res://ui/dialogs.gd" id="1_h71o4"]
+[ext_resource type="PackedScene" uid="uid://bcljunehgpeld" path="res://ui/dialogs/input_prompt_dialog.tscn" id="2_e8fep"]
 
 [node name="Dialogs" type="Control"]
 layout_mode = 3
@@ -10,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_wi8qs")
+script = ExtResource("1_h71o4")
 
 [node name="FileSaveDialog" type="FileDialog" parent="."]
 initial_position = 1
@@ -31,6 +32,10 @@ initial_position = 1
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 1
 
+[node name="InputPromptDialog" parent="." instance=ExtResource("2_e8fep")]
+initial_position = 1
+visible = false
+
 [connection signal="canceled" from="FileSaveDialog" to="." method="_on_file_save_dialog_canceled"]
 [connection signal="dir_selected" from="FileSaveDialog" to="." method="_on_file_save_dialog_dir_selected"]
 [connection signal="file_selected" from="FileSaveDialog" to="." method="_on_file_save_dialog_file_selected"]
@@ -41,3 +46,5 @@ initial_position = 1
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
 [connection signal="canceled" from="AcceptDialog" to="." method="_on_accept_dialog_canceled"]
 [connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
+[connection signal="prompt_cancelled" from="InputPromptDialog" to="." method="_on_input_prompt_dialog_prompt_cancelled"]
+[connection signal="prompt_result" from="InputPromptDialog" to="." method="_on_input_prompt_dialog_prompt_result"]

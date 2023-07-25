@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcljunehgpeld"]
+
+[ext_resource type="Script" path="res://ui/dialogs/input_prompt_dialog.gd" id="1_a00xg"]
+
+[node name="InputPromptDialog" type="Window"]
+title = "Prompt"
+size = Vector2i(300, 126)
+wrap_controls = true
+transient = true
+exclusive = true
+script = ExtResource("1_a00xg")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainerTop" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/HBoxContainer/MarginContainerTop"]
+layout_mode = 2
+
+[node name="MarginContainerBottom" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainerBottom"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="OKButton" type="Button" parent="PanelContainer/HBoxContainer/MarginContainerBottom/HBoxContainer"]
+layout_mode = 2
+text = "OK"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/HBoxContainer/MarginContainerBottom/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainerTop/LineEdit" to="." method="_on_line_edit_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainerBottom/HBoxContainer/OKButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainerBottom/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -12,6 +12,13 @@ var root_tree_item: TreeItem = null
 var scenes_tree_root_item: TreeItem = null
 var objects_tree_root_item: TreeItem = null
 
+## When the create scene button is pressed
+signal create_scene_pressed()
+## When a scene by that specific name is selected
+signal scene_selected(scene_name: String)
+## When an object with that specific name is selected
+signal object_selected(object_name: String)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -68,8 +75,7 @@ func populate_objects_list():
 func _on_tree_button_clicked(item, column, id, mouse_button_index):
 	if item == scenes_tree_root_item:
 		if id == 0:
-			# TODO: Add a new scene pressed
-			pass
+			emit_signal("create_scene_pressed")
 
 
 # Item has been double clicked on the tree
@@ -81,7 +87,7 @@ func _on_tree_item_activated():
 		var selected_item_text: String = selected_item.get_text(0)
 		if selected_item.get_parent() == scenes_tree_root_item:
 			# Handle scene selected
-			pass
+			emit_signal("scene_selected", selected_item_text)
 		elif selected_item.get_parent() == objects_tree_root_item:
 			# Handle object selected
-			pass
+			emit_signal("object_selected", selected_item_text)

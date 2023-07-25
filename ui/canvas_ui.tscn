@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvfoq86emh3b6"]
+[gd_scene load_steps=5 format=3 uid="uid://dvfoq86emh3b6"]
 
 [ext_resource type="PackedScene" uid="uid://isb48lm6fuvj" path="res://nodes/properties_editor.tscn" id="1_cdey2"]
 [ext_resource type="PackedScene" uid="uid://be2ogxixyowlv" path="res://nodes/design_canvas.tscn" id="1_swthp"]
 [ext_resource type="Script" path="res://ui/canvas_ui.gd" id="1_umxca"]
+[ext_resource type="PackedScene" uid="uid://dqhkpf6dix3ye" path="res://ui/src/tab_common.tscn" id="4_y3q3h"]
 
 [node name="CanvasUI" type="Control"]
 layout_mode = 3
@@ -54,7 +55,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(858, 593)
 render_target_update_mode = 4
 
 [node name="DesignCanvas" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_swthp")]
@@ -84,6 +85,8 @@ text = "Button A"
 [node name="PropertiesEditor" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer" instance=ExtResource("1_cdey2")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="TabCommon" parent="." instance=ExtResource("4_y3q3h")]
 
 [connection signal="node_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deselected"]
 [connection signal="node_hover" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover"]

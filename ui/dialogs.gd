@@ -4,6 +4,7 @@ extends Control
 @onready var file_open_dialog: FileDialog = $FileOpenDialog
 @onready var confirmation_dialog: ConfirmationDialog = $ConfirmationDialog
 @onready var accept_dialog: AcceptDialog = $AcceptDialog
+@onready var input_prompt_dialog: Window = $InputPromptDialog
 
 # Singal handling
 signal file_opened(file_path: String, file_name: String)
@@ -12,6 +13,7 @@ signal file_saved(file_path: String, file_name: String)
 signal dir_saved(file_path: String, dir_name: String)
 signal file_open_cancelled
 signal file_save_cancelled
+signal input_prompt_result(result: String, flag: String)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -51,10 +53,25 @@ func hide_accept_dialog():
 	accept_dialog.hide()
 
 
+## Shows the input prompt dialog
+func show_input_prompt_dialog(title: String, text: String, flag: String = ""):
+	input_prompt_dialog.text = text
+	input_prompt_dialog.title = title
+	input_prompt_dialog.flag = flag
+	input_prompt_dialog.show()
+
+
+## Hides the input prompt dialog
+func hide_input_prompt_dialog():
+	accept_dialog.hide()
+
+
+## Set the open dialog's operation mode to directory mode
 func set_file_open_dialog_mode_dir():
 	file_open_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 
 
+## Set the open dialog's operation mode to file mode
 func set_file_open_dialog_mode_file():
 	file_open_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 
@@ -108,3 +125,13 @@ func _on_file_open_dialog_canceled():
 # Cancel pressed
 func _on_file_save_dialog_canceled():
 	emit_signal("file_save_cancelled")
+
+
+# Input prompt accepted
+func _on_input_prompt_dialog_prompt_result(result, flag):
+	emit_signal("input_prompt_result", result, flag)
+
+
+# Input prompt cancelled
+func _on_input_prompt_dialog_prompt_cancelled():
+	pass # Replace with function body.
