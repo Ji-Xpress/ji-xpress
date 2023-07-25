@@ -111,13 +111,14 @@ func create_new_project(project_path: String):
 
 ## Creates a new scene
 func create_new_scene(scene_name: String):
-	var new_scene = SceneMetaData.new()
+	var new_scene = SceneMetaData.model_template()
 	
 	new_scene[SceneMetaData.prop_app_version] = Globals.get_app_version()
 	new_scene[SceneMetaData.prop_code_files] = []
 	new_scene[SceneMetaData.prop_nodes] = {}
 	
-	if save_file_to_folder(scene_name, false, [ Constants.project_scenes_dir ], JSON.stringify(new_scene)):
+	if save_file_to_folder(scene_name + Constants.scene_extension, false, [ Constants.project_scenes_dir ], JSON.stringify(new_scene)):
+		scenes.append(scene_name)
 		scenes_metadata[scene_name] = new_scene
 		return true
 
@@ -133,7 +134,7 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 		return false
 	
 	# Create new object properties sets
-	var new_object_properties: ObjectProperties = ObjectProperties.new()
+	var new_object_properties: ObjectProperties = ObjectProperties.model_template()
 	
 	# Fill in the properties
 	new_object_properties[ObjectProperties.prop_node_id] = node_id
@@ -309,12 +310,13 @@ func get_project_scripts():
 func get_dir_files(path: String, extension: String):
 	var file_array: Array[String] = []
 	var dir = DirAccess.open(path)
+	var sanitized_extenstion: String = extension.replace(".", "")
 	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if (not dir.current_is_dir()) and (file_name.get_extension() == extension):
+			if (not dir.current_is_dir()) and (file_name.get_extension() == sanitized_extenstion):
 				file_array.push_back(file_name)
 			file_name = dir.get_next()
 	

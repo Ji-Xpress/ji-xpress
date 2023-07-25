@@ -15,11 +15,6 @@ const prompt_flag_new_scene: String = "new_scene"
 @onready var run_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectButton
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 # Perform project save
 func _on_save_project_button_pressed():
 	pass # Replace with function body.
@@ -64,4 +59,5 @@ func _on_project_tree_ui_scene_selected(scene_name):
 func _on_dialogs_input_prompt_result(result, flag):
 	match flag:
 		prompt_flag_new_scene:
-			print("New Scnee: " + result)
+			if ProjectManager.create_new_scene(result):
+				project_tree_ui.populate_scene_list()

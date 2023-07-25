@@ -39,7 +39,7 @@ func _ready():
 	scenes_tree_root_item.add_button(0, add_icon_texture, 0)
 	
 	# Initialize children
-	populate_objects_list()
+	populate_scene_list()
 	populate_objects_list()
 
 
