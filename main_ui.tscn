@@ -85,8 +85,11 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
-drag_to_rearrange_enabled = true
 use_hidden_tabs_for_min_size = true
+
+[node name="TabSwitchTimer" type="Timer" parent="PanelContainer/VBoxContainer/HSplitContainer"]
+wait_time = 0.05
+one_shot = true
 
 [connection signal="input_prompt_result" from="Dialogs" to="." method="_on_dialogs_input_prompt_result"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/SaveProjectButton" to="." method="_on_save_project_button_pressed"]

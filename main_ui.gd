@@ -14,6 +14,11 @@ const prompt_flag_new_scene: String = "new_scene"
 @onready var run_project_scene_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectSceneButton
 @onready var run_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectButton
 
+@onready var tab_switch_timer: Timer = $PanelContainer/VBoxContainer/HSplitContainer/TabSwitchTimer
+
+## Keeps track of current open tabs
+var current_open_tabs: Dictionary = {}
+
 
 # Perform project save
 func _on_save_project_button_pressed():
@@ -47,12 +52,29 @@ func _on_project_tree_ui_object_selected(object_name):
 
 # A scene has been selected from the tree
 func _on_project_tree_ui_scene_selected(scene_name):
-	# New canvas scene instance
-	var new_canvas_scene: Control = canvas_ui.instantiate()
-	# Track the scene name in the new control
-	new_canvas_scene.scene_name = scene_name
-	# Add to the tab container
-	tab_container.call_deferred("add_child", new_canvas_scene)
+	if not current_open_tabs.has(scene_name):
+		# New canvas scene instance
+		var new_canvas_scene: Control = canvas_ui.instantiate()
+		# Track the scene name in the new control
+		new_canvas_scene.scene_name = scene_name
+		# Add to the tab container
+		tab_container.call_deferred("add_child", new_canvas_scene)
+		
+		# Track the child control 
+		await tab_container.child_entered_tree
+		
+		# Assign current tab to current file
+		var tab_index: int = tab_container.get_child_count() - 1
+		current_open_tabs[scene_name] = tab_index
+		
+		# Open as current active tab and set tab title
+		tab_switch_timer.start()
+		await tab_switch_timer.timeout
+		
+		tab_container.current_tab = tab_index
+		tab_container.set_tab_title(tab_index, scene_name)
+	else:
+		tab_container.current_tab = current_open_tabs[scene_name]
 
 
 # Input prompt dialog result invoked
