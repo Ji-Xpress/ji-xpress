@@ -12,6 +12,6 @@ static func model_template():
 	return {
 		prop_app_version: "",
 		prop_code_files: [],
-		prop_nodes: []
+		prop_nodes: {}
 	}
 

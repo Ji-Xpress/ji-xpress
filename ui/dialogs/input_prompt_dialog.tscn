@@ -1,13 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcljunehgpeld"]
+[gd_scene load_steps=3 format=3 uid="uid://bcljunehgpeld"]
 
 [ext_resource type="Script" path="res://ui/dialogs/input_prompt_dialog.gd" id="1_a00xg"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpoxe"]
+bg_color = Color(0.333333, 0.333333, 0.333333, 1)
+
 [node name="InputPromptDialog" type="Window"]
 title = "Prompt"
+position = Vector2i(0, 36)
 size = Vector2i(300, 126)
 wrap_controls = true
 transient = true
 exclusive = true
+min_size = Vector2i(300, 126)
 script = ExtResource("1_a00xg")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -21,6 +26,23 @@ size_flags_vertical = 3
 
 [node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainerError" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="Panel" type="PanelContainer" parent="PanelContainer/HBoxContainer/MarginContainerError"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cpoxe")
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainerError/Panel"]
+layout_mode = 2
+text = "Should be a valid identifier"
+horizontal_alignment = 1
 
 [node name="MarginContainerTop" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2

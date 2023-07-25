@@ -54,10 +54,11 @@ func hide_accept_dialog():
 
 
 ## Shows the input prompt dialog
-func show_input_prompt_dialog(title: String, text: String, flag: String = ""):
+func show_input_prompt_dialog(title: String, text: String, flag: String = "", is_identifer = true):
 	input_prompt_dialog.text = text
 	input_prompt_dialog.title = title
 	input_prompt_dialog.flag = flag
+	input_prompt_dialog.should_be_identifier = is_identifer
 	input_prompt_dialog.show()
 
 

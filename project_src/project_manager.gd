@@ -6,10 +6,16 @@ var current_project_path: String = ""
 var project_metadata = null
 ## Collection of scenes in the current project
 var scenes = []
+## Holds metadata for all scenes
+var scenes_metadata: Dictionary = {}
 ## Collection of objects in the current project
 var objects = []
+## Holds metadata for all objects
+var objects_metadata: Dictionary = {}
 ## Collection of code files in the current project
 var scripts = []
+## Holds metadata for all script
+var scripts_metadata: Dictionary = {}
 
 
 # When initializing
@@ -103,6 +109,77 @@ func create_new_project(project_path: String):
 	return false
 
 
+## Creates a new scene
+func create_new_scene(scene_name: String):
+	var new_scene = SceneMetaData.new()
+	
+	new_scene[SceneMetaData.prop_app_version] = Globals.get_app_version()
+	new_scene[SceneMetaData.prop_code_files] = []
+	new_scene[SceneMetaData.prop_nodes] = {}
+	
+	if save_file_to_folder(scene_name, false, [ Constants.project_scenes_dir ], JSON.stringify(new_scene)):
+		scenes_metadata[scene_name] = new_scene
+		return true
+
+
+## Creates a new object in an existing scene
+func create_new_scene_object(scene_name: String, node_id: String, object_id: String, object_position: Vector2, custom_properties: Dictionary):
+	if not scenes_metadata.has(scene_name):
+		return false
+	
+	var scene_instance = scenes_metadata[scene_name]
+	
+	if scene_instance[SceneMetaData.prop_nodes].has(object_id):
+		return false
+	
+	# Create new object properties sets
+	var new_object_properties: ObjectProperties = ObjectProperties.new()
+	
+	# Fill in the properties
+	new_object_properties[ObjectProperties.prop_node_id] = node_id
+	new_object_properties[ObjectProperties.prop_object_id] = object_id
+	new_object_properties[ObjectProperties.prop_position] = object_position
+	new_object_properties[ObjectProperties.prop_rotation] = 0
+	new_object_properties[ObjectProperties.prop_custom_properties] = custom_properties
+	new_object_properties[ObjectProperties.prop_code_files] = []
+	
+	scene_instance[SceneMetaData.prop_nodes][object_id] = new_object_properties
+	
+	return scene_instance[SceneMetaData.prop_nodes][object_id]
+
+
+## Assigns a value to an object property
+func assign_scene_object_property(scene_name: String, object_id: String, property: String, value):
+	if not scenes_metadata.has(scene_name):
+		return false
+	
+	if not scenes_metadata[scene_name][SceneMetaData.prop_nodes].has(object_id):
+		return false
+	
+	if not scenes_metadata[scene_name][SceneMetaData.prop_nodes][object_id].has(property):
+		return false
+	
+	scenes_metadata[scene_name][SceneMetaData.prop_nodes][object_id][property] = value
+	
+	return true
+
+
+## Assigns a value to a custom object property
+func assign_scene_object_custom_property(scene_name: String, object_id: String, property: String, value):
+	if not scenes_metadata.has(scene_name):
+		return false
+	
+	if not scenes_metadata[scene_name][SceneMetaData.prop_nodes].has(object_id):
+		return false
+	
+	if not scenes_metadata[scene_name][SceneMetaData.prop_nodes][object_id][ObjectProperties.prop_custom_properties].has(property):
+		return false
+	
+	scenes_metadata[scene_name][SceneMetaData.prop_nodes][object_id][ObjectProperties.prop_custom_properties][property] = value
+	
+	return true
+
+
 ## Opens a currently existing project
 func open_project(project_path: String):
 	if DirAccess.dir_exists_absolute(project_path):
@@ -135,7 +212,7 @@ func save_scene(file_name: String, scene_metadata: SceneMetaData):
 
 
 ## Opens a scene from the scenes folder
-func open_scene(file_name: String):
+func open_scene(file_name: String, mute_results: bool = false):
 	if current_project_path != "":
 		var scene_filename: String = current_project_path + Constants.project_scenes_dir + "/" + file_name
 		if FileAccess.file_exists(scene_filename):
@@ -148,8 +225,15 @@ func open_scene(file_name: String):
 			var scene_metadata_str: String = file.get_as_text()
 			file.close()
 			
+			var scene_dict: Dictionary = JSON.parse_string(scene_metadata_str)
+			
+			scenes_metadata[file_name] = scene_dict
+			
 			# Return results
-			return JSON.parse_string(scene_metadata_str)
+			if mute_results:
+				return true
+			
+			return scenes_metadata[file_name]
 	else:
 		return false
 
@@ -160,7 +244,7 @@ func save_script(file_name: String, script_metadata: ScriptMetaData):
 
 
 ## Opens a script instance
-func open_script(file_name: String):
+func open_script(file_name: String, mute_results: bool = false):
 	if current_project_path != "":
 		var script_filename: String = current_project_path + Constants.project_scripts_dir + "\\" + file_name
 		if FileAccess.file_exists(script_filename):
@@ -173,8 +257,14 @@ func open_script(file_name: String):
 			var scene_metadata_str: String = file.get_as_text()
 			file.close()
 			
+			var script_dict = JSON.parse_string(scene_metadata_str)
+			scripts_metadata[file_name] = script_dict
+			
 			# Return results
-			return JSON.parse_string(scene_metadata_str)
+			if mute_results:
+				return true
+			
+			return scripts_metadata[file_name]
 	else:
 		return false
 
@@ -195,12 +285,24 @@ func get_project_objects():
 
 ## Get all scene instances
 func get_project_scenes():
-	return get_dir_files(current_project_path + Constants.project_scenes_dir, Constants.scene_extension)
+	var all_scenes = get_dir_files(current_project_path + Constants.project_scenes_dir, Constants.scene_extension)
+	
+	# Build metadata
+	for scene in all_scenes:
+		open_scene(scene, true)
+	
+	return all_scenes
 
 
 ## Get all code instances
 func get_project_scripts():
-	return get_dir_files(current_project_path + Constants.project_scripts_dir, Constants.scripts_extension)
+	var all_scripts = get_dir_files(current_project_path + Constants.project_scripts_dir, Constants.scripts_extension)
+	
+	# Build metadata
+	for script in all_scripts:
+		open_script(script, true)
+
+	return all_scripts
 
 
 ## Get a list of files in the directory with specific extensions
