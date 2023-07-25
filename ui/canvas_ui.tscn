@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvfoq86emh3b6"]
+[gd_scene load_steps=8 format=3 uid="uid://dvfoq86emh3b6"]
 
 [ext_resource type="PackedScene" uid="uid://isb48lm6fuvj" path="res://nodes/properties_editor.tscn" id="1_cdey2"]
 [ext_resource type="PackedScene" uid="uid://be2ogxixyowlv" path="res://nodes/design_canvas.tscn" id="1_swthp"]
 [ext_resource type="Script" path="res://ui/canvas_ui.gd" id="1_umxca"]
+[ext_resource type="Texture2D" uid="uid://c1fd7svh1tldq" path="res://assets/icons_16/plus.png" id="2_4o2ja"]
+[ext_resource type="Texture2D" uid="uid://csneey8a6hfdm" path="res://assets/icons_16/save.png" id="3_jw0j8"]
+[ext_resource type="Texture2D" uid="uid://upwvrryywhma" path="res://assets/icons_16/gear.png" id="4_p686t"]
 [ext_resource type="PackedScene" uid="uid://dqhkpf6dix3ye" path="res://ui/src/tab_common.tscn" id="4_y3q3h"]
 
 [node name="CanvasUI" type="Control"]
@@ -28,25 +31,33 @@ layout_mode = 2
 [node name="LeftPanel" type="PanelContainer" parent="PanelContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 5.0
 
 [node name="ControlContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/LeftPanel"]
 layout_mode = 2
 
-[node name="CanvasMenu" type="HBoxContainer" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu"]
+[node name="CanvasMenu" type="MarginContainer" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Button" type="Button" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu"]
 layout_mode = 2
-text = "Button A"
+theme_override_constants/separation = 15
+
+[node name="AddNodeButton" type="Button" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_4o2ja")
+
+[node name="SaveSceneButton" type="Button" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_jw0j8")
+
+[node name="CanvasSettingsButton" type="Button" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_p686t")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer"]
 layout_mode = 2
@@ -55,19 +66,22 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(858, 593)
+size = Vector2i(816, 600)
 render_target_update_mode = 4
 
 [node name="DesignCanvas" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_swthp")]
+unique_name_in_owner = true
 
 [node name="RightPanel" type="PanelContainer" parent="PanelContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="ControlContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/RightPanel"]
 layout_mode = 2
 
 [node name="PropertiesMenu" type="HBoxContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 5
 
@@ -82,16 +96,31 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 text = "Button A"
 
-[node name="PropertiesEditor" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer" instance=ExtResource("1_cdey2")]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PropertiesEditor" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer/ScrollContainer" instance=ExtResource("1_cdey2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TabCommon" parent="." instance=ExtResource("4_y3q3h")]
 
+[connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/AddNodeButton" to="." method="_on_add_node_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CanvasSettingsButton" to="." method="_on_canvas_settings_button_pressed"]
+[connection signal="mouse_clicked" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
+[connection signal="mouse_released" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_released"]
+[connection signal="node_added" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_added"]
 [connection signal="node_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deselected"]
 [connection signal="node_hover" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover"]
 [connection signal="node_hover_out" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover_out"]
 [connection signal="node_moved" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_moved"]
 [connection signal="node_rotated" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_rotated"]
 [connection signal="node_selected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_selected"]
-[connection signal="property_changed" from="PanelContainer/HSplitContainer/RightPanel/ControlContainer/PropertiesEditor" to="." method="_on_properties_editor_property_changed"]
+[connection signal="property_changed" from="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer/ScrollContainer/PropertiesEditor" to="." method="_on_properties_editor_property_changed"]

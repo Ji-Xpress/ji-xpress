@@ -24,6 +24,16 @@ func property_value_changed(property_id: String, value):
 	emit_signal("property_changed", property_set_id, property_id, value)
 
 
+## Clears every property fields
+func clear_all_properties():
+	for property_field in grid_container.get_children():
+		if not property_field is Label:
+			property_field.disconnect("value_updated", Callable(self, "property_value_changed"))
+		
+		grid_container.remove_child(property_field)
+		property_field.queue_free()
+
+
 ## Add a property to the container
 func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null):
 	var prop_name: String = property_id.capitalize()
