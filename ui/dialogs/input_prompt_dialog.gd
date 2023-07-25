@@ -68,4 +68,6 @@ func _on_line_edit_gui_input(event):
 ## Text for the line edit
 func _on_focus_entered():
 	line_edit.text = text
+	error_margin_container.visible = false
 	size.y = min_size.y
+	line_edit.grab_focus()
