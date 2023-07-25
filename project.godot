@@ -22,6 +22,7 @@ Constants="*res://project_src/constants.gd"
 ProjectManager="*res://project_src/project_manager.gd"
 Globals="*res://project_src/globals.gd"
 GameObjectsLoader="*res://game_objects/loader.gd"
+SharedState="*res://game_objects/shared_state.gd"
 
 [dotnet]
 
