@@ -6,6 +6,8 @@ const description_prop: String = "description"
 const path_prop: String = "path"
 # For external packs only
 const path_pack_url: String = "pack_url"
+# Used to play the pack
+const prop_pack_player: String = "pack_player"
 # For objects that will be in the foreground
 const prop_foreground: String = "foreground"
 # For objects that will be in the background
@@ -18,7 +20,8 @@ const prop_shared_state: String = "shared_state"
 const internal_resource_packs: Dictionary = {
 	"physics": {
 		description_prop: "Physics Pack with Kenney Assets",
-		path_prop: "res://game_objects/physics/loader.gd"
+		path_prop: "res://game_objects/physics/loader.gd",
+		prop_pack_player: "res://game_objects/physics/player.tscn"
 	}
 }
 
