@@ -27,7 +27,8 @@ func _on_save_project_button_pressed():
 
 # Perform project close
 func _on_close_project_button_pressed():
-	pass # Replace with function body.
+	ProjectManager.clear_project_metadata()
+	get_tree().change_scene_to_file("res://launcher.tscn")
 
 
 # We need to run the current scene

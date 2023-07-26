@@ -141,7 +141,7 @@ func _on_create_new_project_pressed():
 	dialogs.hide_file_open_dialog()
 	
 	if file_dialog_result == FileDialogResult.Success:
-		if ProjectManager.create_new_project(current_selected_dir_path):
+		if ProjectManager.create_new_project(current_selected_dir_path, "physics"):
 			save_recent_project_to_dict(current_selected_dir_path)
 			save_recent_projects_to_file()
 			get_tree().change_scene_to_file("res://main_ui.tscn")

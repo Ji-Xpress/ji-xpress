@@ -33,9 +33,10 @@ func clear_project_metadata():
 
 
 ## Creates a new project configuration
-func create_project_configuration():
+func create_project_configuration(project_pack: String):
 	project_metadata = ProjectMetadata.model_template()
 	project_metadata[ProjectMetadata.prop_app_version] = Globals.get_app_version()
+	project_metadata[ProjectMetadata.prop_project_pack] = project_pack
 
 
 ## Save project configuration
@@ -88,7 +89,7 @@ func save_file_to_folder(file_name: String, is_absolute: bool, folder_name: Arra
 
 
 ## Creates a new project
-func create_new_project(project_path: String):
+func create_new_project(project_path: String, project_pack: String):
 	if DirAccess.dir_exists_absolute(project_path):
 		if not FileAccess.file_exists(project_path + Constants.project_file_name):
 			for directory in Constants.project_directories:
@@ -98,7 +99,7 @@ func create_new_project(project_path: String):
 		current_project_path = project_path
 		
 		# Create a new project config set and save it
-		create_project_configuration()
+		create_project_configuration(project_pack)
 		save_project_configuration()
 		
 		objects = get_project_objects()
