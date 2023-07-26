@@ -10,8 +10,10 @@ extends RigidBody2D
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
+		freeze = true
 	else:
 		collision_shape.set_deferred("disabled", false)
+		freeze = false
 
 
 # Collision detection logic

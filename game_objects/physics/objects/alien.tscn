@@ -10,6 +10,7 @@
 radius = 40.0
 
 [node name="Alien" type="RigidBody2D"]
+freeze_mode = 1
 script = ExtResource("1_t3meq")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("4_831n7")]

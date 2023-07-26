@@ -49,7 +49,7 @@ func _on_design_canvas_node_deselected(node, node_index, node_kind):
 func _on_design_canvas_node_moved(node, node_index, node_kind):
 	if node == current_active_control:
 		properties_editor.update_property(ObjectMetaData.prop_position_x, node.position.x)
-		properties_editor.update_property(ObjectMetaData.prop_position_x, node.position.y)
+		properties_editor.update_property(ObjectMetaData.prop_position_y, node.position.y)
 
 
 func _on_design_canvas_node_rotated(node, node_index, node_kind):
