@@ -7,10 +7,17 @@ const numeric_property_node: PackedScene = preload("res://designer_nodes/propert
 const dropdown_property_node: PackedScene = preload("res://designer_nodes/property_nodes/dropdown_property.tscn")
 const bool_property_node: PackedScene = preload("res://designer_nodes/property_nodes/bool_property.tscn")
 
+const prop_tracker_control_id: String = "control_id"
+const prop_tracker_control_type: String = "control_type"
+
 # To identify what the properties are for
 @export var property_set_id: String = ""
 
+# Node references
 @onready var grid_container: GridContainer = $GridContainer
+
+# Prop control trackers
+var control_tracker: Dictionary = {}
 
 # Properties dictionary
 var properties: Dictionary = {}
@@ -26,6 +33,8 @@ func property_value_changed(property_id: String, value, is_custom_property):
 
 ## Clears every property fields
 func clear_all_properties():
+	control_tracker = {}
+	
 	for property_field in grid_container.get_children():
 		if not property_field is Label:
 			property_field.disconnect("value_updated", Callable(self, "property_value_changed"))
@@ -57,6 +66,25 @@ func fill_properties_for_object(game_object: Node2D):
 			custom_prop_index += 1
 
 
+## Updates a single property
+func update_property(property_id: String, value):
+	if control_tracker.has(property_id):
+		var type: SharedEnums.PropertyType = control_tracker[property_id][prop_tracker_control_type]
+		var control: Control = control_tracker[property_id][prop_tracker_control_id]
+		
+		match type:
+			SharedEnums.PropertyType.TypeString:
+				control.text = str(value)
+			SharedEnums.PropertyType.TypeInt:
+				control.value = int(value)
+			SharedEnums.PropertyType.TypeFloat:
+				control.value = float(value)
+			SharedEnums.PropertyType.TypeDropDown:
+				control.text = str(value)
+			SharedEnums.PropertyType.TypeBool:
+				control.button_pressed = bool(value)
+
+
 ## Add a property to the container
 func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null, is_custom_property: bool = false):
 	var prop_name: String = property_id.capitalize()
@@ -67,15 +95,15 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 	match property_type:
 		SharedEnums.PropertyType.TypeString:
 			value_control = text_property_node.instantiate()
-			value_control.text = value
+			value_control.text = str(value)
 		SharedEnums.PropertyType.TypeInt:
 			value_control = numeric_property_node.instantiate()
 			value_control.step = 1
-			value_control.value = value
+			value_control.value = int(value)
 		SharedEnums.PropertyType.TypeFloat:
 			value_control = numeric_property_node.instantiate()
 			value_control.step = 0.001
-			value_control.value = value
+			value_control.value = float(value)
 		SharedEnums.PropertyType.TypeDropDown:
 			value_control = dropdown_property_node.instantiate()
 			value_control.text = prop_name
@@ -89,9 +117,15 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 				item_index += 1
 		SharedEnums.PropertyType.TypeBool:
 			value_control = bool_property_node.instantiate()
-			value_control.button_pressed = value
+			value_control.button_pressed = bool(value)
 	
 	if value_control != null:
+		# Track the control
+		control_tracker[property_id] = {
+			prop_tracker_control_id: value_control,
+			prop_tracker_control_type: property_type
+		}
+		
 		# Set up other props and connect signals
 		value_control.property_id = property_id
 		value_control.is_custom_property = is_custom_property

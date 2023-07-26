@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyuv137scwhdh"]
+[gd_scene load_steps=3 format=3 uid="uid://dyuv137scwhdh"]
 
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_1w547"]
 [ext_resource type="Script" path="res://designer_nodes/property_nodes/text_property.gd" id="1_lwdo3"]
 
 [node name="TextProperty" type="LineEdit"]
@@ -8,6 +9,7 @@ anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_1w547")
 script = ExtResource("1_lwdo3")
 
 [connection signal="text_changed" from="." to="." method="_on_text_changed"]

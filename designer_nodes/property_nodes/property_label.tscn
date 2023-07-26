@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://snap1w2i3pl2"]
+[gd_scene load_steps=2 format=3 uid="uid://snap1w2i3pl2"]
+
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_6iohf"]
 
 [node name="PropertyLabel" type="Label"]
 anchors_preset = 10
@@ -6,4 +8,5 @@ anchor_right = 1.0
 offset_bottom = 26.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_6iohf")
 text = "Property"
