@@ -6,6 +6,11 @@ enum NodeCanvasMode {
 	ModeDesign, ModeRun
 }
 
+## Determines what layer an object fits into
+enum ObjectLayer {
+	LayerForeground, LayerBackground, LayerTile
+}
+
 ## For property types
 enum PropertyType {
 	TypeString, TypeInt, TypeFloat, TypeDropDown, TypeBool

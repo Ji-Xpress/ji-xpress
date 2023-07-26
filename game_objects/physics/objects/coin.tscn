@@ -1,3 +1,26 @@
-[gd_scene format=3 uid="uid://d04uwa0pubhtj"]
+[gd_scene load_steps=6 format=3 uid="uid://d04uwa0pubhtj"]
 
-[node name="Coin" type="Node2D"]
+[ext_resource type="Script" path="res://game_objects/physics/objects/coin.gd" id="1_nw5o2"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://shared_src/object_metadata.tscn" id="1_sbnum"]
+[ext_resource type="Texture2D" uid="uid://0a5iavcyyavb" path="res://game_objects/physics/assets/objects/coinGold.png" id="1_v6fsh"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_fyypq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_junsv"]
+radius = 24.0
+
+[node name="Coin" type="Area2D"]
+script = ExtResource("1_nw5o2")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_sbnum")]
+object_description = "Coin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_junsv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v6fsh")
+offset = Vector2(0, -3)
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_fyypq")
+size = Vector2(50, 50)

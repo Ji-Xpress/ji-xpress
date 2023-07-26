@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://ly3gdr0qtp60"]
+[gd_scene load_steps=6 format=3 uid="uid://ly3gdr0qtp60"]
 
-[node name="Tile" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://shared_src/object_metadata.tscn" id="1_0u2a3"]
+[ext_resource type="Script" path="res://game_objects/physics/objects/tile.gd" id="1_mkuad"]
+[ext_resource type="Texture2D" uid="uid://b8r4gh3qlw184" path="res://game_objects/physics/assets/tiles/dirt.png" id="2_5pryx"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_5wgqn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h74q"]
+size = Vector2(72, 64)
+
+[node name="Tile" type="StaticBody2D" groups=["tile"]]
+script = ExtResource("1_mkuad")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_0u2a3")]
+object_description = "Tile"
+object_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_8h74q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5pryx")
+offset = Vector2(3, 0)
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(4, 0)
+script = ExtResource("4_5wgqn")
+size = Vector2(76, 74)

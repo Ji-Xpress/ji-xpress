@@ -1,3 +1,27 @@
-[gd_scene format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=6 format=3 uid="uid://cw1qn75agsv88"]
 
-[node name="Alien" type="Node2D"]
+[ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
+[ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_miio1"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://shared_src/object_metadata.tscn" id="4_831n7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
+radius = 40.0
+
+[node name="Alien" type="RigidBody2D"]
+script = ExtResource("1_t3meq")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("4_831n7")]
+object_description = "Alien Character"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o0g4b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xj7cw")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_miio1")
+size = Vector2(80, 80)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
