@@ -16,13 +16,16 @@ signal save_scene_pressed(node_instance: Control)
 signal canvas_settings_pressed(node_instance: Control)
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func add_game_object_url_to_canvas(url: String):
+	var new_node: PackedScene = load(url)
+	var node_instance: Node2D = new_node.instantiate()
+	var node_kind: SharedEnums.ObjectLayer = node_instance.get_node(Constants.object_metadata_node).get("node_kind")
+	var node_mode: SharedEnums.NodeCanvasMode = node_instance.get_node(Constants.object_metadata_node).get("node_mode")
+	
+	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode)
 
 
 # Design canvas event handling
-
 func _on_design_canvas_node_hover(node, node_index, node_kind):
 	pass # Replace with function body.
 
