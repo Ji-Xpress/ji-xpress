@@ -14,6 +14,8 @@ const extensions_folder: String = "extensions"
 const recent_projects_file_name: String = "user://recent_projects.dat"
 ## Node name for object metadata node
 const object_metadata_node: String = "ObjectMetaData"
+## Node name for object functionality node
+const object_functionality_node: String = "ObjectFunctionality"
 ## Node name for RectExtents node
 const object_rectextents_node: String = "RectExtents2D"
 
