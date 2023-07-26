@@ -34,6 +34,29 @@ func clear_all_properties():
 		property_field.queue_free()
 
 
+## Fill in properties
+func fill_properties_for_object(game_object: Node2D):
+	if game_object.has_node("ObjectMetaData"):
+		clear_all_properties()
+		var metadata_node: ObjectMetaData = game_object.get_node("ObjectMetaData")
+		
+		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id)
+		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x)
+		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y)
+		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeString, game_object.rotation_degrees)
+		
+		var custom_properties = metadata_node.get(ObjectMetaData.prop_custom_properties)
+		
+		var custom_prop_index: int = 0
+		for metadata_item in custom_properties:
+			var current_property = custom_properties[custom_prop_index]
+			add_property(current_property.get(ObjectCustomProperty.prop_prop_name), \
+				current_property.get(ObjectCustomProperty.prop_prop_type), \
+				current_property.get(ObjectCustomProperty.prop_prop_value))
+			
+			custom_prop_index += 1
+
+
 ## Add a property to the container
 func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null):
 	var prop_name: String = property_id.capitalize()

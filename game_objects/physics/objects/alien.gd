@@ -14,6 +14,7 @@ func _ready():
 		collision_shape.set_deferred("disabled", false)
 
 
+# Collision detection logic
 func _on_body_entered(body):
 	if body.is_in_group("explosive"):
 		var force: float = body.object_metadata.get_property("explosion_force")

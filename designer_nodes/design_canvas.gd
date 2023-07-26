@@ -34,6 +34,8 @@ signal node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.
 signal node_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when node is moved
 signal node_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+## Emitted when all nodes are deactivated using the ESC button
+signal all_nodes_deselected()
 ## Signal for when the mouse button is pressed on canvas
 signal mouse_clicked(mouse_button: int, mouse_position: Vector2)
 ## Signal for when the mouse button is released on canvas
@@ -122,8 +124,9 @@ func _input(event):
 			# Escape key handling - ESC down
 			if current_active_node != null:
 				emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_index)
+				emit_signal("all_nodes_deselected")
 				# Reset selected node status
-				current_active_node.set_rect_extents_visibility(false)
+				current_active_node.object_functionality.set_rect_extents_visibility(false)
 				current_active_node = null
 		elif event.keycode == KEY_CTRL:
 			# Track if ctrl key is pressed

@@ -100,6 +100,10 @@ text = "Button A"
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer"]
 layout_mode = 2
@@ -115,6 +119,7 @@ size_flags_vertical = 3
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/AddNodeButton" to="." method="_on_add_node_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CanvasSettingsButton" to="." method="_on_canvas_settings_button_pressed"]
+[connection signal="all_nodes_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_all_nodes_deselected"]
 [connection signal="mouse_clicked" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
 [connection signal="mouse_released" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_released"]
 [connection signal="node_added" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_added"]

@@ -1,7 +1,18 @@
 extends Node
 class_name ObjectMetaData
 
+# Property constants
+const prop_object_id: String = "object_id"
+const prop_object_description: String = "object_description"
+const prop_position_x: String = "position_x"
+const prop_position_y: String = "position_y"
+const prop_rotation: String = "rotation"
+const prop_custom_properties: String = "custom_properties"
+const prop_node_kind: String = "node_kind"
+const prop_node_mode: String = "node_mode"
 
+## Object Description
+@export var object_id: String = ""
 ## Object Description
 @export var object_description: String = ""
 ## Custom properties for the object

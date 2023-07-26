@@ -15,6 +15,9 @@ signal save_scene_pressed(node_instance: Control)
 ## When the canvas settings button is pressed
 signal canvas_settings_pressed(node_instance: Control)
 
+## Tracks the current active control
+var current_active_control: Node2D = null
+
 
 func add_game_object_url_to_canvas(url: String):
 	var new_node: PackedScene = load(url)
@@ -35,7 +38,8 @@ func _on_design_canvas_node_hover_out(node, node_index, node_kind):
 
 
 func _on_design_canvas_node_selected(node, node_index, node_kind):
-	pass # Replace with function body.
+	properties_editor.fill_properties_for_object(node)
+	current_active_control = node
 
 
 func _on_design_canvas_node_deselected(node, node_index, node_kind):
@@ -80,3 +84,8 @@ func _on_design_canvas_mouse_released(mouse_button, mouse_position):
 
 func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
 	pass # Replace with function body.
+
+
+func _on_design_canvas_all_nodes_deselected():
+	current_active_control = null
+	properties_editor.clear_all_properties()
