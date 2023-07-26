@@ -55,7 +55,7 @@ func _on_design_canvas_node_rotated(node, node_index, node_kind):
 
 
 # Properties editor event handling
-func _on_properties_editor_property_changed(property_set_id, property_id, new_value):
+func _on_properties_editor_property_changed(property_set_id, property_id, new_value, is_property_custom):
 	pass # Replace with function body.
 
 

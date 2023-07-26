@@ -1,8 +1,9 @@
 extends MenuButton
 
-signal value_updated(property_id: String, new_value)
+signal value_updated(property_id: String, new_value, is_custom_property: bool)
 
 @export var property_id: String = ""
+@export var is_custom_property: bool = false
 
 # Store of values
 var values: Array = []
@@ -10,7 +11,7 @@ var values: Array = []
 # When an item is pressed
 func popup_index_pressed(index: int):
 	text = values[index]
-	emit_signal("value_updated", property_id, index)
+	emit_signal("value_updated", property_id, index, is_custom_property)
 
 
 # Initalization

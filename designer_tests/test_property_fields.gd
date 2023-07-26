@@ -34,5 +34,5 @@ func _ready():
 
 
 # Test chnage property value
-func _on_properties_editor_property_changed(property_set_id, property_id, new_value):
+func _on_properties_editor_property_changed(property_set_id, property_id, new_value, is_property_custom):
 	print("Set id :" + property_set_id + " / Prop ID:" + property_id + " / Value: " + str(new_value))
