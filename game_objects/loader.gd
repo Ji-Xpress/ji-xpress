@@ -59,11 +59,10 @@ func reset_game_objects():
 
 ## Load internal packs without the PCKs
 func load_internal_pack(pack_name: String):
-	if internal_resource_packs.has(pack_name):
+	if not internal_resource_packs.has(pack_name):
 		return false
 	
-	var pack = internal_resource_packs[pack_name]
-	var pack_data: Dictionary = internal_resource_packs[pack]
+	var pack_data: Dictionary = internal_resource_packs[pack_name]
 	var loader = load(pack_data[prop_loader])
 	loader = loader.new()
 	

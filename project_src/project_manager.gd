@@ -102,6 +102,9 @@ func create_new_project(project_path: String, project_pack: String):
 		create_project_configuration(project_pack)
 		save_project_configuration()
 		
+		# Load the current set of objects
+		GameObjectsLoader.load_internal_pack(project_pack)
+		
 		objects = get_project_objects()
 		scenes = get_project_scenes()
 		scripts = get_project_scripts()
@@ -199,6 +202,9 @@ func open_project(project_path: String):
 			
 			# Load all project objects
 			current_project_path = project_path
+			
+			# Load the current set of objects
+			GameObjectsLoader.load_internal_pack(project_metadata[ProjectMetadata.prop_project_pack])
 			
 			objects = get_project_objects()
 			scenes = get_project_scenes()

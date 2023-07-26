@@ -8,6 +8,7 @@ const prompt_flag_new_scene: String = "new_scene"
 @onready var tab_container: TabContainer = $PanelContainer/VBoxContainer/HSplitContainer/TabContainer
 @onready var project_tree_ui: Control = $PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI
 @onready var dialogs: Control = $Dialogs
+@onready var main_ui_dialogs: Control = $MainUIDialogs
 
 @onready var save_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/SaveProjectButton
 @onready var close_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton
@@ -18,6 +19,14 @@ const prompt_flag_new_scene: String = "new_scene"
 
 ## Keeps track of current open tabs
 var current_open_tabs: Dictionary = {}
+## Keeps track of tab control requesting an action
+var requesting_tab_instance_control: Control = null
+
+
+## When a game object dialog is requested
+func on_game_object_dialog_requested(node_instance: Control):
+	requesting_tab_instance_control = node_instance
+	main_ui_dialogs.show_game_object_dialog()
 
 
 # Perform project save
@@ -60,6 +69,8 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		new_canvas_scene.scene_name = scene_name
 		# Add to the tab container
 		tab_container.call_deferred("add_child", new_canvas_scene)
+		# Connect to game object dialog requested
+		new_canvas_scene.connect("add_node_pressed", Callable(self, "on_game_object_dialog_requested"))
 		
 		# Track the child control 
 		await tab_container.child_entered_tree
@@ -84,3 +95,8 @@ func _on_dialogs_input_prompt_result(result, flag):
 		prompt_flag_new_scene:
 			if ProjectManager.create_new_scene(result):
 				project_tree_ui.populate_scene_list()
+
+
+# Game object reference addition requested
+func _on_main_ui_dialogs_game_object_window_result(game_object_reference):
+	pass # Replace with function body.

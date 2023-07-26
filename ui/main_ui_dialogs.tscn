@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3p6flqi3d5io"]
+
+[ext_resource type="PackedScene" uid="uid://b6h1w25m0ca2q" path="res://ui/dialogs/add_game_object_dialog.tscn" id="1_vtc4g"]
+[ext_resource type="Script" path="res://ui/main_ui_dialogs.gd" id="1_x4gke"]
+
+[node name="MainUIDialogs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x4gke")
+
+[node name="AddGameObjectDialog" parent="." instance=ExtResource("1_vtc4g")]
+initial_position = 2
+visible = false
+
+[connection signal="window_result" from="AddGameObjectDialog" to="." method="_on_add_game_object_dialog_window_result"]

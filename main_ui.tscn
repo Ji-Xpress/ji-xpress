@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bymo0mo27kepp"]
+[gd_scene load_steps=10 format=3 uid="uid://bymo0mo27kepp"]
 
 [ext_resource type="PackedScene" uid="uid://csdd3cuagwfma" path="res://ui/project_tree_ui.tscn" id="1_4j2qr"]
 [ext_resource type="Script" path="res://main_ui.gd" id="1_4jq4c"]
 [ext_resource type="Theme" uid="uid://vbdjw2o5urhh" path="res://themes/main_ui_theme.tres" id="1_055gw"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://ui/dialogs.tscn" id="3_hq754"]
 [ext_resource type="Texture2D" uid="uid://ce2qi4lx01q4" path="res://assets/icons/save.png" id="4_gd7uf"]
+[ext_resource type="PackedScene" uid="uid://c3p6flqi3d5io" path="res://ui/main_ui_dialogs.tscn" id="4_ghkyl"]
 [ext_resource type="Texture2D" uid="uid://dk5t7sh81ajnp" path="res://assets/icons/video.png" id="5_de6tr"]
 [ext_resource type="Texture2D" uid="uid://dca8jrwi6j21c" path="res://assets/icons/power.png" id="5_jrc2n"]
 [ext_resource type="Texture2D" uid="uid://cpr6lfkmtcxgn" path="res://assets/icons/forward.png" id="7_nt2rc"]
@@ -20,6 +21,9 @@ theme = ExtResource("1_055gw")
 script = ExtResource("1_4jq4c")
 
 [node name="Dialogs" parent="." instance=ExtResource("3_hq754")]
+layout_mode = 1
+
+[node name="MainUIDialogs" parent="." instance=ExtResource("4_ghkyl")]
 layout_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -92,6 +96,7 @@ wait_time = 0.05
 one_shot = true
 
 [connection signal="input_prompt_result" from="Dialogs" to="." method="_on_dialogs_input_prompt_result"]
+[connection signal="game_object_window_result" from="MainUIDialogs" to="." method="_on_main_ui_dialogs_game_object_window_result"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/SaveProjectButton" to="." method="_on_save_project_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton" to="." method="_on_close_project_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectSceneButton" to="." method="_on_run_project_scene_button_pressed"]
