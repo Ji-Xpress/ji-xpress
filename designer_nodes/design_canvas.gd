@@ -169,7 +169,7 @@ func on_node_clicked(node: Node2D, node_index: int):
 	if not is_mouse_down and not is_ctrl_key_down and not override_node_selection:
 		# Deactivate the selected rect
 		if current_active_node != null:
-			current_active_node.set_rect_extents_visibility(false)
+			current_active_node.object_functionality.set_rect_extents_visibility(false)
 		
 		# Iterate through all active hover nodes and find the node that has the highest order
 		var node_group_search_order: Array = [
@@ -187,7 +187,7 @@ func on_node_clicked(node: Node2D, node_index: int):
 			
 			# Set current active node
 			current_active_node = node_search
-			current_active_node.set_rect_extents_visibility(true)
+			current_active_node.object_functionality.set_rect_extents_visibility(true)
 			
 			# Initiate the drag position
 			node_drag_start_position = get_viewport().get_mouse_position()

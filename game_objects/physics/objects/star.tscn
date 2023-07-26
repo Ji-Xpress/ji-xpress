@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi8w4737wpkfb"]
+[gd_scene load_steps=7 format=3 uid="uid://bi8w4737wpkfb"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/star.gd" id="1_gsfdb"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_c8twx"]
 [ext_resource type="Texture2D" uid="uid://b4lq4c21il5yl" path="res://game_objects/physics/assets/objects/starGold.png" id="3_fedf7"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_nnitt"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_e0jv6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t1t4p"]
@@ -13,6 +14,8 @@ script = ExtResource("1_gsfdb")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_c8twx")]
 object_description = "Star"
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_nnitt")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t1t4p")

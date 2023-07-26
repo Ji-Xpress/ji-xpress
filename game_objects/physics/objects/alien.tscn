@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=7 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_miio1"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_2x26b"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="4_831n7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
@@ -13,6 +14,8 @@ script = ExtResource("1_t3meq")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("4_831n7")]
 object_description = "Alien Character"
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_2x26b")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_o0g4b")

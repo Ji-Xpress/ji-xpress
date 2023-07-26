@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d04uwa0pubhtj"]
+[gd_scene load_steps=7 format=3 uid="uid://d04uwa0pubhtj"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/coin.gd" id="1_nw5o2"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_sbnum"]
 [ext_resource type="Texture2D" uid="uid://0a5iavcyyavb" path="res://game_objects/physics/assets/objects/coinGold.png" id="1_v6fsh"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_fyypq"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_ulalu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_junsv"]
 radius = 24.0
@@ -13,6 +14,8 @@ script = ExtResource("1_nw5o2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_sbnum")]
 object_description = "Coin"
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_ulalu")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_junsv")
