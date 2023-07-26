@@ -26,8 +26,11 @@ func _ready():
 ## Clears project metadata
 func clear_project_metadata():
 	scenes = []
+	scenes_metadata = {}
 	objects = []
+	objects_metadata = {}
 	scripts = []
+	scripts_metadata = {}
 	current_project_path = ""
 	project_metadata = null
 
@@ -279,16 +282,20 @@ func open_script(file_name: String, mute_results: bool = false):
 
 ## Get all project objects
 func get_project_objects():
-	var extensions = get_dir_files("user://" + Constants.extensions_folder, ".pck")
+	var all_objects: Array[String] = []
 	
-	if extensions.size() > 0:
-		# TODO: Object detection logic in PCK
-		pass
-	else:
-		# TODO: Internal objects loading
-		pass
+	for object_type in GameObjectsLoader.game_objects:
+		# Iterate through all game objects in the type
+		var object_index: int = 0
+		for game_object in GameObjectsLoader.game_objects[object_type]:
+			var current_object: Dictionary = GameObjectsLoader.game_objects[object_type][game_object]
+			all_objects.append(current_object[GameObjectsLoader.prop_description])
+			objects_metadata[str(object_index)] = {
+				GameObjectsLoader.prop_object_url: current_object[GameObjectsLoader.prop_object_url]
+			}
+			object_index += 1
 	
-	return []
+	return all_objects
 
 
 ## Get all scene instances
