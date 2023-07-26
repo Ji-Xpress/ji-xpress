@@ -123,7 +123,7 @@ func _input(event):
 		if event.keycode == KEY_ESCAPE:
 			# Escape key handling - ESC down
 			if current_active_node != null:
-				emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_index)
+				emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_kind, current_active_node.object_metadata.node_index)
 				emit_signal("all_nodes_deselected")
 				# Reset selected node status
 				current_active_node.object_functionality.set_rect_extents_visibility(false)

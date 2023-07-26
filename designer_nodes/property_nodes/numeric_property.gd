@@ -7,5 +7,5 @@ signal value_updated(property_id: String, new_value, is_custom_property: bool)
 
 
 # Property has changed
-func _on_value_changed(value):
-	emit_signal("value_updated", property_id, value, is_custom_property)
+func _on_value_changed(new_value):
+	emit_signal("value_updated", property_id, new_value, is_custom_property)

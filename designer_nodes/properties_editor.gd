@@ -43,7 +43,7 @@ func fill_properties_for_object(game_object: Node2D):
 		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id)
 		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x)
 		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y)
-		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeString, game_object.rotation_degrees)
+		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees)
 		
 		var custom_properties = metadata_node.get(ObjectMetaData.prop_custom_properties)
 		
@@ -67,15 +67,15 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 	match property_type:
 		SharedEnums.PropertyType.TypeString:
 			value_control = text_property_node.instantiate()
-			value_control.text = str(value)
+			value_control.text = value
 		SharedEnums.PropertyType.TypeInt:
 			value_control = numeric_property_node.instantiate()
 			value_control.step = 1
-			value_control.value = int(value)
+			value_control.value = value
 		SharedEnums.PropertyType.TypeFloat:
 			value_control = numeric_property_node.instantiate()
 			value_control.step = 0.001
-			value_control.value = float(value)
+			value_control.value = value
 		SharedEnums.PropertyType.TypeDropDown:
 			value_control = dropdown_property_node.instantiate()
 			value_control.text = prop_name
