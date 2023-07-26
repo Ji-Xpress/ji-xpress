@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mln36kda074"]
 
-[ext_resource type="Script" path="res://nodes/canvas_mouse_hit_area.gd" id="1_12yj7"]
+[ext_resource type="Script" path="res://designer_nodes/canvas_mouse_hit_area.gd" id="1_12yj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2y4f8"]
 resource_local_to_scene = true

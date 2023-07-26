@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c2oi1kwu32qii"]
 
-[ext_resource type="Script" path="res://nodes/property_nodes/dropdown_property.gd" id="1_cgcyi"]
+[ext_resource type="Script" path="res://designer_nodes/property_nodes/dropdown_property.gd" id="1_cgcyi"]
 
 [node name="dropdown_property" type="MenuButton"]
 anchors_preset = 10

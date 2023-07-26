@@ -7,7 +7,12 @@ class_name ObjectMetaData
 ## Custom properties for the object
 @export var custom_properties: Array[ObjectCustomProperty] = []
 ## Object layer
-@export var object_layer: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
+@export var node_kind: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
+## Current object canvas mode
+@export var node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign
+
+## Keeps track of the index of the node
+var node_index: int = 0
 
 ## Holder of property values
 var prop_values: Dictionary = {}

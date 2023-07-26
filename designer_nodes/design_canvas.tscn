@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://be2ogxixyowlv"]
 
-[ext_resource type="Script" path="res://nodes/design_canvas.gd" id="1_675is"]
+[ext_resource type="Script" path="res://designer_nodes/design_canvas.gd" id="1_675is"]
 
 [node name="DesignCanvas" type="Node2D"]
 script = ExtResource("1_675is")

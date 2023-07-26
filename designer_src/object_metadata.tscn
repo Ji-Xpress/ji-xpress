@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5ytv63w64aps"]
+
+[ext_resource type="Script" path="res://designer_src/object_metadata.gd" id="1_4p1vi"]
+
+[node name="ObjectMetaData" type="Node"]
+script = ExtResource("1_4p1vi")

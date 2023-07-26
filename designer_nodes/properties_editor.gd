@@ -1,11 +1,11 @@
 extends Control
 
 # Node references
-const property_label_node: PackedScene = preload("res://nodes/property_nodes/property_label.tscn")
-const text_property_node: PackedScene = preload("res://nodes/property_nodes/text_property.tscn")
-const numeric_property_node: PackedScene = preload("res://nodes/property_nodes/numeric_property.tscn")
-const dropdown_property_node: PackedScene = preload("res://nodes/property_nodes/dropdown_property.tscn")
-const bool_property_node: PackedScene = preload("res://nodes/property_nodes/bool_property.tscn")
+const property_label_node: PackedScene = preload("res://designer_nodes/property_nodes/property_label.tscn")
+const text_property_node: PackedScene = preload("res://designer_nodes/property_nodes/text_property.tscn")
+const numeric_property_node: PackedScene = preload("res://designer_nodes/property_nodes/numeric_property.tscn")
+const dropdown_property_node: PackedScene = preload("res://designer_nodes/property_nodes/dropdown_property.tscn")
+const bool_property_node: PackedScene = preload("res://designer_nodes/property_nodes/bool_property.tscn")
 
 # To identify what the properties are for
 @export var property_set_id: String = ""

@@ -1,6 +1,6 @@
 extends Node2D
 
-const canvas_mouse_hit_area = preload("res://nodes/canvas_mouse_hit_area.tscn")
+const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_area.tscn")
 
 ## Grid snapping. If set it snaps the object movement
 @export var grid_snapping: Vector2 = Vector2(1, 1)
@@ -98,7 +98,7 @@ func _input(event):
 	# We need to deactivate all flags
 	if (event is InputEventMouseButton and not event.pressed):
 		if is_dragging_node and current_active_node != null:
-			emit_signal("node_moved", current_active_node, current_active_node.node_index, current_active_node.node_kind)
+			emit_signal("node_moved", current_active_node, current_active_node.object_metadata.node_index, current_active_node.object_metadata.node_kind)
 		
 		is_mouse_down = false
 		is_dragging_node = false
@@ -121,7 +121,7 @@ func _input(event):
 		if event.keycode == KEY_ESCAPE:
 			# Escape key handling - ESC down
 			if current_active_node != null:
-				emit_signal("node_deselected", current_active_node, current_active_node.node_index)
+				emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_index)
 				# Reset selected node status
 				current_active_node.set_rect_extents_visibility(false)
 				current_active_node = null
@@ -193,25 +193,25 @@ func on_node_clicked(node: Node2D, node_index: int):
 			node_drag_start_position = get_viewport().get_mouse_position()
 			
 			# Emit node has been selected
-			emit_signal("node_selected", node, node_index, current_active_node.node_kind)
+			emit_signal("node_selected", node, node_index, current_active_node.object_metadata.node_kind)
 
 
 ## Event handler - A node has been unclicked
 func on_node_unclicked(node: Node2D, node_index: int):
 	# Allow click processing
-	emit_signal("node_deselected", node, node_index, node.node_kind)
+	emit_signal("node_deselected", node, node_index, node.object_metadata.node_kind)
 
 
 ## Event handler - A node has hover focus
 func on_node_hover(node: Node2D, node_index: int):
 	var node_key = str(node_index)
-	var node_kind: ActiveHoverNode.NodeKind = node.node_kind
+	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
 	
 	var node_data = ActiveHoverNode.new()
 	node_data.node = node
 	node_data.node_index_int = node_index
 	node_data.node_index_str = node_key
-	node_data.node_kind = node_kind
+	node_data.object_metadata.node_kind = node_kind
 	
 	# If no node key exists for that index in the hover nodes, add it
 	match node_kind:
@@ -232,7 +232,7 @@ func on_node_hover(node: Node2D, node_index: int):
 ## Event handler - A node has lost hover focus
 func on_node_hover_out(node: Node2D, node_index: int):
 	var node_key = str(node_index)
-	var node_kind: ActiveHoverNode.NodeKind = node.node_kind
+	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
 	
 	# Remove the node index in the hover nodes if the key exists
 	match node_kind:
@@ -267,11 +267,11 @@ func add_new_node(new_node: Node2D, node_kind: \
 			
 			# Set node level properties
 			# Set the node index
-			new_node.node_index = node_count
+			new_node.object_metadata.node_index = node_count
 			# Explicity set the node kind
-			new_node.node_kind = node_kind
+			new_node.object_metadata.node_kind = node_kind
 			# Set node mode
-			new_node.node_mode = node_mode
+			new_node.object_metadata.node_mode = node_mode
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size
@@ -309,4 +309,4 @@ func add_new_node(new_node: Node2D, node_kind: \
 func set_current_node_rotation(degrees: int):
 	if current_active_node != null:
 		current_active_node.rotation_degrees = degrees
-		emit_signal("node_rotated", current_active_node, current_active_node.node_index, current_active_node.node_kind)
+		emit_signal("node_rotated", current_active_node, current_active_node.object_metadata.node_index, current_active_node.object_metadata.node_kind)

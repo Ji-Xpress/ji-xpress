@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://isb48lm6fuvj"]
 
-[ext_resource type="Script" path="res://nodes/properties_editor.gd" id="1_138dm"]
+[ext_resource type="Script" path="res://designer_nodes/properties_editor.gd" id="1_138dm"]
 
 [node name="PropertiesEditor" type="Control"]
 layout_mode = 3
