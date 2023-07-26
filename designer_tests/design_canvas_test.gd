@@ -1,8 +1,8 @@
 extends Control
 
-const selectable_spite_node: PackedScene = preload("res://tests/selectable_sprite_node.tscn")
-const selectable_wide_node: PackedScene = preload("res://tests/selectable_sprite_node_wide.tscn")
-const selectable_bigger_node: PackedScene = preload("res://tests/selectable_sprite_node_bigger.tscn")
+const selectable_spite_node: PackedScene = preload("res://designer_tests/selectable_sprite_node.tscn")
+const selectable_wide_node: PackedScene = preload("res://designer_tests/selectable_sprite_node_wide.tscn")
+const selectable_bigger_node: PackedScene = preload("res://designer_tests/selectable_sprite_node_bigger.tscn")
 
 # Design Canvas
 @onready var design_canvas: Node2D = $VBoxContainer/SubViewportContainer/SubViewport/DesignCanvas

@@ -211,7 +211,7 @@ func on_node_hover(node: Node2D, node_index: int):
 	node_data.node = node
 	node_data.node_index_int = node_index
 	node_data.node_index_str = node_key
-	node_data.object_metadata.node_kind = node_kind
+	node_data.node_kind = node_kind
 	
 	# If no node key exists for that index in the hover nodes, add it
 	match node_kind:
@@ -267,11 +267,14 @@ func add_new_node(new_node: Node2D, node_kind: \
 			
 			# Set node level properties
 			# Set the node index
-			new_node.object_metadata.node_index = node_count
+			var object_metadata_node: Node = new_node.get_node("ObjectMetaData")
+			
+			# Set the node index
+			object_metadata_node.node_index = node_count
 			# Explicity set the node kind
-			new_node.object_metadata.node_kind = node_kind
+			object_metadata_node.node_kind = node_kind
 			# Set node mode
-			new_node.object_metadata.node_mode = node_mode
+			object_metadata_node.node_mode = node_mode
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size

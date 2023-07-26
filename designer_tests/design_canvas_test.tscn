@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5nr0ntteel30"]
 
-[ext_resource type="Script" path="res://tests/design_canvas_test.gd" id="1_hs7gx"]
+[ext_resource type="Script" path="res://designer_tests/design_canvas_test.gd" id="1_hs7gx"]
 [ext_resource type="PackedScene" uid="uid://be2ogxixyowlv" path="res://designer_nodes/design_canvas.tscn" id="1_mscqe"]
 
 [sub_resource type="Theme" id="Theme_trgj1"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dghonk3ev1503"]
 
-[ext_resource type="Script" path="res://tests/test_property_fields.gd" id="1_5f1dr"]
+[ext_resource type="Script" path="res://designer_tests/test_property_fields.gd" id="1_5f1dr"]
 [ext_resource type="PackedScene" uid="uid://isb48lm6fuvj" path="res://designer_nodes/properties_editor.tscn" id="1_ujao0"]
 
 [node name="TestPropertyFields" type="Control"]

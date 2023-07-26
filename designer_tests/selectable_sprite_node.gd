@@ -1,6 +1,8 @@
 extends Sprite2D
 
 @onready var rect_extents_2d: RectExtents2D = $RectExtents2D
+@onready var object_metadata: ObjectMetaData = $ObjectMetaData
+
 
 # Node Kind variable
 var node_kind: ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground

@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://0j1kwpowp0iy"]
+[gd_scene load_steps=5 format=3 uid="uid://0j1kwpowp0iy"]
 
 [ext_resource type="Texture2D" uid="uid://benj0lsnh3cke" path="res://icon.svg" id="1_tb1m1"]
-[ext_resource type="Script" path="res://tests/selectable_sprite_node.gd" id="2_f43qh"]
+[ext_resource type="Script" path="res://designer_tests/selectable_sprite_node.gd" id="2_f43qh"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_gilxy"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="4_xbppl"]
 
 [node name="SelectableSpriteNode" type="Sprite2D"]
 texture = ExtResource("1_tb1m1")
 script = ExtResource("2_f43qh")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("4_xbppl")]
 
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_gilxy")
