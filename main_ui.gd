@@ -101,7 +101,8 @@ func _on_run_project_scene_button_pressed():
 
 # We need to run the project
 func _on_run_project_button_pressed():
-	pass # Replace with function body.
+	if ProjectManager.project_metadata[ProjectMetadata.prop_startup_scene] != "":
+		main_ui_dialogs.show_canvas_player(ProjectManager.project_metadata[ProjectMetadata.prop_startup_scene])
 
 
 # Create a new scene button has been pressed
