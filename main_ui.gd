@@ -68,11 +68,13 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 	# Handle situation where the tab is in the middle of others so that we can keep track
 	for tab in current_open_tabs:
 		if current_open_tabs[tab] >= removed_tab_index:
-			current_open_tabs[tab] -= 1
 			# Re arrange the tab tracker
 			if tab_number_tracker.has(str(current_open_tabs[tab])):
 				tab_number_tracker[str(current_open_tabs[tab] - 1)] = tab_number_tracker[str(current_open_tabs[tab])]
 				tab_number_tracker.erase(str(current_open_tabs[tab]))
+			
+			# Re-orient the current open tab index
+			current_open_tabs[tab] -= 1
 
 
 # Perform project save
