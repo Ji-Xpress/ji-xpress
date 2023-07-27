@@ -27,6 +27,8 @@ const prop_object_index: String = "object_index"
 var position_x: int = 0
 ## Y position
 var position_y: int = 0
+## Rotation
+var rotation: int = 0
 ## Keeps track of the index of the node
 var node_index: int = 0
 ## Keeps track of the index of the object within the canvas itself

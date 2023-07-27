@@ -218,7 +218,7 @@ func open_project(project_path: String):
 
 
 ## Saves a scene to the project folder
-func save_scene(file_name: String, scene_metadata: SceneMetaData):
+func save_scene(file_name: String, scene_metadata: Dictionary):
 	save_file_to_folder(file_name, false, [ Constants.project_scenes_dir ], JSON.stringify(scene_metadata))
 
 

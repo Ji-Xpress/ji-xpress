@@ -37,10 +37,13 @@ func add_game_object_url_to_canvas(url: String):
 	
 	# Add a new object and track its index together with in the metadata
 	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode)
+	var object_id: String = "obj_" + str(object_index)
+	
 	node_instance_metadata.object_index = object_index
+	node_instance_metadata.object_id = object_id
 	
 	# Scene metadata instance
-	canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, "", \
+	canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, object_id, \
 		Vector2.ZERO, node_instance_metadata.prop_values)
 	
 	# Set tab is invalidated
@@ -49,9 +52,9 @@ func add_game_object_url_to_canvas(url: String):
 
 ## Synchronizes the project's metadata with the metadata of all the current objects on canvas
 func synchronize_project_metadata():
-	var foreground_nodes = design_canvas.et_all_nodes(ActiveHoverNode.NodeKind.foreground)
-	var background_nodes = design_canvas.et_all_nodes(ActiveHoverNode.NodeKind.background)
-	var tiles = design_canvas.et_all_nodes(ActiveHoverNode.NodeKind.background)
+	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
+	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
+	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
 	
 	var all_nodes = [foreground_nodes, background_nodes, tiles]
 	
@@ -59,7 +62,7 @@ func synchronize_project_metadata():
 		for child_node in node_group:
 			var object_metadata: ObjectMetaData = child_node.object_metadata
 			var object_index: int = object_metadata.object_index
-			var project_object_index: ObjectProperties = canvas_object_tracker[str(object_index)]
+			var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
 			
 			var position_prop: Vector2 = Vector2(object_metadata[ObjectMetaData.prop_position_x], object_metadata[ObjectMetaData.prop_position_y])
 			project_object_index[ObjectProperties.prop_position] = position_prop
@@ -70,7 +73,10 @@ func synchronize_project_metadata():
 
 # Save the tab's content
 func save_tab():
+	# Synchronize metadata
 	synchronize_project_metadata()
+	# Save scene
+	ProjectManager.save_scene(scene_name, ProjectManager.scenes_metadata[scene_name])
 	# Set tab is invalidated
 	tab_common.is_invalidated = false
 
@@ -135,6 +141,7 @@ func _on_add_node_button_pressed():
 # Save scene button has been pressed
 func _on_save_scene_button_pressed():
 	emit_signal("save_scene_pressed", self)
+	save_tab()
 
 
 # Canvas settings button has been pressed
