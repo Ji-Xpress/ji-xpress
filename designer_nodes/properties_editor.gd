@@ -27,7 +27,7 @@ signal property_changed(property_set_id: String, property_id: String, new_value,
 
 
 ## Used to handle when a property field changes
-func property_value_changed(property_id: String, value, is_custom_property):
+func property_value_changed(property_id: String, value, is_custom_property: bool):
 	emit_signal("property_changed", property_set_id, property_id, value, is_custom_property)
 
 
@@ -49,19 +49,20 @@ func fill_properties_for_object(game_object: Node2D):
 		clear_all_properties()
 		var metadata_node: ObjectMetaData = game_object.get_node("ObjectMetaData")
 		
-		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id)
-		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x)
-		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y)
-		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees)
+		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id, false)
+		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x, false)
+		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y, false)
+		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees, false)
 		
 		var custom_properties = metadata_node.get(ObjectMetaData.prop_custom_properties)
 		
 		var custom_prop_index: int = 0
 		for metadata_item in custom_properties:
 			var current_property = custom_properties[custom_prop_index]
-			add_property(current_property.get(ObjectCustomProperty.prop_prop_name), \
-				current_property.get(ObjectCustomProperty.prop_prop_type), \
-				current_property.get(ObjectCustomProperty.prop_prop_value))
+			var property_name: String = current_property.get(ObjectCustomProperty.prop_prop_name)
+			
+			add_property(property_name, current_property.get(ObjectCustomProperty.prop_prop_type), \
+				metadata_node.get_property(property_name), true)
 			
 			custom_prop_index += 1
 

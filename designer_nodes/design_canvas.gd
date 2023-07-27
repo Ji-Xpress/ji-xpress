@@ -278,6 +278,8 @@ func add_new_node(new_node: Node2D, node_kind: \
 			object_metadata_node.node_kind = node_kind
 			# Set node mode
 			object_metadata_node.node_mode = node_mode
+			# Prepare a dictionary of all custom properties in the metadata
+			object_metadata_node.prepare_custom_prop_dict()
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size

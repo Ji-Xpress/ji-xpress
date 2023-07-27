@@ -29,6 +29,12 @@ var node_index: int = 0
 var prop_values: Dictionary = {}
 
 
+## Prepares dictionary of custom property holders
+func prepare_custom_prop_dict():
+	for property in custom_properties:
+		set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
+
+
 ## Gets a property's value
 func get_property(prop: String):
 	if prop_values.has(prop):

@@ -59,7 +59,17 @@ func _on_design_canvas_node_rotated(node, node_index, node_kind):
 
 # Properties editor event handling
 func _on_properties_editor_property_changed(property_set_id, property_id, new_value, is_property_custom):
-	pass # Replace with function body.
+	if current_active_control != null:
+		if is_property_custom:
+			current_active_control.object_metadata.set_property(property_id, new_value)
+		else:
+			match property_id:
+				ObjectMetaData.prop_position_x:
+					current_active_control.position.x = int(new_value)
+				ObjectMetaData.prop_position_y:
+					current_active_control.position.y = int(new_value)
+				ObjectMetaData.prop_rotation:
+					current_active_control.rotation_degrees = int(new_value)
 
 
 # Add node button has been pressed
