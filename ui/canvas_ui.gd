@@ -20,9 +20,18 @@ signal canvas_settings_pressed(node_instance: Control)
 
 ## Tracks the current active control
 var current_active_control: Node2D = null
-
 ## Keeps track of objects within the context of the canvas
 var canvas_object_tracker: Dictionary = {}
+## Keeps track of the last object index
+var last_object_index = -1
+
+
+# Initialize
+func _ready():
+	if ProjectManager.scenes_metadata.has(scene_name):
+		var scene_metadata: Dictionary = ProjectManager.scenes_metadata[scene_name]
+		# Re assign the node count
+		design_canvas.node_count = scene_metadata[SceneMetaData.prop_last_object_id]
 
 
 ## Adds a node with a specific resource URL to canvas
@@ -46,6 +55,9 @@ func add_game_object_url_to_canvas(url: String):
 	canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, object_id, \
 		Vector2.ZERO, node_instance_metadata.prop_values)
 	
+	# Track last object index
+	last_object_index = object_index
+	
 	# Set tab is invalidated
 	tab_common.is_invalidated = true
 
@@ -55,6 +67,10 @@ func synchronize_project_metadata():
 	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
 	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
 	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
+	var current_project_manager_scene = ProjectManager.scenes_metadata[scene_name]
+	
+	# Store the last object index
+	current_project_manager_scene[SceneMetaData.prop_last_object_id] = last_object_index
 	
 	var all_nodes = [foreground_nodes, background_nodes, tiles]
 	
@@ -66,6 +82,7 @@ func synchronize_project_metadata():
 			
 			var position_prop: Vector2 = Vector2(object_metadata[ObjectMetaData.prop_position_x], object_metadata[ObjectMetaData.prop_position_y])
 			project_object_index[ObjectProperties.prop_position] = position_prop
+			project_object_index[ObjectProperties.prop_object_index] = object_index
 			project_object_index[ObjectProperties.prop_rotation] = object_metadata[ObjectMetaData.prop_rotation]
 			project_object_index[ObjectProperties.prop_custom_properties] = object_metadata.prop_values
 			project_object_index[ObjectProperties.prop_object_id] = object_metadata.object_id
@@ -97,7 +114,6 @@ func _on_design_canvas_node_moved(node, node_index, node_kind):
 		# Object Metadata update
 		current_active_control.object_metadata.position_x = node.position.x
 		current_active_control.object_metadata.position_y = node.position.y
-		
 		# Set tab is invalidated
 		tab_common.is_invalidated = true
 
@@ -108,7 +124,6 @@ func _on_design_canvas_node_rotated(node, node_index, node_kind):
 		properties_editor.update_property(ObjectMetaData.prop_rotation, node.rotation_degrees)
 		# Object Metadata update
 		current_active_control.object_metadata.rotation = node.rotation_degrees
-		
 		# Set tab is invalidated
 		tab_common.is_invalidated = true
 

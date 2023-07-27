@@ -4,6 +4,7 @@ class_name ObjectProperties
 # Constants
 const prop_node_id: String = "node_id"
 const prop_object_id: String = "object_id"
+const prop_object_index: String = "object_index"
 const prop_rotation: String = "rotation"
 const prop_position: String = "position"
 const prop_code_files: String = "code_files"
@@ -15,6 +16,7 @@ static func model_template():
 	return {
 		prop_node_id: "",
 		prop_object_id: "",
+		prop_object_index: 0,
 		prop_rotation: 0,
 		prop_position: Vector2.ZERO,
 		prop_code_files: [],

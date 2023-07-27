@@ -126,7 +126,7 @@ func create_new_scene(scene_name: String):
 	
 	if save_file_to_folder(scene_name + Constants.scene_extension, false, [ Constants.project_scenes_dir ], JSON.stringify(new_scene)):
 		scenes.append(scene_name + Constants.scene_extension)
-		scenes_metadata[scene_name] = new_scene
+		scenes_metadata[scene_name + Constants.scene_extension] = new_scene
 		return true
 
 

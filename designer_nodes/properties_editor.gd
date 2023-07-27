@@ -87,7 +87,8 @@ func update_property(property_id: String, value):
 
 
 ## Add a property to the container
-func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null, is_custom_property: bool = false):
+func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null, \
+	is_custom_property: bool = false, is_read_only: bool = false):
 	var prop_name: String = property_id.capitalize()
 	var label_instance: Label = property_label_node.instantiate()
 	label_instance.text = prop_name
@@ -130,6 +131,7 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 		# Set up other props and connect signals
 		value_control.property_id = property_id
 		value_control.is_custom_property = is_custom_property
+		value_control.is_read_only = is_read_only
 		value_control.connect("value_updated", Callable(self, "property_value_changed"))
 		
 		grid_container.call_deferred("add_child", label_instance)
