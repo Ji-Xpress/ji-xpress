@@ -14,6 +14,7 @@ const prompt_flag_new_scene: String = "new_scene"
 @onready var close_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton
 @onready var run_project_scene_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectSceneButton
 @onready var run_project_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectButton
+@onready var project_settings_button: Button = $PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/ProjectSettingsButton
 
 @onready var tab_switch_timer: Timer = $PanelContainer/VBoxContainer/HSplitContainer/TabSwitchTimer
 
@@ -64,6 +65,11 @@ func _on_save_project_button_pressed():
 func _on_close_project_button_pressed():
 	ProjectManager.clear_project_metadata()
 	get_tree().change_scene_to_file("res://launcher.tscn")
+
+
+# Project settings button clicked
+func _on_project_settings_button_pressed():
+	pass # Replace with function body.
 
 
 # We need to run the current scene

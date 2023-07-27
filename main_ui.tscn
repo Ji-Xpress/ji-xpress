@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bymo0mo27kepp"]
+[gd_scene load_steps=11 format=3 uid="uid://bymo0mo27kepp"]
 
 [ext_resource type="PackedScene" uid="uid://csdd3cuagwfma" path="res://ui/project_tree_ui.tscn" id="1_4j2qr"]
 [ext_resource type="Script" path="res://main_ui.gd" id="1_4jq4c"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dk5t7sh81ajnp" path="res://assets/icons/video.png" id="5_de6tr"]
 [ext_resource type="Texture2D" uid="uid://dca8jrwi6j21c" path="res://assets/icons/power.png" id="5_jrc2n"]
 [ext_resource type="Texture2D" uid="uid://cpr6lfkmtcxgn" path="res://assets/icons/forward.png" id="7_nt2rc"]
+[ext_resource type="Texture2D" uid="uid://bpqv4yoqw5cpx" path="res://assets/icons/gear.png" id="9_bp0fh"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -76,6 +77,12 @@ layout_mode = 2
 icon = ExtResource("7_nt2rc")
 expand_icon = true
 
+[node name="ProjectSettingsButton" type="Button" parent="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("9_bp0fh")
+expand_icon = true
+
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -102,6 +109,7 @@ one_shot = true
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton" to="." method="_on_close_project_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectSceneButton" to="." method="_on_run_project_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/RunProjectButton" to="." method="_on_run_project_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/ProjectSettingsButton" to="." method="_on_project_settings_button_pressed"]
 [connection signal="create_scene_pressed" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_create_scene_pressed"]
 [connection signal="object_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_object_selected"]
 [connection signal="scene_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_scene_selected"]
