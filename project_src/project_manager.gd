@@ -137,8 +137,9 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 	
 	var scene_instance = scenes_metadata[scene_name]
 	
+	# Just return existing object metadata if it exists
 	if scene_instance[SceneMetaData.prop_nodes].has(object_id):
-		return false
+		return scene_instance[SceneMetaData.prop_nodes][object_id]
 	
 	# Create new object properties sets
 	var new_object_properties: Dictionary = ObjectProperties.model_template()

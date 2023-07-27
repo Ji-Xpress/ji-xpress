@@ -163,10 +163,13 @@ func _on_properties_editor_property_changed(property_set_id, property_id, new_va
 			match property_id:
 				ObjectMetaData.prop_position_x:
 					current_active_control.position.x = int(new_value)
+					current_active_control.object_metadata.position_x = int(new_value)
 				ObjectMetaData.prop_position_y:
 					current_active_control.position.y = int(new_value)
+					current_active_control.object_metadata.position_y = int(new_value)
 				ObjectMetaData.prop_rotation:
 					current_active_control.rotation_degrees = int(new_value)
+					current_active_control.object_metadata.rotation = int(new_value)
 		
 		# Set tab is invalidated
 		tab_common.is_invalidated = true
