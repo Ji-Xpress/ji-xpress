@@ -55,7 +55,9 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 
 # Perform project save
 func _on_save_project_button_pressed():
-	pass # Replace with function body.
+	for tab in tab_container.get_children():
+		if tab.tab_common.is_invalidated:
+			tab.save_tab()
 
 
 # Perform project close
