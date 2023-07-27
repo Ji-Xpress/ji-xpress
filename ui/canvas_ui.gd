@@ -17,6 +17,8 @@ signal add_node_pressed(node_instance: Control)
 signal save_scene_pressed(node_instance: Control)
 ## When the canvas settings button is pressed
 signal canvas_settings_pressed(node_instance: Control)
+## When the tab is being closed
+signal tab_close_request(node_instance: Control, scene_id: String)
 
 ## Tracks the current active control
 var current_active_control: Node2D = null
@@ -190,7 +192,6 @@ func _on_add_node_button_pressed():
 # Save scene button has been pressed
 func _on_save_scene_button_pressed():
 	emit_signal("save_scene_pressed", self)
-	save_tab()
 
 
 # Canvas settings button has been pressed
@@ -198,9 +199,16 @@ func _on_canvas_settings_button_pressed():
 	emit_signal("canvas_settings_pressed", self)
 
 
+# All nodes deselected on the canvas
 func _on_design_canvas_all_nodes_deselected():
 	current_active_control = null
 	properties_editor.clear_all_properties()
+
+
+# Close button has been pressed
+func _on_close_tab_button_pressed():
+	save_tab()
+	emit_signal("tab_close_request", self, scene_name)
 
 
 # When a node is deselected on canvas

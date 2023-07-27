@@ -35,6 +35,24 @@ func on_canvas_settings_requested(node_instance: Control):
 	main_ui_dialogs.show_canvas_settings_dialog()
 
 
+## Close the tab
+func on_canvas_close_request(node_instance: Control, scene_id: String):
+	node_instance.save_tab()
+	node_instance.disconnect("tab_close_request", Callable(self, "on_canvas_close_request"))
+	node_instance.queue_free()
+	
+	# What is the index of the removed tab?
+	var removed_tab_index: int = current_open_tabs[scene_id]
+	
+	# Lets iterate down the next set of open tab indexes
+	current_open_tabs.erase(scene_id)
+	
+	# Handle situation where the tab is in the middle of others so that we can keep track
+	for tab in current_open_tabs:
+		if current_open_tabs[tab] >= removed_tab_index:
+			current_open_tabs[tab] -= 1
+
+
 # Perform project save
 func _on_save_project_button_pressed():
 	pass # Replace with function body.
@@ -78,6 +96,7 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		# Connect to game object dialog requested
 		new_canvas_scene.connect("add_node_pressed", Callable(self, "on_game_object_dialog_requested"))
 		new_canvas_scene.connect("canvas_settings_pressed", Callable(self, "on_canvas_settings_requested"))
+		new_canvas_scene.connect("tab_close_request", Callable(self, "on_canvas_close_request"))
 		
 		# Track the child control 
 		await tab_container.child_entered_tree
