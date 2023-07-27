@@ -68,9 +68,8 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode, created_object_index)
 	var object_id: String = "obj_" + str(object_index)
 	
-	if created_node_metadata != null:
-		node_instance_metadata.object_index = object_index
-		node_instance_metadata.object_id = object_id
+	node_instance_metadata.object_index = object_index
+	node_instance_metadata.object_id = object_id
 	
 	# Scene metadata instance
 	var node_position = Vector2(node_instance_metadata.position_x, node_instance_metadata.position_y)

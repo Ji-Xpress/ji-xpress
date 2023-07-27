@@ -274,8 +274,9 @@ func add_new_node(new_node: Node2D, node_kind: \
 		# Check to see if the RectExtents2D child node is of the correct type
 		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
-			# Increase node count
-			node_count += 1
+			# Increase node count if it is a new node
+			if node_index < 0:
+				node_count += 1
 			
 			# Make the rect_extents node invisible by default
 			rect_extents_node.visible = false
