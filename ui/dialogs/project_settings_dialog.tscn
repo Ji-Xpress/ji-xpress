@@ -1,16 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbgch822mxyge"]
+[gd_scene load_steps=4 format=3 uid="uid://dbgch822mxyge"]
 
 [ext_resource type="Script" path="res://ui/dialogs/project_settings_dialog.gd" id="1_em3qd"]
 [ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="1_hwc7w"]
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="2_at2ag"]
 
 [node name="ProjectSettingsDialog" type="Window"]
 title = "Project Settings"
 position = Vector2i(0, 36)
-size = Vector2i(400, 100)
+size = Vector2i(400, 200)
 transient = true
 exclusive = true
 unresizable = true
-min_size = Vector2i(400, 100)
+min_size = Vector2i(400, 200)
 script = ExtResource("1_em3qd")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -39,7 +40,7 @@ theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 2
 
-[node name="StartupSceneSetting" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="StartupSceneLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Startup Scene"
 
@@ -49,6 +50,30 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_hwc7w")
 text = "Select Scene"
 alignment = 0
+
+[node name="WindowWidthLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Window Width"
+
+[node name="WindowWidth" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_at2ag")
+min_value = 600.0
+max_value = 1200.0
+value = 600.0
+alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Window Height"
+
+[node name="WindowHeight" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_at2ag")
+min_value = 500.0
+max_value = 900.0
+value = 500.0
+alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

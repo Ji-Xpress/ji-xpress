@@ -29,6 +29,8 @@ func show_project_settings_dialog():
 ## Shows the canvas player
 func show_canvas_player(scene_name: String):
 	canvas_player.scene_name = scene_name
+	canvas_player.size = Vector2(ProjectManager.project_metadata[ProjectMetadata.prop_window_width], \
+		ProjectManager.project_metadata[ProjectMetadata.prop_window_height])
 	canvas_player.show()
 
 

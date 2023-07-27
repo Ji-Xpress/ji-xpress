@@ -1,6 +1,9 @@
 extends Window
 
 @onready var startup_scene_dropdown: MenuButton = $PanelContainer/MarginContainer/VBoxContainer/GridContainer/StartupSceneDropdown
+@onready var window_width: SpinBox = $PanelContainer/MarginContainer/VBoxContainer/GridContainer/WindowWidth
+@onready var window_height: SpinBox = $PanelContainer/MarginContainer/VBoxContainer/GridContainer/WindowHeight
+
 var startup_scene_popup: PopupMenu = null
 
 
@@ -15,6 +18,8 @@ func _ready():
 
 
 func _on_save_button_pressed():
+	ProjectManager.project_metadata[ProjectMetadata.prop_window_width] = window_width.value
+	ProjectManager.project_metadata[ProjectMetadata.prop_window_height] = window_height.value
 	ProjectManager.save_project_configuration()
 	hide()
 
@@ -30,6 +35,10 @@ func _on_focus_entered():
 	
 	if current_scene_text != "":
 		startup_scene_dropdown.text = current_scene_text
+	
+	# Display window width and height settings from project
+	window_width.value = int(ProjectManager.project_metadata[ProjectMetadata.prop_window_width])
+	window_height.value = int(ProjectManager.project_metadata[ProjectMetadata.prop_window_height])
 	
 	# Clear and repopulate list
 	startup_scene_popup.clear()
