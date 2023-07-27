@@ -4,6 +4,7 @@ extends Control
 @onready var add_game_object_dialog: Window = $AddGameObjectDialog
 @onready var canvas_settings_dialog: Window = $CanvasSettingsDialog
 @onready var project_settings_dialog: Window = $ProjectSettingsDialog
+@onready var canvas_player: Window = $CanvasPlayer
 
 # Signals
 signal game_object_window_result(game_object_reference: String)
@@ -23,6 +24,12 @@ func show_canvas_settings_dialog():
 ## Displays the project settings
 func show_project_settings_dialog():
 	project_settings_dialog.show()
+
+
+## Shows the canvas player
+func show_canvas_player(scene_name: String):
+	canvas_player.scene_name = scene_name
+	canvas_player.show()
 
 
 # Add game object window result

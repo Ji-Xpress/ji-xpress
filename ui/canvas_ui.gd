@@ -10,6 +10,8 @@ extends Control
 @onready var properties_editor: Control = %PropertiesEditor
 @onready var design_canvas: Node2D = %DesignCanvas
 @onready var tab_common: Node = $TabCommon
+@onready var right_panel: Control = $PanelContainer/HSplitContainer/RightPanel
+@onready var canvas_menu: Control = $PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu
 
 ## When the add node button is pressed
 signal add_node_pressed(node_instance: Control)
@@ -32,6 +34,13 @@ var last_object_index = -1
 func _ready():
 	if ProjectManager.scenes_metadata.has(scene_name):
 		populate_project_nodes()
+	
+	if canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		right_panel.visible = false
+		canvas_menu.visible = false
+	else:
+		right_panel.visible = true
+		canvas_menu.visible = true
 
 
 ## Populates nodes from the current open project

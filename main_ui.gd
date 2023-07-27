@@ -1,8 +1,16 @@
 extends Control
 
+## Keeps track of the kind of tab page
+enum TabType {
+	TabScene, TabCode, TabNone
+}
+
 # Constants
 const canvas_ui: PackedScene = preload("res://ui/canvas_ui.tscn")
 const prompt_flag_new_scene: String = "new_scene"
+
+const prop_tab_tab_type: String = "tab_type"
+const prop_tab_tab_name: String = "tab_name"
 
 # Node references
 @onready var tab_container: TabContainer = $PanelContainer/VBoxContainer/HSplitContainer/TabContainer
@@ -22,6 +30,12 @@ const prompt_flag_new_scene: String = "new_scene"
 var current_open_tabs: Dictionary = {}
 ## Keeps track of tab control requesting an action
 var requesting_tab_instance_control: Control = null
+## Keeps track of the curren tab type
+var current_tab_type: TabType = TabType.TabNone
+## Keeps track of the current scene name4
+var current_scene_name: String = ""
+## Tab tracker dictionary
+var tab_number_tracker = {}
 
 
 ## When a game object dialog is requested
@@ -48,10 +62,17 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 	# Lets iterate down the next set of open tab indexes
 	current_open_tabs.erase(scene_id)
 	
+	if tab_number_tracker.has(str(removed_tab_index)):
+		tab_number_tracker.erase(str(removed_tab_index))
+	
 	# Handle situation where the tab is in the middle of others so that we can keep track
 	for tab in current_open_tabs:
 		if current_open_tabs[tab] >= removed_tab_index:
 			current_open_tabs[tab] -= 1
+			# Re arrange the tab tracker
+			if tab_number_tracker.has(str(current_open_tabs[tab])):
+				tab_number_tracker[str(current_open_tabs[tab] - 1)] = tab_number_tracker[str(current_open_tabs[tab])]
+				tab_number_tracker.erase(str(current_open_tabs[tab]))
 
 
 # Perform project save
@@ -74,7 +95,8 @@ func _on_project_settings_button_pressed():
 
 # We need to run the current scene
 func _on_run_project_scene_button_pressed():
-	pass # Replace with function body.
+	if current_scene_name != "":
+		main_ui_dialogs.show_canvas_player(current_scene_name)
 
 
 # We need to run the project
@@ -94,6 +116,10 @@ func _on_project_tree_ui_object_selected(object_name):
 
 # A scene has been selected from the tree
 func _on_project_tree_ui_scene_selected(scene_name):
+	# Set the current tab type to Scene Type
+	current_tab_type = TabType.TabScene
+	
+	# Open or create the relevant tab's content
 	if not current_open_tabs.has(scene_name):
 		# New canvas scene instance
 		var new_canvas_scene: Control = canvas_ui.instantiate()
@@ -119,6 +145,14 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		
 		tab_container.current_tab = tab_index
 		tab_container.set_tab_title(tab_index, scene_name)
+		
+		# Track the tab
+		tab_number_tracker[str(tab_index)] = {
+			prop_tab_tab_type: TabType.TabScene,
+			prop_tab_tab_name: scene_name
+		}
+		
+		current_scene_name = scene_name
 	else:
 		tab_container.current_tab = current_open_tabs[scene_name]
 
@@ -140,3 +174,13 @@ func _on_main_ui_dialogs_game_object_window_result(game_object_reference):
 func _on_main_ui_dialogs_canvas_settings_window_result(settings):
 	if requesting_tab_instance_control != null:
 		requesting_tab_instance_control.push_canvas_settings(settings)
+
+
+# Set the current tab metadata
+func _on_tab_container_tab_changed(tab):
+	if tab_number_tracker.has(str(tab)):
+		current_tab_type = tab_number_tracker[str(tab)][prop_tab_tab_type]
+		if current_tab_type == TabType.TabScene:
+			current_scene_name = tab_number_tracker[str(tab)][prop_tab_tab_name]
+		else:
+			current_scene_name = ""

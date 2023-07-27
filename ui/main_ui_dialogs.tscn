@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3p6flqi3d5io"]
+[gd_scene load_steps=6 format=3 uid="uid://c3p6flqi3d5io"]
 
 [ext_resource type="PackedScene" uid="uid://b6h1w25m0ca2q" path="res://ui/dialogs/add_game_object_dialog.tscn" id="1_vtc4g"]
 [ext_resource type="Script" path="res://ui/main_ui_dialogs.gd" id="1_x4gke"]
 [ext_resource type="PackedScene" uid="uid://0mvvg27gbp3q" path="res://ui/dialogs/canvas_settings_window.tscn" id="3_7ecey"]
 [ext_resource type="PackedScene" uid="uid://dbgch822mxyge" path="res://ui/dialogs/project_settings_dialog.tscn" id="4_ytqif"]
+[ext_resource type="PackedScene" uid="uid://bauo6m5un42ji" path="res://ui/dialogs/canvas_player.tscn" id="5_3xej1"]
 
 [node name="MainUIDialogs" type="Control"]
 layout_mode = 3
@@ -24,6 +25,9 @@ visible = false
 
 [node name="ProjectSettingsDialog" parent="." instance=ExtResource("4_ytqif")]
 initial_position = 2
+visible = false
+
+[node name="CanvasPlayer" parent="." instance=ExtResource("5_3xej1")]
 visible = false
 
 [connection signal="window_result" from="AddGameObjectDialog" to="." method="_on_add_game_object_dialog_window_result"]

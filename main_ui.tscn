@@ -113,3 +113,4 @@ one_shot = true
 [connection signal="create_scene_pressed" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_create_scene_pressed"]
 [connection signal="object_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_object_selected"]
 [connection signal="scene_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_scene_selected"]
+[connection signal="tab_changed" from="PanelContainer/VBoxContainer/HSplitContainer/TabContainer" to="." method="_on_tab_container_tab_changed"]
