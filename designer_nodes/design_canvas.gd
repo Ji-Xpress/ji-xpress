@@ -267,7 +267,8 @@ func on_node_hover_out(node: Node2D, node_index: int):
 ## Adds a new node to the node tree
 func add_new_node(new_node: Node2D, node_kind: \
 	ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground, \
-	node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign) -> int:
+	node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign,
+	node_index: int = -1) -> int:
 	# Check to see if it has the RectExtents2D child
 	if new_node.has_node("RectExtents2D"):
 		# Check to see if the RectExtents2D child node is of the correct type
@@ -283,8 +284,16 @@ func add_new_node(new_node: Node2D, node_kind: \
 			# Set the node index
 			var object_metadata_node: Node = new_node.get_node("ObjectMetaData")
 			
+			# Set the position and rotation
+			new_node.position = Vector2(object_metadata_node.position_x, object_metadata_node.position_y)
+			new_node.rotation_degrees = object_metadata_node.rotation
+			
 			# Set the node index
-			object_metadata_node.node_index = node_count
+			if node_index > -1:
+				object_metadata_node.node_index = node_index
+			else:
+				object_metadata_node.node_index = node_count
+			
 			# Explicity set the node kind
 			object_metadata_node.node_kind = node_kind
 			# Set node mode
@@ -319,7 +328,11 @@ func add_new_node(new_node: Node2D, node_kind: \
 			# Notify of an added node
 			emit_signal("node_added", new_node, node_count, node_kind)
 			
-			return node_count
+			# Is the node index set manally?
+			if node_index > -1:
+				return node_index
+			else:
+				return node_count
 	
 	return -1
 

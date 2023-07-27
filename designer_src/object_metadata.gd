@@ -37,6 +37,15 @@ var object_index: int = -1
 var prop_values: Dictionary = {}
 
 
+## Manually assigned the node's metadata
+func assign_metadata(metadata: Dictionary):
+	object_index = metadata.object_index
+	rotation = metadata.rotation
+	position_x = metadata.position_x
+	position_y = metadata.position_y
+	prop_values = metadata.custom_properties
+
+
 ## Prepares dictionary of custom property holders
 func prepare_custom_prop_dict(override: bool = false):
 	for property in custom_properties:

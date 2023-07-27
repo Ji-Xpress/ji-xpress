@@ -146,7 +146,8 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 	# Fill in the properties
 	new_object_properties[ObjectProperties.prop_node_id] = node_id
 	new_object_properties[ObjectProperties.prop_object_id] = object_id
-	new_object_properties[ObjectProperties.prop_position] = object_position
+	new_object_properties[ObjectProperties.prop_position_x] = object_position.x
+	new_object_properties[ObjectProperties.prop_position_y] = object_position.y
 	new_object_properties[ObjectProperties.prop_rotation] = 0
 	new_object_properties[ObjectProperties.prop_custom_properties] = custom_properties
 	new_object_properties[ObjectProperties.prop_code_files] = []

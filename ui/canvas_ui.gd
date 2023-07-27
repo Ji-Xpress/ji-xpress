@@ -29,13 +29,30 @@ var last_object_index = -1
 # Initialize
 func _ready():
 	if ProjectManager.scenes_metadata.has(scene_name):
-		var scene_metadata: Dictionary = ProjectManager.scenes_metadata[scene_name]
-		# Re assign the node count
-		design_canvas.node_count = scene_metadata[SceneMetaData.prop_last_object_id]
+		populate_project_nodes()
+
+
+## Populates nodes from the current open project
+func populate_project_nodes():
+	var scene_metadata: Dictionary = ProjectManager.scenes_metadata[scene_name]
+	# Re assign the node count
+	last_object_index = scene_metadata[SceneMetaData.prop_last_object_id]
+	design_canvas.node_count = last_object_index
+		
+	var scene_objects = scene_metadata[SceneMetaData.prop_nodes]
+		
+	# Add to scene
+	for scene_object in scene_objects:
+		var current_object = scene_objects[scene_object]
+		var node_id: String = current_object[ObjectProperties.prop_node_id]
+		var node_index: int = current_object[ObjectProperties.prop_object_index] 
+		
+		# Create a pre-prepared game object
+		add_game_object_url_to_canvas(node_id, node_index, current_object)
 
 
 ## Adds a node with a specific resource URL to canvas
-func add_game_object_url_to_canvas(url: String):
+func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, created_node_metadata = null):
 	var new_node: PackedScene = load(url)
 	var node_instance: Node2D = new_node.instantiate()
 	var node_kind: SharedEnums.ObjectLayer = node_instance.get_node(Constants.object_metadata_node).get("node_kind")
@@ -44,22 +61,29 @@ func add_game_object_url_to_canvas(url: String):
 	# Get the instance's metadata node
 	var node_instance_metadata: ObjectMetaData = node_instance.get_node(Constants.object_metadata_node)
 	
+	if created_node_metadata != null:
+		node_instance_metadata.assign_metadata(created_node_metadata)
+	
 	# Add a new object and track its index together with in the metadata
-	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode)
+	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode, created_object_index)
 	var object_id: String = "obj_" + str(object_index)
 	
-	node_instance_metadata.object_index = object_index
-	node_instance_metadata.object_id = object_id
+	if created_node_metadata != null:
+		node_instance_metadata.object_index = object_index
+		node_instance_metadata.object_id = object_id
 	
 	# Scene metadata instance
+	var node_position = Vector2(node_instance_metadata.position_x, node_instance_metadata.position_y)
 	canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, object_id, \
-		Vector2.ZERO, node_instance_metadata.prop_values)
+		node_position, node_instance_metadata.prop_values)
 	
 	# Track last object index
-	last_object_index = object_index
+	if created_object_index < 0:
+		last_object_index = object_index
 	
 	# Set tab is invalidated
-	tab_common.is_invalidated = true
+	if created_object_index < 0:
+		tab_common.is_invalidated = true
 
 
 ## Synchronizes the project's metadata with the metadata of all the current objects on canvas
@@ -80,8 +104,8 @@ func synchronize_project_metadata():
 			var object_index: int = object_metadata.object_index
 			var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
 			
-			var position_prop: Vector2 = Vector2(object_metadata[ObjectMetaData.prop_position_x], object_metadata[ObjectMetaData.prop_position_y])
-			project_object_index[ObjectProperties.prop_position] = position_prop
+			project_object_index[ObjectProperties.prop_position_x] = object_metadata[ObjectMetaData.prop_position_x]
+			project_object_index[ObjectProperties.prop_position_y] = object_metadata[ObjectMetaData.prop_position_y]
 			project_object_index[ObjectProperties.prop_object_index] = object_index
 			project_object_index[ObjectProperties.prop_rotation] = object_metadata[ObjectMetaData.prop_rotation]
 			project_object_index[ObjectProperties.prop_custom_properties] = object_metadata.prop_values
