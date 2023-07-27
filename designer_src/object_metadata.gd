@@ -10,6 +10,7 @@ const prop_rotation: String = "rotation"
 const prop_custom_properties: String = "custom_properties"
 const prop_node_kind: String = "node_kind"
 const prop_node_mode: String = "node_mode"
+const prop_object_index: String = "object_index"
 
 ## Object Description
 @export var object_id: String = ""
@@ -22,17 +23,26 @@ const prop_node_mode: String = "node_mode"
 ## Current object canvas mode
 @export var node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign
 
+## X position
+var position_x: int = 0
+## Y position
+var position_y: int = 0
 ## Keeps track of the index of the node
 var node_index: int = 0
-
+## Keeps track of the index of the object within the canvas itself
+var object_index: int = -1
 ## Holder of property values
 var prop_values: Dictionary = {}
 
 
 ## Prepares dictionary of custom property holders
-func prepare_custom_prop_dict():
+func prepare_custom_prop_dict(override: bool = false):
 	for property in custom_properties:
-		set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
+		if prop_values.has(property):
+			if override:
+				set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
+		else:
+			set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
 
 
 ## Gets a property's value

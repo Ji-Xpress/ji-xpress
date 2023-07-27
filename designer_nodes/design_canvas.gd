@@ -137,6 +137,17 @@ func _input(event):
 			is_ctrl_key_down = false
 
 
+## Returns all nodes of requested type
+func get_all_nodes(node_group: ActiveHoverNode.NodeKind):
+	match node_group:
+		ActiveHoverNode.NodeKind.foreground:
+			return foreground.get_children()
+		ActiveHoverNode.NodeKind.tile:
+			return tiles.get_children()
+		ActiveHoverNode.NodeKind.background:
+			return background.get_children()
+
+
 ## Scans a group of tiles to present which one is being selected
 func scan_hovered_nodes(node_group: Dictionary):
 	var greater_node_index: int = -1
@@ -279,7 +290,7 @@ func add_new_node(new_node: Node2D, node_kind: \
 			# Set node mode
 			object_metadata_node.node_mode = node_mode
 			# Prepare a dictionary of all custom properties in the metadata
-			object_metadata_node.prepare_custom_prop_dict()
+			object_metadata_node.prepare_custom_prop_dict(false)
 			
 			# Create a hit area with the same size and position as the rect extents node
 			var extents_size: Vector2 = rect_extents_node.size

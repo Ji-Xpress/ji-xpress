@@ -15,8 +15,8 @@ static func model_template():
 	return {
 		prop_node_id: "",
 		prop_object_id: "",
-		prop_rotation: 0.0,
+		prop_rotation: 0,
 		prop_position: Vector2.ZERO,
 		prop_code_files: [],
-		prop_custom_properties: []
+		prop_custom_properties: {}
 	}

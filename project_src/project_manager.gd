@@ -141,7 +141,7 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 		return false
 	
 	# Create new object properties sets
-	var new_object_properties: ObjectProperties = ObjectProperties.model_template()
+	var new_object_properties: Dictionary = ObjectProperties.model_template()
 	
 	# Fill in the properties
 	new_object_properties[ObjectProperties.prop_node_id] = node_id
