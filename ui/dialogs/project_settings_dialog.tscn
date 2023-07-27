@@ -5,6 +5,7 @@
 
 [node name="ProjectSettingsDialog" type="Window"]
 title = "Project Settings"
+position = Vector2i(0, 36)
 size = Vector2i(400, 100)
 transient = true
 exclusive = true
@@ -47,6 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1_hwc7w")
 text = "Select Scene"
+alignment = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
