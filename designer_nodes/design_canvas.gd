@@ -6,6 +6,8 @@ const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_are
 @export var grid_snapping: Vector2 = Vector2(1, 1)
 ## Override node selection operations
 @export var override_node_selection: bool = false
+## The current canvas mode
+@export var canvas_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign
 
 # Node references
 ## Node to store foreground nodes
@@ -74,67 +76,68 @@ var current_canvas_mouse_position: Vector2 = Vector2.ZERO
 # Track mouse events
 func _input(event):
 	# Generic event handling
-	if (event is InputEventMouseButton and event.pressed):
-		emit_signal("mouse_clicked", event.button_index, event.position)
-	elif (event is InputEventMouseButton and not event.pressed):
-		emit_signal("mouse_released", event.button_index, event.position)
-	
-	# Track the current mouse position
-	if (event is InputEventMouseMotion):
-		current_canvas_mouse_position = event.position
-	
-	# Handling panning (Mouse Middle Button)
-	# Panning is handled by middle mouse button being down or ctrl + left click
-	if (event is InputEventMouseButton and event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
-		(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
-		is_panning = true
-		mouse_pan_start_position = event.position
-		pan_screen_start_position = camera.position
-	elif (event is InputEventMouseButton and not event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
-		(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
-		is_panning = false
-		mouse_pan_start_position = Vector2.ZERO
-		pan_screen_start_position = Vector2.ZERO
-	
-	# When the mouse press is released anywhere in the screen
-	# We need to deactivate all flags
-	if (event is InputEventMouseButton and not event.pressed):
-		if is_dragging_node and current_active_node != null:
-			emit_signal("node_moved", current_active_node, current_active_node.object_metadata.node_index, current_active_node.object_metadata.node_kind)
+	if canvas_mode == SharedEnums.NodeCanvasMode.ModeDesign:
+		if (event is InputEventMouseButton and event.pressed):
+			emit_signal("mouse_clicked", event.button_index, event.position)
+		elif (event is InputEventMouseButton and not event.pressed):
+			emit_signal("mouse_released", event.button_index, event.position)
 		
-		is_mouse_down = false
-		is_dragging_node = false
-		node_drag_start_position = Vector2.ZERO
-	
-	# Mouse motion events
-	# This section handles viewport panning and also dragging
-	if event is InputEventMouseMotion and is_panning:
-		# Viewport panning
-		camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
-	elif event is InputEventMouseMotion and is_dragging_node:
-		# Moving the current active node
-		if current_active_node != null:
-			current_active_node.position += (event.position - node_drag_start_position).snapped(grid_snapping)
-			node_drag_start_position = event.position.snapped(grid_snapping)
-	
-	# Keyboard events
-	# In this section we track the use of <ESC> key and <Ctrl> key
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
-			# Escape key handling - ESC down
+		# Track the current mouse position
+		if (event is InputEventMouseMotion):
+			current_canvas_mouse_position = event.position
+		
+		# Handling panning (Mouse Middle Button)
+		# Panning is handled by middle mouse button being down or ctrl + left click
+		if (event is InputEventMouseButton and event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
+			(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
+			is_panning = true
+			mouse_pan_start_position = event.position
+			pan_screen_start_position = camera.position
+		elif (event is InputEventMouseButton and not event.pressed and ((event.button_index == MOUSE_BUTTON_MIDDLE) or \
+			(event.button_index == MOUSE_BUTTON_LEFT and is_ctrl_key_down))):
+			is_panning = false
+			mouse_pan_start_position = Vector2.ZERO
+			pan_screen_start_position = Vector2.ZERO
+		
+		# When the mouse press is released anywhere in the screen
+		# We need to deactivate all flags
+		if (event is InputEventMouseButton and not event.pressed):
+			if is_dragging_node and current_active_node != null:
+				emit_signal("node_moved", current_active_node, current_active_node.object_metadata.node_index, current_active_node.object_metadata.node_kind)
+			
+			is_mouse_down = false
+			is_dragging_node = false
+			node_drag_start_position = Vector2.ZERO
+		
+		# Mouse motion events
+		# This section handles viewport panning and also dragging
+		if event is InputEventMouseMotion and is_panning:
+			# Viewport panning
+			camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
+		elif event is InputEventMouseMotion and is_dragging_node:
+			# Moving the current active node
 			if current_active_node != null:
-				emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_kind, current_active_node.object_metadata.node_index)
-				emit_signal("all_nodes_deselected")
-				# Reset selected node status
-				current_active_node.object_functionality.set_rect_extents_visibility(false)
-				current_active_node = null
-		elif event.keycode == KEY_CTRL:
-			# Track if ctrl key is pressed
-			is_ctrl_key_down = true
-	elif event is InputEventKey and not event.pressed:
-		if event.keycode == KEY_CTRL:
-			# Track if ctrl key is released
-			is_ctrl_key_down = false
+				current_active_node.position += (event.position - node_drag_start_position).snapped(grid_snapping)
+				node_drag_start_position = event.position.snapped(grid_snapping)
+		
+		# Keyboard events
+		# In this section we track the use of <ESC> key and <Ctrl> key
+		if event is InputEventKey and event.pressed:
+			if event.keycode == KEY_ESCAPE:
+				# Escape key handling - ESC down
+				if current_active_node != null:
+					emit_signal("node_deselected", current_active_node, current_active_node.object_metadata.node_kind, current_active_node.object_metadata.node_index)
+					emit_signal("all_nodes_deselected")
+					# Reset selected node status
+					current_active_node.object_functionality.set_rect_extents_visibility(false)
+					current_active_node = null
+			elif event.keycode == KEY_CTRL:
+				# Track if ctrl key is pressed
+				is_ctrl_key_down = true
+		elif event is InputEventKey and not event.pressed:
+			if event.keycode == KEY_CTRL:
+				# Track if ctrl key is released
+				is_ctrl_key_down = false
 
 
 ## Returns all nodes of requested type

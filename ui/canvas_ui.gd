@@ -32,6 +32,10 @@ var last_object_index = -1
 
 # Initialize
 func _ready():
+	# Set the design canvas mode mode
+	design_canvas.canvas_mode = canvas_mode
+	
+	# Generic stuff
 	if ProjectManager.scenes_metadata.has(scene_name):
 		populate_project_nodes()
 	
