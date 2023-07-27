@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://0mvvg27gbp3q"]
+
+[ext_resource type="Script" path="res://ui/dialogs/canvas_settings_window.gd" id="1_th5pj"]
+
+[node name="CanvasSettingsWindow" type="Window"]
+title = "Canvas Settings"
+position = Vector2i(0, 36)
+size = Vector2i(300, 150)
+transient = true
+exclusive = true
+unresizable = true
+min_size = Vector2i(300, 150)
+script = ExtResource("1_th5pj")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Snapping" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="XSnappingLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Snapping"]
+layout_mode = 2
+text = "X Snapping"
+
+[node name="XSnapping" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/Snapping"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 64.0
+value = 1.0
+alignment = 2
+
+[node name="YSnappingLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Snapping"]
+layout_mode = 2
+text = "Y Snapping"
+
+[node name="YSnapping" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/Snapping"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 64.0
+value = 1.0
+alignment = 2
+
+[node name="Actions" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="OKButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Actions"]
+layout_mode = 2
+text = "OK"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Actions/OKButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Actions/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -29,6 +29,12 @@ func on_game_object_dialog_requested(node_instance: Control):
 	main_ui_dialogs.show_game_object_dialog()
 
 
+## Canvas settings popup requested
+func on_canvas_settings_requested(node_instance: Control):
+	requesting_tab_instance_control = node_instance
+	main_ui_dialogs.show_canvas_settings_dialog()
+
+
 # Perform project save
 func _on_save_project_button_pressed():
 	pass # Replace with function body.
@@ -71,6 +77,7 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		tab_container.call_deferred("add_child", new_canvas_scene)
 		# Connect to game object dialog requested
 		new_canvas_scene.connect("add_node_pressed", Callable(self, "on_game_object_dialog_requested"))
+		new_canvas_scene.connect("canvas_settings_pressed", Callable(self, "on_canvas_settings_requested"))
 		
 		# Track the child control 
 		await tab_container.child_entered_tree
@@ -101,3 +108,8 @@ func _on_dialogs_input_prompt_result(result, flag):
 func _on_main_ui_dialogs_game_object_window_result(game_object_reference):
 	if requesting_tab_instance_control != null:
 		requesting_tab_instance_control.add_game_object_url_to_canvas(game_object_reference)
+
+
+func _on_main_ui_dialogs_canvas_settings_window_result(settings):
+	if requesting_tab_instance_control != null:
+		requesting_tab_instance_control.push_canvas_settings(settings)

@@ -85,6 +85,14 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 		tab_common.is_invalidated = true
 
 
+## Push settings for the canvas
+func push_canvas_settings(settings):
+	var x_snapping: int = int(settings.x_snapping)
+	var y_snapping: int = int(settings.y_snapping)
+	
+	design_canvas.grid_snapping = Vector2(x_snapping, y_snapping)
+
+
 ## Synchronizes the project's metadata with the metadata of all the current objects on canvas
 func synchronize_project_metadata():
 	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)

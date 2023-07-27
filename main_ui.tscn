@@ -96,6 +96,7 @@ wait_time = 0.05
 one_shot = true
 
 [connection signal="input_prompt_result" from="Dialogs" to="." method="_on_dialogs_input_prompt_result"]
+[connection signal="canvas_settings_window_result" from="MainUIDialogs" to="." method="_on_main_ui_dialogs_canvas_settings_window_result"]
 [connection signal="game_object_window_result" from="MainUIDialogs" to="." method="_on_main_ui_dialogs_game_object_window_result"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/SaveProjectButton" to="." method="_on_save_project_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/CloseProjectButton" to="." method="_on_close_project_button_pressed"]

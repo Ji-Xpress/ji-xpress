@@ -302,20 +302,27 @@ func add_new_node(new_node: Node2D, node_kind: \
 			# Prepare a dictionary of all custom properties in the metadata
 			object_metadata_node.prepare_custom_prop_dict(false)
 			
-			# Create a hit area with the same size and position as the rect extents node
-			var extents_size: Vector2 = rect_extents_node.size
-			var extents_position: Vector2 = rect_extents_node.position
 			
-			var new_hit_area = canvas_mouse_hit_area.instantiate()
-			new_hit_area.position = extents_position
-			new_hit_area.set_hit_size(extents_size)
-			new_node.call_deferred("add_child", new_hit_area)
 			
-			# Connect the signals form the hit area for handling
-			new_hit_area.connect("node_clicked", Callable(self, "on_node_clicked"))
-			new_hit_area.connect("node_unclicked", Callable(self, "on_node_unclicked"))
-			new_hit_area.connect("node_hover", Callable(self, "on_node_hover"))
-			new_hit_area.connect("node_hover_out", Callable(self, "on_node_hover_out"))
+			## Only create a hit area if we are in design mode
+			if node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
+				# Create a hit area with the same size and position as the rect extents node
+				var extents_size: Vector2 = rect_extents_node.size
+				var extents_position: Vector2 = rect_extents_node.position
+				
+				var new_hit_area = canvas_mouse_hit_area.instantiate()
+				new_hit_area.position = extents_position
+				new_hit_area.set_hit_size(extents_size)
+				new_node.call_deferred("add_child", new_hit_area)
+				
+				# Connect the signals form the hit area for handling
+				new_hit_area.connect("node_clicked", Callable(self, "on_node_clicked"))
+				new_hit_area.connect("node_unclicked", Callable(self, "on_node_unclicked"))
+				new_hit_area.connect("node_hover", Callable(self, "on_node_hover"))
+				new_hit_area.connect("node_hover_out", Callable(self, "on_node_hover_out"))
+			else:
+				# Hide rect extents in run mode
+				rect_extents_node.visible = false
 			
 			# Add the new node to the canvas
 			match node_kind:
