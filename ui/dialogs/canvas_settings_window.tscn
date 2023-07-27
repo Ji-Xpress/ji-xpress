@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/dialogs/canvas_settings_window.gd" id="1_th5pj"]
 
-[node name="CanvasSettingsWindow" type="Window"]
+[node name="CanvasSettingsDialog" type="Window"]
 title = "Canvas Settings"
 position = Vector2i(0, 36)
 size = Vector2i(300, 150)

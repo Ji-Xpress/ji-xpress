@@ -2,7 +2,8 @@ extends Control
 
 # Node references
 @onready var add_game_object_dialog: Window = $AddGameObjectDialog
-@onready var canvas_settings_dialog: Window = $CanvasSettingsWindow
+@onready var canvas_settings_dialog: Window = $CanvasSettingsDialog
+@onready var project_settings_dialog: Window = $ProjectSettingsDialog
 
 # Signals
 signal game_object_window_result(game_object_reference: String)
@@ -14,8 +15,14 @@ func show_game_object_dialog():
 	add_game_object_dialog.show()
 
 
+## Displays the canvas settings
 func show_canvas_settings_dialog():
 	canvas_settings_dialog.show()
+
+
+## Displays the project settings
+func show_project_settings_dialog():
+	project_settings_dialog.show()
 
 
 # Add game object window result

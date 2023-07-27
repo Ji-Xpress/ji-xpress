@@ -69,7 +69,7 @@ func _on_close_project_button_pressed():
 
 # Project settings button clicked
 func _on_project_settings_button_pressed():
-	pass # Replace with function body.
+	main_ui_dialogs.show_project_settings_dialog()
 
 
 # We need to run the current scene
