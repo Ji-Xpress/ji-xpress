@@ -73,6 +73,15 @@ var node_drag_start_position: Vector2 = Vector2.ZERO
 var current_canvas_mouse_position: Vector2 = Vector2.ZERO
 
 
+# Initalize
+func _ready():
+	# Turn off canvas camera in run mode
+	if canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		camera.enabled = false
+	else:
+		camera.enabled = true
+
+
 # Track mouse events
 func _input(event):
 	# Generic event handling

@@ -30,11 +30,14 @@ var canvas_object_tracker: Dictionary = {}
 var last_object_index = -1
 
 
+# Initialize before the _ready() function
+func _on_tree_entered():
+	# Set the design canvas mode mode
+	%DesignCanvas.canvas_mode = canvas_mode
+
+
 # Initialize
 func _ready():
-	# Set the design canvas mode mode
-	design_canvas.canvas_mode = canvas_mode
-	
 	# Generic stuff
 	if ProjectManager.scenes_metadata.has(scene_name):
 		populate_project_nodes()

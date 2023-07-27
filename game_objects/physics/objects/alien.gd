@@ -4,6 +4,7 @@ extends RigidBody2D
 @onready var object_metadata: ObjectMetaData = $ObjectMetaData
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var camera: Camera2D = $Camera2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,9 +12,11 @@ func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
 		freeze = true
+		camera.enabled = false
 	else:
 		collision_shape.set_deferred("disabled", false)
 		freeze = false
+		camera.enabled = true
 
 
 # Collision detection logic

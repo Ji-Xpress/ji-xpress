@@ -121,6 +121,7 @@ size_flags_vertical = 3
 
 [node name="TabCommon" parent="." instance=ExtResource("4_y3q3h")]
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/AddNodeButton" to="." method="_on_add_node_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CanvasSettingsButton" to="." method="_on_canvas_settings_button_pressed"]

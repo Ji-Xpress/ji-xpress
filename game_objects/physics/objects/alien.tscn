@@ -28,4 +28,7 @@ texture = ExtResource("1_xj7cw")
 script = ExtResource("2_miio1")
 size = Vector2(80, 80)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
