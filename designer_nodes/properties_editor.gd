@@ -1,4 +1,4 @@
-extends Control
+extends GridContainer
 
 # Node references
 const property_label_node: PackedScene = preload("res://designer_nodes/property_nodes/property_label.tscn")
@@ -12,9 +12,6 @@ const prop_tracker_control_type: String = "control_type"
 
 # To identify what the properties are for
 @export var property_set_id: String = ""
-
-# Node references
-@onready var grid_container: GridContainer = $GridContainer
 
 # Prop control trackers
 var control_tracker: Dictionary = {}
@@ -35,11 +32,11 @@ func property_value_changed(property_id: String, value, is_custom_property: bool
 func clear_all_properties():
 	control_tracker = {}
 	
-	for property_field in grid_container.get_children():
+	for property_field in get_children():
 		if not property_field is Label:
 			property_field.disconnect("value_updated", Callable(self, "property_value_changed"))
 		
-		grid_container.remove_child(property_field)
+		remove_child(property_field)
 		property_field.queue_free()
 
 
@@ -135,5 +132,5 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 		value_control.is_read_only = is_read_only
 		value_control.connect("value_updated", Callable(self, "property_value_changed"))
 		
-		grid_container.call_deferred("add_child", label_instance)
-		grid_container.call_deferred("add_child", value_control)
+		call_deferred("add_child", label_instance)
+		call_deferred("add_child", value_control)
