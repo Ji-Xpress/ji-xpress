@@ -49,11 +49,14 @@ func assign_metadata(metadata: Dictionary):
 ## Prepares dictionary of custom property holders
 func prepare_custom_prop_dict(override: bool = false):
 	for property in custom_properties:
-		if prop_values.has(property):
+		var property_name: String = property[ObjectCustomProperty.prop_prop_name]
+		var property_value = property[ObjectCustomProperty.prop_prop_value]
+		
+		if prop_values.has(property_name):
 			if override:
-				set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
+				set_property(property_name, property_value)
 		else:
-			set_property(property[ObjectCustomProperty.prop_prop_name], property[ObjectCustomProperty.prop_prop_value])
+			set_property(property_name, property_value)
 
 
 ## Gets a property's value

@@ -314,8 +314,6 @@ func add_new_node(new_node: Node2D, node_kind: \
 			# Prepare a dictionary of all custom properties in the metadata
 			object_metadata_node.prepare_custom_prop_dict(false)
 			
-			
-			
 			## Only create a hit area if we are in design mode
 			if node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 				# Create a hit area with the same size and position as the rect extents node
