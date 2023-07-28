@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=10 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
@@ -16,6 +16,9 @@ property_read_only = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
 radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uv24t"]
+radius = 48.0
 
 [node name="Alien" type="RigidBody2D" groups=["alien"]]
 max_contacts_reported = 1
@@ -42,4 +45,11 @@ size = Vector2(80, 80)
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
 
+[node name="FloorDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+shape = SubResource("CircleShape2D_uv24t")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="FloorDetector" to="." method="_on_floor_detector_body_shape_entered"]
+[connection signal="body_shape_exited" from="FloorDetector" to="." method="_on_floor_detector_body_shape_exited"]
