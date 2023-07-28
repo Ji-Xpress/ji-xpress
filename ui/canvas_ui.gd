@@ -208,6 +208,7 @@ func _on_add_node_button_pressed():
 # Save scene button has been pressed
 func _on_save_scene_button_pressed():
 	emit_signal("save_scene_pressed", self)
+	save_tab()
 
 
 # Canvas settings button has been pressed

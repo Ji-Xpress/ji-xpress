@@ -97,12 +97,22 @@ func _on_project_settings_button_pressed():
 
 # We need to run the current scene
 func _on_run_project_scene_button_pressed():
-	if current_scene_name != "":
+	if current_scene_name != "" and current_tab_type == TabType.TabScene:
+		# Save the current tab if it needs saves
+		var current_open_tab:int = tab_container.current_tab
+		var current_child_tab_control: Control = tab_container.get_child(current_open_tab)
+		
+		if current_child_tab_control.tab_common.is_invalidated:
+			current_child_tab_control.save_tab()
+		
 		main_ui_dialogs.show_canvas_player(current_scene_name)
 
 
 # We need to run the project
 func _on_run_project_button_pressed():
+	# Save all changes
+	_on_save_project_button_pressed()
+	# Run the startup scene
 	if ProjectManager.project_metadata[ProjectMetadata.prop_startup_scene] != "":
 		main_ui_dialogs.show_canvas_player(ProjectManager.project_metadata[ProjectMetadata.prop_startup_scene])
 
