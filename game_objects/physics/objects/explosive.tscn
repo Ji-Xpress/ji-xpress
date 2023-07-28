@@ -12,6 +12,7 @@ script = ExtResource("2_a3f7i")
 property_name = "explosion_force"
 property_type = 2
 property_value = "10.0"
+property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtoev"]
 size = Vector2(64, 64)

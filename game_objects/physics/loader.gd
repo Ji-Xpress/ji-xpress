@@ -17,6 +17,14 @@ func load_game_objects():
 				GameObjectsLoader.prop_description: "Explosive",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/explosive.tscn",
 			},
+			"large_block": {
+				GameObjectsLoader.prop_description: "Large Block",
+				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/big_block.tscn",
+			},
+			"small_block": {
+				GameObjectsLoader.prop_description: "Small Block",
+				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/small_block.tscn",
+			},
 			"star": {
 				GameObjectsLoader.prop_description: "Star",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/star.tscn",

@@ -1,20 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=9 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_miio1"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_2x26b"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_f6f7a"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="4_831n7"]
+
+[sub_resource type="Resource" id="Resource_fbjqp"]
+script = ExtResource("3_f6f7a")
+property_name = "mass"
+property_type = 0
+property_value = "10"
+property_read_only = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
 radius = 40.0
 
 [node name="Alien" type="RigidBody2D"]
+max_contacts_reported = 1
+contact_monitor = true
 freeze_mode = 1
 script = ExtResource("1_t3meq")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("4_831n7")]
 object_description = "Alien Character"
+custom_properties = Array[ExtResource("3_f6f7a")]([SubResource("Resource_fbjqp")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_2x26b")]
 

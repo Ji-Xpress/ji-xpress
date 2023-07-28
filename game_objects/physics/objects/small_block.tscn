@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://bboflkbxjt8tf"]
+
+[ext_resource type="Script" path="res://game_objects/physics/objects/big_block.gd" id="1_2jeaw"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_xq2uo"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_cscsu"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="4_j0bq7"]
+[ext_resource type="Texture2D" uid="uid://d3clkdgwb1ngh" path="res://game_objects/physics/assets/objects/elementWood010.png" id="5_drp0r"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="6_7nyyo"]
+
+[sub_resource type="Resource" id="Resource_jfdjl"]
+script = ExtResource("3_cscsu")
+property_name = "mass"
+property_type = 1
+property_value = "10"
+property_read_only = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64syx"]
+size = Vector2(66, 68)
+
+[node name="SmallBlock" type="RigidBody2D"]
+freeze_mode = 1
+script = ExtResource("1_2jeaw")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("2_xq2uo")]
+custom_properties = Array[ExtResource("3_cscsu")]([SubResource("Resource_jfdjl")])
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("4_j0bq7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_64syx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("5_drp0r")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("6_7nyyo")
+size = Vector2(68, 68)
