@@ -117,7 +117,7 @@ func push_canvas_settings(settings):
 func synchronize_project_metadata():
 	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
 	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
-	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
+	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.tile)
 	var current_project_manager_scene = ProjectManager.scenes_metadata[scene_name]
 	
 	# Store the last object index
@@ -158,25 +158,23 @@ func _on_design_canvas_node_selected(node, node_index, node_kind):
 
 # When a node is repositioned on canvas
 func _on_design_canvas_node_moved(node, node_index, node_kind):
-	if node == current_active_control:
-		# Properties UI update
-		properties_editor.update_property(ObjectMetaData.prop_position_x, node.position.x)
-		properties_editor.update_property(ObjectMetaData.prop_position_y, node.position.y)
-		# Object Metadata update
-		current_active_control.object_metadata.position_x = node.position.x
-		current_active_control.object_metadata.position_y = node.position.y
-		# Set tab is invalidated
-		tab_common.is_invalidated = true
+	# Properties UI update
+	properties_editor.update_property(ObjectMetaData.prop_position_x, node.position.x)
+	properties_editor.update_property(ObjectMetaData.prop_position_y, node.position.y)
+	# Object Metadata update
+	current_active_control.object_metadata.position_x = node.position.x
+	current_active_control.object_metadata.position_y = node.position.y
+	# Set tab is invalidated
+	tab_common.is_invalidated = true
 
 
 # When a node is rotated on canvas
 func _on_design_canvas_node_rotated(node, node_index, node_kind):
-	if node == current_active_control:
-		properties_editor.update_property(ObjectMetaData.prop_rotation, node.rotation_degrees)
-		# Object Metadata update
-		current_active_control.object_metadata.rotation = node.rotation_degrees
-		# Set tab is invalidated
-		tab_common.is_invalidated = true
+	properties_editor.update_property(ObjectMetaData.prop_rotation, node.rotation_degrees)
+	# Object Metadata update
+	current_active_control.object_metadata.rotation = node.rotation_degrees
+	# Set tab is invalidated
+	tab_common.is_invalidated = true
 
 
 # Properties editor event handling
