@@ -42,6 +42,8 @@ signal all_nodes_deselected()
 signal mouse_clicked(mouse_button: int, mouse_position: Vector2)
 ## Signal for when the mouse button is released on canvas
 signal mouse_released(mouse_button: int, mouse_position: Vector2)
+## Used when a child node needs to send a message to the outside world
+signal send_node_message(node: Node2D, message: Dictionary)
 
 ## The nodes that currently have a hover over them
 var active_hover_nodes_foreground: Dictionary = {}

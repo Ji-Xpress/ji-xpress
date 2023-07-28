@@ -13,6 +13,10 @@ func load_game_objects():
 				GameObjectsLoader.prop_description: "Coin",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/coin.tscn",
 			},
+			"destination": {
+				GameObjectsLoader.prop_description: "Destination",
+				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/destination.tscn",
+			},
 			"explosive": {
 				GameObjectsLoader.prop_description: "Explosive",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/explosive.tscn",

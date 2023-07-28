@@ -21,6 +21,8 @@ signal save_scene_pressed(node_instance: Control)
 signal canvas_settings_pressed(node_instance: Control)
 ## When the tab is being closed
 signal tab_close_request(node_instance: Control, scene_id: String)
+## Node sends message to design canvas
+signal design_canvas_send_node_message(node: Node2D, message: Dictionary)
 
 ## Tracks the current active control
 var current_active_control: Node2D = null
@@ -198,6 +200,11 @@ func _on_properties_editor_property_changed(property_set_id, property_id, new_va
 		
 		# Set tab is invalidated
 		tab_common.is_invalidated = true
+
+
+# Message sent from a node to the canvas container
+func _on_design_canvas_send_node_message(node, message):
+	emit_signal("design_canvas_send_node_message", node, message)
 
 
 # Add node button has been pressed

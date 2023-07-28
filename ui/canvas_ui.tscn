@@ -134,4 +134,5 @@ layout_mode = 2
 [connection signal="node_moved" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_moved"]
 [connection signal="node_rotated" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_rotated"]
 [connection signal="node_selected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_selected"]
+[connection signal="send_node_message" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_send_node_message"]
 [connection signal="property_changed" from="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer/ScrollContainer/PropertiesEditor" to="." method="_on_properties_editor_property_changed"]
