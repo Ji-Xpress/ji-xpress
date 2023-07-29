@@ -128,7 +128,8 @@ func _input(event):
 		elif event is InputEventMouseMotion and is_dragging_node:
 			# Moving the current active node
 			if current_active_node != null:
-				current_active_node.position += (event.position - node_drag_start_position).snapped(grid_snapping)
+				current_active_node.position += (event.position - node_drag_start_position)
+				current_active_node.position = current_active_node.position.snapped(grid_snapping)
 				node_drag_start_position = event.position.snapped(grid_snapping)
 		
 		# Keyboard events
