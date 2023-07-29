@@ -64,7 +64,7 @@ alignment = 2
 
 [node name="Actions" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
 alignment = 1
 
 [node name="OKButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Actions"]
@@ -76,5 +76,6 @@ layout_mode = 2
 text = "Cancel"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="window_input" from="." to="." method="_on_window_input"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Actions/OKButton" to="." method="_on_ok_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Actions/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -36,3 +36,13 @@ func _on_ok_button_pressed():
 		"y_snapping": y_snapping.value
 	})
 	hide()
+
+
+# Capture enter and esc key presses
+func _on_window_input(event):
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ENTER:
+			_on_ok_button_pressed()
+		elif event.keycode == KEY_ESCAPE:
+			emit_signal("window_cancelled")
+			hide()
