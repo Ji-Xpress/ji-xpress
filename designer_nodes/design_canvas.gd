@@ -16,6 +16,8 @@ const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_are
 @onready var background: Node2D = $Background/Nodes
 ## Node to store tiles
 @onready var tiles: Node2D = $Tiles
+## Canavs overlays to aid in design process
+@onready var canvas_overlays: Node2D = $CanvasOverlays
 ## Reference to the current camera
 @onready var camera: Camera2D = $Camera2D
 
@@ -80,8 +82,10 @@ func _ready():
 	# Turn off canvas camera in run mode
 	if canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		camera.enabled = false
+		canvas_overlays.visible = false
 	else:
 		camera.enabled = true
+		canvas_overlays.visible = true
 
 
 # Track mouse events

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://be2ogxixyowlv"]
+[gd_scene load_steps=3 format=3 uid="uid://be2ogxixyowlv"]
 
 [ext_resource type="Script" path="res://designer_nodes/design_canvas.gd" id="1_675is"]
+[ext_resource type="Texture2D" uid="uid://didh5et22p33i" path="res://designer_nodes/assets/crosshair.png" id="2_cf4yk"]
 
 [node name="DesignCanvas" type="Node2D"]
 script = ExtResource("1_675is")
@@ -14,5 +15,12 @@ layer = -1
 
 [node name="Foreground" type="Node2D" parent="."]
 z_index = 1
+
+[node name="CanvasOverlays" type="Node2D" parent="."]
+z_index = 2
+
+[node name="CrossHair" type="Sprite2D" parent="CanvasOverlays"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cf4yk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
