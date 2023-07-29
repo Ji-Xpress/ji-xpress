@@ -38,6 +38,8 @@ signal node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.
 signal node_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when node is moved
 signal node_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+## Signal for a node delete
+signal node_deleted(node: Node2D, object_id: String, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Emitted when all nodes are deactivated using the ESC button
 signal all_nodes_deselected()
 ## Signal for when the mouse button is pressed on canvas
@@ -147,6 +149,10 @@ func _input(event):
 					# Reset selected node status
 					current_active_node.object_functionality.set_rect_extents_visibility(false)
 					current_active_node = null
+			elif event.keycode == KEY_DELETE:
+				# Delete key pressed. Handle if we need to delete a node
+				if current_active_node != null:
+					delete_node(current_active_node)
 			elif event.keycode == KEY_CTRL:
 				# Track if ctrl key is pressed
 				is_ctrl_key_down = true
@@ -154,6 +160,30 @@ func _input(event):
 			if event.keycode == KEY_CTRL:
 				# Track if ctrl key is released
 				is_ctrl_key_down = false
+
+
+# Delete an active node
+func delete_node(current_active_node):
+	var node_kind: ActiveHoverNode.NodeKind = current_active_node.object_metadata.node_kind
+	var node_index: int = current_active_node.object_metadata.node_index
+	var object_id: String = current_active_node.object_metadata.object_id
+	
+	emit_signal("node_deleted", current_active_node, object_id, node_index, node_kind)
+		
+	match node_kind:
+		ActiveHoverNode.NodeKind.foreground:
+			active_hover_nodes_foreground.erase(str(node_index))
+			foreground.remove_child(current_active_node)
+		ActiveHoverNode.NodeKind.tile:
+			active_hover_nodes_tiles.erase(str(node_index))
+			tiles.remove_child(current_active_node)
+			return tiles.get_children()
+		ActiveHoverNode.NodeKind.background:
+			active_hover_nodes_backgound.erase(str(node_index))
+			background.remove_child(current_active_node)
+	
+	current_active_node.queue_free()
+	emit_signal("all_nodes_deselected")
 
 
 ## Returns all nodes of requested type

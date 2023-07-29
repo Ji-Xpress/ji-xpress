@@ -158,6 +158,21 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 	return scene_instance[SceneMetaData.prop_nodes][object_id]
 
 
+## Deletes a node with node id index
+func delete_scene_object(scene_name: String, object_id: String):
+	if not scenes_metadata.has(scene_name):
+		return false
+	
+	var scene_instance = scenes_metadata[scene_name]
+	
+	if not scene_instance[SceneMetaData.prop_nodes].has(object_id):
+		return false
+	
+	scene_instance[SceneMetaData.prop_nodes].erase(object_id)
+	
+	return true
+
+
 ## Assigns a value to an object property
 func assign_scene_object_property(scene_name: String, object_id: String, property: String, value):
 	if not scenes_metadata.has(scene_name):

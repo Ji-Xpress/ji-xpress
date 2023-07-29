@@ -205,6 +205,13 @@ func _on_design_canvas_send_node_message(node, message):
 	emit_signal("design_canvas_send_node_message", node, message)
 
 
+# When a node is deleted
+func _on_design_canvas_node_deleted(node, object_id, node_index, node_kind):
+	canvas_object_tracker.erase(str(node_index))
+	ProjectManager.delete_scene_object(scene_name, object_id)
+	tab_common.is_invalidated = true
+
+
 # Add node button has been pressed
 func _on_add_node_button_pressed():
 	emit_signal("add_node_pressed", self)

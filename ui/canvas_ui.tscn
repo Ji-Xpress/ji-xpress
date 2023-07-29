@@ -128,6 +128,7 @@ layout_mode = 2
 [connection signal="mouse_clicked" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
 [connection signal="mouse_released" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_released"]
 [connection signal="node_added" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_added"]
+[connection signal="node_deleted" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deleted"]
 [connection signal="node_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deselected"]
 [connection signal="node_hover" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover"]
 [connection signal="node_hover_out" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_hover_out"]
