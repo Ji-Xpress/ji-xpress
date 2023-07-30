@@ -6,6 +6,8 @@
 resource_local_to_scene = true
 
 [node name="CanvasMouseHitArea" type="Area2D"]
+monitoring = false
+monitorable = false
 script = ExtResource("1_12yj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

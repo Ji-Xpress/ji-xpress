@@ -238,33 +238,3 @@ func _on_design_canvas_all_nodes_deselected():
 func _on_close_tab_button_pressed():
 	save_tab()
 	emit_signal("tab_close_request", self, scene_name)
-
-
-# When a node is deselected on canvas
-func _on_design_canvas_node_deselected(node, node_index, node_kind):
-	pass # Replace with function body.
-
-
-# When we hover over a node
-func _on_design_canvas_node_hover(node, node_index, node_kind):
-	pass # Replace with function body.
-
-
-# When we end hover on a node
-func _on_design_canvas_node_hover_out(node, node_index, node_kind):
-	pass # Replace with function body.
-
-
-# When a node is added to canvas
-func _on_design_canvas_node_added(node, node_index, node_kind):
-	pass # Replace with function body.
-
-
-# When mouse is released on canvas
-func _on_design_canvas_mouse_released(mouse_button, mouse_position):
-	pass # Replace with function body.
-
-
-# When mouse is clicked on canvas
-func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
-	pass # Replace with function body.
