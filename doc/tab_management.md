@@ -27,8 +27,8 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 
     if tab_number_tracker.has(str(removed_tab_index)):
         tab_number_tracker.erase(str(removed_tab_index))
-	
-	# Handle situation where the tab is in the middle of others so that we can keep track
+
+    # Handle situation where the tab is in the middle of others so that we can keep track
     for tab in current_open_tabs:
         if current_open_tabs[tab] >= removed_tab_index:
             # Re arrange the tab tracker
@@ -64,10 +64,10 @@ func _on_project_tree_ui_scene_selected(scene_name):
         tab_container.set_tab_title(tab_index, scene_name)
 
         # Track the tab
-		tab_number_tracker[str(tab_index)] = {
-			prop_tab_tab_type: TabType.TabScene,
-			prop_tab_tab_name: scene_name
-		}
+        tab_number_tracker[str(tab_index)] = {
+            prop_tab_tab_type: TabType.TabScene,
+            prop_tab_tab_name: scene_name
+        }
 
         current_scene_name = scene_name
     else:
