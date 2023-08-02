@@ -58,3 +58,8 @@ func _on_floor_detector_body_shape_exited(body_rid, body, body_shape_index, loca
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		if body.is_in_group("tile"):
 			is_on_floor = false
+
+
+# Property change event handling
+func _on_object_functionality_property_changed(property, value, is_custom):
+	pass # Replace with function body.

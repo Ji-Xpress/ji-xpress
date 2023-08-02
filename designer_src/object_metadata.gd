@@ -68,5 +68,6 @@ func get_property(prop: String):
 
 
 ## Set's a properties value
-func set_property(prop: String, value):
-	prop_values[prop] = value
+func set_property(prop: String, value, is_custom_prop: bool = true):
+	if is_custom_prop:
+		prop_values[prop] = value

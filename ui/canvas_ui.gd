@@ -29,7 +29,7 @@ var current_active_control: Node2D = null
 ## Keeps track of objects within the context of the canvas
 var canvas_object_tracker: Dictionary = {}
 ## Keeps track of the last object index
-var last_object_index = -1
+var last_object_index: int = -1
 
 
 # Initialize before the _ready() function
@@ -183,7 +183,8 @@ func _on_properties_editor_property_changed(property_set_id, property_id, new_va
 		var object_index: int = current_active_control.object_metadata.object_index
 		
 		if is_property_custom:
-			current_active_control.object_metadata.set_property(property_id, new_value)
+			current_active_control.object_metadata.set_property(property_id, new_value, is_property_custom)
+			current_active_control.object_functionality.set_property(property_id, new_value, is_property_custom)
 		else:
 			match property_id:
 				ObjectMetaData.prop_position_x:
