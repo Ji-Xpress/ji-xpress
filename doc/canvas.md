@@ -76,16 +76,16 @@ func synchronize_project_metadata():
 	
     # ... more code
 	
-	var all_nodes = [foreground_nodes, background_nodes, tiles]
+    var all_nodes = [foreground_nodes, background_nodes, tiles]
 	
-	for node_group in all_nodes:
-		for child_node in node_group:
-			var object_metadata: ObjectMetaData = child_node.object_metadata
+    for node_group in all_nodes:
+        for child_node in node_group:
+            var object_metadata: ObjectMetaData = child_node.object_metadata
             var object_index: int = object_metadata.object_index
 
             # ... more code
-            
-			var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
+
+            var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
 
 # When a node is deleted
 func _on_design_canvas_node_deleted(node, object_id, node_index, node_kind):
