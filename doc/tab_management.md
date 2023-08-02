@@ -1,0 +1,85 @@
+### Tab Management Logic
+
+The Main UI situated at `res://main_ui.tscn` manages how the tabs are working. The variables tracking how tabs work are as follows:
+
+```gdscript
+## Keeps track of current open tabs
+var current_open_tabs: Dictionary = {}
+## Keeps track of tab control requesting an action
+var requesting_tab_instance_control: Control = null
+## Keeps track of the curren tab type
+var current_tab_type: TabType = TabType.TabNone
+## Keeps track of the current scene name4
+var current_scene_name: String = ""
+## Tab tracker dictionary
+var tab_number_tracker = {}
+```
+
+The following are ways the tabs are being managed:
+
+```gdscript
+## Close the tab
+func on_canvas_close_request(node_instance: Control, scene_id: String):
+    # What is the index of the removed tab?
+    var removed_tab_index: int = current_open_tabs[scene_id]
+    # Lets iterate down the next set of open tab indexes
+    current_open_tabs.erase(scene_id)
+
+    if tab_number_tracker.has(str(removed_tab_index)):
+        tab_number_tracker.erase(str(removed_tab_index))
+	
+	# Handle situation where the tab is in the middle of others so that we can keep track
+    for tab in current_open_tabs:
+        if current_open_tabs[tab] >= removed_tab_index:
+            # Re arrange the tab tracker
+            if tab_number_tracker.has(str(current_open_tabs[tab])):
+                tab_number_tracker[str(current_open_tabs[tab] - 1)] = tab_number_tracker[str(current_open_tabs[tab])]
+                tab_number_tracker.erase(str(current_open_tabs[tab]))
+
+            # Re-orient the current open tab index
+            current_open_tabs[tab] -= 1
+
+
+# A scene has been selected from the tree
+func _on_project_tree_ui_scene_selected(scene_name):
+    # Set the current tab type to Scene Type
+    current_tab_type = TabType.TabScene
+
+    # Open or create the relevant tab's content
+    if not current_open_tabs.has(scene_name):
+        # Create a new tab control ...
+
+        # Track the child control 
+        await tab_container.child_entered_tree
+
+        # Assign current tab to current file
+        var tab_index: int = tab_container.get_child_count() - 1
+        current_open_tabs[scene_name] = tab_index
+
+        # Open as current active tab and set tab title
+        tab_switch_timer.start()
+        await tab_switch_timer.timeout
+
+        tab_container.current_tab = tab_index
+        tab_container.set_tab_title(tab_index, scene_name)
+
+        # Track the tab
+		tab_number_tracker[str(tab_index)] = {
+			prop_tab_tab_type: TabType.TabScene,
+			prop_tab_tab_name: scene_name
+		}
+
+        current_scene_name = scene_name
+    else:
+        tab_container.current_tab = current_open_tabs[scene_name]
+
+
+# Set the current tab metadata
+func _on_tab_container_tab_changed(tab):
+    if tab_number_tracker.has(str(tab)):
+        current_tab_type = tab_number_tracker[str(tab)][prop_tab_tab_type]
+        if current_tab_type == TabType.TabScene:
+            current_scene_name = tab_number_tracker[str(tab)][prop_tab_tab_name]
+        else:
+            current_scene_name = ""
+```
