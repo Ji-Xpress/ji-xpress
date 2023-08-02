@@ -163,27 +163,32 @@ func _input(event):
 
 
 # Delete an active node
-func delete_node(current_active_node):
-	var node_kind: ActiveHoverNode.NodeKind = current_active_node.object_metadata.node_kind
-	var node_index: int = current_active_node.object_metadata.node_index
-	var object_id: String = current_active_node.object_metadata.object_id
+func delete_node(node: Node2D):
+	var is_current_node: bool = (node == current_active_node)
+	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
+	var node_index: int = node.object_metadata.node_index
+	var object_id: String = node.object_metadata.object_id
 	
-	emit_signal("node_deleted", current_active_node, object_id, node_index, node_kind)
-		
+	# Remove from the relevant tree sub item
 	match node_kind:
 		ActiveHoverNode.NodeKind.foreground:
 			active_hover_nodes_foreground.erase(str(node_index))
-			foreground.remove_child(current_active_node)
+			foreground.remove_child(node)
 		ActiveHoverNode.NodeKind.tile:
 			active_hover_nodes_tiles.erase(str(node_index))
-			tiles.remove_child(current_active_node)
+			tiles.remove_child(node)
 			return tiles.get_children()
 		ActiveHoverNode.NodeKind.background:
 			active_hover_nodes_backgound.erase(str(node_index))
-			background.remove_child(current_active_node)
+			background.remove_child(node)
 	
-	current_active_node.queue_free()
-	emit_signal("all_nodes_deselected")
+	# Notify of node deletion to parent
+	emit_signal("node_deleted", node, object_id, node_index, node_kind)
+	# Delete object
+	node.queue_free()
+	# Notify to clear canvas if it was current active node
+	if is_current_node:
+		emit_signal("all_nodes_deselected")
 
 
 ## Returns all nodes of requested type
