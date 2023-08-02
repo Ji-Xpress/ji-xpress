@@ -21,7 +21,7 @@ var active_hover_nodes_backgound: Dictionary = {}
 
 * The way hover is processed is simple. The `res://designer_nodes/canvas_mouse_hit_area.tscn` creates an instance of Area2D. The node's `input_pickable` property set to `true`. The node also has event handlers for when there are mouse clicks:
 
-```gdsript
+```gdscript
 # Handle mouse input
 func _on_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton and event.pressed and event.button_mask & MOUSE_BUTTON_MASK_LEFT):
