@@ -60,36 +60,23 @@ var last_object_index: int = -1
 
 ```gdscript
 func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, created_node_metadata = null):
-    
-    # ...
-
     # Add a new object and track its index together with in the metadata
     var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode, created_object_index)
     var object_id: String = "obj_" + str(object_index)
-
-    # ... more code
 
     canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, object_id, \
         node_position, node_instance_metadata.prop_values)
 
 func synchronize_project_metadata():
-	
-    # ... more code
-	
     var all_nodes = [foreground_nodes, background_nodes, tiles]
 	
     for node_group in all_nodes:
         for child_node in node_group:
             var object_metadata: ObjectMetaData = child_node.object_metadata
             var object_index: int = object_metadata.object_index
-
-            # ... more code
-
             var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
 
 # When a node is deleted
 func _on_design_canvas_node_deleted(node, object_id, node_index, node_kind):
-	canvas_object_tracker.erase(str(node_index))
-	
-    # ... more code
+    canvas_object_tracker.erase(str(node_index))
 ```
