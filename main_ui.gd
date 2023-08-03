@@ -186,7 +186,7 @@ func _on_main_ui_dialogs_game_object_window_result(game_object_reference):
 
 func _on_main_ui_dialogs_canvas_settings_window_result(settings):
 	if requesting_tab_instance_control != null:
-		requesting_tab_instance_control.push_canvas_settings(settings)
+		requesting_tab_instance_control.apply_canvas_settings(settings)
 
 
 # Set the current tab metadata

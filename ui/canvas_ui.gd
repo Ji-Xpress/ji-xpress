@@ -42,7 +42,7 @@ func _on_tree_entered():
 func _ready():
 	# Generic stuff
 	if ProjectManager.scenes_metadata.has(scene_name):
-		populate_project_nodes()
+		populate_scene_nodes()
 	
 	if canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		right_panel.visible = false
@@ -53,7 +53,7 @@ func _ready():
 
 
 ## Populates nodes from the current open project
-func populate_project_nodes():
+func populate_scene_nodes():
 	var scene_metadata: Dictionary = ProjectManager.scenes_metadata[scene_name]
 	# Re assign the node count
 	last_object_index = scene_metadata[SceneMetaData.prop_last_object_id]
@@ -106,7 +106,7 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 
 
 ## Push settings for the canvas
-func push_canvas_settings(settings):
+func apply_canvas_settings(settings):
 	var x_snapping: int = int(settings.x_snapping)
 	var y_snapping: int = int(settings.y_snapping)
 	
@@ -114,7 +114,7 @@ func push_canvas_settings(settings):
 
 
 ## Synchronizes the project's metadata with the metadata of all the current objects on canvas
-func synchronize_project_metadata():
+func synchronize_project_scene_metadata():
 	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
 	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
 	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.tile)
@@ -142,7 +142,7 @@ func synchronize_project_metadata():
 # Save the tab's content
 func save_tab():
 	# Synchronize metadata
-	synchronize_project_metadata()
+	synchronize_project_scene_metadata()
 	# Save scene
 	ProjectManager.save_scene(scene_name, ProjectManager.scenes_metadata[scene_name])
 	# Set tab is invalidated

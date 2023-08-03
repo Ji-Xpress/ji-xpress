@@ -203,7 +203,7 @@ func get_all_nodes(node_group: ActiveHoverNode.NodeKind):
 
 
 ## Scans a group of tiles to present which one is being selected
-func scan_hovered_nodes(node_group: Dictionary):
+func get_top_hovered_node_from_group(node_group: Dictionary):
 	var greater_node_index: int = -1
 	var greater_node_node: Node2D = null
 	
@@ -221,9 +221,9 @@ func scan_hovered_nodes(node_group: Dictionary):
 
 
 ## Scans an ordered array of tile groups and presents the first result
-func scan_node_group_array(node_group_array: Array):
+func get_top_hovered_node_from_group_array(node_group_array: Array):
 	for node_group in node_group_array:
-		var node_result: Object = scan_hovered_nodes(node_group)
+		var node_result: Object = get_top_hovered_node_from_group(node_group)
 		if node_result != null:
 			return node_result
 	
@@ -246,7 +246,7 @@ func on_node_clicked(node: Node2D, node_index: int):
 			active_hover_nodes_backgound
 		]
 		
-		var node_search: Node2D = scan_node_group_array(node_group_search_order)
+		var node_search: Node2D = get_top_hovered_node_from_group_array(node_group_search_order)
 		
 		if node_search != null:
 			# Mouse is down on selected node
