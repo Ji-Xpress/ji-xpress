@@ -11,6 +11,10 @@ const prop_custom_properties: String = "custom_properties"
 const prop_node_kind: String = "node_kind"
 const prop_node_mode: String = "node_mode"
 const prop_object_index: String = "object_index"
+const prop_prop_values: String = "prop_values"
+const prop_code_functions: String = "code_functions"
+const prop_code_variables: String = "code_variables"
+const prop_variable_values: String = "variable_values"
 
 ## Object Description
 @export var object_id: String = ""
