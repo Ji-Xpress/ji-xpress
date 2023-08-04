@@ -36,15 +36,17 @@ var current_game_pack_internal: bool = true
 
 
 # Keeping track of game objects
-# Keeps track of external packs
+## Keeps track of external packs
 var external_resource_packs: Dictionary = {}
-# Game objects registered by initializing packs
+# #Game objects registered by initializing packs
 var game_objects: Dictionary = {
 	prop_foreground: {},
 	prop_background: {},
 	prop_tile: {},
 	prop_shared_state: {}
 }
+## Shared variables between game objects
+var shared_variables = {}
 
 
 ## Invalidates the game object cache
@@ -67,6 +69,7 @@ func load_internal_pack(pack_name: String):
 	loader = loader.new()
 	
 	game_objects = loader.load_game_objects()
+	shared_variables = loader.load_shared_variables()
 
 
 ## Load externally downloaded PCKs

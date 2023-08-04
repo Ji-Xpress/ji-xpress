@@ -20,6 +20,8 @@ const prop_object_index: String = "object_index"
 @export var custom_properties: Array[ObjectCustomProperty] = []
 ## Metadata of code functions
 @export var code_functions: Array[ObjectCodeFunction] = []
+## Variables to be used by the coding environment
+@export var code_variables: Array[ObjectCustomProperty] = []
 ## Object layer
 @export var node_kind: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
 ## Current object canvas mode
@@ -37,6 +39,8 @@ var node_index: int = 0
 var object_index: int = -1
 ## Holder of property values
 var prop_values: Dictionary = {}
+## Holder of variable values
+var variable_values: Dictionary = {}
 
 
 ## Manually assigned the node's metadata
@@ -61,6 +65,20 @@ func prepare_custom_prop_dict(override: bool = false):
 			set_property(property_name, property_value)
 
 
+
+## Prepares dictionary of code variables
+func prepare_code_variable_dict(override: bool = false):
+	for variable in code_variables:
+		var variable_name: String = variable[ObjectCustomProperty.prop_prop_name]
+		var variable_value = variable[ObjectCustomProperty.prop_prop_value]
+		
+		if variable_value.has(variable_name):
+			if override:
+				set_variable(variable_name, variable_value)
+		else:
+			set_variable(variable_name, variable_value)
+
+
 ## Gets a property's value
 func get_property(prop: String):
 	if prop_values.has(prop):
@@ -73,3 +91,16 @@ func get_property(prop: String):
 func set_property(prop: String, value, is_custom_prop: bool = true):
 	if is_custom_prop:
 		prop_values[prop] = value
+
+
+## Gets a variable's value
+func get_variable(variable: String):
+	if variable_values.has(variable):
+		return variable_values[variable]
+	
+	return null
+
+
+## Set's a variable value
+func set_variable(variable: String, value):
+	variable_values[variable] = value

@@ -1,4 +1,4 @@
-extends Node
+extends PackLoaderBase
 
 
 ## Load all Game Object instances and metadata
@@ -48,3 +48,8 @@ func load_game_objects():
 		},
 		GameObjectsLoader.prop_shared_state: {}
 	}
+
+
+## Load all shared variables
+func load_shared_variables():
+	return {}

@@ -359,6 +359,8 @@ func add_new_node(new_node: Node2D, node_kind: \
 			object_metadata_node.node_mode = node_mode
 			# Prepare a dictionary of all custom properties in the metadata
 			object_metadata_node.prepare_custom_prop_dict(false)
+			# Populate the object's variables
+			object_metadata_node.prepare_code_variable_dict(false)
 			
 			## Only create a hit area if we are in design mode
 			if node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
