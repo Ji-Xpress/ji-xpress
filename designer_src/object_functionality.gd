@@ -13,12 +13,12 @@ func _ready():
 	parent_node = get_parent()
 
 
-# Sets the visibility of rect extents
+## Sets the visibility of rect extents
 func set_rect_extents_visibility(visibility: bool):
 	parent_node.get_node("RectExtents2D").visible = visibility
 
 
-# Requests a change to the scene
+## Requests a change to the scene
 func send_message_to_canvas(message: Dictionary):
 	var node_kind: SharedEnums.ObjectLayer = parent_node.object_metadata.node_kind
 	
@@ -29,6 +29,11 @@ func send_message_to_canvas(message: Dictionary):
 
 
 
-# Sets the value of a property
+## Sets the value of a property
 func set_property(prop: String, value, is_custom: bool = true):
 	emit_signal("property_changed", prop, value, is_custom)
+
+
+## Executes a function from the parent object
+func execute_function(function_name: String, params: Dictionary = {}):
+	return parent_node.call(function_name, params)

@@ -18,6 +18,8 @@ const prop_object_index: String = "object_index"
 @export var object_description: String = ""
 ## Custom properties for the object
 @export var custom_properties: Array[ObjectCustomProperty] = []
+## Metadata of code functions
+@export var code_functions: Array[ObjectCodeFunction] = []
 ## Object layer
 @export var node_kind: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
 ## Current object canvas mode
