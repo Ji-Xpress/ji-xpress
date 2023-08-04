@@ -3,6 +3,7 @@ extends RigidBody2D
 # Node references
 @onready var object_metadata: ObjectMetaData = $ObjectMetaData
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
+@onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var camera: Camera2D = $Camera2D
 

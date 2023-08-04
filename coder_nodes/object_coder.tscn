@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c541h1l1hdn14"]
+
+[ext_resource type="Script" path="res://coder_nodes/object_coder.gd" id="1_a0fdi"]
+
+[node name="ObjectCoder" type="Node"]
+script = ExtResource("1_a0fdi")

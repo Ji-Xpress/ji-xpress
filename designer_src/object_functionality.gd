@@ -32,8 +32,3 @@ func send_message_to_canvas(message: Dictionary):
 ## Sets the value of a property
 func set_property(prop: String, value, is_custom: bool = true):
 	emit_signal("property_changed", prop, value, is_custom)
-
-
-## Executes a function from the parent object
-func execute_function(function_name: String, params: Dictionary = {}):
-	return parent_node.call(function_name, params)

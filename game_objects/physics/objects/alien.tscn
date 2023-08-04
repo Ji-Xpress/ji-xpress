@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=11 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_2x26b"]
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_f6f7a"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="4_831n7"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="5_ourd4"]
 
 [sub_resource type="Resource" id="Resource_fbjqp"]
 script = ExtResource("3_f6f7a")
@@ -31,6 +32,8 @@ object_description = "Alien Character"
 custom_properties = Array[ExtResource("3_f6f7a")]([SubResource("Resource_fbjqp")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_2x26b")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("5_ourd4")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_o0g4b")

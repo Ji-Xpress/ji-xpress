@@ -135,16 +135,14 @@ func load_shared_variables():
     }
 ```
 
-* The `url` for each game object can load the instance of that object and get its metadata, which is in its `ObjectMetaData` node.
+* The `url` for each game object can load the instance of that object and get its metadata, which is in its `ObjectCoder` node.
 
 ```gdscript
 extends Node
-class_name ObjectMetaData
+class_name ObjectCoder
 
 # ... other metadata elements here
 
-## Custom properties for the object
-@export var custom_properties: Array[ObjectCustomProperty] = []
 ## Metadata of code functions
 @export var code_functions: Array[ObjectCodeFunction] = []
 ## Variables to be used by the coding environment
@@ -181,7 +179,7 @@ class_name ObjectCodeFunction
 
 ### Executing custom functions
 
-* The `ObjectFunctionality` node of each object has the following:
+* The `ObjectCoder` node of each object has the following:
 
 ```gdscript
 ## Executes a function from the parent object
