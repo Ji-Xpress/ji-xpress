@@ -20,7 +20,7 @@ const prop_background: String = "background"
 const prop_tile: String = "tile"
 # For shared state between the various scenes
 const prop_shared_state: String = "shared_state"
-
+# An index of internal resource packs
 const internal_resource_packs: Dictionary = {
 	"physics": {
 		prop_description: "Physics Pack with Kenney Assets",
@@ -38,7 +38,7 @@ var current_game_pack_internal: bool = true
 # Keeping track of game objects
 ## Keeps track of external packs
 var external_resource_packs: Dictionary = {}
-# #Game objects registered by initializing packs
+## Game objects registered by initializing packs
 var game_objects: Dictionary = {
 	prop_foreground: {},
 	prop_background: {},

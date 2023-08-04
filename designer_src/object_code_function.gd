@@ -9,7 +9,7 @@ const prop_function_parameters: String = "function_parameters"
 ## Name of the function
 @export var function_name: String = ""
 ## Inputs of the function
-@export var function_outputs: Array[String] = []
+@export var function_outputs: Array[ObjectCustomProperty] = []
 ## Function parameters
 @export var function_parameters: Array[ObjectCustomProperty] = []
 
