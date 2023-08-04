@@ -82,7 +82,12 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 	var node_instance_metadata: ObjectMetaData = node_instance.get_node(Constants.object_metadata_node)
 	
 	if created_node_metadata != null:
+		# Assign already exisiting metadata
 		node_instance_metadata.assign_metadata(created_node_metadata)
+	else:
+		# Default metadata and object initialization
+		node_instance_metadata.position_x = design_canvas.camera.position.x
+		node_instance_metadata.position_y = design_canvas.camera.position.y
 	
 	# Add a new object and track its index together with in the metadata
 	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode, created_object_index)

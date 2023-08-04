@@ -20,6 +20,8 @@ const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_are
 @onready var canvas_overlays: Node2D = $CanvasOverlays
 ## Reference to the current camera
 @onready var camera: Camera2D = $Camera2D
+## Reference to the current camera's crosshair
+@onready var camera_crosshair: Sprite2D = $Camera2D/CrossHair
 
 ## Tracks the number of nodes currently added to canvas
 var node_count: int = -1
@@ -85,9 +87,11 @@ func _ready():
 	if canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		camera.enabled = false
 		canvas_overlays.visible = false
+		camera_crosshair.visible = false
 	else:
 		camera.enabled = true
 		canvas_overlays.visible = true
+		camera_crosshair.visible = true
 
 
 # Track mouse events
