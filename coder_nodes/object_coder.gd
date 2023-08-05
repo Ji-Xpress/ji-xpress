@@ -6,12 +6,10 @@ const prop_code_functions: String = "code_functions"
 const prop_code_variables: String = "code_variables"
 const prop_variable_values: String = "variable_values"
 
-
 ## Metadata of code functions
 @export var code_functions: Array[ObjectCodeFunction] = []
 ## Variables to be used by the coding environment
 @export var code_variables: Array[ObjectCustomProperty] = []
-
 
 ## Holder of variable values
 var variable_values: Dictionary = {}

@@ -171,10 +171,10 @@ class_name ObjectCodeFunction
 
 ## Name of the function
 @export var function_name: String = ""
-## Inputs of the function
-@export var function_outputs: Array[ObjectCustomProperty] = []
 ## Function parameters
 @export var function_parameters: Array[ObjectCustomProperty] = []
+## Inputs of the function
+@export var function_outputs: Array[ObjectCustomProperty] = []
 ```
 
 ### Executing custom functions
