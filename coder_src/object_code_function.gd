@@ -3,13 +3,16 @@ class_name ObjectCodeFunction
 
 # Constants
 const prop_function_name: String = "function_name"
-const prop_function_parameters: String = "function_parameters"
+const prop_function_input_parameters: String = "function_input_parameters"
+const prop_function_block_parameters: String = "function_block_parameters"
 const prop_function_outputs: String = "function_outputs"
 
 ## Name of the function
 @export var function_name: String = ""
-## Function parameters
-@export var function_parameters: Array[ObjectCustomProperty] = []
+## Function input parameters
+@export var function_input_parameters: Array[ObjectCustomProperty] = []
+## Function block parameters
+@export var function_block_parameters: Array[ObjectCustomProperty] = []
 ## Inputs of the function
 @export var function_outputs: Array[ObjectCustomProperty] = []
 
@@ -18,6 +21,7 @@ const prop_function_outputs: String = "function_outputs"
 static func model_template():
 	return {
 		prop_function_name: "",
-		prop_function_parameters: [],
+		prop_function_input_parameters: [],
+		prop_function_block_parameters: [],
 		prop_function_outputs: []
 	}
