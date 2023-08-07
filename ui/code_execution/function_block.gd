@@ -6,6 +6,8 @@ var code_function_instance: ObjectCodeFunction = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	block_type = block_type_function
+	block_sub_type = code_function_instance.get(ObjectCodeFunction.prop_function_name)
 	populate_controls()
 
 
