@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo12bojv3f3y7"]
+
+[ext_resource type="Script" path="res://ui/code_execution/set_object_variable_block.gd" id="1_nwe8x"]
+
+[node name="SetObjectVariableBlock" type="GraphNode"]
+script = ExtResource("1_nwe8x")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://q5gum2wiawjc"]
+
+[ext_resource type="Script" path="res://ui/code_execution/condition_block.gd" id="1_mu7pw"]
+
+[node name="ConditionBlock" type="GraphNode"]
+script = ExtResource("1_mu7pw")

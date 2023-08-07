@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyd2xpql5fli6"]
+
+[ext_resource type="Script" path="res://ui/code_execution/entry_block.gd" id="1_e63tr"]
+
+[node name="EntryBlock" type="GraphNode"]
+script = ExtResource("1_e63tr")

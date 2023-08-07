@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6wdpgwcv6qq"]
+
+[ext_resource type="Script" path="res://ui/code_execution/set_global_variable_block.gd" id="1_fv1oa"]
+
+[node name="SetGlobalVariableBlock" type="GraphNode"]
+script = ExtResource("1_fv1oa")

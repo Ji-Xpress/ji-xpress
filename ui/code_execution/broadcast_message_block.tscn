@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bneme2lvvua84"]
+
+[ext_resource type="Script" path="res://ui/code_execution/broadcast_message_block.gd" id="1_flitw"]
+
+[node name="BroadcastMessageBlock" type="GraphNode"]
+script = ExtResource("1_flitw")

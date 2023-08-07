@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://lij8ysl4gw1i"]
+
+[ext_resource type="Script" path="res://ui/code_execution/move_object_block.gd" id="1_nwso2"]
+
+[node name="MoveObjectBlock" type="GraphNode"]
+script = ExtResource("1_nwso2")

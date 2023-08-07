@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlildv5wjdddu"]
+
+[ext_resource type="Script" path="res://ui/code_execution/set_object_property_block.gd" id="1_ajwtb"]
+
+[node name="SetObjectPropertyBlock" type="GraphNode"]
+script = ExtResource("1_ajwtb")

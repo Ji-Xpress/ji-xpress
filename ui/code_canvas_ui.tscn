@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://6mpukdqmb1y6"]
+[gd_scene load_steps=3 format=3 uid="uid://6mpukdqmb1y6"]
 
 [ext_resource type="Script" path="res://ui/code_canvas_ui.gd" id="1_jxaup"]
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_xl38o"]
 
 [node name="CodeCanvasUI" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xl38o")
 script = ExtResource("1_jxaup")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

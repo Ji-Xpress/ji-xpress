@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1k8t8q782e61"]
+
+[ext_resource type="Script" path="res://ui/code_execution/rotate_object_block.gd" id="1_da761"]
+
+[node name="RotateObjectBlock" type="GraphNode"]
+script = ExtResource("1_da761")

@@ -39,16 +39,6 @@ func initialize_metadata():
 	all_outputs = get_all_outputs()
 
 
-## Return the dict template
-static func model_template():
-	return {
-		prop_function_name: "",
-		prop_function_input_parameters: [],
-		prop_function_block_parameters: [],
-		prop_function_outputs: []
-	}
-
-
 
 ## Prepares all metadata for inputs
 func get_all_input_parameters():
