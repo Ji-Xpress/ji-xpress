@@ -6,6 +6,8 @@ const prop_code_functions: String = "code_functions"
 const prop_code_variables: String = "code_variables"
 const prop_variable_values: String = "variable_values"
 
+## Tracks whether the object is codable or not
+@export var can_code: bool = true
 ## Metadata of code functions
 @export var code_functions: Array[ObjectCodeFunction] = []
 ## Variables to be used by the coding environment
@@ -16,10 +18,16 @@ var variable_values: Dictionary = {}
 ## Reference to parent node
 var parent_node: Node2D = null
 
+## Keeps track of all variable names
+var all_variables: Array[String] = []
+## Variables metadata
+var variable_metadata: Dictionary = {}
+
 
 # Initialization
 func _ready():
 	parent_node = get_parent()
+	all_variables = get_all_variables()
 
 
 ## Prepares dictionary of code variables
@@ -51,3 +59,17 @@ func set_variable(variable: String, value):
 ## Executes a function from the parent object
 func execute_function(function_name: String, params: Dictionary = {}):
 	return parent_node.call(function_name, params)
+
+
+# Gets an array representation of all variables
+func get_all_variables():
+	var all_variables: Array[String] = []
+	
+	for variable in code_variables:
+		var variable_name: String = variable[ObjectCustomProperty.prop_prop_name]
+		all_variables.append(variable_name)
+		variable_metadata[variable_name] = variable
+		# Also initialize the variable metadata
+		variable.initialize_metadata()
+	
+	return all_variables

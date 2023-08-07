@@ -53,3 +53,18 @@ func load_game_objects():
 ## Load all shared variables
 func load_shared_variables():
 	return {}
+
+
+## Entry points for the visual coding environment
+func code_entry_points():
+	return {
+		"ready" : {
+			GameObjectsLoader.prop_description: "When an object is ready"
+		},
+		"collides": {
+			GameObjectsLoader.prop_description: "When an object collides"
+		},
+		"update_loop": {
+			GameObjectsLoader.prop_description: "During the update loop"
+		}
+	}

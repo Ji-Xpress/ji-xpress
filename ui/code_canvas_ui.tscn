@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://6mpukdqmb1y6"]
+
+[ext_resource type="Script" path="res://ui/code_canvas_ui.gd" id="1_jxaup"]
+
+[node name="CodeCanvasUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jxaup")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Toolbar" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="connection_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
+[connection signal="delete_nodes_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
+[connection signal="disconnection_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
