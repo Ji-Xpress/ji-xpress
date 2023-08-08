@@ -4,8 +4,10 @@
 [ext_resource type="Script" path="res://ui/code_execution/set_object_variable_block.gd" id="1_nwe8x"]
 
 [node name="SetObjectVariableBlock" type="GraphNode"]
+custom_minimum_size = Vector2(160, 0)
 theme = ExtResource("1_b28h7")
 title = "Set Object Variable"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

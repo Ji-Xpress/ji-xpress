@@ -7,6 +7,7 @@ size_flags_vertical = 3
 script = ExtResource("1_a5ou8")
 
 [connection signal="begin_node_move" from="." to="." method="_on_begin_node_move"]
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="connection_request" from="." to="." method="_on_connection_request"]
 [connection signal="delete_nodes_request" from="." to="." method="_on_delete_nodes_request"]
 [connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]

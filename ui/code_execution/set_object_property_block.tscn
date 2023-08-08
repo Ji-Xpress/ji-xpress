@@ -4,8 +4,10 @@
 [ext_resource type="Script" path="res://ui/code_execution/set_object_property_block.gd" id="1_ajwtb"]
 
 [node name="SetObjectPropertyBlock" type="GraphNode"]
+custom_minimum_size = Vector2(160, 0)
 theme = ExtResource("1_0oll6")
 title = "Set Object Property"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -27,11 +29,11 @@ slot/1/draw_stylebox = true
 script = ExtResource("1_ajwtb")
 
 [node name="Property" type="LineEdit" parent="."]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 placeholder_text = "Property"
 
 [node name="Value" type="LineEdit" parent="."]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 placeholder_text = "Value"

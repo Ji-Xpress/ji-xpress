@@ -6,6 +6,7 @@
 [node name="RotateObjectBlock" type="GraphNode"]
 theme = ExtResource("1_mroi3")
 title = "Rotate Object"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

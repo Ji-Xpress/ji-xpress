@@ -6,6 +6,7 @@
 [node name="BreakLoopBlock" type="GraphNode"]
 theme = ExtResource("1_w3uo0")
 title = "Break"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -18,7 +19,7 @@ slot/0/draw_stylebox = true
 script = ExtResource("1_xovru")
 
 [node name="Break" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 text = "Break"
 vertical_alignment = 1
