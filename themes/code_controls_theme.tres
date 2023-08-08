@@ -3,6 +3,8 @@
 [ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="1_oe0io"]
 
 [resource]
+CheckBox/fonts/font = ExtResource("1_oe0io")
+GraphNode/fonts/title_font = ExtResource("1_oe0io")
 Label/font_sizes/font_size = 14
 Label/fonts/font = ExtResource("1_oe0io")
 LineEdit/fonts/font = ExtResource("1_oe0io")

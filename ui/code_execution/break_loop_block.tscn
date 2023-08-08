@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cifgjfy7kftfv"]
+[gd_scene load_steps=3 format=3 uid="uid://cifgjfy7kftfv"]
 
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_w3uo0"]
 [ext_resource type="Script" path="res://ui/code_execution/break_loop_block.gd" id="1_xovru"]
 
 [node name="BreakLoopBlock" type="GraphNode"]
+theme = ExtResource("1_w3uo0")
+title = "Break"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
 script = ExtResource("1_xovru")
+
+[node name="Break" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Break"
+vertical_alignment = 1

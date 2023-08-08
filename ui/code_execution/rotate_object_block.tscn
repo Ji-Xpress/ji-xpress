@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1k8t8q782e61"]
+[gd_scene load_steps=3 format=3 uid="uid://b1k8t8q782e61"]
 
 [ext_resource type="Script" path="res://ui/code_execution/rotate_object_block.gd" id="1_da761"]
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_mroi3"]
 
 [node name="RotateObjectBlock" type="GraphNode"]
+theme = ExtResource("1_mroi3")
+title = "Rotate Object"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 script = ExtResource("1_da761")
+
+[node name="DegreesExpression" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Degrees Expression"
+
+[node name="Tween" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Tween"

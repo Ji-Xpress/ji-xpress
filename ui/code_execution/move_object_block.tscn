@@ -1,6 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://lij8ysl4gw1i"]
+[gd_scene load_steps=3 format=3 uid="uid://lij8ysl4gw1i"]
 
 [ext_resource type="Script" path="res://ui/code_execution/move_object_block.gd" id="1_nwso2"]
+[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_v6f1g"]
 
 [node name="MoveObjectBlock" type="GraphNode"]
+theme = ExtResource("1_v6f1g")
+title = "Move Object"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
 script = ExtResource("1_nwso2")
+
+[node name="XExpression" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "X Expression"
+
+[node name="YExpression" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Y Expression"
+
+[node name="Tween" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Tween"
