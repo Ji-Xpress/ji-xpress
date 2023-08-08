@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://6mpukdqmb1y6"]
+[gd_scene load_steps=4 format=3 uid="uid://6mpukdqmb1y6"]
 
 [ext_resource type="Script" path="res://ui/code_canvas_ui.gd" id="1_jxaup"]
 [ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_xl38o"]
+[ext_resource type="PackedScene" uid="uid://61lfukx5wbam" path="res://ui/code_canvas/graph_edit.tscn" id="3_dinpj"]
 
 [node name="CodeCanvasUI" type="Control"]
 layout_mode = 3
@@ -35,11 +36,6 @@ theme_override_constants/margin_bottom = 10
 [node name="Toolbar" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GraphEdit" type="GraphEdit" parent="PanelContainer/VBoxContainer"]
+[node name="GraphEdit" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_dinpj")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-
-[connection signal="connection_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
-[connection signal="delete_nodes_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
-[connection signal="disconnection_request" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
