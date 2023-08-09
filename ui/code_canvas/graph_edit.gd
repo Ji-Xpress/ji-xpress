@@ -13,10 +13,16 @@ signal node_save_error()
 ## When a mouse click is performed
 signal mouse_clicked(button_index, canvas_position)
 
-# Holds entry blocks
+## Holds entry blocks
 var entry_nodes: Dictionary = {}
-# Holds code blocks
+## Holds code blocks
 var code_blocks: Dictionary = {}
+## Keeps track of all connections done
+var connections: Dictionary = {}
+## Keeps track of specific connections between nodes
+var node_connections_from: Dictionary = {}
+## Keeps track of specific connections between nodes
+var node_connections_to: Dictionary = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -80,6 +86,8 @@ func save_script():
 ## Loads the script from the script file
 func load_script():
 	if script_name != "":
+		connections = {}
+		
 		var metadata_dict: Dictionary = ProjectManager.open_script(script_name)
 		var entry_blocks: Dictionary = metadata_dict[CodeExecutionEngine.prop_entry_blocks]
 		var code_blocks: Dictionary = metadata_dict[CodeExecutionEngine.prop_code_blocks]
@@ -97,7 +105,8 @@ func load_script():
 		
 		for connection in connection_metadata:
 			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
-		
+			connections[connection["from"] + "_" + str(connection["from_port"])] = true
+			
 		return true
 	
 	return false
@@ -165,39 +174,56 @@ func create_new_block_from_metadata(block_metadata: Dictionary):
 
 # When a connection request is made
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	connect_node(from_node, from_port, to_node, to_port)
+	if not connections.has(from_node + "_" + str(from_port)):
+		connect_node(from_node, from_port, to_node, to_port)
+		connections[from_node + "_" + str(from_port)] = true
+		
+		node_connections_from[from_node].append({
+			"from_port": from_port,
+			"to_node": to_node,
+			"to_port": to_port
+		})
+		
+		node_connections_to[to_node].append({
+			"from_port": from_port,
+			"from_node": from_node,
+			"to_port": to_port
+		})
 
 
 # Disconnection request is made
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	pass # Replace with function body.
-
-
-# Node deletion requested
-func _on_delete_nodes_request(nodes: Array):
-	pass # Replace with function body.
-
-
-# Node has been selected
-func _on_node_selected(node: Node):
-	pass # Replace with function body.
-
-
-# Node has been deselected
-func _on_node_deselected(node: Node):
-	pass # Replace with function body.
-
-
-# Node movement initiated
-func _on_begin_node_move():
-	pass # Replace with function body.
-
-
-# Node movement ended
-func _on_end_node_move():
-	pass # Replace with function body.
+	disconnect_node(from_node, from_port, to_node, to_port)
+	connections.erase(from_node + "_" + str(from_port))
 
 
 # Track when a GraphNode enters
 func _on_child_entered_tree(node: Node):
-	var node_name = node.name
+	if node is BlockBase:
+		var node_name = node.name
+		
+		if not node_connections_from.has(node_name):
+			node_connections_from[node_name] = []
+		
+		if not node_connections_to.has(node_name):
+			node_connections_to[node_name] = []
+
+
+func _on_child_exiting_tree(node):
+	if node is BlockBase:
+		var node_name = node.name
+		
+		# Disconnect everything
+		if node_connections_from.has(node_name):
+			for connection in node_connections_from[node_name]:
+				disconnect_node(node_name, connection.from_port, connection.to_node, connection.to_port)
+				connections.erase(node_name + "_" + str(connection.from_port))
+			
+			node_connections_from.erase(node_name)
+		
+		if node_connections_to.has(node_name):
+			for connection in node_connections_to[node_name]:
+				disconnect_node(connection.from_node, connection.from_port, node_name, connection.to_port)
+				connections.erase(connection.from_node + "_" + str(connection.from_port))
+				
+			node_connections_to.erase(node_name)

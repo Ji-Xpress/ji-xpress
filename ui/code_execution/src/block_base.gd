@@ -56,7 +56,8 @@ func on_position_offset_changed():
 
 ## Emitted when the graphnode is closed
 func on_close_request():
-	pass # Replace with function body.
+	clear_all_slots()
+	queue_free()
 
 
 ## Emitted when the graphnode is dragged

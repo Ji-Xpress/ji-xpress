@@ -12,6 +12,8 @@ func _ready():
 	block_sub_type = code_function_instance.get(ObjectCodeFunction.prop_function_name)
 	function_name.text = block_sub_type
 	populate_controls()
+	
+	super._ready()
 
 
 ## Populates all child controls
