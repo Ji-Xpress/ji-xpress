@@ -11,6 +11,11 @@ signal node_saved()
 ## Raised when there is a save error
 signal node_save_error()
 
+# Holds entry blocks
+var entry_nodes: Dictionary = {}
+# Holds code blocks
+var code_blocks: Dictionary = {}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,15 +37,16 @@ func save_script():
 			var block_sub_type: String = child_node.block_sub_type
 			var block_name: String = child_node.name
 			# Fill in the block metadata
-			var block_metdata: Dictionary = child_node.get_block_metadata()
+			var block_metadata: Dictionary = child_node.get_block_metadata()
 			
-			if block_metdata != null:
+			if block_metadata != null:
+				block_metadata[BlockExecutionMetadata.prop_block_id] = block_name
 				if block_type == BlockBase.block_type_entry:
 					# Entry block
-					metadata_dict[CodeExecutionEngine.prop_entry_blocks][block_name] = block_metdata
+					metadata_dict[CodeExecutionEngine.prop_entry_blocks][block_name] = block_metadata
 				else:
 					# Code block
-					metadata_dict[CodeExecutionEngine.prop_code_blocks][block_name] = block_metdata
+					metadata_dict[CodeExecutionEngine.prop_code_blocks][block_name] = block_metadata
 	
 	metadata_dict[CodeExecutionEngine.prop_connections] = all_connections
 	
@@ -67,18 +73,62 @@ func load_script():
 		var connection_metadata: Array = metadata_dict[CodeExecutionEngine.prop_connections]
 		
 		for block_name in entry_blocks:
-			pass
+			var block_metadata: Dictionary = entry_blocks[block_name]
+			var block_instance = create_new_block(block_metadata)
+			entry_blocks[block_instance.name] = block_instance
 		
 		for block_name in code_blocks:
-			pass
+			var block_metadata: Dictionary = code_blocks[block_name]
+			var block_instance = create_new_block(block_metadata)
+			code_blocks[block_instance.name] = block_instance
 		
 		for connection in connection_metadata:
-			pass
+			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
+		
+		return true
+	
+	return false
 
+## Creates a new block from a metadata block
+func create_new_block(block_metadata: Dictionary):
+	var block_name: String = block_metadata[BlockExecutionMetadata.prop_block_id]
+	var block_scene_url: String = ""
+	
+	match block_metadata[BlockExecutionMetadata.prop_block_type]:
+		BlockBase.block_type_break_loop:
+			block_scene_url = "res://ui/code_execution/break_loop_block.tscn"
+		BlockBase.block_type_broadcast_message:
+			block_scene_url = "res://ui/code_execution/broadcast_message_block.tscn"
+		BlockBase.block_type_condition:
+			block_scene_url = "res://ui/code_execution/condition_block.tscn"
+		BlockBase.block_type_entry:
+			block_scene_url = "res://ui/code_execution/entry_block.tscn"
+		BlockBase.block_type_function:
+			block_scene_url = "res://ui/code_execution/function_block.tscn"
+		BlockBase.block_type_loop:
+			block_scene_url = "res://ui/code_execution/loop_block.tscn"
+		BlockBase.block_type_move_object:
+			block_scene_url = "res://ui/code_execution/move_object_block.tscn"
+		BlockBase.block_type_rotate_object:
+			block_scene_url = "res://ui/code_execution/rotate_object_block.tscn"
+		BlockBase.block_type_set_global_variable:
+			block_scene_url = "res://ui/code_execution/set_global_variable_block.tscn"
+		BlockBase.block_type_set_object_property:
+			block_scene_url = "res://ui/code_execution/set_object_property_block.tscn"
+		BlockBase.block_type_set_object_variable:
+			block_scene_url = "res://ui/code_execution/set_object_variable_block.tscn"
+	
+	var block_instance: GraphNode = load(block_scene_url).instantiate()
+	block_instance.set_block_metadata(block_metadata)
+	
+	call_deferred("add_child", block_instance)
+	
+	return block_instance
+	
 
 # When a connection request is made
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	pass # Replace with function body.
+	connect_node(from_node, from_port, to_node, to_port)
 
 
 # Disconnection request is made
