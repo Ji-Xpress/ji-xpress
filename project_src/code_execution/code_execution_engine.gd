@@ -3,6 +3,9 @@ class_name CodeExecutionEngine
 
 const prop_entry_blocks: String = "entry_blocks"
 const prop_code_blocks: String = "code_blocks"
+const prop_connections: String = "connections"
+const prop_connection_from_metadata: String = "connection_from_metadata"
+const prop_connection_to_metadata: String = "connection_to_metadata"
 
 ## Contains reference to the object it is attached to
 var object_id: String = ""
@@ -23,6 +26,8 @@ static func model_template():
 		prop_entry_blocks: {},
 		# Contains references to other code blocks
 		prop_code_blocks: {},
+		# Stores all the connections
+		prop_connections: []
 	}
 
 

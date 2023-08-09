@@ -29,6 +29,26 @@ func _ready():
 	connect("dragged", Callable(self, "on_dragged"))
 
 
+## Gets the metadata of the block
+func get_block_metadata():
+	return null
+
+
+## Sets the metadata of the block
+func set_block_metadata(metadata: Dictionary):
+	return false
+
+
+## Gets the metadata assigned to an input slot
+func get_input_slot_metadata(slot_number: int):
+	return null
+
+
+## Gets the metadata assigned to an output slot
+func get_output_slot_metadata(slot_number: int):
+	return null
+
+
 ## Emitted when the graphnode is moved
 func on_position_offset_changed():
 	pass # Replace with function body.

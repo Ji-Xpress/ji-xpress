@@ -5,6 +5,7 @@ extends Control
 @onready var graph_edit: GraphEdit = %GraphEdit
 @onready var script_name: String = ""
 @onready var is_new_file: bool = false
+@onready var popup_menu: PopupMenu = $PopupMenu
 
 ## When the tab is being closed
 signal tab_close_request(node_instance: Control, scene_id: String)
@@ -36,9 +37,15 @@ func _on_graph_edit_node_invalidated():
 # Tab needs to mark as has been saved
 func _on_graph_edit_node_saved():
 	tab_common.is_invalidated = false
+	is_new_file = false
 
 
 # Close tab button has been pressed
 func _on_close_tab_button_pressed():
 	save_tab()
 	emit_signal("tab_close_request", self, script_name)
+
+
+# There was a problem in the save operation
+func _on_graph_edit_node_save_error():
+	tab_common.is_invalidated = false
