@@ -12,9 +12,10 @@ extends Control
 @onready var tab_common: Node = $TabCommon
 @onready var right_panel: Control = $PanelContainer/HSplitContainer/RightPanel
 @onready var canvas_menu: Control = $PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu
+@onready var popup_menu: PopupMenu = $PopupMenu
 
 ## When the add node button is pressed
-signal add_node_pressed(node_instance: Control)
+signal add_node_pressed(node_instance: Control, request_position)
 ## When the save scene button is pressed
 signal save_scene_pressed(node_instance: Control)
 ## When the canvas settings button is pressed
@@ -30,6 +31,12 @@ var current_active_control: Node2D = null
 var canvas_object_tracker: Dictionary = {}
 ## Keeps track of the last object index
 var last_object_index: int = -1
+## Keeps track of the last mouse position on canvas
+var last_canvas_mouse_position: Vector2 = Vector2.ZERO
+## Keeps track of the the fact that we need to add to canvas at last mouse position
+var add_to_canvas_mouse_position: bool = false
+## Keeps track that when we close the popup an action requesting canvas position is needed or not
+var mouse_position_request_performed: bool = false
 
 
 # Initialize before the _ready() function
@@ -72,7 +79,7 @@ func populate_scene_nodes():
 
 
 ## Adds a node with a specific resource URL to canvas
-func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, created_node_metadata = null):
+func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, created_node_metadata = null, manual_position = null):
 	var new_node: PackedScene = load(url)
 	var node_instance: Node2D = new_node.instantiate()
 	var node_kind: SharedEnums.ObjectLayer = node_instance.get_node(Constants.object_metadata_node).get("node_kind")
@@ -85,9 +92,14 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 		# Assign already exisiting metadata
 		node_instance_metadata.assign_metadata(created_node_metadata)
 	else:
-		# Default metadata and object initialization
-		node_instance_metadata.position_x = design_canvas.camera.position.x
-		node_instance_metadata.position_y = design_canvas.camera.position.y
+		if manual_position == null and not mouse_position_request_performed:
+			# Default metadata and object initialization
+			node_instance_metadata.position_x = design_canvas.camera.position.x
+			node_instance_metadata.position_y = design_canvas.camera.position.y
+		else:
+			# Manual position request has been made
+			node_instance_metadata.position_x = manual_position.x
+			node_instance_metadata.position_y = manual_position.y
 	
 	# Add a new object and track its index together with in the metadata
 	var object_index = design_canvas.add_new_node(node_instance, node_kind, node_mode, created_object_index)
@@ -108,6 +120,9 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 	# Set tab is invalidated
 	if created_object_index < 0:
 		tab_common.is_invalidated = true
+	
+	last_canvas_mouse_position = Vector2.ZERO
+	mouse_position_request_performed = false
 
 
 ## Push settings for the canvas
@@ -220,7 +235,7 @@ func _on_design_canvas_node_deleted(node, object_id, node_index, node_kind):
 
 # Add node button has been pressed
 func _on_add_node_button_pressed():
-	emit_signal("add_node_pressed", self)
+	emit_signal("add_node_pressed", self, null)
 
 
 # Save scene button has been pressed
@@ -244,3 +259,23 @@ func _on_design_canvas_all_nodes_deselected():
 func _on_close_tab_button_pressed():
 	save_tab()
 	emit_signal("tab_close_request", self, scene_name)
+
+
+# Track any kind of click needing action
+func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
+	if mouse_button == MOUSE_BUTTON_RIGHT:
+		add_to_canvas_mouse_position = true
+		last_canvas_mouse_position = mouse_position
+		mouse_position_request_performed = false
+		
+		var current_global_positon: Vector2 = get_global_mouse_position()
+		popup_menu.popup(Rect2i(current_global_positon.x, current_global_positon.y, \
+			popup_menu.size.x, popup_menu.size.y))
+
+
+# An action is pressed on the popup menu
+func _on_popup_menu_index_pressed(index):
+	match index:
+		0:
+			mouse_position_request_performed = true
+			emit_signal("add_node_pressed", self, last_canvas_mouse_position)

@@ -6,6 +6,9 @@ extends Control
 @onready var script_name: String = ""
 @onready var is_new_file: bool = false
 
+## When the tab is being closed
+signal tab_close_request(node_instance: Control, scene_id: String)
+
 
 # Initialize before the _ready() function
 func _on_tree_entered():
@@ -33,3 +36,9 @@ func _on_graph_edit_node_invalidated():
 # Tab needs to mark as has been saved
 func _on_graph_edit_node_saved():
 	tab_common.is_invalidated = false
+
+
+# Close tab button has been pressed
+func _on_close_tab_button_pressed():
+	save_tab()
+	emit_signal("tab_close_request", self, script_name)

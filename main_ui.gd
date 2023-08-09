@@ -39,8 +39,9 @@ var tab_number_tracker = {}
 
 
 ## When a game object dialog is requested
-func on_game_object_dialog_requested(node_instance: Control):
+func on_game_object_dialog_requested(node_instance: Control, request_position = null):
 	requesting_tab_instance_control = node_instance
+	main_ui_dialogs.add_game_object_dialog.requested_position = request_position
 	main_ui_dialogs.show_game_object_dialog()
 
 
@@ -179,9 +180,9 @@ func _on_dialogs_input_prompt_result(result, flag):
 
 
 # Game object reference addition requested
-func _on_main_ui_dialogs_game_object_window_result(game_object_reference):
+func _on_main_ui_dialogs_game_object_window_result(game_object_reference, request_position):
 	if requesting_tab_instance_control != null:
-		requesting_tab_instance_control.add_game_object_url_to_canvas(game_object_reference)
+		requesting_tab_instance_control.add_game_object_url_to_canvas(game_object_reference, -1, null, request_position)
 
 
 func _on_main_ui_dialogs_canvas_settings_window_result(settings):

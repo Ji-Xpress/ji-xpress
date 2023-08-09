@@ -1,5 +1,7 @@
 extends BlockBase
 
+@onready var function_name: Label = $FunctionName
+
 ## Contains reference to the code function instance, needed to populate the node
 var code_function_instance: ObjectCodeFunction = null
 
@@ -8,6 +10,7 @@ var code_function_instance: ObjectCodeFunction = null
 func _ready():
 	block_type = block_type_function
 	block_sub_type = code_function_instance.get(ObjectCodeFunction.prop_function_name)
+	function_name.text = block_sub_type
 	populate_controls()
 
 

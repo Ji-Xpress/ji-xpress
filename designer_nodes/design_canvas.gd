@@ -99,9 +99,9 @@ func _input(event):
 	# Generic event handling
 	if canvas_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		if (event is InputEventMouseButton and event.pressed):
-			emit_signal("mouse_clicked", event.button_index, event.position)
+			emit_signal("mouse_clicked", event.button_index, get_global_mouse_position())
 		elif (event is InputEventMouseButton and not event.pressed):
-			emit_signal("mouse_released", event.button_index, event.position)
+			emit_signal("mouse_released", event.button_index, get_global_mouse_position())
 		
 		# Track the current mouse position
 		if (event is InputEventMouseMotion):
@@ -380,7 +380,15 @@ func add_new_node(new_node: Node2D, node_kind: \
 				# Hide rect extents in run mode
 				rect_extents_node.visible = false
 			
-			# Add the new node to the canvas
+			# Caliberate the position if it is a new node
+			if node_index < 0:
+				# Add the new node to the canvas. Caliberate the snapping of the node
+				new_node.position = new_node.position.snapped(grid_snapping)
+				var metadata_node: Node = new_node.get_node("ObjectMetaData")
+				metadata_node.position_x = new_node.position.x
+				metadata_node.position_y = new_node.position.y
+			
+			# Add the node
 			match node_kind:
 				ActiveHoverNode.NodeKind.foreground:
 					foreground.call_deferred("add_child", new_node)

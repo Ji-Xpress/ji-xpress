@@ -10,6 +10,13 @@ const prop_exit_nodes: String = "exit_nodes"
 const prop_output_nodes: String = "output_nodes"
 const prop_has_been_executed: String = "has_been_executed"
 
+# Input parameters
+const prop_input_param_source_block_id: String  = "input_source_block_id"
+const prop_input_param_source_block_param_id: String  = "input_source_block_parameter_id"
+
+# Block parameters
+const prop_block_parameter_value: String = "block_parameter_value"
+
 var block_id: String = ""
 var block_type: String = ""
 var block_sub_type: String = ""
@@ -19,6 +26,8 @@ var exit_nodes: Dictionary = {}
 var output_nodes: Dictionary = {}
 var has_been_executed: bool = false
 
+
+## Template for a model we can save
 static func model_template():
 	return {
 		# Block canvas ID
@@ -32,7 +41,22 @@ static func model_template():
 		# Keeps track of all block parameter values
 		prop_block_parameters: {},
 		# Keeps track of connections made by the exit nodes
-		prop_exit_nodes: {},
+		prop_exit_nodes: [],
 		# Keeps track of connections made by the output nodes
-		prop_output_nodes: {},
+		prop_output_nodes: [],
+	}
+
+
+## Template for an input parameter dictionary entry
+static func input_parameter_template():
+	return {
+		prop_input_param_source_block_id: "",
+		prop_input_param_source_block_param_id: ""
+	}
+
+
+## Template for a block parameter dictionary entry
+static func block_parameter_template():
+	return {
+		prop_block_parameter_value: ""
 	}

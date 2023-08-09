@@ -119,15 +119,24 @@ layout_mode = 2
 
 [node name="TabCommon" parent="." instance=ExtResource("4_y3q3h")]
 
+[node name="PopupMenu" type="PopupMenu" parent="."]
+size = Vector2i(171, 35)
+item_count = 1
+item_0/text = "Add Object Here"
+item_0/icon = ExtResource("2_4o2ja")
+item_0/id = 0
+
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/AddNodeButton" to="." method="_on_add_node_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CanvasSettingsButton" to="." method="_on_canvas_settings_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
 [connection signal="all_nodes_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_all_nodes_deselected"]
+[connection signal="mouse_clicked" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
 [connection signal="node_deleted" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deleted"]
 [connection signal="node_moved" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_moved"]
 [connection signal="node_rotated" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_rotated"]
 [connection signal="node_selected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_selected"]
 [connection signal="send_node_message" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_send_node_message"]
 [connection signal="property_changed" from="PanelContainer/HSplitContainer/RightPanel/ControlContainer/MarginContainer/ScrollContainer/PropertiesEditor" to="." method="_on_properties_editor_property_changed"]
+[connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]
