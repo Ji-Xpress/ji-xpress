@@ -39,6 +39,10 @@ func save_script():
 			# Fill in the block metadata
 			var block_metadata: Dictionary = child_node.get_block_metadata()
 			
+			# Store position data
+			block_metadata[BlockExecutionMetadata.prop_position_offset_x] = child_node.position_offset.x
+			block_metadata[BlockExecutionMetadata.prop_position_offset_y] = child_node.position_offset.y
+			
 			if block_metadata != null:
 				block_metadata[BlockExecutionMetadata.prop_block_id] = block_name
 				if block_type == BlockBase.block_type_entry:
@@ -118,8 +122,14 @@ func create_new_block(block_metadata: Dictionary):
 		BlockBase.block_type_set_object_variable:
 			block_scene_url = "res://ui/code_execution/set_object_variable_block.tscn"
 	
+	# Create the block
 	var block_instance: GraphNode = load(block_scene_url).instantiate()
 	block_instance.set_block_metadata(block_metadata)
+	
+	# Position the block
+	var block_position = Vector2(block_metadata[BlockExecutionMetadata.prop_position_offset_x],
+		block_metadata[BlockExecutionMetadata.prop_position_offset_y])
+	block_instance.position_offset = block_position
 	
 	call_deferred("add_child", block_instance)
 	

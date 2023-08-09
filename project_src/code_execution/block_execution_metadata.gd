@@ -9,6 +9,8 @@ const prop_block_parameters: String = "block_parameters"
 const prop_exit_nodes: String = "exit_nodes"
 const prop_output_nodes: String = "output_nodes"
 const prop_has_been_executed: String = "has_been_executed"
+const prop_position_offset_x: String = "position_offset_x"
+const prop_position_offset_y: String = "position_offset_y"
 
 # Input parameters
 const prop_input_param_source_block_id: String  = "input_source_block_id"
@@ -32,6 +34,10 @@ static func model_template():
 	return {
 		# Block canvas ID
 		prop_block_id: "",
+		# X Position on GraphEdit
+		prop_position_offset_x: 0,
+		# Y Position on GraphEdit
+		prop_position_offset_y: 0,
 		# Block type
 		prop_block_type: "",
 		# Block sub type
