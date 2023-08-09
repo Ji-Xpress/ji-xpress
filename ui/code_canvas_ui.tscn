@@ -50,13 +50,45 @@ layout_mode = 2
 [node name="TabCommon" parent="." instance=ExtResource("4_xadvh")]
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
-size = Vector2i(163, 35)
-item_count = 1
-item_0/text = "Add Block Here"
+size = Vector2i(230, 305)
+item_count = 11
+item_0/text = "Add Loop"
 item_0/icon = ExtResource("6_2u0xo")
 item_0/id = 0
+item_1/text = "Add Broadcast"
+item_1/icon = ExtResource("6_2u0xo")
+item_1/id = 1
+item_2/text = "Add Condition"
+item_2/icon = ExtResource("6_2u0xo")
+item_2/id = 2
+item_3/text = "Add Entry Point"
+item_3/icon = ExtResource("6_2u0xo")
+item_3/id = 3
+item_4/text = "Add Custom Function"
+item_4/icon = ExtResource("6_2u0xo")
+item_4/id = 4
+item_5/text = "Add Loop"
+item_5/icon = ExtResource("6_2u0xo")
+item_5/id = 5
+item_6/text = "Add Move Object"
+item_6/icon = ExtResource("6_2u0xo")
+item_6/id = 6
+item_7/text = "Add Rotate Object"
+item_7/icon = ExtResource("6_2u0xo")
+item_7/id = 7
+item_8/text = "Add Set Global Variable"
+item_8/icon = ExtResource("6_2u0xo")
+item_8/id = 8
+item_9/text = "Add Set Object Property"
+item_9/icon = ExtResource("6_2u0xo")
+item_9/id = 9
+item_10/text = "Add Set Object Variable"
+item_10/icon = ExtResource("6_2u0xo")
+item_10/id = 10
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
+[connection signal="mouse_clicked" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_mouse_clicked"]
 [connection signal="node_invalidated" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_invalidated"]
 [connection signal="node_save_error" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_save_error"]
 [connection signal="node_saved" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_saved"]
+[connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]

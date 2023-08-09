@@ -1,5 +1,18 @@
 extends Control
 
+# Track indexes for 
+const popup_break_loop: int = 0
+const popup_broadcast_message: int = 1
+const popup_condition: int = 2
+const popup_entry: int = 3
+const popup_function: int = 4
+const popup_loop: int = 5
+const popup_move_object: int = 6
+const popup_rotate_object: int = 7
+const popup_set_global_variable: int = 8
+const popup_set_object_property: int = 9
+const popup_set_object_variable: int = 10
+
 # Node references
 @onready var tab_common: Node = $TabCommon
 @onready var graph_edit: GraphEdit = %GraphEdit
@@ -9,6 +22,9 @@ extends Control
 
 ## When the tab is being closed
 signal tab_close_request(node_instance: Control, scene_id: String)
+
+## Contains the position where we need to add a node
+var selected_add_position: Vector2 = Vector2.ZERO
 
 
 # Initialize before the _ready() function
@@ -49,3 +65,42 @@ func _on_close_tab_button_pressed():
 # There was a problem in the save operation
 func _on_graph_edit_node_save_error():
 	tab_common.is_invalidated = false
+
+
+# An item on the popup was clicked
+func _on_popup_menu_index_pressed(index):
+	var block_url: String = ""
+	
+	match index:
+		popup_break_loop:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_break_loop)
+		popup_broadcast_message:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_broadcast_message)
+		popup_condition:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_condition)
+		popup_entry:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_entry)
+		popup_function:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_function)
+		popup_loop:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_loop)
+		popup_move_object:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_move_object)
+		popup_rotate_object:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_rotate_object)
+		popup_set_global_variable:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_global_variable)
+		popup_set_object_property:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_object_property)
+		popup_set_object_variable:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_object_variable)
+	
+	graph_edit.create_new_block_from_url(block_url, selected_add_position)
+
+
+func _on_graph_edit_mouse_clicked(button_index, canvas_position):
+	if button_index == MOUSE_BUTTON_RIGHT:
+		var mouse_position = get_global_mouse_position()
+		selected_add_position = canvas_position
+		popup_menu.popup(Rect2i(mouse_position.x, mouse_position.y, \
+			popup_menu.size.x, popup_menu.size.y))

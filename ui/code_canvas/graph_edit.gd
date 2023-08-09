@@ -10,6 +10,8 @@ signal node_invalidated()
 signal node_saved()
 ## Raised when there is a save error
 signal node_save_error()
+## When a mouse click is performed
+signal mouse_clicked(button_index, canvas_position)
 
 # Holds entry blocks
 var entry_nodes: Dictionary = {}
@@ -21,6 +23,13 @@ var code_blocks: Dictionary = {}
 func _ready():
 	if not is_new_file:
 		load_script()
+
+
+# Input handling
+func _input(event):
+	if event is InputEventMouseButton:
+		var selected_add_position = event.position
+		emit_signal("mouse_clicked", event.button_index, selected_add_position)
 
 
 # Saves the script
@@ -70,7 +79,7 @@ func save_script():
 
 ## Loads the script from the script file
 func load_script():
-	if script_name == "":
+	if script_name != "":
 		var metadata_dict: Dictionary = ProjectManager.open_script(script_name)
 		var entry_blocks: Dictionary = metadata_dict[CodeExecutionEngine.prop_entry_blocks]
 		var code_blocks: Dictionary = metadata_dict[CodeExecutionEngine.prop_code_blocks]
@@ -78,12 +87,12 @@ func load_script():
 		
 		for block_name in entry_blocks:
 			var block_metadata: Dictionary = entry_blocks[block_name]
-			var block_instance = create_new_block(block_metadata)
+			var block_instance = create_new_block_from_metadata(block_metadata)
 			entry_blocks[block_instance.name] = block_instance
 		
 		for block_name in code_blocks:
 			var block_metadata: Dictionary = code_blocks[block_name]
-			var block_instance = create_new_block(block_metadata)
+			var block_instance = create_new_block_from_metadata(block_metadata)
 			code_blocks[block_instance.name] = block_instance
 		
 		for connection in connection_metadata:
@@ -93,12 +102,12 @@ func load_script():
 	
 	return false
 
-## Creates a new block from a metadata block
-func create_new_block(block_metadata: Dictionary):
-	var block_name: String = block_metadata[BlockExecutionMetadata.prop_block_id]
+
+## Gets the scene URL based on block type
+func get_block_url_by_type(block_type):
 	var block_scene_url: String = ""
 	
-	match block_metadata[BlockExecutionMetadata.prop_block_type]:
+	match block_type:
 		BlockBase.block_type_break_loop:
 			block_scene_url = "res://ui/code_execution/break_loop_block.tscn"
 		BlockBase.block_type_broadcast_message:
@@ -121,6 +130,24 @@ func create_new_block(block_metadata: Dictionary):
 			block_scene_url = "res://ui/code_execution/set_object_property_block.tscn"
 		BlockBase.block_type_set_object_variable:
 			block_scene_url = "res://ui/code_execution/set_object_variable_block.tscn"
+	
+	return block_scene_url
+
+
+## Creates a new block from a URL
+func create_new_block_from_url(block_scene_url: String, block_position: Vector2):
+	var block_instance: GraphNode = load(block_scene_url).instantiate()
+	block_instance.position_offset = block_position
+	
+	call_deferred("add_child", block_instance)
+	
+	return block_instance
+
+
+## Creates a new block from a metadata block
+func create_new_block_from_metadata(block_metadata: Dictionary):
+	var block_name: String = block_metadata[BlockExecutionMetadata.prop_block_id]
+	var block_scene_url: String = get_block_url_by_type(block_metadata[BlockExecutionMetadata.prop_block_type])
 	
 	# Create the block
 	var block_instance: GraphNode = load(block_scene_url).instantiate()
