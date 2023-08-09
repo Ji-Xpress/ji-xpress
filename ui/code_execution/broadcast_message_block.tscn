@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bneme2lvvua84"]
+[gd_scene load_steps=2 format=3 uid="uid://bneme2lvvua84"]
 
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_73iuh"]
 [ext_resource type="Script" path="res://ui/code_execution/broadcast_message_block.gd" id="1_flitw"]
 
 [node name="BroadcastMessageBlock" type="GraphNode"]
-theme = ExtResource("1_73iuh")
 title = "Broadcast"
 show_close = true
 slot/0/left_enabled = true

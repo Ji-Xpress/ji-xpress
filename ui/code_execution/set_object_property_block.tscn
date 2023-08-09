@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlildv5wjdddu"]
+[gd_scene load_steps=2 format=3 uid="uid://dlildv5wjdddu"]
 
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_0oll6"]
 [ext_resource type="Script" path="res://ui/code_execution/set_object_property_block.gd" id="1_ajwtb"]
 
 [node name="SetObjectPropertyBlock" type="GraphNode"]
 custom_minimum_size = Vector2(160, 0)
-theme = ExtResource("1_0oll6")
 title = "Set Object Property"
 show_close = true
 slot/0/left_enabled = true

@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://6wdpgwcv6qq"]
+[gd_scene load_steps=2 format=3 uid="uid://6wdpgwcv6qq"]
 
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_5nubx"]
 [ext_resource type="Script" path="res://ui/code_execution/set_global_variable_block.gd" id="1_fv1oa"]
 
 [node name="SetGlobalVariableBlock" type="GraphNode"]
 custom_minimum_size = Vector2(160, 0)
 offset_right = 259.0
 offset_bottom = 116.0
-theme = ExtResource("1_5nubx")
 title = "Set Global Variable"
 show_close = true
 slot/0/left_enabled = true

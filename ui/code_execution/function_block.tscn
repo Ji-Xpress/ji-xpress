@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://0trykxv28tux"]
+[gd_scene load_steps=2 format=3 uid="uid://0trykxv28tux"]
 
 [ext_resource type="Script" path="res://ui/code_execution/function_block.gd" id="1_ieohg"]
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_uwrug"]
 
 [node name="FunctionBlock" type="GraphNode"]
-theme = ExtResource("1_uwrug")
 title = "Function"
 show_close = true
 slot/0/left_enabled = true

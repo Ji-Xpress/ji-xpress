@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo12bojv3f3y7"]
+[gd_scene load_steps=2 format=3 uid="uid://bo12bojv3f3y7"]
 
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_b28h7"]
 [ext_resource type="Script" path="res://ui/code_execution/set_object_variable_block.gd" id="1_nwe8x"]
 
 [node name="SetObjectVariableBlock" type="GraphNode"]
 custom_minimum_size = Vector2(160, 0)
-theme = ExtResource("1_b28h7")
 title = "Set Object Variable"
 show_close = true
 slot/0/left_enabled = true

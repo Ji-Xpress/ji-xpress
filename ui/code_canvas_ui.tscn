@@ -14,45 +14,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_force_pass_scroll_events = false
 theme = ExtResource("1_xl38o")
 script = ExtResource("1_jxaup")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Toolbar" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="CloseTabButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/Toolbar"]
-layout_mode = 2
-icon = ExtResource("3_0vpoq")
-
-[node name="GraphEdit" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_dinpj")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="TabCommon" parent="." instance=ExtResource("4_xadvh")]
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 size = Vector2i(230, 305)
 item_count = 11
-item_0/text = "Add Loop"
+item_0/text = "Add Break"
 item_0/icon = ExtResource("6_2u0xo")
 item_0/id = 0
 item_1/text = "Add Broadcast"
@@ -86,9 +55,42 @@ item_10/text = "Add Set Object Variable"
 item_10/icon = ExtResource("6_2u0xo")
 item_10/id = 10
 
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Toolbar" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CloseTabButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/Toolbar"]
+layout_mode = 2
+icon = ExtResource("3_0vpoq")
+
+[node name="GraphEdit" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_dinpj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TabCommon" parent="." instance=ExtResource("4_xadvh")]
+
+[connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]
+[connection signal="popup_hide" from="PopupMenu" to="." method="_on_popup_menu_popup_hide"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
 [connection signal="mouse_clicked" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_mouse_clicked"]
 [connection signal="node_invalidated" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_invalidated"]
 [connection signal="node_save_error" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_save_error"]
 [connection signal="node_saved" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_saved"]
-[connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]

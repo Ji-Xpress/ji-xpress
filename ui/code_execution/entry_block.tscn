@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyd2xpql5fli6"]
+[gd_scene load_steps=2 format=3 uid="uid://dyd2xpql5fli6"]
 
 [ext_resource type="Script" path="res://ui/code_execution/entry_block.gd" id="1_e63tr"]
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_fd1j0"]
 
 [node name="EntryBlock" type="GraphNode"]
-theme = ExtResource("1_fd1j0")
 title = "Entry"
 show_close = true
 slot/0/left_enabled = false

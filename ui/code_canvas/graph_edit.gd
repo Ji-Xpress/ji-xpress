@@ -25,8 +25,8 @@ func _ready():
 		load_script()
 
 
-# Input handling
-func _input(event):
+# Capture Mouse Events
+func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		var selected_add_position = event.position
 		emit_signal("mouse_clicked", event.button_index, selected_add_position)

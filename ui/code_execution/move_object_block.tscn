@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://lij8ysl4gw1i"]
+[gd_scene load_steps=2 format=3 uid="uid://lij8ysl4gw1i"]
 
 [ext_resource type="Script" path="res://ui/code_execution/move_object_block.gd" id="1_nwso2"]
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_v6f1g"]
 
 [node name="MoveObjectBlock" type="GraphNode"]
-theme = ExtResource("1_v6f1g")
 title = "Move Object"
 show_close = true
 slot/0/left_enabled = true

@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1k8t8q782e61"]
+[gd_scene load_steps=2 format=3 uid="uid://b1k8t8q782e61"]
 
 [ext_resource type="Script" path="res://ui/code_execution/rotate_object_block.gd" id="1_da761"]
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_mroi3"]
 
 [node name="RotateObjectBlock" type="GraphNode"]
-theme = ExtResource("1_mroi3")
 title = "Rotate Object"
 show_close = true
 slot/0/left_enabled = true

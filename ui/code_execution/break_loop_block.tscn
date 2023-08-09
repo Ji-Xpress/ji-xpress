@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cifgjfy7kftfv"]
+[gd_scene load_steps=2 format=3 uid="uid://cifgjfy7kftfv"]
 
-[ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_w3uo0"]
 [ext_resource type="Script" path="res://ui/code_execution/break_loop_block.gd" id="1_xovru"]
 
 [node name="BreakLoopBlock" type="GraphNode"]
-theme = ExtResource("1_w3uo0")
 title = "Break"
 show_close = true
 slot/0/left_enabled = true
