@@ -112,5 +112,6 @@ func _on_graph_edit_mouse_clicked(button_index, canvas_position):
 			popup_menu.size.x, popup_menu.size.y))
 
 
-func _on_popup_menu_popup_hide():
-	graph_edit.grab_focus()
+# Save button has been pressed
+func _on_save_scene_button_pressed():
+	save_tab()
