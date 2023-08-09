@@ -13,10 +13,13 @@ const popup_set_global_variable: int = 8
 const popup_set_object_property: int = 9
 const popup_set_object_variable: int = 10
 
+# Script name property
+@export var script_name: String = ""
+@export var object_index: int = -1
+
 # Node references
 @onready var tab_common: Node = $TabCommon
 @onready var graph_edit: GraphEdit = %GraphEdit
-@onready var script_name: String = ""
 @onready var is_new_file: bool = false
 @onready var popup_menu: PopupMenu = $PopupMenu
 
@@ -31,6 +34,7 @@ var selected_add_position: Vector2 = Vector2.ZERO
 func _on_tree_entered():
 	# Initialize the GraphEdit node
 	%GraphEdit.script_name = script_name
+	%GraphEdit.object_index = object_index
 	%GraphEdit.is_new_file = is_new_file
 
 

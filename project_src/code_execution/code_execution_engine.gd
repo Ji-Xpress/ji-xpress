@@ -1,6 +1,7 @@
 extends Node
 class_name CodeExecutionEngine
 
+const prop_object_index: String = "object_index"
 const prop_entry_blocks: String = "entry_blocks"
 const prop_code_blocks: String = "code_blocks"
 const prop_connections: String = "connections"
@@ -22,6 +23,8 @@ var code_file_name: String = ""
 
 static func model_template():
 	return {
+		# Index of the object it references
+		prop_object_index: -1,
 		# Contains references to entry blocks
 		prop_entry_blocks: {},
 		# Contains references to other code blocks

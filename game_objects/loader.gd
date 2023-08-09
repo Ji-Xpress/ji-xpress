@@ -6,6 +6,8 @@ const prop_description: String = "description"
 const prop_loader: String = "loader"
 # For external packs only
 const prop_pack_url: String = "pack_url"
+# Tracks the ID of a game object
+const prop_object_id: String = "object_id"
 # Tracks the URL of a game object
 const prop_object_url: String = "object_url"
 # Tracks custom properties

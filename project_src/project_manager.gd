@@ -8,6 +8,8 @@ var project_metadata = null
 var scenes = []
 ## Holds metadata for all scenes
 var scenes_metadata: Dictionary = {}
+## Collection of object ids in the current project
+var object_ids = []
 ## Collection of objects in the current project
 var objects = []
 ## Holds metadata for all objects
@@ -108,7 +110,7 @@ func create_new_project(project_path: String, project_pack: String):
 		# Load the current set of objects
 		GameObjectsLoader.load_internal_pack(project_pack)
 		
-		objects = get_project_objects()
+		get_project_objects()
 		scenes = get_project_scenes()
 		scripts = get_project_scripts()
 		
@@ -226,7 +228,7 @@ func open_project(project_path: String):
 			# Load the current set of objects
 			GameObjectsLoader.load_internal_pack(project_metadata[ProjectMetadata.prop_project_pack])
 			
-			objects = get_project_objects()
+			get_project_objects()
 			scenes = get_project_scenes()
 			scripts = get_project_scripts()
 			
@@ -299,20 +301,28 @@ func open_script(file_name: String, mute_results: bool = false):
 
 ## Get all project objects
 func get_project_objects():
-	var all_objects: Array[String] = []
+	# Clear all these 3
+	object_ids = []
+	objects = []
+	objects_metadata = {}
 	
 	for object_type in GameObjectsLoader.game_objects:
 		# Iterate through all game objects in the type
 		var object_index: int = 0
 		for game_object in GameObjectsLoader.game_objects[object_type]:
 			var current_object: Dictionary = GameObjectsLoader.game_objects[object_type][game_object]
-			all_objects.append(current_object[GameObjectsLoader.prop_description])
+			var object_description: String = current_object[GameObjectsLoader.prop_description]
+			# Populate object metadata fields
+			object_ids.append(game_object)
+			objects.append(object_description)
 			objects_metadata[str(object_index)] = {
+				GameObjectsLoader.prop_object_id: game_object,
+				GameObjectsLoader.prop_description: object_description,
 				GameObjectsLoader.prop_object_url: current_object[GameObjectsLoader.prop_object_url]
 			}
 			object_index += 1
 	
-	return all_objects
+	return objects
 
 
 ## Get all scene instances
