@@ -37,7 +37,7 @@ func _ready():
 # Capture Mouse Events
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		var selected_add_position = event.position
+		var selected_add_position = event.position + scroll_offset
 		emit_signal("mouse_clicked", event.button_index, selected_add_position)
 
 

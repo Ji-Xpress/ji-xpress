@@ -10,8 +10,8 @@ func _ready():
 		"0": null
 	}
 	exit_slots = {
-		"1": condition_true,
-		"2": condition_finally
+		"0": condition_true,
+		"1": condition_finally
 	}
 	
 	super._ready()
