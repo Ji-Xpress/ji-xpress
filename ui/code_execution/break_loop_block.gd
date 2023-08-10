@@ -6,7 +6,7 @@ func _ready():
 	block_type = block_type_break_loop
 	
 	input_slots = {
-		"0": null
+		"0": condition_true
 	}
 	
 	super._ready()

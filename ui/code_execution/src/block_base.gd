@@ -28,6 +28,8 @@ var input_slots: Dictionary = {}
 var output_slots: Dictionary = {}
 ## Keeps track of exit slots
 var exit_slots: Dictionary = {}
+## Keeps track of exit slots with results
+var exit_slots_with_results: Dictionary = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -69,6 +71,11 @@ func get_exit_slot_metadata(slot_number: int):
 		return exit_slots[str(slot_number)]
 	
 	return null
+
+
+## Returns all exit slots with results
+func get_exit_slots_with_results():
+	return exit_slots_with_results
 
 
 ## Emitted when the graphnode is closed

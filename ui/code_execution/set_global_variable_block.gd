@@ -7,10 +7,13 @@ func _ready():
 	
 	# Slot metadata
 	input_slots = {
-		"0": null
+		"0": condition_true
 	}
 	exit_slots = {
-		"0": null
+		"0": condition_true
+	}
+	exit_slots_with_results = {
+		condition_true: 0
 	}
 	
 	super._ready()
