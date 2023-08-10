@@ -50,7 +50,10 @@ func set_block_metadata(metadata: Dictionary):
 
 
 ## Gets the metadata assigned to an input slot
-func get_input_port_metadata(port_number: int):
+func get_input_port_metadata(port_number: int = -1):
+	if port_number < 0:
+		return input_ports
+	
 	if input_ports.has(str(port_number)):
 		return input_ports[str(port_number)]
 	
@@ -58,7 +61,10 @@ func get_input_port_metadata(port_number: int):
 
 
 ## Gets the metadata assigned to an output slot
-func get_output_port_metadata(port_number: int):
+func get_output_port_metadata(port_number: int = -1):
+	if port_number < 0:
+		return output_ports
+	
 	if output_ports.has(str(port_number)):
 		return output_ports[str(port_number)]
 	
@@ -66,7 +72,10 @@ func get_output_port_metadata(port_number: int):
 
 
 ## Gets the metadata assigned to an exit slot
-func get_exit_port_metadata(port_number: int):
+func get_exit_port_metadata(port_number: int = -1):
+	if port_number < 0:
+		return exit_ports
+	
 	if exit_ports.has(str(port_number)):
 		return exit_ports[str(port_number)]
 	
@@ -74,8 +83,14 @@ func get_exit_port_metadata(port_number: int):
 
 
 ## Returns all exit slots with results
-func get_exit_ports_with_results():
-	return exit_ports_with_results
+func get_exit_ports_with_results(condition: String = ""):
+	if condition == "":
+		return exit_ports_with_results
+	
+	if exit_ports_with_results.has(condition):
+		return exit_ports_with_results[condition]
+	
+	return null
 
 
 ## Emitted when the graphnode is closed
