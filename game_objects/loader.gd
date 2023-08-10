@@ -49,6 +49,8 @@ var game_objects: Dictionary = {
 }
 ## Shared variables between game objects
 var shared_variables = {}
+## All entrypoints for the current pack
+var entry_points = {}
 
 
 ## Invalidates the game object cache
@@ -59,6 +61,8 @@ func reset_game_objects():
 		prop_tile: {},
 		prop_shared_state: {}
 	}
+	shared_variables = {}
+	entry_points = {}
 
 
 ## Load internal packs without the PCKs
@@ -71,6 +75,7 @@ func load_internal_pack(pack_name: String):
 	loader = loader.new()
 	
 	game_objects = loader.load_game_objects()
+	entry_points = loader.load_code_entry_points()
 	shared_variables = loader.load_shared_variables()
 
 

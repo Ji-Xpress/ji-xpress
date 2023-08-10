@@ -56,7 +56,7 @@ func load_shared_variables():
 
 
 ## Entry points for the visual coding environment
-func code_entry_points():
+func load_code_entry_points():
 	return {
 		"ready" : {
 			GameObjectsLoader.prop_description: "When an object is ready"

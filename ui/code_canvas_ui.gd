@@ -28,6 +28,8 @@ signal tab_close_request(node_instance: Control, scene_id: String)
 
 ## Contains the position where we need to add a node
 var selected_add_position: Vector2 = Vector2.ZERO
+## Keeps track of the current instance of the object
+var current_object_instance: Node2D = null
 
 
 # Initialize before the _ready() function
@@ -40,7 +42,11 @@ func _on_tree_entered():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if object_index > -1:
+		var object_url = ProjectManager.objects_metadata[str(object_index)][GameObjectsLoader.prop_object_url]
+		current_object_instance = load(object_url).instantiate()
+		graph_edit.current_object_instance = current_object_instance
+		graph_edit.build_custom_functions_submenu()
 
 
 ## Save the tab's content
@@ -127,3 +133,9 @@ func _on_popup_menu_custom_entrypoint_item_selected(index):
 # Handle when menuitem function selected
 func _on_popup_menu_custom_function_item_selected(index):
 	pass # Replace with function body.
+
+
+func _on_tree_exiting():
+	if current_object_instance != null:
+		current_object_instance.queue_free()
+		current_object_instance = null

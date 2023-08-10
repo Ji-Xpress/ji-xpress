@@ -7,11 +7,17 @@ extends PopupMenu
 var custom_entrypoint_submenu: PopupMenu = PopupMenu.new()
 ## Custom functions sub menu
 var custom_function_submenu: PopupMenu = PopupMenu.new()
+## Keeps track of the current pack entry points
+var pack_entrypoints: Dictionary = {}
+## An instance of the reference object for purposes of building metadata
+var current_object_instance: Node2D = null
 
 ## Signal handler for when custom entrypoint item is selected
 signal custom_entrypoint_item_selected(index: int)
 ## Signal handler for when custom function item is selected
 signal custom_function_item_selected(index: int)
+## Contains references to all function names
+var code_function_names: Array[String] = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,9 +27,11 @@ func _ready():
 	var popup_menu_item_text: Array[String] = []
 	var popup_menu_item_texture: Array[Texture2D] = []
 	
+	# Populate entry points from the active pack
+	pack_entrypoints =  GameObjectsLoader.entry_points
+	
 	# Build submenus
 	build_custom_entrypoints_submenu()
-	build_custom_functions_submenu()
 	
 	# Set submenu names
 	custom_entrypoint_submenu.set_name("custom_entrypoint_submenu")
@@ -58,19 +66,35 @@ func _ready():
 			set_item_icon(item, popup_menu_item_texture[item])
 
 
+# Event handler for when menu index is selected
 func on_entrypoint_menu_index_selected(index: int):
-	pass
+	emit_signal("custom_entrypoint_item_selected", index)
 
 
+# Event handler for when menu index is selected
 func on_function_menu_index_selected(index: int):
-	pass
+	emit_signal("custom_function_item_selected", index)
 
 
 ## Builds custom entrypoints submenu
 func build_custom_entrypoints_submenu():
 	custom_entrypoint_submenu.clear()
+	
+	for entrypoint in pack_entrypoints:
+		custom_entrypoint_submenu.add_item(entrypoint)
 
 
 ## Builds custom functions submenu
 func build_custom_functions_submenu():
 	custom_function_submenu.clear()
+	code_function_names.clear()
+	
+	if current_object_instance != null:
+		var metadata_node: ObjectCoder = current_object_instance.get_node(Constants.object_coder_node)
+		
+		if metadata_node != null:
+			var all_functions = metadata_node.code_functions
+			for function in all_functions:
+				# Add item to menu and track it in the code_functions_names variable for same index
+				custom_function_submenu.add_item(function.function_name)
+				code_function_names.append(function.function_name)

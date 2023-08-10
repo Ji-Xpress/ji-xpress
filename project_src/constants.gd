@@ -16,6 +16,8 @@ const recent_projects_file_name: String = "user://recent_projects.dat"
 const object_metadata_node: String = "ObjectMetaData"
 ## Node name for object functionality node
 const object_functionality_node: String = "ObjectFunctionality"
+## Node name for object coder node
+const object_coder_node: String = "ObjectCoder"
 ## Node name for RectExtents node
 const object_rectextents_node: String = "RectExtents2D"
 
