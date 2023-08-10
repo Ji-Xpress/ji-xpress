@@ -59,6 +59,10 @@ func save_script():
 				# Fill in the block metadata
 				var block_metadata: Dictionary = child_node.get_block_metadata()
 				
+				metadata_dict[CodeExecutionEngine.prop_input_slot_metadata] = child_node.get_input_slot_metadata()
+				metadata_dict[CodeExecutionEngine.prop_output_slot_metadata] = child_node.get_output_slot_metadata()
+				metadata_dict[CodeExecutionEngine.prop_exit_slot_metadata] = child_node.get_exit_slot_metadata()
+				
 				# Store position data
 				block_metadata[BlockExecutionMetadata.prop_position_offset_x] = child_node.position_offset.x
 				block_metadata[BlockExecutionMetadata.prop_position_offset_y] = child_node.position_offset.y

@@ -5,6 +5,9 @@ const prop_object_index: String = "object_index"
 const prop_entry_blocks: String = "entry_blocks"
 const prop_code_blocks: String = "code_blocks"
 const prop_connections: String = "connections"
+const prop_input_slot_metadata: String = "input_slot_metadata"
+const prop_output_slot_metadata: String = "output_slot_metadata"
+const prop_exit_slot_metadata: String = "exit_slot_metadata"
 const prop_connection_from_metadata: String = "connection_from_metadata"
 const prop_connection_to_metadata: String = "connection_to_metadata"
 
@@ -29,6 +32,12 @@ static func model_template():
 		prop_entry_blocks: {},
 		# Contains references to other code blocks
 		prop_code_blocks: {},
+		# Metadata for input slots
+		prop_input_slot_metadata: {},
+		# Metadata for output slots
+		prop_output_slot_metadata: {},
+		# Metadata for exit slots
+		prop_exit_slot_metadata: {},
 		# Stores all the connections
 		prop_connections: []
 	}

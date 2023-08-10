@@ -29,3 +29,27 @@ func populate_controls():
 	# Populate all outputs
 	for instance_key in code_function_instance.outputs_metadata:
 		var instance: ObjectCustomProperty = code_function_instance.block_parameters_metadata[instance_key]
+
+
+## Gets the metadata of the block
+func get_block_metadata():
+	# TODO
+	return null
+
+
+## Sets the metadata of the block
+func set_block_metadata(metadata: Dictionary):
+	# TODO
+	return false
+
+
+## Gets the metadata assigned to an input slot
+func get_input_slot_metadata(slot_number: int):
+	# TODO
+	return null
+
+
+## Gets the metadata assigned to an output slot
+func get_output_slot_metadata(slot_number: int):
+	# TODO
+	return null
