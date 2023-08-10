@@ -44,12 +44,12 @@ func set_block_metadata(metadata: Dictionary):
 
 
 ## Gets the metadata assigned to an input slot
-func get_input_slot_metadata(slot_number: int):
+func get_input_port_metadata(slot_number: int):
 	# TODO
 	return null
 
 
 ## Gets the metadata assigned to an output slot
-func get_output_slot_metadata(slot_number: int):
+func get_output_port_metadata(slot_number: int):
 	# TODO
 	return null

@@ -7,15 +7,15 @@ func _ready():
 	super._ready()
 	
 	# Slot metadata
-	input_slots = {
+	input_ports = {
 		"0": condition_true
 	}
-	exit_slots = {
+	exit_ports = {
 		"0": condition_true,
 		"1": condition_false,
 		"2": condition_finally
 	}
-	exit_slots_with_results = {
+	exit_ports_with_results = {
 		condition_true: 0,
 		condition_false: 1,
 		condition_finally: 2

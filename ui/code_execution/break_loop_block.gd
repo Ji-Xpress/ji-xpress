@@ -5,7 +5,7 @@ extends BlockBase
 func _ready():
 	block_type = block_type_break_loop
 	
-	input_slots = {
+	input_ports = {
 		"0": condition_true
 	}
 	

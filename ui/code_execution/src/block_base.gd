@@ -23,13 +23,13 @@ var block_type: String = ""
 ## Keeps track of block sub type
 var block_sub_type: String = ""
 ## Keeps track of slot metadata
-var input_slots: Dictionary = {}
+var input_ports: Dictionary = {}
 ## Keeps track of slot metadata
-var output_slots: Dictionary = {}
+var output_ports: Dictionary = {}
 ## Keeps track of exit slots
-var exit_slots: Dictionary = {}
+var exit_ports: Dictionary = {}
 ## Keeps track of exit slots with results
-var exit_slots_with_results: Dictionary = {}
+var exit_ports_with_results: Dictionary = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -50,32 +50,32 @@ func set_block_metadata(metadata: Dictionary):
 
 
 ## Gets the metadata assigned to an input slot
-func get_input_slot_metadata(slot_number: int):
-	if input_slots.has(str(slot_number)):
-		return input_slots[str(slot_number)]
+func get_input_port_metadata(port_number: int):
+	if input_ports.has(str(port_number)):
+		return input_ports[str(port_number)]
 	
 	return null
 
 
 ## Gets the metadata assigned to an output slot
-func get_output_slot_metadata(slot_number: int):
-	if output_slots.has(str(slot_number)):
-		return output_slots[str(slot_number)]
+func get_output_port_metadata(port_number: int):
+	if output_ports.has(str(port_number)):
+		return output_ports[str(port_number)]
 	
 	return null
 
 
 ## Gets the metadata assigned to an exit slot
-func get_exit_slot_metadata(slot_number: int):
-	if exit_slots.has(str(slot_number)):
-		return exit_slots[str(slot_number)]
+func get_exit_port_metadata(port_number: int):
+	if exit_ports.has(str(port_number)):
+		return exit_ports[str(port_number)]
 	
 	return null
 
 
 ## Returns all exit slots with results
-func get_exit_slots_with_results():
-	return exit_slots_with_results
+func get_exit_ports_with_results():
+	return exit_ports_with_results
 
 
 ## Emitted when the graphnode is closed

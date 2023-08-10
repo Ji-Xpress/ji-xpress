@@ -6,13 +6,13 @@ func _ready():
 	block_type = block_type_set_object_property
 	
 	# Slot metadata
-	input_slots = {
+	input_ports = {
 		"0": condition_true
 	}
-	exit_slots = {
+	exit_ports = {
 		"0": condition_true
 	}
-	exit_slots_with_results = {
+	exit_ports_with_results = {
 		condition_true: 0
 	}
 	
