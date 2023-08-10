@@ -4,9 +4,9 @@
 [ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_xl38o"]
 [ext_resource type="Texture2D" uid="uid://g710fiucdwhb" path="res://assets/icons_16/power.png" id="3_0vpoq"]
 [ext_resource type="PackedScene" uid="uid://61lfukx5wbam" path="res://ui/code_canvas/graph_edit.tscn" id="3_dinpj"]
+[ext_resource type="PackedScene" uid="uid://7jwfjk0qcv8t" path="res://ui/code_canvas/graph_edit_popup_menu.tscn" id="3_y1psk"]
 [ext_resource type="Texture2D" uid="uid://csneey8a6hfdm" path="res://assets/icons_16/save.png" id="4_smn8n"]
 [ext_resource type="PackedScene" uid="uid://dqhkpf6dix3ye" path="res://ui/src/tab_common.tscn" id="4_xadvh"]
-[ext_resource type="Texture2D" uid="uid://c1fd7svh1tldq" path="res://assets/icons_16/plus.png" id="6_2u0xo"]
 
 [node name="CodeCanvasUI" type="Control"]
 layout_mode = 3
@@ -19,42 +19,8 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_xl38o")
 script = ExtResource("1_jxaup")
 
-[node name="PopupMenu" type="PopupMenu" parent="."]
-size = Vector2i(230, 305)
-item_count = 11
-item_0/text = "Add Break"
-item_0/icon = ExtResource("6_2u0xo")
-item_0/id = 0
-item_1/text = "Add Broadcast"
-item_1/icon = ExtResource("6_2u0xo")
-item_1/id = 1
-item_2/text = "Add Condition"
-item_2/icon = ExtResource("6_2u0xo")
-item_2/id = 2
-item_3/text = "Add Entry Point"
-item_3/icon = ExtResource("6_2u0xo")
-item_3/id = 3
-item_4/text = "Add Custom Function"
-item_4/icon = ExtResource("6_2u0xo")
-item_4/id = 4
-item_5/text = "Add Loop"
-item_5/icon = ExtResource("6_2u0xo")
-item_5/id = 5
-item_6/text = "Add Move Object"
-item_6/icon = ExtResource("6_2u0xo")
-item_6/id = 6
-item_7/text = "Add Rotate Object"
-item_7/icon = ExtResource("6_2u0xo")
-item_7/id = 7
-item_8/text = "Add Set Global Variable"
-item_8/icon = ExtResource("6_2u0xo")
-item_8/id = 8
-item_9/text = "Add Set Object Property"
-item_9/icon = ExtResource("6_2u0xo")
-item_9/id = 9
-item_10/text = "Add Set Object Variable"
-item_10/icon = ExtResource("6_2u0xo")
-item_10/id = 10
+[node name="PopupMenu" parent="." instance=ExtResource("3_y1psk")]
+visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -92,6 +58,8 @@ layout_mode = 2
 
 [node name="TabCommon" parent="." instance=ExtResource("4_xadvh")]
 
+[connection signal="custom_entrypoint_item_selected" from="PopupMenu" to="." method="_on_popup_menu_custom_entrypoint_item_selected"]
+[connection signal="custom_function_item_selected" from="PopupMenu" to="." method="_on_popup_menu_custom_function_item_selected"]
 [connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/CloseTabButton" to="." method="_on_close_tab_button_pressed"]

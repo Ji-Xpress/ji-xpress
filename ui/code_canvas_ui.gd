@@ -83,9 +83,11 @@ func _on_popup_menu_index_pressed(index):
 		popup_condition:
 			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_condition)
 		popup_entry:
-			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_entry)
+			# Handled by submenu
+			pass
 		popup_function:
-			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_function)
+			# Handled by submenu
+			pass
 		popup_loop:
 			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_loop)
 		popup_move_object:
@@ -115,3 +117,13 @@ func _on_graph_edit_mouse_clicked(button_index, canvas_position):
 # Save button has been pressed
 func _on_save_scene_button_pressed():
 	save_tab()
+
+
+# Handle when menuitem entrypoint selected
+func _on_popup_menu_custom_entrypoint_item_selected(index):
+	pass # Replace with function body.
+
+
+# Handle when menuitem function selected
+func _on_popup_menu_custom_function_item_selected(index):
+	pass # Replace with function body.
