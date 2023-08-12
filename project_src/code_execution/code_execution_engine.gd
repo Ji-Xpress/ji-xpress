@@ -65,15 +65,28 @@ func execute_code_from_entrypoint(block_name: String):
 
 
 ## Sets the output value of every node's output
-func set_block_exit_result(block_name: String, exit_port: int, result: String, value):
+func set_block_exit_port_result(block_name: String, exit_port: int, result: String, value):
 	node_outputs_metadata[block_name + "_" + str(exit_port)] = execution_result_model_template(result, value)
 
 
 ## Gets the output value of a specific output node
-func get_block_output(block_name: String, exit_port: String):
+func get_block_exit_port_result(block_name: String, exit_port: String):
 	var metadata_key: String = block_name + "_" + exit_port
 	
 	if node_outputs_metadata.has(metadata_key):
 		return node_outputs_metadata[metadata_key]
+	
+	return null
+
+
+## Sets the metadata for a block's execution
+func set_block_execution_metadata(block_name: String, result: String, value):
+	block_execution_data[block_name] = execution_result_model_template(result, value)
+
+
+## Gets the metadata for a block's execution
+func get_block_execution_metadata(block_name: String):
+	if block_execution_data.has(block_name):
+		return block_execution_data[block_name]
 	
 	return null
