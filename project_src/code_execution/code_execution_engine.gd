@@ -6,7 +6,6 @@ const prop_entry_blocks: String = "entry_blocks"
 const prop_code_blocks: String = "code_blocks"
 const prop_connections: String = "connections"
 const prop_input_port_metadata: String = "input_port_metadata"
-const prop_output_port_metadata: String = "output_port_metadata"
 const prop_exit_port_metadata: String = "exit_port_metadata"
 const prop_exit_port_result_metadata: String = "exit_port_result_metadata"
 const prop_connection_from_metadata: String = "connection_from_metadata"
@@ -35,8 +34,6 @@ static func model_template():
 		prop_code_blocks: {},
 		# Metadata for input ports
 		prop_input_port_metadata: {},
-		# Metadata for output ports
-		prop_output_port_metadata: {},
 		# Metadata for exit ports
 		prop_exit_port_metadata: {},
 		# Metadata for exit port results

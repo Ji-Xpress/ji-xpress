@@ -60,7 +60,6 @@ func save_script():
 				var block_metadata: Dictionary = child_node.get_block_metadata()
 				
 				metadata_dict[CodeExecutionEngine.prop_input_port_metadata] = child_node.get_input_port_metadata()
-				metadata_dict[CodeExecutionEngine.prop_output_port_metadata] = child_node.get_output_port_metadata()
 				metadata_dict[CodeExecutionEngine.prop_exit_port_metadata] = child_node.get_exit_port_metadata()
 				metadata_dict[CodeExecutionEngine.prop_exit_port_result_metadata] = child_node.get_exit_ports_with_results()
 				

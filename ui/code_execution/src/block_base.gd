@@ -24,8 +24,6 @@ var block_type: String = ""
 var block_sub_type: String = ""
 ## Keeps track of slot metadata
 var input_ports: Dictionary = {}
-## Keeps track of slot metadata
-var output_ports: Dictionary = {}
 ## Keeps track of exit slots
 var exit_ports: Dictionary = {}
 ## Keeps track of exit slots with results
@@ -56,17 +54,6 @@ func get_input_port_metadata(port_number: int = -1):
 	
 	if input_ports.has(str(port_number)):
 		return input_ports[str(port_number)]
-	
-	return null
-
-
-## Gets the metadata assigned to an output slot
-func get_output_port_metadata(port_number: int = -1):
-	if port_number < 0:
-		return output_ports
-	
-	if output_ports.has(str(port_number)):
-		return output_ports[str(port_number)]
 	
 	return null
 

@@ -6,8 +6,7 @@ const prop_block_type: String = "block_type"
 const prop_block_sub_type: String = "block_sub_type"
 const prop_input_parameters: String = "input_parameters"
 const prop_block_parameters: String = "block_parameters"
-const prop_exit_nodes: String = "exit_nodes"
-const prop_output_nodes: String = "output_nodes"
+const prop_exit_port_results: String = "exit_port_results"
 const prop_has_been_executed: String = "has_been_executed"
 const prop_position_offset_x: String = "position_offset_x"
 const prop_position_offset_y: String = "position_offset_y"
@@ -46,10 +45,8 @@ static func model_template():
 		prop_input_parameters: {},
 		# Keeps track of all block parameter values
 		prop_block_parameters: {},
-		# Keeps track of connections made by the exit nodes
-		prop_exit_nodes: [],
-		# Keeps track of connections made by the output nodes
-		prop_output_nodes: [],
+		# Keeps track of results delivered by exit ports
+		prop_exit_port_results: {}
 	}
 
 
