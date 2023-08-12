@@ -10,6 +10,8 @@ const prop_exit_port_metadata: String = "exit_port_metadata"
 const prop_exit_port_result_metadata: String = "exit_port_result_metadata"
 const prop_connection_from_metadata: String = "connection_from_metadata"
 const prop_connection_to_metadata: String = "connection_to_metadata"
+const prop_block_execution_result: String = "block_execution_result"
+const prop_block_execution_value: String = "block_execution_value"
 
 ## Contains reference to the object it is attached to
 var object_id: String = ""
@@ -22,8 +24,11 @@ var node_outputs_metadata: Dictionary = {}
 var block_execution_data: Dictionary = {}
 ## References the code file name
 var code_file_name: String = ""
+## Keeps track of branching steps and executes the finally block once we backtrack
+var block_branching_steps: Array[String] = []
 
 
+## Model for persistance
 static func model_template():
 	return {
 		# Index of the object it references
@@ -43,39 +48,30 @@ static func model_template():
 	}
 
 
-## Loads code from a file
-func load_code_file(open_code_file_name: String = ""):
-	if open_code_file_name == "":
-		return false
-	
-	code_file_name = open_code_file_name
-	return true
-	
-
-## Saves the code execution data to file
-func save_code_file(save_code_file_name: String = ""):
-	var file_name = save_code_file_name
-	
-	if save_code_file_name == "":
-		file_name = code_file_name
-	
-	if file_name == "":
-		return false
+## Model for execution
+static func execution_result_model_template(result: String = "", value = null):
+	return {
+		# Result (if any) of the execution (for routing)
+		prop_block_execution_result: result,
+		# Value of the execution (for value tracking)
+		prop_block_execution_value: value
+	}
 
 
 ## Executes code from entry blocks
-func execute_code_from_entrypoint(node_id: String):
+func execute_code_from_entrypoint(block_name: String):
+	# TODO: Start executing
 	pass
 
 
 ## Sets the output value of every node's output
-func set_node_output_value(node_id: String, output_id: String, value):
-	node_outputs_metadata[node_id + "_" + output_id] = value
+func set_block_exit_result(block_name: String, exit_port: int, result: String, value):
+	node_outputs_metadata[block_name + "_" + str(exit_port)] = execution_result_model_template(result, value)
 
 
 ## Gets the output value of a specific output node
-func get_node_output_value(node_id: String, output_id: String):
-	var metadata_key: String = node_id + "_" + output_id
+func get_block_output(block_name: String, exit_port: String):
+	var metadata_key: String = block_name + "_" + exit_port
 	
 	if node_outputs_metadata.has(metadata_key):
 		return node_outputs_metadata[metadata_key]
