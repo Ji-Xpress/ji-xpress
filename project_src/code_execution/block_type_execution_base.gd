@@ -6,6 +6,7 @@ var input_parameters = {}
 
 ## Contains a reference to the game object instance
 var game_object_instance: Node2D = null
+var computed_value = null
 
 
 ## Initialization
@@ -15,14 +16,14 @@ func initialize(object_instance, input_params, block_params):
 	block_parameters = block_params
 
 
-## Computes which exit route it is meant to take
-func compute_exit_block():
-	pass
-
-
 ## Computes the result of the block's execution
 func compute_result():
 	pass
+
+
+## Gets the computed value if computed
+func get_computed_value():
+	return computed_value
 
 
 ## Checks to see if the block reverts back to a finally

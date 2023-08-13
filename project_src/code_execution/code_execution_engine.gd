@@ -114,8 +114,10 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 
 ## Executes code from entry blocks
 func execute_code_from_entrypoint(block_name: String):
-	# TODO: Start executing
 	if node_execution_metadata[prop_entry_blocks].has(block_name):
+		# Clear all branching steps
+		block_branching_steps = []
+		# Start execution
 		current_execution_block = node_execution_metadata[prop_entry_blocks][block_name]
 		execute_current_block(true)
 	else:
@@ -124,17 +126,52 @@ func execute_code_from_entrypoint(block_name: String):
 
 
 ## Executes a single block
-func execute_current_block(recursive_execution: bool = true):
+func execute_current_block(recursive_execution: bool = true, execute_finally: bool = false):
 	if current_execution_block != null:
 		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
 		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
-		block_instance.initialize(game_object_instance, \
+		
+		# Extract metadata
+		var block_name: String = current_execution_block[BlockExecutionMetadata.prop_block_id]
+		# Compute result and get the exit port
+		
+		if not execute_finally:
+			# Execute based on computational results
+			block_instance.initialize(game_object_instance, \
 			current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
 			current_execution_block[BlockExecutionMetadata.prop_block_parameters])
-		block_instance.compute_result()
-		var exit_block: String = block_instance.compute_exit_block()
-		# var exit_port: int = current_execution_block[][CodeExecutionEngine.prop_block_execution_result][exit_block]
-	else:
+		
+			# Check to see if there is a finally block
+			var block_results = current_execution_block[BlockExecutionMetadata.prop_results_branching_metadata]
+			var contains_finally: bool = block_results[BlockBase.prop_contains_finally]
+			
+			var result = block_instance.compute_result()
+			var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_metadata][result]
+			var value = block_instance.get_computed_value()
+			# Set metadata for block execution
+			set_block_exit_port_result(block_name, exit_port, result, value)
+			set_block_execution_metadata(block_name, result, value)
+		
+			# Track the block if it contains a finally
+			if contains_finally:
+				block_branching_steps.append(block_name)
+			
+			if recursive_execution:
+				if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
+					for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+						current_execution_block = block[prop_block]
+						execute_current_block()
+				else:
+					if block_branching_steps.size() > 0:
+						current_execution_block = block_branching_steps.pop_back()
+						execute_current_block(recursive_execution, true)
+		else:
+			# Execute only the finally block
+			var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_metadata][BlockBase.condition_finally]
+			for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+				current_execution_block = block[prop_block]
+				execute_current_block(recursive_execution, false)
+		
 		return false
 
 
