@@ -80,6 +80,12 @@ func on_function_menu_index_selected(index: int):
 func build_custom_entrypoints_submenu():
 	custom_entrypoint_submenu.clear()
 	
+	if pack_entrypoints.size() < 1:
+		custom_entrypoint_submenu.add_item("No entrypoints detected")
+		custom_entrypoint_submenu.set_item_disabled(0, true)
+		
+		return
+	
 	for entrypoint in pack_entrypoints:
 		custom_entrypoint_submenu.add_item(entrypoint)
 
@@ -94,7 +100,22 @@ func build_custom_functions_submenu():
 		
 		if metadata_node != null:
 			var all_functions = metadata_node.code_functions
+			
+			if all_functions.size() < 1:
+				create_empty_function_submenu()
+				return
+			
 			for function in all_functions:
 				# Add item to menu and track it in the code_functions_names variable for same index
 				custom_function_submenu.add_item(function.function_name)
 				code_function_names.append(function.function_name)
+		else:
+			create_empty_function_submenu()
+	else:
+		create_empty_function_submenu()
+
+
+## An empty functions submenu
+func create_empty_function_submenu():
+	custom_function_submenu.add_item("No functions detected")
+	custom_function_submenu.set_item_disabled(0, true)
