@@ -6,6 +6,9 @@ var input_parameters = {}
 
 ## Contains a reference to the game object instance
 var game_object_instance: Node2D = null
+## Instance of the expression evaluation engine
+var expression_engine: ExpressionEngine = null
+## Stores the computed value (if any)
 var computed_value = null
 
 

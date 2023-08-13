@@ -33,6 +33,8 @@ var block_branching_steps: Array[String] = []
 var current_execution_block = null
 ## Keeps track of the game object instance
 var game_object_instance: Node2D = null
+## Instance of Experession Engine
+var expression_engine: ExpressionEngine = null
 
 
 ## Model for persistance
@@ -72,6 +74,9 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 	# Initialize variables that build the code execution engine's base
 	game_object_instance = object_instance
 	node_execution_metadata = metadata
+	expression_engine = ExpressionEngine.new()
+	expression_engine.game_object_instance = game_object_instance
+	expression_engine.initialize_engine()
 	
 	# Build metadata on connections on each block
 	for connection in metadata[prop_connections]:
@@ -130,6 +135,7 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 	if current_execution_block != null:
 		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
 		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
+		block_instance.expression_engine = expression_engine
 		
 		# Extract metadata
 		var block_name: String = current_execution_block[BlockExecutionMetadata.prop_block_id]
