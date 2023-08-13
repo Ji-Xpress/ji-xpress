@@ -5,10 +5,6 @@ const prop_object_index: String = "object_index"
 const prop_entry_blocks: String = "entry_blocks"
 const prop_code_blocks: String = "code_blocks"
 const prop_connections: String = "connections"
-const prop_input_port_metadata: String = "input_port_metadata"
-const prop_exit_port_metadata: String = "exit_port_metadata"
-const prop_exit_port_result_metadata: String = "exit_port_result_metadata"
-const prop_results_branching_metadata: String = "results_branching_metadata"
 const prop_connection_from_metadata: String = "connection_from_metadata"
 const prop_connection_to_metadata: String = "connection_to_metadata"
 const prop_block_execution_result: String = "block_execution_result"
@@ -35,6 +31,8 @@ var code_file_name: String = ""
 var block_branching_steps: Array[String] = []
 ## Keeps track of the current executing block
 var current_execution_block = null
+## Keeps track of the game object instance
+var game_object_instance: Node2D = null
 
 
 ## Model for persistance
@@ -46,14 +44,6 @@ static func model_template():
 		prop_entry_blocks: {},
 		# Contains references to other code blocks
 		prop_code_blocks: {},
-		# Metadata for input ports
-		prop_input_port_metadata: {},
-		# Metadata for exit ports
-		prop_exit_port_metadata: {},
-		# Metadata for exit port results
-		prop_exit_port_result_metadata: {},
-		# Metadata on result branching
-		prop_results_branching_metadata: {},
 		# Stores all the connections
 		prop_connections: []
 	}
@@ -78,14 +68,19 @@ static func execution_result_model_template(result: String = "", value = null):
 
 
 # Initializes internal metadata derived from a JSON file
-func initialize_metadata(metadata: Dictionary):
+func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
+	# Initialize variables that build the code execution engine's base
+	game_object_instance = object_instance
 	node_execution_metadata = metadata
 	
+	# Build metadata on connections on each block
 	for connection in metadata[prop_connections]:
 		var block_from: String = connection.from
 		var block_to: String = connection.to
 		var port_from: int = connection.from_port
 		var port_to: int = connection.to_port
+		var port_from_metadata: String = connection[prop_connection_from_metadata]
+		var port_to_metadata: int = connection[prop_connection_to_metadata]
 		
 		# Create metadata templates for for from and to blocks if they do not exist
 		if not block_connection_metadata.has(block_from):
@@ -100,7 +95,9 @@ func initialize_metadata(metadata: Dictionary):
 		
 		block_connection_metadata[block_from][prop_outgoing_connections][str(port_from)].append({
 			prop_block: block_to,
-			prop_port: port_to
+			prop_port: port_to,
+			prop_connection_from_metadata: port_from_metadata,
+			prop_connection_to_metadata: port_to_metadata
 		})
 		
 		# Prepare data for incoming connections
@@ -109,7 +106,9 @@ func initialize_metadata(metadata: Dictionary):
 		
 		block_connection_metadata[block_to][prop_incoming_connections][str(port_to)].append({
 			prop_block: block_from,
-			prop_port: port_from
+			prop_port: port_from,
+			prop_connection_from_metadata: port_from_metadata,
+			prop_connection_to_metadata: port_to_metadata
 		})
 
 
@@ -126,7 +125,17 @@ func execute_code_from_entrypoint(block_name: String):
 
 ## Executes a single block
 func execute_current_block(recursive_execution: bool = true):
-	pass
+	if current_execution_block != null:
+		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
+		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
+		block_instance.initialize(game_object_instance, \
+			current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
+			current_execution_block[BlockExecutionMetadata.prop_block_parameters])
+		block_instance.compute_result()
+		var exit_block: String = block_instance.compute_exit_block()
+		# var exit_port: int = current_execution_block[][CodeExecutionEngine.prop_block_execution_result][exit_block]
+	else:
+		return false
 
 
 ## Sets the output value of every node's output

@@ -59,10 +59,11 @@ func save_script():
 				# Fill in the block metadata
 				var block_metadata: Dictionary = child_node.get_block_metadata()
 				
-				metadata_dict[CodeExecutionEngine.prop_input_port_metadata] = child_node.get_input_port_metadata()
-				metadata_dict[CodeExecutionEngine.prop_exit_port_metadata] = child_node.get_exit_port_metadata()
-				metadata_dict[CodeExecutionEngine.prop_exit_port_result_metadata] = child_node.get_exit_ports_with_results()
-				metadata_dict[CodeExecutionEngine.prop_results_branching_metadata] = child_node.get_results_branching_metadata()
+				# Store routing metadata
+				block_metadata[BlockExecutionMetadata.prop_input_port_metadata] = child_node.get_input_port_metadata()
+				block_metadata[BlockExecutionMetadata.prop_exit_port_metadata] = child_node.get_exit_port_metadata()
+				block_metadata[BlockExecutionMetadata.prop_exit_port_result_metadata] = child_node.get_exit_ports_with_results()
+				block_metadata[BlockExecutionMetadata.prop_results_branching_metadata] = child_node.get_results_branching_metadata()
 				
 				# Store position data
 				block_metadata[BlockExecutionMetadata.prop_position_offset_x] = child_node.position_offset.x
@@ -81,8 +82,8 @@ func save_script():
 		
 		for connection in metadata_dict[CodeExecutionEngine.prop_connections]:
 			var current_connection = metadata_dict[CodeExecutionEngine.prop_connections][connection]
-			var connection_from_metadata = get_node(current_connection.from).get_input_slot_metadata(current_connection.from_port)
-			var connection_to_metadata = get_node(current_connection.to).get_input_slot_metadata(current_connection.to_port)
+			var connection_from_metadata = get_node(current_connection.from).get_input_port_metadata(current_connection.from_port)
+			var connection_to_metadata = get_node(current_connection.to).get_exit_port_metadata(current_connection.to_port)
 			current_connection[CodeExecutionEngine.prop_connection_from_metadata] = connection_from_metadata
 			current_connection[CodeExecutionEngine.prop_connection_to_metadata] = connection_to_metadata
 		

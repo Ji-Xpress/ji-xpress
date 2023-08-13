@@ -5,9 +5,6 @@
 [node name="GraphEdit" type="GraphEdit"]
 size_flags_vertical = 3
 script = ExtResource("1_a5ou8")
-script_name = null
-object_index = null
-is_new_file = null
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
