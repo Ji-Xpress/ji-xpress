@@ -4,6 +4,7 @@ extends BlockBase
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	block_type = block_type_set_object_property
+	super._ready()
 	
 	# Slot metadata
 	input_ports = {
@@ -16,7 +17,9 @@ func _ready():
 		condition_true: 0
 	}
 	
-	super._ready()
+	contains_true = true
+	contains_false = false
+	contains_finally = false
 
 
 ## Gets the metadata of the block

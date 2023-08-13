@@ -3,7 +3,7 @@ class_name BlockBase
 
 # Constants for block types
 const block_type_break_loop: String = "break_loop"
-const block_type_broadcast_message: String = "broadcast_messag"
+const block_type_broadcast_message: String = "broadcast_message"
 const block_type_condition: String = "condition"
 const block_type_entry: String = "entry"
 const block_type_function: String = "function"
@@ -18,6 +18,10 @@ const condition_true: String = "true"
 const condition_false: String = "false"
 const condition_finally: String = "finally"
 
+const prop_contains_true: String = "contains_true"
+const prop_contains_false: String = "contains_false"
+const prop_contains_finally: String = "contains_finally"
+
 ## Keeps track of block type
 var block_type: String = ""
 ## Keeps track of block sub type
@@ -28,6 +32,11 @@ var input_ports: Dictionary = {}
 var exit_ports: Dictionary = {}
 ## Keeps track of exit slots with results
 var exit_ports_with_results: Dictionary = {}
+
+# Flags that the block contains the various results
+var contains_true: bool = true
+var contains_false: bool = false
+var contains_finally: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -78,6 +87,15 @@ func get_exit_ports_with_results(condition: String = ""):
 		return exit_ports_with_results[condition]
 	
 	return null
+
+
+## Returns the results of branching
+func get_results_branching_metadata():
+	return {
+		prop_contains_true: contains_true,
+		prop_contains_false: contains_false,
+		prop_contains_finally: contains_finally
+	}
 
 
 ## Emitted when the graphnode is closed

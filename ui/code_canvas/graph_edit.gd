@@ -62,6 +62,7 @@ func save_script():
 				metadata_dict[CodeExecutionEngine.prop_input_port_metadata] = child_node.get_input_port_metadata()
 				metadata_dict[CodeExecutionEngine.prop_exit_port_metadata] = child_node.get_exit_port_metadata()
 				metadata_dict[CodeExecutionEngine.prop_exit_port_result_metadata] = child_node.get_exit_ports_with_results()
+				metadata_dict[CodeExecutionEngine.prop_results_branching_metadata] = child_node.get_results_branching_metadata()
 				
 				# Store position data
 				block_metadata[BlockExecutionMetadata.prop_position_offset_x] = child_node.position_offset.x

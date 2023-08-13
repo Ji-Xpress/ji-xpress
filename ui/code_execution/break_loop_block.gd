@@ -4,12 +4,15 @@ extends BlockBase
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	block_type = block_type_break_loop
+	super._ready()
 	
 	input_ports = {
 		"0": condition_true
 	}
 	
-	super._ready()
+	contains_true = false
+	contains_false = false
+	contains_finally = false
 
 
 ## Gets the metadata of the block

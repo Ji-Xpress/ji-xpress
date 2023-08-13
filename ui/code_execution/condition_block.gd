@@ -20,6 +20,10 @@ func _ready():
 		condition_false: 1,
 		condition_finally: 2
 	}
+	
+	contains_true = true
+	contains_false = true
+	contains_finally = true
 
 
 ## Gets the metadata of the block

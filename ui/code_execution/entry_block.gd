@@ -13,6 +13,10 @@ func _ready():
 		condition_true: 0
 	}
 	
+	contains_true = true
+	contains_false = false
+	contains_finally = false
+	
 	super._ready()
 
 

@@ -13,6 +13,10 @@ func _ready():
 	function_name.text = block_sub_type
 	populate_controls()
 	
+	contains_true = true
+	contains_false = false
+	contains_finally = false
+	
 	super._ready()
 
 

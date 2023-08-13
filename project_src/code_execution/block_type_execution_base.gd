@@ -13,3 +13,8 @@ func compute_exit_block():
 ## Computes the result of the block's execution
 func compute_result():
 	pass
+
+
+## Checks to see if the block reverts back to a finally
+func is_reverting_to_finally():
+	pass
