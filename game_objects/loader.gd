@@ -8,6 +8,8 @@ const prop_loader: String = "loader"
 const prop_pack_url: String = "pack_url"
 # Tracks the ID of a game object
 const prop_object_id: String = "object_id"
+# Tracks the Object Index in the project loader
+const prop_object_index: String = "object_index"
 # Tracks the URL of a game object
 const prop_object_url: String = "object_url"
 # Tracks custom properties

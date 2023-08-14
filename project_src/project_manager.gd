@@ -316,6 +316,7 @@ func get_project_objects():
 			object_ids.append(game_object)
 			objects.append(object_description)
 			objects_metadata[str(object_index)] = {
+				GameObjectsLoader.prop_object_index: object_index,
 				GameObjectsLoader.prop_object_id: game_object,
 				GameObjectsLoader.prop_description: object_description,
 				GameObjectsLoader.prop_object_url: current_object[GameObjectsLoader.prop_object_url]
