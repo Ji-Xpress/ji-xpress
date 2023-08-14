@@ -31,7 +31,7 @@ var node_connections_to: Dictionary = {}
 ## Contains reference to the current object instance
 var current_object_instance: Node2D = null
 ## Keeps track of the last object index
-var last_block_index: int = -1
+var last_block_index: int = 0
 
 
 # Called when the node enters the scene tree for the first time.
