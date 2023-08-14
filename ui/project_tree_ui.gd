@@ -17,7 +17,7 @@ signal create_scene_pressed()
 ## When a scene by that specific name is selected
 signal scene_selected(scene_name: String)
 ## When an object with that specific name is selected
-signal object_selected(object_name: String)
+signal object_selected(metdata)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -66,9 +66,12 @@ func populate_objects_list():
 		objects_tree_root_item.remove_child(scene_item)
 	
 	# Repopulate
+	var object_index = 0
 	for object in ProjectManager.objects:
 		var child_item: TreeItem = tree.create_item(objects_tree_root_item)
 		child_item.set_text(0, object)
+		child_item.set_metadata(0, ProjectManager.objects_metadata[str(object_index)])
+		object_index += 1
 
 
 # Event handler for when a button is cliked on the tree
@@ -81,6 +84,7 @@ func _on_tree_button_clicked(item, column, id, mouse_button_index):
 # Item has been double clicked on the tree
 func _on_tree_item_activated():
 	var selected_item: TreeItem = tree.get_selected()
+	var metadata = selected_item.get_metadata(0)
 	
 	# Make sure it is not the root item
 	if selected_item != scenes_tree_root_item and selected_item != objects_tree_root_item:
@@ -90,4 +94,4 @@ func _on_tree_item_activated():
 			emit_signal("scene_selected", selected_item_text)
 		elif selected_item.get_parent() == objects_tree_root_item:
 			# Handle object selected
-			emit_signal("object_selected", selected_item_text)
+			emit_signal("object_selected", metadata)

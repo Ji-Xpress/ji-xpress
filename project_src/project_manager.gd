@@ -306,9 +306,9 @@ func get_project_objects():
 	objects = []
 	objects_metadata = {}
 	
+	var object_index: int = 0
+	# Iterate through all game objects in the type
 	for object_type in GameObjectsLoader.game_objects:
-		# Iterate through all game objects in the type
-		var object_index: int = 0
 		for game_object in GameObjectsLoader.game_objects[object_type]:
 			var current_object: Dictionary = GameObjectsLoader.game_objects[object_type][game_object]
 			var object_description: String = current_object[GameObjectsLoader.prop_description]

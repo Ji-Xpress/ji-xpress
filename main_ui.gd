@@ -124,8 +124,9 @@ func _on_project_tree_ui_create_scene_pressed():
 
 
 # An object has been selected from the tree
-func _on_project_tree_ui_object_selected(object_name):
-	pass # Replace with function body.
+func _on_project_tree_ui_object_selected(object_metadata):
+	var object_id: String = object_metadata[GameObjectsLoader.prop_object_id]
+	var object_url: String = object_metadata[GameObjectsLoader.prop_object_url]
 
 
 # A scene has been selected from the tree
