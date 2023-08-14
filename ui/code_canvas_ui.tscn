@@ -43,6 +43,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Toolbar" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="SaveSceneButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/Toolbar"]
 layout_mode = 2
