@@ -110,16 +110,6 @@ func _on_popup_menu_index_pressed(index):
 	graph_edit.create_new_block_from_url(block_url, selected_add_position)
 
 
-# When mouse button is clicked over the graph edit
-func _on_graph_edit_mouse_clicked(button_index, canvas_position):
-	if button_index == MOUSE_BUTTON_RIGHT:
-		var mouse_position = get_global_mouse_position()
-		selected_add_position = canvas_position
-		graph_edit.release_focus()
-		popup_menu.popup(Rect2i(mouse_position.x, mouse_position.y, \
-			popup_menu.size.x, popup_menu.size.y))
-
-
 # Save button has been pressed
 func _on_save_scene_button_pressed():
 	save_tab()
@@ -140,3 +130,11 @@ func _on_tree_exiting():
 	if current_object_instance != null:
 		current_object_instance.queue_free()
 		current_object_instance = null
+
+
+# Right mouse button has been clicked
+func _on_graph_edit_right_mouse_clicked(button_index, canvas_position):
+	var mouse_position = get_global_mouse_position()
+	selected_add_position = canvas_position
+	popup_menu.popup(Rect2i(mouse_position.x, mouse_position.y, \
+		popup_menu.size.x, popup_menu.size.y))

@@ -65,7 +65,7 @@ layout_mode = 2
 [connection signal="index_pressed" from="PopupMenu" to="." method="_on_popup_menu_index_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
-[connection signal="mouse_clicked" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_mouse_clicked"]
 [connection signal="node_invalidated" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_invalidated"]
 [connection signal="node_save_error" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_save_error"]
 [connection signal="node_saved" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_node_saved"]
+[connection signal="right_mouse_clicked" from="PanelContainer/VBoxContainer/GraphEdit" to="." method="_on_graph_edit_right_mouse_clicked"]

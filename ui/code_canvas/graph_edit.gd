@@ -13,8 +13,10 @@ signal node_invalidated()
 signal node_saved()
 ## Raised when there is a save error
 signal node_save_error()
-## When a mouse click is performed
-signal mouse_clicked(button_index, canvas_position)
+## When a right mouse click is performed
+signal right_mouse_clicked(button_index, canvas_position)
+## When a left mouse click is performed
+signal left_mouse_clicked(button_index, canvas_position)
 
 ## Holds entry blocks
 var entry_nodes: Dictionary = {}
@@ -39,7 +41,11 @@ func _ready():
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		var selected_add_position = event.position + scroll_offset
-		emit_signal("mouse_clicked", event.button_index, selected_add_position)
+		
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			emit_signal("right_mouse_clicked", event.button_index, selected_add_position)
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			emit_signal("left_mouse_clicked", event.button_index, selected_add_position)
 
 
 # Saves the script
