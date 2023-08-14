@@ -57,7 +57,7 @@ func on_canvas_settings_requested(node_instance: Control):
 	main_ui_dialogs.show_canvas_settings_dialog()
 
 
-## Close the tab
+## Close a canvas tab
 func on_canvas_close_request(node_instance: Control, scene_id: String):
 	node_instance.save_tab()
 	node_instance.disconnect("tab_close_request", Callable(self, "on_canvas_close_request"))
@@ -65,9 +65,24 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 	
 	# What is the index of the removed tab?
 	var removed_tab_index: int = current_open_tabs[scene_prefix + scene_id]
+	remove_tab(removed_tab_index, scene_prefix + scene_id)
+
+
+## Closes a script tab
+func on_script_canvas_close_request(node_instance: Control, script_id: String):
+	node_instance.save_tab()
+	node_instance.disconnect("tab_close_request", Callable(self, "on_script_canvas_close_request"))
+	node_instance.queue_free()
 	
+	# What is the index of the removed tab?
+	var removed_tab_index: int = current_open_tabs[script_prefix + script_id]
+	remove_tab(removed_tab_index, script_prefix + script_id)
+
+
+## Removes a tab and decrements index
+func remove_tab(removed_tab_index: int, id: String):
 	# Lets iterate down the next set of open tab indexes
-	current_open_tabs.erase(scene_prefix + scene_id)
+	current_open_tabs.erase(id)
 	
 	if tab_number_tracker.has(str(removed_tab_index)):
 		tab_number_tracker.erase(str(removed_tab_index))
@@ -145,10 +160,12 @@ func _on_project_tree_ui_object_selected(object_metadata):
 		var new_script_canvas: Control = script_ui.instantiate()
 		# Track the scene name in the new control
 		new_script_canvas.script_name = script_file_name
-		new_script_canvas.is_new_file = ProjectManager.script_file_exists(script_file_name)
+		new_script_canvas.is_new_file = not ProjectManager.script_file_exists(script_file_name)
 		new_script_canvas.object_index = object_index
 		# Add to the tab container
 		tab_container.call_deferred("add_child", new_script_canvas)
+		
+		new_script_canvas.connect("tab_close_request", Callable(self, "on_script_canvas_close_request"))
 		
 		# Track the child control 
 		await tab_container.child_entered_tree

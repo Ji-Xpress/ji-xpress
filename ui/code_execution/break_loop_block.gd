@@ -17,7 +17,7 @@ func _ready():
 
 ## Gets the metadata of the block
 func get_block_metadata():
-	return null
+	return {}
 
 
 ## Sets the metadata of the block

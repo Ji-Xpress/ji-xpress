@@ -64,9 +64,12 @@ func save_script():
 				var block_sub_type: String = child_node.block_sub_type
 				var block_name: String = child_node.name
 				# Fill in the block metadata
-				var block_metadata: Dictionary = child_node.get_block_metadata()
+				var block_metadata: Dictionary = BlockExecutionMetadata.model_template()
 				
 				# Store routing metadata
+				block_metadata[BlockExecutionMetadata.prop_block_type] = child_node.block_type
+				block_metadata[BlockExecutionMetadata.prop_block_sub_type] = child_node.block_sub_type
+				block_metadata[BlockExecutionMetadata.prop_block_parameters] = child_node.get_block_metadata()
 				block_metadata[BlockExecutionMetadata.prop_input_port_metadata] = child_node.get_input_port_metadata()
 				block_metadata[BlockExecutionMetadata.prop_exit_port_metadata] = child_node.get_exit_port_metadata()
 				block_metadata[BlockExecutionMetadata.prop_exit_port_result_metadata] = child_node.get_exit_ports_with_results()
@@ -88,13 +91,12 @@ func save_script():
 		metadata_dict[CodeExecutionEngine.prop_connections] = all_connections
 		
 		for connection in metadata_dict[CodeExecutionEngine.prop_connections]:
-			var current_connection = metadata_dict[CodeExecutionEngine.prop_connections][connection]
-			var connection_from_metadata = get_node(current_connection.from).get_input_port_metadata(current_connection.from_port)
-			var connection_to_metadata = get_node(current_connection.to).get_exit_port_metadata(current_connection.to_port)
-			current_connection[CodeExecutionEngine.prop_connection_from_metadata] = connection_from_metadata
-			current_connection[CodeExecutionEngine.prop_connection_to_metadata] = connection_to_metadata
+			var connection_from_metadata = get_node(NodePath(connection.from)).get_input_port_metadata(connection.from_port)
+			var connection_to_metadata = get_node(NodePath(connection.to)).get_exit_port_metadata(connection.to_port)
+			connection[CodeExecutionEngine.prop_connection_from_metadata] = connection_from_metadata
+			connection[CodeExecutionEngine.prop_connection_to_metadata] = connection_to_metadata
 		
-		if ProjectManager.save_file_to_folder(script_name, true, [Constants.project_scripts_dir], JSON.stringify(metadata_dict)):
+		if ProjectManager.save_file_to_folder(script_name, false, [Constants.project_scripts_dir], JSON.stringify(metadata_dict)):
 			emit_signal("node_saved")
 			is_new_file = false
 		else:
@@ -105,7 +107,7 @@ func save_script():
 
 ## Loads the script from the script file
 func load_script():
-	if script_name != "":
+	if script_name != "" and not is_new_file:
 		connections = {}
 		
 		var metadata_dict: Dictionary = ProjectManager.open_script(script_name)
@@ -127,13 +129,19 @@ func load_script():
 			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
 			connections[connection["from"] + "_" + str(connection["from_port"])] = true
 			
+			if not node_connections_from.has(connection["from"]):
+				node_connections_from[connection["from"]] = []
+			
+			if not node_connections_to.has(connection["to"]):
+				node_connections_to[connection["to"]] = []
+			
 			node_connections_from[connection["from"]].append({
 				"from_port": connection["from_port"],
-				"to_node": connection["to_node"],
+				"to_node": connection["to"],
 				"to_port": connection["to_port"]
 			})
 			
-			node_connections_to[connection["to_node"]].append({
+			node_connections_to[connection["to"]].append({
 				"from_port": connection["from_port"],
 				"from_node": connection["from"],
 				"to_port": connection["to_port"]
@@ -193,7 +201,7 @@ func create_new_block_from_metadata(block_metadata: Dictionary):
 	
 	# Create the block
 	var block_instance: GraphNode = load(block_scene_url).instantiate()
-	block_instance.set_block_metadata(block_metadata)
+	block_instance.set_block_metadata(block_metadata[BlockExecutionMetadata.prop_block_parameters])
 	
 	# Position the block
 	var block_position = Vector2(block_metadata[BlockExecutionMetadata.prop_position_offset_x],
