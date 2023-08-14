@@ -46,7 +46,7 @@ func _ready():
 		var object_url = ProjectManager.objects_metadata[str(object_index)][GameObjectsLoader.prop_object_url]
 		current_object_instance = load(object_url).instantiate()
 		graph_edit.current_object_instance = current_object_instance
-		graph_edit.build_custom_functions_submenu()
+		popup_menu.build_custom_functions_submenu()
 
 
 ## Save the tab's content
@@ -127,7 +127,8 @@ func _on_save_scene_button_pressed():
 
 # Handle when menuitem entrypoint selected
 func _on_popup_menu_custom_entrypoint_item_selected(index):
-	pass # Replace with function body.
+	var block_url: String = graph_edit.get_block_url_by_type(BlockBase.block_type_entry)
+	graph_edit.create_new_block_from_url(block_url, selected_add_position, GameObjectsLoader.entry_points.keys()[index])
 
 
 # Handle when menuitem function selected

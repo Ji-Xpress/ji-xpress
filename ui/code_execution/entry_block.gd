@@ -17,6 +17,9 @@ func _ready():
 	contains_false = false
 	contains_finally = false
 	
+	# Set the block sub type display
+	$Type.text = block_sub_type
+	
 	super._ready()
 
 

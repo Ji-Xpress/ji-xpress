@@ -146,6 +146,7 @@ func _on_project_tree_ui_object_selected(object_metadata):
 		# Track the scene name in the new control
 		new_script_canvas.script_name = script_file_name
 		new_script_canvas.is_new_file = ProjectManager.script_file_exists(script_file_name)
+		new_script_canvas.object_index = object_index
 		# Add to the tab container
 		tab_container.call_deferred("add_child", new_script_canvas)
 		

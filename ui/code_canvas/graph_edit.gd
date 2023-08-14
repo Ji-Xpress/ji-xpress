@@ -26,7 +26,8 @@ var connections: Dictionary = {}
 var node_connections_from: Dictionary = {}
 ## Keeps track of specific connections between nodes
 var node_connections_to: Dictionary = {}
-
+## Contains reference to the current object instance
+var current_object_instance: Node2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -169,9 +170,10 @@ func get_block_url_by_type(block_type):
 
 
 ## Creates a new block from a URL
-func create_new_block_from_url(block_scene_url: String, block_position: Vector2):
+func create_new_block_from_url(block_scene_url: String, block_position: Vector2, block_sub_type: String = ""):
 	var block_instance: GraphNode = load(block_scene_url).instantiate()
 	block_instance.position_offset = block_position
+	block_instance.block_sub_type = block_sub_type
 	
 	call_deferred("add_child", block_instance)
 	
