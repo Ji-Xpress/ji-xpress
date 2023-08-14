@@ -1,5 +1,9 @@
 extends Control
 
+# Constants
+const scene_prefix: String = "scn_"
+const script_prefix: String = "scr_"
+
 ## Keeps track of the kind of tab page
 enum TabType {
 	TabScene, TabCode, TabNone
@@ -58,10 +62,10 @@ func on_canvas_close_request(node_instance: Control, scene_id: String):
 	node_instance.queue_free()
 	
 	# What is the index of the removed tab?
-	var removed_tab_index: int = current_open_tabs[scene_id]
+	var removed_tab_index: int = current_open_tabs[scene_prefix + scene_id]
 	
 	# Lets iterate down the next set of open tab indexes
-	current_open_tabs.erase(scene_id)
+	current_open_tabs.erase(scene_prefix + scene_id)
 	
 	if tab_number_tracker.has(str(removed_tab_index)):
 		tab_number_tracker.erase(str(removed_tab_index))
@@ -128,7 +132,10 @@ func _on_project_tree_ui_object_selected(object_metadata):
 	var object_index: int = object_metadata[GameObjectsLoader.prop_object_index]
 	var object_id: String = object_metadata[GameObjectsLoader.prop_object_id]
 	var object_url: String = object_metadata[GameObjectsLoader.prop_object_url]
-
+	
+	# Set the current tab type to Scene Type
+	current_tab_type = TabType.TabCode
+	
 
 # A scene has been selected from the tree
 func _on_project_tree_ui_scene_selected(scene_name):
@@ -136,7 +143,7 @@ func _on_project_tree_ui_scene_selected(scene_name):
 	current_tab_type = TabType.TabScene
 	
 	# Open or create the relevant tab's content
-	if not current_open_tabs.has(scene_name):
+	if not current_open_tabs.has(scene_prefix + scene_name):
 		# New canvas scene instance
 		var new_canvas_scene: Control = canvas_ui.instantiate()
 		# Track the scene name in the new control
@@ -153,7 +160,7 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		
 		# Assign current tab to current file
 		var tab_index: int = tab_container.get_child_count() - 1
-		current_open_tabs[scene_name] = tab_index
+		current_open_tabs[scene_prefix + scene_name] = tab_index
 		
 		# Open as current active tab and set tab title
 		tab_switch_timer.start()
@@ -170,7 +177,7 @@ func _on_project_tree_ui_scene_selected(scene_name):
 		
 		current_scene_name = scene_name
 	else:
-		tab_container.current_tab = current_open_tabs[scene_name]
+		tab_container.current_tab = current_open_tabs[scene_prefix + scene_name]
 
 
 # Input prompt dialog result invoked

@@ -299,6 +299,15 @@ func open_script(file_name: String, mute_results: bool = false):
 		return false
 
 
+## Gets the status of script file exists
+func script_file_exists(file_name: String):
+	var script_filename: String = current_project_path + Constants.project_scripts_dir + "\\" + file_name
+	if FileAccess.file_exists(script_filename):
+		return true
+	
+	return false
+
+
 ## Get all project objects
 func get_project_objects():
 	# Clear all these 3
