@@ -125,6 +125,7 @@ func load_script():
 		for block_name in entry_blocks:
 			var block_metadata: Dictionary = entry_blocks[block_name]
 			var block_instance = create_new_block_from_metadata(block_metadata)
+			block_instance.block_sub_type = block_metadata[BlockExecutionMetadata.prop_block_sub_type]
 			
 			block_instance.name = block_name
 			add_child(block_instance)
@@ -133,6 +134,7 @@ func load_script():
 		for block_name in code_blocks:
 			var block_metadata: Dictionary = code_blocks[block_name]
 			var block_instance = create_new_block_from_metadata(block_metadata)
+			block_instance.block_sub_type = block_metadata[BlockExecutionMetadata.prop_block_sub_type]
 			
 			block_instance.name = block_name
 			add_child(block_instance)
