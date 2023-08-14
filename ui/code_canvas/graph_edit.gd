@@ -30,6 +30,9 @@ var node_connections_from: Dictionary = {}
 var node_connections_to: Dictionary = {}
 ## Contains reference to the current object instance
 var current_object_instance: Node2D = null
+## Keeps track of the last object index
+var last_block_index: int = -1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -57,6 +60,7 @@ func save_script():
 		# Metadata dictionary
 		var metadata_dict = CodeExecutionEngine.model_template()
 		metadata_dict[CodeExecutionEngine.prop_object_index] = object_index
+		metadata_dict[CodeExecutionEngine.prop_last_block_index] = last_block_index
 		
 		for child_node in get_children():
 			if child_node is BlockBase:
@@ -115,15 +119,24 @@ func load_script():
 		var code_blocks: Dictionary = metadata_dict[CodeExecutionEngine.prop_code_blocks]
 		var connection_metadata: Array = metadata_dict[CodeExecutionEngine.prop_connections]
 		
+		# Manually set the last block index
+		last_block_index = metadata_dict[CodeExecutionEngine.prop_last_block_index]
+		
 		for block_name in entry_blocks:
 			var block_metadata: Dictionary = entry_blocks[block_name]
 			var block_instance = create_new_block_from_metadata(block_metadata)
-			entry_blocks[block_instance.name] = block_instance
+			
+			block_instance.name = block_name
+			add_child(block_instance)
+			entry_blocks[block_name] = block_instance
 		
 		for block_name in code_blocks:
 			var block_metadata: Dictionary = code_blocks[block_name]
 			var block_instance = create_new_block_from_metadata(block_metadata)
-			code_blocks[block_instance.name] = block_instance
+			
+			block_instance.name = block_name
+			add_child(block_instance)
+			code_blocks[block_name] = block_instance
 		
 		for connection in connection_metadata:
 			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
@@ -189,8 +202,6 @@ func create_new_block_from_url(block_scene_url: String, block_position: Vector2,
 	block_instance.position_offset = block_position
 	block_instance.block_sub_type = block_sub_type
 	
-	call_deferred("add_child", block_instance)
-	
 	return block_instance
 
 
@@ -207,8 +218,6 @@ func create_new_block_from_metadata(block_metadata: Dictionary):
 	var block_position = Vector2(block_metadata[BlockExecutionMetadata.prop_position_offset_x],
 		block_metadata[BlockExecutionMetadata.prop_position_offset_y])
 	block_instance.position_offset = block_position
-	
-	call_deferred("add_child", block_instance)
 	
 	return block_instance
 	

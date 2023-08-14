@@ -107,7 +107,8 @@ func _on_popup_menu_index_pressed(index):
 		popup_set_object_variable:
 			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_object_variable)
 	
-	graph_edit.create_new_block_from_url(block_url, selected_add_position)
+	var new_node: GraphNode = graph_edit.create_new_block_from_url(block_url, selected_add_position)
+	insert_new_block_to_graph(new_node)
 
 
 # Save button has been pressed
@@ -118,7 +119,15 @@ func _on_save_scene_button_pressed():
 # Handle when menuitem entrypoint selected
 func _on_popup_menu_custom_entrypoint_item_selected(index):
 	var block_url: String = graph_edit.get_block_url_by_type(BlockBase.block_type_entry)
-	graph_edit.create_new_block_from_url(block_url, selected_add_position, GameObjectsLoader.entry_points.keys()[index])
+	var new_node: GraphNode = graph_edit.create_new_block_from_url(block_url, selected_add_position, GameObjectsLoader.entry_points.keys()[index])
+	insert_new_block_to_graph(new_node)
+
+
+## Inserts a new node into the graph editor
+func insert_new_block_to_graph(new_node: GraphNode):
+	new_node.name = "block_" + str(graph_edit.last_block_index)
+	graph_edit.add_child(new_node)
+	graph_edit.last_block_index += 1
 
 
 # Handle when menuitem function selected

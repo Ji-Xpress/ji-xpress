@@ -11,6 +11,7 @@ const prop_block_execution_result: String = "block_execution_result"
 const prop_block_execution_value: String = "block_execution_value"
 const prop_incoming_connections: String = "incoming_connections"
 const prop_outgoing_connections: String = "outgoing_connections"
+const prop_last_block_index: String = "last_block_index"
 const prop_port: String = "port"
 const prop_block: String = "block"
 
@@ -40,6 +41,8 @@ var expression_engine: ExpressionEngine = null
 ## Model for persistance
 static func model_template():
 	return {
+		# Keeps track of the last block index
+		prop_last_block_index: 0,
 		# Index of the object it references
 		prop_object_index: -1,
 		# Contains references to entry blocks
