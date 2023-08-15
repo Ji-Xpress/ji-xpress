@@ -1,10 +1,10 @@
 extends BlockTypeExecutionBase
 
 
-## Computes which exit route it is meant to take
-func compute_exit_block():
-	var condition_result = bool(expression_engine.compute_expression(block_parameters.condition))
-	return condition_result
+## Computes the result of the block's execution
+func compute_result():
+	computed_value = bool(expression_engine.compute_expression(block_parameters.condition))
+	return computed_value
 
 
 ## Checks to see if the block reverts back to a finally

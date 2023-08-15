@@ -1,11 +1,6 @@
 extends BlockTypeExecutionBase
 
 
-## Computes which exit route it is meant to take
-func compute_exit_block():
-	return true
-
-
 ## Computes the result of the block's execution
 func compute_result():
 	var is_tween: bool = block_parameters.tween

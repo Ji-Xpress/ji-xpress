@@ -17,8 +17,9 @@ func compute_expression(expression: String):
 	
 	# Build variable sets for the expression
 	if current_condition_type != "":
-		if SharedState.has(current_condition_type):
-			for variable in SharedState[current_condition_type]:
+		var condition_variable = SharedState.get(current_condition_type)
+		if condition_variable != null:
+			for variable in condition_variable:
 				var_names.append(variable)
 				var_values.append(SharedState[current_condition_type][variable])
 	

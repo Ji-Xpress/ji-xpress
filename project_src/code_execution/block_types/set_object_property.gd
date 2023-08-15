@@ -1,11 +1,6 @@
 extends BlockTypeExecutionBase
 
 
-## Computes which exit route it is meant to take
-func compute_exit_block():
-	return true
-
-
 ## Computes the result of the block's execution
 func compute_result():
 	game_object_instance.object_metadata.set_property(block_parameters.property, expression_engine.compute_expression(block_parameters.value))

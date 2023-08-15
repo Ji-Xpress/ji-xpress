@@ -174,33 +174,37 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 		if not execute_finally:
 			# Execute based on computational results
 			block_instance.initialize(game_object_instance, \
-			current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
-			current_execution_block[BlockExecutionMetadata.prop_block_parameters])
+				current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
+				current_execution_block[BlockExecutionMetadata.prop_block_parameters])
 		
 			# Check to see if there is a finally block
 			var block_results = current_execution_block[BlockExecutionMetadata.prop_results_branching_metadata]
 			var contains_finally: bool = block_results[BlockBase.prop_contains_finally]
 			
 			var result = block_instance.compute_result()
-			var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_metadata][result]
-			var value = block_instance.get_computed_value()
-			# Set metadata for block execution
-			set_block_exit_port_result(block_name, exit_port, result, value)
-			set_block_execution_metadata(block_name, result, value)
-		
-			# Track the block if it contains a finally
-			if contains_finally:
-				block_branching_steps.append(block_name)
 			
-			if recursive_execution:
-				if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
-					for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
-						current_execution_block = block[prop_block]
-						execute_current_block()
-				else:
-					if block_branching_steps.size() > 0:
-						current_execution_block = block_branching_steps.pop_back()
-						execute_current_block(recursive_execution, true)
+			# Validate that we did not have a problem in execution
+			if result != null:
+				var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][str(result)]
+				var value = block_instance.get_computed_value()
+				# Set metadata for block execution
+				set_block_exit_port_result(block_name, exit_port, str(result), value)
+				set_block_execution_metadata(block_name, str(result), value)
+			
+				# Track the block if it contains a finally
+				if contains_finally:
+					block_branching_steps.append(block_name)
+				
+				if recursive_execution:
+					if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
+						for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+							current_execution_block = node_execution_metadata[prop_code_blocks][block[prop_block]]
+							execute_current_block()
+					else:
+						if block_branching_steps.size() > 0:
+							var current_block_name: String = block_branching_steps.pop_back()
+							current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
+							execute_current_block(recursive_execution, true)
 		else:
 			# Execute only the finally block
 			var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_metadata][BlockBase.condition_finally]

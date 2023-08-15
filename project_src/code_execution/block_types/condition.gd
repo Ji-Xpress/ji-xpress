@@ -2,7 +2,7 @@ extends BlockTypeExecutionBase
 
 
 ## Computes which exit route it is meant to take
-func compute_exit_block():
+func compute_result():
 	var condition_result = bool(expression_engine.compute_expression(block_parameters.condition))
 	return condition_result
 
