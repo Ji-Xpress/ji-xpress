@@ -3,12 +3,8 @@ extends BlockTypeExecutionBase
 
 ## Computes which exit route it is meant to take
 func compute_exit_block():
-	return false
-
-
-## Computes the result of the block's execution
-func compute_result():
-	return false
+	var condition_result = bool(expression_engine.compute_expression(block_parameters.condition))
+	return condition_result
 
 
 ## Checks to see if the block reverts back to a finally

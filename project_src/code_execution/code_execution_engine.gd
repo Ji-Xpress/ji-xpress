@@ -162,6 +162,9 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 	if current_execution_block != null:
 		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
 		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
+		# Set the block sub type
+		block_instance.sub_type = current_execution_block[BlockExecutionMetadata.prop_block_sub_type]
+		# Assign the expression engine to the block
 		block_instance.expression_engine = expression_engine
 		
 		# Extract metadata
