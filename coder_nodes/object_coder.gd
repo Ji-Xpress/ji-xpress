@@ -32,7 +32,7 @@ func _ready():
 	all_variables = get_all_variables()
 	
 	# Load corresponding script metadata
-	var object_index: int = parent_node.get_node(Constants.object_metadata_node).object_index
+	var object_index: int = parent_node.get_node(Constants.object_metadata_node).project_object_index
 	var object_name: String = ProjectManager.object_ids[object_index]
 	var script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
 	

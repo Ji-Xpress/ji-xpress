@@ -34,6 +34,8 @@ var rotation: int = 0
 var node_index: int = 0
 ## Keeps track of the index of the object within the canvas itself
 var object_index: int = -1
+## Keeps track of the project's object index
+var project_object_index: int = -1
 ## Holder of property values
 var prop_values: Dictionary = {}
 

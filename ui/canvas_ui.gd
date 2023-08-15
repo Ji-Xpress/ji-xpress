@@ -88,7 +88,7 @@ func add_game_object_url_to_canvas(url: String, project_object_index: int, creat
 	
 	# Get the instance's metadata node
 	var node_instance_metadata: ObjectMetaData = node_instance.get_node(Constants.object_metadata_node)
-	node_instance_metadata.object_index = project_object_index
+	node_instance_metadata.project_object_index = project_object_index
 	
 	if created_node_metadata != null:
 		# Assign already exisiting metadata
@@ -153,10 +153,12 @@ func synchronize_project_scene_metadata():
 			var object_metadata: ObjectMetaData = child_node.object_metadata
 			var object_index: int = object_metadata.object_index
 			var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
+			var object_project_object_index: int = object_metadata.project_object_index
 			
 			project_object_index[ObjectProperties.prop_position_x] = object_metadata[ObjectMetaData.prop_position_x]
 			project_object_index[ObjectProperties.prop_position_y] = object_metadata[ObjectMetaData.prop_position_y]
 			project_object_index[ObjectProperties.prop_object_index] = object_index
+			project_object_index[ObjectProperties.prop_project_object_index] = object_project_object_index
 			project_object_index[ObjectProperties.prop_rotation] = object_metadata[ObjectMetaData.prop_rotation]
 			project_object_index[ObjectProperties.prop_custom_properties] = object_metadata.prop_values
 			project_object_index[ObjectProperties.prop_object_id] = object_metadata.object_id
