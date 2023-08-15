@@ -26,6 +26,8 @@ var node_outputs_metadata: Dictionary = {}
 var block_execution_data: Dictionary = {}
 ## Contains metadata on how blocks are connected
 var block_connection_metadata: Dictionary = {}
+## Stores metadata condusive for execution of entrypoints
+var entrypoint_block_metadata: Dictionary = {}
 ## References the code file name
 var code_file_name: String = ""
 ## Keeps track of branching steps and executes the finally block once we backtrack
@@ -81,6 +83,17 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 	expression_engine.game_object_instance = game_object_instance
 	expression_engine.initialize_engine()
 	
+	entrypoint_block_metadata = {}
+	
+	for entrypoint_block in metadata[prop_entry_blocks]:
+		var block_id: String = entrypoint_block.block_id
+		var block_sub_type: String = entrypoint_block.block_sub_type
+		
+		if not entrypoint_block_metadata.has(block_sub_type):
+			entrypoint_block_metadata[block_sub_type] = []
+		
+		entrypoint_block_metadata[block_sub_type].append(block_id)
+	
 	# Build metadata on connections on each block
 	for connection in metadata[prop_connections]:
 		var block_from: String = connection.from
@@ -118,6 +131,17 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 			prop_connection_from_metadata: port_from_metadata,
 			prop_connection_to_metadata: port_to_metadata
 		})
+
+
+## Executes code from an entrypoint type
+func execute_from_entrypoint_type(entrypoint_type: String):
+	if entrypoint_block_metadata.has(entrypoint_type):
+		for entrypoint_block in entrypoint_block_metadata:
+			execute_code_from_entrypoint(entrypoint_block)
+		
+		return true
+	
+	return false
 
 
 ## Executes code from entry blocks
