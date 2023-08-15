@@ -6,6 +6,9 @@ const prop_code_functions: String = "code_functions"
 const prop_code_variables: String = "code_variables"
 const prop_variable_values: String = "variable_values"
 
+## Handles a broadcast
+signal broadcast(message_id: String, message: String)
+
 ## Tracks whether the object is codable or not
 @export var can_code: bool = true
 ## Metadata of code functions
@@ -40,6 +43,13 @@ func _ready():
 	if script_metadata != null:
 		code_execution_engine = CodeExecutionEngine.new()
 		code_execution_engine.initialize_metadata(parent_node, script_metadata)
+		
+	SharedState.connect("broadcast", Callable(self, "on_brodcast"))
+
+
+## Handle a broadcast
+func on_brodcast(message_id: String, message: String):
+	emit_signal("broadcast", message_id, message)
 
 
 ## Prepares dictionary of code variables

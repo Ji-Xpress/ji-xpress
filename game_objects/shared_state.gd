@@ -2,6 +2,8 @@ extends Node
 
 var state_variables: Dictionary = {}
 
+signal broadcast(message_id: String, message: String)
+
 
 ## Clears variables in the shared state
 func clear_state():
@@ -25,3 +27,8 @@ func get_variable(variable: String):
 ## Sets the value of a variable
 func set_variable(variable: String, value):
 	state_variables[variable] = value
+
+
+## Perform a broadcast
+func do_broadcast(message_id: String, message: String):
+	emit_signal("broadcast", message_id, message)

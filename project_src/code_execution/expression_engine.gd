@@ -11,4 +11,4 @@ func initialize_engine():
 
 ## Evaluates an expression and sends back the results
 func compute_expression(expression: String):
-	pass
+	return null
