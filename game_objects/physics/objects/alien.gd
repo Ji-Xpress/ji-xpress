@@ -22,11 +22,14 @@ func _ready():
 		freeze = false
 		camera.enabled = true
 		mass = float(object_metadata.get_property("mass"))
+		
+		object_coder.code_execution_engine.execute_from_entrypoint_type("ready")
 
 
 # Physics loop
 func _physics_process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
 		if is_on_floor:
 			if not Input.is_action_pressed("ui_accept"):
 				var force_raycast: Vector2 = get_left_right_input()
