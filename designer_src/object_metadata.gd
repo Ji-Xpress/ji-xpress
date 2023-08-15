@@ -40,7 +40,7 @@ var prop_values: Dictionary = {}
 
 ## Manually assigned the node's metadata
 func assign_metadata(metadata: Dictionary):
-	object_index = metadata.object_index
+	object_id = metadata.object_id
 	rotation = metadata.rotation
 	position_x = metadata.position_x
 	position_y = metadata.position_y

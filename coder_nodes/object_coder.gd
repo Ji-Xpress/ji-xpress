@@ -22,12 +22,24 @@ var parent_node: Node2D = null
 var all_variables: Array[String] = []
 ## Variables metadata
 var variable_metadata: Dictionary = {}
+## CodeExecutionEngine instance
+var code_execution_engine: CodeExecutionEngine = null
 
 
 # Initialization
 func _ready():
 	parent_node = get_parent()
 	all_variables = get_all_variables()
+	
+	# Load corresponding script metadata
+	var object_index: int = parent_node.get_node(Constants.object_metadata_node).object_index
+	var object_name: String = ProjectManager.object_ids[object_index]
+	var script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
+	
+	# Attach the metadata to the code execution engine instance
+	if script_metadata != null:
+		code_execution_engine = CodeExecutionEngine.new()
+		code_execution_engine.initialize_metadata(parent_node, script_metadata)
 
 
 ## Prepares dictionary of code variables

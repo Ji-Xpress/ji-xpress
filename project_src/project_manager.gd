@@ -349,11 +349,6 @@ func get_project_scenes():
 ## Get all code instances
 func get_project_scripts():
 	var all_scripts = get_dir_files(current_project_path + Constants.project_scripts_dir, Constants.scripts_extension)
-	
-	# Build metadata
-	for script in all_scripts:
-		open_script(script, true)
-
 	return all_scripts
 
 

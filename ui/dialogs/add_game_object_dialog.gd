@@ -6,7 +6,7 @@ extends Window
 # Window closed
 signal window_cancelled()
 ## An object has been selected
-signal window_result(game_object_reference: String, request_position)
+signal window_result(game_object_reference: String, index: int, request_position)
 ## Contains references in index of game items
 var game_object_references: Array[String] = []
 ## Set this flag to rebuild the list
@@ -44,5 +44,5 @@ func _on_focus_entered():
 
 # Item was double clicked
 func _on_item_list_item_activated(index):
-	emit_signal("window_result", game_object_references[index], requested_position)
+	emit_signal("window_result", game_object_references[index], index, requested_position)
 	hide()

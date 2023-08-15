@@ -7,7 +7,7 @@ extends Control
 @onready var canvas_player: Window = $CanvasPlayer
 
 # Signals
-signal game_object_window_result(game_object_reference: String, request_position)
+signal game_object_window_result(game_object_reference: String, index: int, request_position)
 signal canvas_settings_window_result(game_object_reference: String)
 
 
@@ -35,8 +35,8 @@ func show_canvas_player(scene_name: String):
 
 
 # Add game object window result
-func _on_add_game_object_dialog_window_result(game_object_reference, request_position):
-	emit_signal("game_object_window_result", game_object_reference, request_position)
+func _on_add_game_object_dialog_window_result(game_object_reference, index, request_position):
+	emit_signal("game_object_window_result", game_object_reference, index, request_position)
 
 
 # Canvas settings window result

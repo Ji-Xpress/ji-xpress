@@ -244,9 +244,9 @@ func _on_dialogs_input_prompt_result(result, flag):
 
 
 # Game object reference addition requested
-func _on_main_ui_dialogs_game_object_window_result(game_object_reference, request_position):
+func _on_main_ui_dialogs_game_object_window_result(game_object_reference, index, request_position):
 	if requesting_tab_instance_control != null:
-		requesting_tab_instance_control.add_game_object_url_to_canvas(game_object_reference, -1, null, request_position)
+		requesting_tab_instance_control.add_game_object_url_to_canvas(game_object_reference, index, -1, null, request_position)
 
 
 func _on_main_ui_dialogs_canvas_settings_window_result(settings):

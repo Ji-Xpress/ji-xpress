@@ -72,14 +72,15 @@ func populate_scene_nodes():
 	for scene_object in scene_objects:
 		var current_object = scene_objects[scene_object]
 		var node_id: String = current_object[ObjectProperties.prop_node_id]
-		var node_index: int = current_object[ObjectProperties.prop_object_index] 
+		var object_index: int = current_object[ObjectProperties.prop_object_index] 
+		var project_object_index: int = current_object[ObjectProperties.prop_project_object_index]
 		
 		# Create a pre-prepared game object
-		add_game_object_url_to_canvas(node_id, node_index, current_object)
+		add_game_object_url_to_canvas(node_id, project_object_index, object_index, current_object)
 
 
 ## Adds a node with a specific resource URL to canvas
-func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, created_node_metadata = null, manual_position = null):
+func add_game_object_url_to_canvas(url: String, project_object_index: int, created_object_index: int = -1, created_node_metadata = null, manual_position = null):
 	var new_node: PackedScene = load(url)
 	var node_instance: Node2D = new_node.instantiate()
 	var node_kind: SharedEnums.ObjectLayer = node_instance.get_node(Constants.object_metadata_node).get("node_kind")
@@ -87,9 +88,11 @@ func add_game_object_url_to_canvas(url: String, created_object_index: int = -1, 
 	
 	# Get the instance's metadata node
 	var node_instance_metadata: ObjectMetaData = node_instance.get_node(Constants.object_metadata_node)
+	node_instance_metadata.object_index = project_object_index
 	
 	if created_node_metadata != null:
 		# Assign already exisiting metadata
+		node_instance_metadata.object_index = created_object_index
 		node_instance_metadata.assign_metadata(created_node_metadata)
 	else:
 		if manual_position == null and not mouse_position_request_performed:

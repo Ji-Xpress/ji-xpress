@@ -15,8 +15,6 @@ const prop_last_block_index: String = "last_block_index"
 const prop_port: String = "port"
 const prop_block: String = "block"
 
-## Contains reference to the object it is attached to
-var object_id: String = ""
 ## Contains metadata of all nodes that need to be executed
 var node_execution_metadata: Dictionary = {}
 ## Contains the values of execution for each node
@@ -83,11 +81,13 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 	expression_engine.game_object_instance = game_object_instance
 	expression_engine.initialize_engine()
 	
+	# Build entrypoint metadata entries
 	entrypoint_block_metadata = {}
 	
 	for entrypoint_block in metadata[prop_entry_blocks]:
-		var block_id: String = entrypoint_block.block_id
-		var block_sub_type: String = entrypoint_block.block_sub_type
+		var metadata_item = metadata[prop_entry_blocks][entrypoint_block]
+		var block_id: String = metadata_item.block_id
+		var block_sub_type: String = metadata_item.block_sub_type
 		
 		if not entrypoint_block_metadata.has(block_sub_type):
 			entrypoint_block_metadata[block_sub_type] = []
@@ -100,8 +100,8 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 		var block_to: String = connection.to
 		var port_from: int = connection.from_port
 		var port_to: int = connection.to_port
-		var port_from_metadata: String = connection[prop_connection_from_metadata]
-		var port_to_metadata: int = connection[prop_connection_to_metadata]
+		var port_from_metadata = connection[prop_connection_from_metadata]
+		var port_to_metadata = connection[prop_connection_to_metadata]
 		
 		# Create metadata templates for for from and to blocks if they do not exist
 		if not block_connection_metadata.has(block_from):
