@@ -67,3 +67,7 @@ func _on_floor_detector_body_shape_exited(body_rid, body, body_shape_index, loca
 # Property change event handling
 func _on_object_functionality_property_changed(property, value, is_custom):
 	pass # Replace with function body.
+
+
+func _on_object_coder_broadcast(message_id, message):
+	print_debug("received: " + message_id + ". message: " + message)

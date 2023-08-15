@@ -261,6 +261,7 @@ func _on_child_entered_tree(node: Node):
 			node_connections_to[node_name] = []
 
 
+# GraphEdit has an item exiting the tree
 func _on_child_exiting_tree(node):
 	if node is BlockBase:
 		var node_name = node.name

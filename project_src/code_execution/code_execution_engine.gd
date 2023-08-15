@@ -181,10 +181,13 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			var block_results = current_execution_block[BlockExecutionMetadata.prop_results_branching_metadata]
 			var contains_finally: bool = block_results[BlockBase.prop_contains_finally]
 			
+			# Compute result
 			var result = block_instance.compute_result()
+			# Check that result has exit port
+			var result_has_exit_port: bool = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata].has(str(result))
 			
 			# Validate that we did not have a problem in execution
-			if result != null:
+			if result != null and result_has_exit_port:
 				var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][str(result)]
 				var value = block_instance.get_computed_value()
 				# Set metadata for block execution
