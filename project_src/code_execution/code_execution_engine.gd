@@ -14,6 +14,7 @@ const prop_outgoing_connections: String = "outgoing_connections"
 const prop_last_block_index: String = "last_block_index"
 const prop_port: String = "port"
 const prop_block: String = "block"
+const prop_recomputes: String = "recomputes"
 
 ## Contains metadata of all nodes that need to be executed
 var node_execution_metadata: Dictionary = {}
@@ -29,13 +30,15 @@ var entrypoint_block_metadata: Dictionary = {}
 ## References the code file name
 var code_file_name: String = ""
 ## Keeps track of branching steps and executes the finally block once we backtrack
-var block_branching_steps: Array[String] = []
+var block_branching_steps: Array[Dictionary] = []
 ## Keeps track of the current executing block
 var current_execution_block = null
 ## Keeps track of the game object instance
 var game_object_instance: Node2D = null
 ## Instance of Experession Engine
 var expression_engine: ExpressionEngine = null
+## Current instance of the finally block data
+var current_finally_block_data: Dictionary = {}
 
 
 ## Model for persistance
@@ -171,7 +174,15 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 		var block_name: String = current_execution_block[BlockExecutionMetadata.prop_block_id]
 		# Compute result and get the exit port
 		
-		if not execute_finally:
+		var recomputes: bool = false
+		
+		if current_finally_block_data.has(prop_recomputes):
+			recomputes = current_finally_block_data[prop_recomputes]
+		
+		if (not execute_finally) or recomputes:
+			# Invalidate the current finally block data
+			current_finally_block_data = {}
+			
 			# Execute based on computational results
 			block_instance.initialize(game_object_instance, \
 				current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
@@ -183,6 +194,8 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			
 			# Compute result
 			var result = block_instance.compute_result()
+			var is_recomputing: bool = block_instance.is_recomputing()
+			
 			# Check that result has exit port
 			var result_has_exit_port: bool = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata].has(str(result))
 			
@@ -194,9 +207,21 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 				set_block_exit_port_result(block_name, exit_port, str(result), value)
 				set_block_execution_metadata(block_name, str(result), value)
 			
+				
+				
+				# For a recomputing block we execute finally only if its execution result resolves to false
+				if execute_finally and value != true:
+					# Execute finally and exit the function
+					execute_finally_block(block_name, recursive_execution)
+					return
+				
 				# Track the block if it contains a finally
 				if contains_finally:
-					block_branching_steps.append(block_name)
+					block_branching_steps.append({
+						prop_block: block_name,
+						prop_recomputes: is_recomputing
+					})
+					
 				
 				if recursive_execution:
 					if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
@@ -205,17 +230,25 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 							execute_current_block()
 					else:
 						if block_branching_steps.size() > 0:
-							var current_block_name: String = block_branching_steps.pop_back()
+							current_finally_block_data = block_branching_steps.pop_back()
+							var current_block_name: String = current_finally_block_data[prop_block]
 							current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
 							execute_current_block(recursive_execution, true)
 		else:
 			# Execute only the finally block
-			var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_metadata][BlockBase.condition_finally]
-			for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
-				current_execution_block = block[prop_block]
-				execute_current_block(recursive_execution, false)
+			execute_finally_block(block_name, recursive_execution)
 		
 		return false
+
+
+## Only does execution for the finally block
+func execute_finally_block(block_name: String, recursive_execution):
+	var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][BlockBase.condition_finally]
+	if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
+		for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+			var current_block_name: String = block[prop_block]
+			current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
+			execute_current_block(recursive_execution, false)
 
 
 ## Sets the output value of every node's output

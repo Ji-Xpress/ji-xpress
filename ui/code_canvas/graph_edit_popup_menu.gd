@@ -43,7 +43,7 @@ func _ready():
 	custom_function_submenu.index_pressed.connect(on_function_menu_index_selected)
 	
 	# Get item metadata
-	for item in range(0, num_items - 1):
+	for item in range(0, num_items):
 		popup_menu_item_metdata.append(get_item_metadata(item))
 		popup_menu_item_text.append(get_item_text(item))
 		popup_menu_item_texture.append(get_item_icon(item))
@@ -51,7 +51,7 @@ func _ready():
 	# Clear and rebuild
 	clear()
 	
-	for item in range(0, num_items - 1):
+	for item in range(0, num_items):
 		if item == 3:
 			# Custom Entry Point
 			add_child(custom_entrypoint_submenu)
