@@ -263,24 +263,6 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 		return false
 
 
-## Forces the execution of the last finally block
-func force_last_finally_execution(recursive_execution: bool, override_recompute: bool = false):
-	current_finally_block_data = block_branching_steps.pop_back()
-	var current_block_name: String = current_finally_block_data[prop_block]
-	current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
-	execute_current_block(recursive_execution, true, override_recompute)
-
-
-## Only does execution for the finally block
-func execute_finally_block(block_name: String, recursive_execution, execute_finally = false):
-	var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][BlockBase.condition_finally]
-	if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
-		for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
-			var current_block_name: String = block[prop_block]
-			current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
-			execute_current_block(recursive_execution, execute_finally)
-
-
 ## Sets the output value of every node's output
 func set_block_exit_port_result(block_name: String, exit_port: int, result: String, value):
 	node_outputs_metadata[block_name + "_" + str(exit_port)] = execution_result_model_template(result, value)
@@ -307,3 +289,21 @@ func get_block_execution_metadata(block_name: String):
 		return block_execution_data[block_name]
 	
 	return null
+
+
+## Forces the execution of the last finally block
+func force_last_finally_execution(recursive_execution: bool, override_recompute: bool = false):
+	current_finally_block_data = block_branching_steps.pop_back()
+	var current_block_name: String = current_finally_block_data[prop_block]
+	current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
+	execute_current_block(recursive_execution, true, override_recompute)
+
+
+## Only does execution for the finally block
+func execute_finally_block(block_name: String, recursive_execution, execute_finally = false):
+	var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][BlockBase.condition_finally]
+	if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
+		for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+			var current_block_name: String = block[prop_block]
+			current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
+			execute_current_block(recursive_execution, execute_finally)
