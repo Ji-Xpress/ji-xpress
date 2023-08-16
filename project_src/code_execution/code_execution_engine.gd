@@ -161,7 +161,7 @@ func execute_code_from_entrypoint(block_name: String):
 
 
 ## Executes a single block
-func execute_current_block(recursive_execution: bool = true, execute_finally: bool = false):
+func execute_current_block(recursive_execution: bool = true, execute_finally: bool = false, override_recompute: bool = false):
 	if current_execution_block != null:
 		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
 		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
@@ -179,7 +179,7 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 		if current_finally_block_data.has(prop_recomputes):
 			recomputes = current_finally_block_data[prop_recomputes]
 		
-		if (not execute_finally) or recomputes:
+		if (not execute_finally) or (recomputes and not override_recompute):
 			# Invalidate the current finally block data
 			current_finally_block_data = {}
 			
@@ -199,7 +199,7 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			
 			# If it reverts back to a finally block
 			if reverts_to_finally:
-				force_last_finally_execution(recursive_execution)
+				force_last_finally_execution(recursive_execution, true)
 				return true
 			
 			# Check that result has exit port
@@ -247,11 +247,11 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 
 
 ## Forces the execution of the last finally block
-func force_last_finally_execution(recursive_execution):
+func force_last_finally_execution(recursive_execution: bool, override_recompute: bool = false):
 	current_finally_block_data = block_branching_steps.pop_back()
 	var current_block_name: String = current_finally_block_data[prop_block]
 	current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
-	execute_current_block(recursive_execution, true)
+	execute_current_block(recursive_execution, true, override_recompute)
 
 
 ## Only does execution for the finally block
