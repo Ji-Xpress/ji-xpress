@@ -205,7 +205,7 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 				if execute_finally and bool(result) != true:
 					# Execute finally and exit the function
 					execute_finally_block(block_name, recursive_execution)
-					return
+					return true
 				
 				# Else proceed as is
 				var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][str(result)]
@@ -233,9 +233,12 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 							var current_block_name: String = current_finally_block_data[prop_block]
 							current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
 							execute_current_block(recursive_execution, true)
+				
+				return true
 		else:
 			# Execute only the finally block
 			execute_finally_block(block_name, recursive_execution)
+			return true
 		
 		return false
 

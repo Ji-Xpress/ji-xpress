@@ -10,4 +10,5 @@ script = ExtResource("1_a5ou8")
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="connection_request" from="." to="." method="_on_connection_request"]
 [connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
+[connection signal="end_node_move" from="." to="." method="_on_end_node_move"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
