@@ -14,3 +14,8 @@ func compute_result():
 ## Checks to see if the block reverts back to a finally
 func is_reverting_to_finally():
 	return true
+
+
+## Break block
+func is_reverting_to_break():
+	return true

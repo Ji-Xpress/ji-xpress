@@ -7,11 +7,11 @@ func compute_result():
 	return computed_value
 
 
-## Checks to see if the block reverts back to a finally
-func is_reverting_to_finally():
-	return false
-
-
 ## Checks to see if the block recomputes before reverting to finally
 func is_recomputing():
+	return true
+
+
+## Block is breakable
+func is_breakable():
 	return true

@@ -31,6 +31,8 @@ var entrypoint_block_metadata: Dictionary = {}
 var code_file_name: String = ""
 ## Keeps track of branching steps and executes the finally block once we backtrack
 var block_branching_steps: Array[Dictionary] = []
+## Keeps track of breaking steps and executes the finally block once we backtrack
+var block_breaking_steps: Array[Dictionary] = []
 ## Keeps track of the current executing block
 var current_execution_block = null
 ## Keeps track of the game object instance
@@ -196,9 +198,19 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			var result = await block_instance.compute_result()
 			var is_recomputing: bool = block_instance.is_recomputing()
 			var reverts_to_finally: bool = block_instance.is_reverting_to_finally()
+			var is_breakable: bool = block_instance.is_breakable()
+			var reverts_to_break: bool = block_instance.is_reverting_to_break()
 			
-			# If it reverts back to a finally block
-			if reverts_to_finally:
+			# If it reverts back to a finally block and also breaks execution of the last breakable block
+			if reverts_to_finally and reverts_to_break:
+				# Remove all other finally blocks after the forced break
+				while block_branching_steps[block_branching_steps.size() - 1][prop_block] != block_breaking_steps[block_breaking_steps.size() - 1][prop_block]:
+					block_branching_steps.pop_back()
+				
+				force_last_finally_execution(recursive_execution, true)
+				return true
+			elif reverts_to_finally:
+				# Only needs to revert to finally for now
 				force_last_finally_execution(recursive_execution, true)
 				return true
 			
@@ -226,7 +238,12 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 						prop_block: block_name,
 						prop_recomputes: is_recomputing
 					})
-					
+				
+				if is_breakable:
+					block_breaking_steps.append({
+						prop_block: block_name,
+						prop_recomputes: is_recomputing
+					})
 				
 				if recursive_execution:
 					if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):

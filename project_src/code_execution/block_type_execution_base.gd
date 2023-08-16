@@ -39,6 +39,16 @@ func is_reverting_to_finally():
 	return false
 
 
+## Checks to see if it revers back to a break
+func is_reverting_to_break():
+	return false
+
+
+## Checks to see if it is breakable
+func is_breakable():
+	return false
+
+
 ## Checks to see if the block recomputes before reverting to finally
 func is_recomputing():
 	return false
