@@ -172,10 +172,10 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 		
 		# Extract metadata
 		var block_name: String = current_execution_block[BlockExecutionMetadata.prop_block_id]
-		# Compute result and get the exit port
-		
+		# Tracks recomputing
 		var recomputes: bool = false
 		
+		# Compute result and get the exit port
 		if current_finally_block_data.has(prop_recomputes):
 			recomputes = current_finally_block_data[prop_recomputes]
 		
