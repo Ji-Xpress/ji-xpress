@@ -11,6 +11,7 @@ func compute_result():
 		tween_duration = float(expression_engine.compute_expression(block_parameters.tween_duration_expression))
 		var tween: Tween = game_object_instance.create_tween()
 		tween.tween_property(game_object_instance, "rotation_degrees", degrees, tween_duration)
+		await tween.finished
 	else:
 		game_object_instance.rotation_degrees = degrees
 		

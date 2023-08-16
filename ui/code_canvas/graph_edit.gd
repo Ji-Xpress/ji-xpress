@@ -32,12 +32,16 @@ var node_connections_to: Dictionary = {}
 var current_object_instance: Node2D = null
 ## Keeps track of the last object index
 var last_block_index: int = 0
+## Keeps track of loading status for graph
+var has_loaded: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not is_new_file:
 		load_script()
+	
+	has_loaded = true
 
 
 # Capture Mouse Events
@@ -242,14 +246,17 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 			"to_port": to_port
 		})
 		
-		emit_signal("node_invalidated")
+		if has_loaded:
+			emit_signal("node_invalidated")
 
 
 # Disconnection request is made
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	disconnect_node(from_node, from_port, to_node, to_port)
 	connections.erase(from_node + "_" + str(from_port))
-	emit_signal("node_invalidated")
+	
+	if has_loaded:
+		emit_signal("node_invalidated")
 
 
 # Track when a GraphNode enters
@@ -263,7 +270,8 @@ func _on_child_entered_tree(node: Node):
 		if not node_connections_to.has(node_name):
 			node_connections_to[node_name] = []
 	
-	emit_signal("node_invalidated")
+	if has_loaded:
+		emit_signal("node_invalidated")
 
 
 # GraphEdit has an item exiting the tree
@@ -286,9 +294,11 @@ func _on_child_exiting_tree(node):
 				
 			node_connections_to.erase(node_name)
 	
-	emit_signal("node_invalidated")
+	if has_loaded:
+		emit_signal("node_invalidated")
 
 
 # We need to save the node again
 func _on_end_node_move():
-	emit_signal("node_invalidated")
+	if has_loaded:
+		emit_signal("node_invalidated")

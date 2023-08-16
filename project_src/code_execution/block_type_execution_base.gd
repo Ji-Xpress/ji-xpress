@@ -36,7 +36,7 @@ func get_computed_value():
 
 ## Checks to see if the block reverts back to a finally
 func is_reverting_to_finally():
-	pass
+	return false
 
 
 ## Checks to see if the block recomputes before reverting to finally
