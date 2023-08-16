@@ -200,20 +200,19 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			var result_has_exit_port: bool = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata].has(str(result))
 			
 			# Validate that we did not have a problem in execution
-			if result != null and result_has_exit_port:
+			if result != null and (result_has_exit_port or execute_finally):
+				# For a recomputing block we execute finally only if its execution result resolves to false
+				if execute_finally and bool(result) != true:
+					# Execute finally and exit the function
+					execute_finally_block(block_name, recursive_execution)
+					return
+				
+				# Else proceed as is
 				var exit_port: int = current_execution_block[BlockExecutionMetadata.prop_exit_port_result_metadata][str(result)]
 				var value = block_instance.get_computed_value()
 				# Set metadata for block execution
 				set_block_exit_port_result(block_name, exit_port, str(result), value)
 				set_block_execution_metadata(block_name, str(result), value)
-			
-				
-				
-				# For a recomputing block we execute finally only if its execution result resolves to false
-				if execute_finally and value != true:
-					# Execute finally and exit the function
-					execute_finally_block(block_name, recursive_execution)
-					return
 				
 				# Track the block if it contains a finally
 				if contains_finally:
