@@ -33,9 +33,11 @@ var exit_ports: Dictionary = {}
 ## Keeps track of exit slots with results
 var exit_ports_with_results: Dictionary = {}
 
-# Flags that the block contains the various results
+## Flags that it contains a true exit port
 var contains_true: bool = true
+## Flags that it contains a false exit port
 var contains_false: bool = false
+## Flags that it contains a finally exit port
 var contains_finally: bool = false
 
 
