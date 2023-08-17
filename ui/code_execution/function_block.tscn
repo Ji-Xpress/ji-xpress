@@ -19,5 +19,5 @@ script = ExtResource("1_ieohg")
 [node name="FunctionName" type="Label" parent="."]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
-text = "function_name"
+text = "function_name()"
 vertical_alignment = 1

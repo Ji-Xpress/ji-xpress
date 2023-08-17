@@ -30,6 +30,8 @@ signal tab_close_request(node_instance: Control, scene_id: String)
 var selected_add_position: Vector2 = Vector2.ZERO
 ## Keeps track of the current instance of the object
 var current_object_instance: Node2D = null
+# Function metadata
+var function_metadata: Dictionary = {}
 
 
 # Initialize before the _ready() function
@@ -48,6 +50,17 @@ func _ready():
 		graph_edit.current_object_instance = current_object_instance
 		popup_menu.current_object_instance = current_object_instance
 		popup_menu.build_custom_functions_submenu()
+		
+		var code_instance: ObjectCoder = current_object_instance.get_node(Constants.object_coder_node)
+		
+		# Iterate all functions and prepare function matadata
+		for function in code_instance.code_functions:
+			function_metadata[function.function_name] = function
+		
+		# Set the function metadata for graphedit
+		graph_edit.function_metadata = function_metadata
+		# Load current script
+		graph_edit.load_script()
 
 
 ## Save the tab's content
@@ -140,6 +153,8 @@ func _on_popup_menu_custom_function_item_selected(index):
 	var new_node: GraphNode = graph_edit.create_new_block_from_url(block_url, selected_add_position, GameObjectsLoader.entry_points.keys()[index])
 	# Assign the function
 	new_node.code_function_instance = code_function
+	new_node.populate_controls()
+	
 	insert_new_block_to_graph(new_node)
 
 

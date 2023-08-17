@@ -34,13 +34,12 @@ var current_object_instance: Node2D = null
 var last_block_index: int = 0
 ## Keeps track of loading status for graph
 var has_loaded: bool = false
+# Function metadata
+var function_metadata: Dictionary = {}
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not is_new_file:
-		load_script()
-	
 	has_loaded = true
 
 
@@ -218,6 +217,12 @@ func create_new_block_from_metadata(block_metadata: Dictionary):
 	
 	# Create the block
 	var block_instance: GraphNode = load(block_scene_url).instantiate()
+	
+	# Get function index and fill function metadata
+	if block_metadata[BlockExecutionMetadata.prop_block_type] == BlockBase.block_type_function:
+		var function_name = block_metadata[BlockExecutionMetadata.prop_block_sub_type]
+		block_instance.code_function_instance = function_metadata[function_name]
+	
 	block_instance.set_block_metadata(block_metadata[BlockExecutionMetadata.prop_block_parameters])
 	
 	# Position the block

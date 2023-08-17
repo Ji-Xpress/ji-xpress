@@ -20,8 +20,7 @@ var output_slot_index: int = 0
 func _ready():
 	block_type = block_type_function
 	block_sub_type = code_function_instance.get(ObjectCodeFunction.prop_function_name)
-	function_name.text = block_sub_type
-	populate_controls()
+	function_name.text = block_sub_type + "()"
 	
 	contains_true = true
 	contains_false = false
@@ -95,19 +94,21 @@ func get_block_metadata():
 		var current_control: Control = property_controls[control_key].control
 		match property_controls[control_key].type:
 			SharedEnums.PropertyType.TypeString:
-				metadata[control_key] = control_key.text
+				metadata[control_key] = current_control.text
 			SharedEnums.PropertyType.TypeInt:
-				metadata[control_key] = control_key.value
+				metadata[control_key] = current_control.value
 			SharedEnums.PropertyType.TypeBool:
-				metadata[control_key] = control_key.value
+				metadata[control_key] = current_control.value
 			SharedEnums.PropertyType.TypeFloat:
-				metadata[control_key] = control_key.button_pressed
+				metadata[control_key] = current_control.button_pressed
 	
 	return metadata
 
 
 ## Sets the metadata of the block
 func set_block_metadata(metadata: Dictionary):
+	populate_controls()
+	
 	for control_key in metadata:
 		var value = metadata[control_key]
 		match property_controls[control_key].type:
