@@ -188,7 +188,8 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			# Execute based on computational results
 			block_instance.initialize(game_object_instance, \
 				current_execution_block[BlockExecutionMetadata.prop_input_parameters], \
-				current_execution_block[BlockExecutionMetadata.prop_block_parameters])
+				current_execution_block[BlockExecutionMetadata.prop_block_parameters],
+				block_instance.sub_type)
 		
 			# Check to see if there is a finally block
 			var block_results = current_execution_block[BlockExecutionMetadata.prop_results_branching_metadata]

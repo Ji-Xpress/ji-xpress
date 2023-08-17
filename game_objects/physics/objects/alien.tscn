@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=16 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
@@ -36,6 +36,12 @@ function_name = "central_impulse"
 function_block_parameters = Array[ExtResource("3_f6f7a")]([SubResource("Resource_h7ocn"), SubResource("Resource_4falt")])
 function_outputs = Array[String](["true"])
 
+[sub_resource type="Resource" id="Resource_fafgp"]
+script = ExtResource("6_v73yf")
+function_name = "central_force"
+function_block_parameters = Array[ExtResource("3_f6f7a")]([SubResource("Resource_h7ocn"), SubResource("Resource_4falt")])
+function_outputs = Array[String](["true"])
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
 radius = 40.0
 
@@ -55,7 +61,7 @@ custom_properties = Array[ExtResource("3_f6f7a")]([SubResource("Resource_fbjqp")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_2x26b")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("5_ourd4")]
-code_functions = Array[ExtResource("6_v73yf")]([SubResource("Resource_c4t8g")])
+code_functions = Array[ExtResource("6_v73yf")]([SubResource("Resource_c4t8g"), SubResource("Resource_fafgp")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_o0g4b")

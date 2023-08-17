@@ -71,3 +71,17 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 
 func _on_object_coder_broadcast(message_id, message):
 	print_debug("received: " + message_id + ". message: " + message)
+
+
+# Block functions
+
+## Apply central impulse block function
+func central_impulse(parameters: Dictionary):
+	apply_central_impulse(Vector2(parameters.force_x, parameters.force_y))
+	return true
+
+
+## Apply central force block function
+func central_force(parameters: Dictionary):
+	apply_central_force(Vector2(parameters.force_x, parameters.force_y))
+	return true
