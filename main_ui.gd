@@ -41,7 +41,7 @@ var current_scene_name: String = ""
 ## Keeps track of the current script name
 var current_script_name: String = ""
 ## Tab tracker dictionary
-var tab_number_tracker = {}
+var tab_number_tracker: Dictionary = {}
 
 
 ## When a game object dialog is requested

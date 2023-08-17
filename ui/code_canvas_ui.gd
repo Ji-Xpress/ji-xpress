@@ -54,8 +54,9 @@ func _ready():
 		var code_instance: ObjectCoder = current_object_instance.get_node(Constants.object_coder_node)
 		
 		# Iterate all functions and prepare function matadata
-		for function in code_instance.code_functions:
-			function_metadata[function.function_name] = function
+		if code_instance != null:
+			for function in code_instance.code_functions:
+				function_metadata[function.function_name] = function
 		
 		# Set the function metadata for graphedit
 		graph_edit.function_metadata = function_metadata

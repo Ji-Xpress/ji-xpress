@@ -14,7 +14,7 @@ var current_scene_name: String = ""
 ## Keeps track of the current script name
 var current_script_name: String = ""
 ## Tab tracker dictionary
-var tab_number_tracker = {}
+var tab_number_tracker: Dictionary = {}
 ```
 
 The following are ways the tabs are being managed:
