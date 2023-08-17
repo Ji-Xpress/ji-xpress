@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cw1qn75agsv88"]
+[gd_scene load_steps=15 format=3 uid="uid://cw1qn75agsv88"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/alien.gd" id="1_t3meq"]
 [ext_resource type="Texture2D" uid="uid://cyalsnjmhv5ir" path="res://game_objects/physics/assets/objects/alienBeige_round.png" id="1_xj7cw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_f6f7a"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="4_831n7"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="5_ourd4"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_v73yf"]
 
 [sub_resource type="Resource" id="Resource_fbjqp"]
 script = ExtResource("3_f6f7a")
@@ -14,6 +15,26 @@ property_name = "mass"
 property_type = 0
 property_value = "10"
 property_read_only = false
+
+[sub_resource type="Resource" id="Resource_h7ocn"]
+script = ExtResource("3_f6f7a")
+property_name = "force_x"
+property_type = 1
+property_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_4falt"]
+script = ExtResource("3_f6f7a")
+property_name = "force_y"
+property_type = 1
+property_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_c4t8g"]
+script = ExtResource("6_v73yf")
+function_name = "central_impulse"
+function_block_parameters = Array[ExtResource("3_f6f7a")]([SubResource("Resource_h7ocn"), SubResource("Resource_4falt")])
+function_outputs = Array[String](["true"])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0g4b"]
 radius = 40.0
@@ -34,6 +55,7 @@ custom_properties = Array[ExtResource("3_f6f7a")]([SubResource("Resource_fbjqp")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_2x26b")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("5_ourd4")]
+code_functions = Array[ExtResource("6_v73yf")]([SubResource("Resource_c4t8g")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_o0g4b")

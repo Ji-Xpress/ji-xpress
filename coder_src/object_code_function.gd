@@ -3,14 +3,11 @@ class_name ObjectCodeFunction
 
 # Constants
 const prop_function_name: String = "function_name"
-const prop_function_input_parameters: String = "function_input_parameters"
 const prop_function_block_parameters: String = "function_block_parameters"
 const prop_function_outputs: String = "function_outputs"
 
 ## Name of the function
 @export var function_name: String = ""
-## Function input parameters
-@export var function_input_parameters: Array[ObjectCustomProperty] = []
 ## Function block parameters
 @export var function_block_parameters: Array[ObjectCustomProperty] = []
 ## Inputs of the function

@@ -46,6 +46,7 @@ func _ready():
 		var object_url = ProjectManager.objects_metadata[str(object_index)][GameObjectsLoader.prop_object_url]
 		current_object_instance = load(object_url).instantiate()
 		graph_edit.current_object_instance = current_object_instance
+		popup_menu.current_object_instance = current_object_instance
 		popup_menu.build_custom_functions_submenu()
 
 
@@ -133,7 +134,7 @@ func insert_new_block_to_graph(new_node: GraphNode):
 # Handle when menuitem function selected
 func _on_popup_menu_custom_function_item_selected(index):
 	# Get the function instance
-	var code_function: ObjectCodeFunction = current_object_instance.object_coder.code_functions[index]
+	var code_function: ObjectCodeFunction = current_object_instance.get_node(Constants.object_coder_node).code_functions[index]
 	# Create the block
 	var block_url: String = graph_edit.get_block_url_by_type(BlockBase.block_type_function)
 	var new_node: GraphNode = graph_edit.create_new_block_from_url(block_url, selected_add_position, GameObjectsLoader.entry_points.keys()[index])

@@ -38,10 +38,15 @@ func _ready():
 ## Populates all child controls
 func populate_controls():
 	# Populate all parameters
-	for instance_key in code_function_instance.block_parameters_metadata:
-		var instance: ObjectCustomProperty = code_function_instance.block_parameters_metadata[instance_key]
+	for parameter_instance in code_function_instance.function_block_parameters:
+		var instance_key: String = parameter_instance[ObjectCustomProperty.prop_prop_name]
 		var property_control: Control = null
-		match instance.property_type:
+		
+		var new_label: Label = Label.new()
+		new_label.text = instance_key
+		add_child(new_label)
+		
+		match parameter_instance[ObjectCustomProperty.prop_prop_type]:
 			SharedEnums.PropertyType.TypeString:
 				property_control = text_property_node.instantiate()
 			SharedEnums.PropertyType.TypeInt:
@@ -54,18 +59,18 @@ func populate_controls():
 				property_control = bool_property_node.instantiate()
 		
 		property_controls[instance_key] = {
-			"type": instance.property_type,
+			"type": parameter_instance[ObjectCustomProperty.prop_prop_type],
 			"control": property_control
 		}
 		
 		add_child(property_control)
 		
-		output_slot_index += 1
+		output_slot_index += 2
 	
 	# Populate all outputs and exit ports
 	var output_index: int = 0
 	
-	for output_metadata in code_function_instance.outputs_metadata:
+	for output_metadata in code_function_instance.function_outputs:
 		# Prepare the label
 		var new_label: Label = Label.new()
 		new_label.text = output_metadata

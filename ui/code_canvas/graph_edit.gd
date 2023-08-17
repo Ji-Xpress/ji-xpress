@@ -49,9 +49,9 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		var selected_add_position = event.position + scroll_offset
 		
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
 			emit_signal("right_mouse_clicked", event.button_index, selected_add_position)
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			emit_signal("left_mouse_clicked", event.button_index, selected_add_position)
 
 
