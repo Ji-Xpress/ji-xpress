@@ -199,3 +199,71 @@ Within the scope of the current block's execution results:
 * `reverts_to_finally` - marks that it has a finally port.
 * `reverts_to_break` - marks that it needs to break the last breakable block. This for instance is the case when we need to break the execution of a loop.
 * Important to note: `reverts_to_break` overrides `reverts_to_finally` by backtracking all the blocks that have a `finally` port connection. And executes the `finally` that is in the last block with the `reverts_to_break` flag. Meaning it will ignore all other `reverts_to_finally` blocks coming after the `reverts_to_break` block.
+
+## The Expression Engine
+
+* The `ExpressionEngine` (`res://project_src/code_execution/expression_engine.gd`) computes expressions using the `compute_expression` function. The function accepts a single `String` parameter with the evaluation it needs to execute.
+* Important to note: the `current_condition_type` is used to add extra dictionary parameters used for only specific types of conditional computations. This is how it works:
+
+```gdscript
+## Evaluates an expression and sends back the results
+func compute_expression(expression: String):
+	var var_names = []
+	var var_values = []
+	
+	# Build variable sets for the expression
+	if current_condition_type != "":
+		var condition_variable = SharedState.expression_variables.get(current_condition_type)
+		if condition_variable != null:
+			for variable in condition_variable:
+				var_names.append(variable)
+				var_values.append(SharedState.expression_variables[current_condition_type][variable])
+	
+	# Variables and properties
+	var_names.append("variables")
+	var_values.append(game_object_instance.object_coder.variable_values)
+	var_names.append("globals")
+	var_values.append(SharedState.state_variables)
+	var_names.append("properties")
+	var_values.append(game_object_instance.object_metadata.prop_values)
+	
+	# Object state
+	var_names.append("pos_x")
+	var_values.append(game_object_instance.position.x)
+	var_names.append("pos_y")
+	var_values.append(game_object_instance.position.y)
+	var_names.append("rotation")
+	var_values.append(game_object_instance.rotation_degrees)
+	
+	# Evaluate expression and return results
+	return evaluate(expression, var_names, var_values)
+```
+
+* Note that the extra variable keys are extracted from `SharedState.expression_variables` dictionary entry, where each individual key represents a variable that can be used in the expression. These can even be initialized in the story pack's load / initialization logic.
+* Example of use in the `entry` block logic:
+
+```gdscript
+## Computes the result of the block's execution
+func compute_result():
+	# Set the expression engine condition type for more refined variable evaluations
+	expression_engine.current_condition_type = "entry_" + sub_type
+	# Evaluate
+	computed_value = expression_engine.compute_expression(block_parameters.condition)
+	# Clear the expression engine condition type
+	expression_engine.current_condition_type = ""
+	
+	return computed_value
+```
+
+* This is also the case in the custom function evaluation block as so:
+
+```gdscript
+## Computes the result of the block's execution
+func compute_result():
+	# Set the expression engine condition type for more refined variable evaluations
+	expression_engine.current_condition_type = "function_" + sub_type
+	var condition_result = game_object_instance.call(sub_type, block_parameters)
+	return condition_result
+	# Clear the expression engine condition type
+	expression_engine.current_condition_type = ""
+```
