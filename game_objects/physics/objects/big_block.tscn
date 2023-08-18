@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ceyn72b1onmvr"]
+[gd_scene load_steps=10 format=3 uid="uid://ceyn72b1onmvr"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_v1n4n"]
 [ext_resource type="Script" path="res://game_objects/physics/objects/big_block.gd" id="1_w47i6"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_qo5oo"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_toud7"]
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_hrffp"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="5_chado"]
 
 [sub_resource type="Resource" id="Resource_jfdjl"]
 script = ExtResource("3_hrffp")
@@ -18,6 +19,7 @@ property_read_only = false
 size = Vector2(66, 138)
 
 [node name="BigBlock" type="RigidBody2D" groups=["big_block"]]
+contact_monitor = true
 freeze_mode = 1
 script = ExtResource("1_w47i6")
 
@@ -25,6 +27,8 @@ script = ExtResource("1_w47i6")
 custom_properties = Array[ExtResource("3_hrffp")]([SubResource("Resource_jfdjl")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_qo5oo")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("5_chado")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -1)
@@ -36,3 +40,5 @@ texture = ExtResource("1_yj1jk")
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_toud7")
 size = Vector2(68, 140)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

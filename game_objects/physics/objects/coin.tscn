@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d04uwa0pubhtj"]
+[gd_scene load_steps=10 format=3 uid="uid://d04uwa0pubhtj"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/coin.gd" id="1_nw5o2"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_sbnum"]
@@ -6,6 +6,13 @@
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_fyypq"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_ulalu"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_6tngg"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="5_v4nk6"]
+
+[sub_resource type="Resource" id="Resource_1tqe4"]
+script = ExtResource("5_v4nk6")
+function_name = "destroy"
+function_block_parameters = Array[Resource("res://designer_src/object_custom_property.gd")]([])
+function_outputs = Array[String](["true"])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_junsv"]
 radius = 24.0
@@ -19,6 +26,7 @@ object_description = "Coin"
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_ulalu")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("4_6tngg")]
+code_functions = Array[ExtResource("5_v4nk6")]([SubResource("Resource_1tqe4")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_junsv")
@@ -30,3 +38,5 @@ offset = Vector2(0, -3)
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_fyypq")
 size = Vector2(50, 50)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

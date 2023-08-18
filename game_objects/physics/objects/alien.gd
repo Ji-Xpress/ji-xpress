@@ -94,14 +94,16 @@ func _on_floor_detector_area_entered(area):
 		SharedState.expression_variables["entry_collides"] = {}
 	
 	var body_groups = area.get_groups()
-	var body_group = body_groups[0]
 	
-	SharedState.expression_variables["entry_collides"]["body"] = {
-		"group": body_group,
-		"is_on_floor": is_on_floor()
-	}
-	
-	object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+	if body_groups.size() > 0:
+		var body_group = body_groups[0]
+		
+		SharedState.expression_variables["entry_collides"]["body"] = {
+			"group": body_group,
+			"is_on_floor": is_on_floor()
+		}
+		
+		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
 
 
 # Block functions
