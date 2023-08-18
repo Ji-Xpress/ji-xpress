@@ -17,7 +17,7 @@ property_read_only = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64syx"]
 size = Vector2(66, 138)
 
-[node name="BigBlock" type="RigidBody2D"]
+[node name="BigBlock" type="RigidBody2D" groups=["big_block"]]
 freeze_mode = 1
 script = ExtResource("1_w47i6")
 

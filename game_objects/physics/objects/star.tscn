@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_t1t4p"]
 radius = 24.0
 
-[node name="Star" type="Area2D"]
+[node name="Star" type="Area2D" groups=["star"]]
 script = ExtResource("1_gsfdb")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_c8twx")]

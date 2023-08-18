@@ -18,7 +18,7 @@ property_type = 0
 property_value = ""
 property_read_only = false
 
-[node name="Destination" type="Area2D"]
+[node name="Destination" type="Area2D" groups=["destination"]]
 script = ExtResource("1_cpekc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

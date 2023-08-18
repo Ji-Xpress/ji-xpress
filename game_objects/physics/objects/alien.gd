@@ -70,6 +70,7 @@ func _on_object_coder_broadcast(message_id, message):
 	object_coder.code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 
+# When the alien hits a physics body
 func _on_floor_detector_body_entered(body):
 	# Place broadcast in shared state for any broadcast entry block
 	if not body.is_in_group("alien"):
@@ -85,6 +86,22 @@ func _on_floor_detector_body_entered(body):
 		}
 		
 		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# An area entered the floor detector
+func _on_floor_detector_area_entered(area):
+	if not SharedState.expression_variables.has("entry_collides"):
+		SharedState.expression_variables["entry_collides"] = {}
+	
+	var body_groups = area.get_groups()
+	var body_group = body_groups[0]
+	
+	SharedState.expression_variables["entry_collides"]["body"] = {
+		"group": body_group,
+		"is_on_floor": is_on_floor()
+	}
+	
+	object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
 
 
 # Block functions

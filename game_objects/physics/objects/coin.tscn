@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_junsv"]
 radius = 24.0
 
-[node name="Coin" type="Area2D"]
+[node name="Coin" type="Area2D" groups=["coin"]]
 script = ExtResource("1_nw5o2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_sbnum")]
