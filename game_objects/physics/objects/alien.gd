@@ -83,6 +83,8 @@ func _on_floor_detector_body_entered(body):
 			"group": body_group,
 			"is_on_floor": is_on_floor()
 		}
+		
+		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
 
 
 # Block functions

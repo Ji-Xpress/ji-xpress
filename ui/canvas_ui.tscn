@@ -132,7 +132,7 @@ item_0/id = 0
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CanvasSettingsButton" to="." method="_on_canvas_settings_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/CanvasMenu/HBoxContainer/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
 [connection signal="all_nodes_deselected" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_all_nodes_deselected"]
-[connection signal="mouse_clicked" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_clicked"]
+[connection signal="mouse_released" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_mouse_released"]
 [connection signal="node_deleted" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_deleted"]
 [connection signal="node_moved" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_moved"]
 [connection signal="node_rotated" from="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport/DesignCanvas" to="." method="_on_design_canvas_node_rotated"]

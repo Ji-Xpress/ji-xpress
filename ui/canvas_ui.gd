@@ -267,7 +267,7 @@ func _on_close_tab_button_pressed():
 
 
 # Track any kind of click needing action
-func _on_design_canvas_mouse_clicked(mouse_button, mouse_position):
+func _on_design_canvas_mouse_released(mouse_button, mouse_position):
 	if mouse_button == MOUSE_BUTTON_RIGHT:
 		add_to_canvas_mouse_position = true
 		last_canvas_mouse_position = mouse_position
