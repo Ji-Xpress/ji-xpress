@@ -72,16 +72,17 @@ func _on_object_coder_broadcast(message_id, message):
 
 func _on_floor_detector_body_entered(body):
 	# Place broadcast in shared state for any broadcast entry block
-	if not SharedState.expression_variables.has("entry_collides"):
-		SharedState.expression_variables["entry_collides"] = {}
-	
-	var body_groups = body.get_groups()
-	var body_group = body_groups[0]
-	
-	SharedState.expression_variables["entry_collides"]["body"] = {
-		"group": body_group,
-		"is_on_floor": is_on_floor()
-	}
+	if not body.is_in_group("alien"):
+		if not SharedState.expression_variables.has("entry_collides"):
+			SharedState.expression_variables["entry_collides"] = {}
+		
+		var body_groups = body.get_groups()
+		var body_group = body_groups[0]
+		
+		SharedState.expression_variables["entry_collides"]["body"] = {
+			"group": body_group,
+			"is_on_floor": is_on_floor()
+		}
 
 
 # Block functions
