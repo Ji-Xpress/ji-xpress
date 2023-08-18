@@ -1,6 +1,7 @@
 extends Node
 
 var state_variables: Dictionary = {}
+var expression_variables: Dictionary = {}
 
 signal broadcast(message_id: String, message: String)
 
