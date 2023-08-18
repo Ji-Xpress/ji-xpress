@@ -19,8 +19,11 @@ func _ready():
 
 
 # Hit area size
-func set_hit_size(vector: Vector2) -> void:
+func set_hit_size(vector: Vector2, force_on_shape: bool = false) -> void:
 	hit_box_size = vector
+	
+	if force_on_shape:
+		collision_shape.shape.size = hit_box_size
 
 
 # Handle mouse input
