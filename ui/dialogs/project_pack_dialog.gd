@@ -40,3 +40,8 @@ func _on_ok_button_pressed():
 func _on_cancel_button_pressed():
 	emit_signal("window_result", null, -1)
 	hide()
+
+
+# Close button pressed
+func _on_close_requested():
+	_on_cancel_button_pressed()
