@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://comhsg8cwwxwu"]
+
+[ext_resource type="PackedScene" uid="uid://bq6ig5a16o6m2" path="res://ui/dialogs/project_pack_dialog.tscn" id="1_bn6kd"]
+[ext_resource type="Script" path="res://ui/launcher_dialogs.gd" id="1_s3gkk"]
+
+[node name="LauncherDialogs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s3gkk")
+
+[node name="ProjectPackDialog" parent="." instance=ExtResource("1_bn6kd")]
+visible = false
+
+[connection signal="window_result" from="ProjectPackDialog" to="." method="_on_project_pack_dialog_window_result"]

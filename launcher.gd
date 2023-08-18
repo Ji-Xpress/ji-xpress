@@ -8,11 +8,14 @@ enum FileDialogResult {
 @onready var activity_list: ItemList = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityList
 @onready var dialogs: Control = $Dialogs
 @onready var activity_list_double_click_timer: Timer = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityListDoubleClickTimer
+@onready var launcher_dialogs: Control = $LauncherDialogs
 
 # Checks on the file dialog result status
 var file_dialog_result: FileDialogResult = FileDialogResult.None
 var current_selected_dir_name: String = ""
 var current_selected_dir_path: String = ""
+var selected_project_pack_string = null
+var selected_project_pack_index: int = -1
 
 # Tracks list item clicked
 var list_click_index: int = -1
@@ -140,15 +143,24 @@ func _on_create_new_project_pressed():
 	
 	dialogs.hide_file_open_dialog()
 	
-	if file_dialog_result == FileDialogResult.Success:
-		if ProjectManager.create_new_project(current_selected_dir_path, "physics"):
-			save_recent_project_to_dict(current_selected_dir_path)
-			save_recent_projects_to_file()
-			get_tree().change_scene_to_file("res://main_ui.tscn")
-		else:
-			dialogs.show_accept_dialog("There was a problem creating the project")
+	# Invalidate the selected pack index
+	selected_project_pack_string = null
+	selected_project_pack_index = -1
 	
-	invalidate_file_dialog_result_flags()
+	# Show select project pack
+	launcher_dialogs.show_project_pack_dialog()
+	await launcher_dialogs.project_pack_dialog_result
+	
+	if selected_project_pack_string != null and selected_project_pack_index > -1:
+		if file_dialog_result == FileDialogResult.Success:
+			if ProjectManager.create_new_project(current_selected_dir_path, selected_project_pack_string):
+				save_recent_project_to_dict(current_selected_dir_path)
+				save_recent_projects_to_file()
+				get_tree().change_scene_to_file("res://main_ui.tscn")
+			else:
+				dialogs.show_accept_dialog("There was a problem creating the project")
+		
+		invalidate_file_dialog_result_flags()
 
 
 # Handle when the directory open dialog is invoked
@@ -169,3 +181,9 @@ func _on_dialogs_file_open_cancelled():
 # Reset the click index
 func _on_activity_list_double_click_timer_timeout():
 	list_click_index = -1
+
+
+# Dialog result for project pack dialog
+func _on_launcher_dialogs_project_pack_dialog_result(result_string, index):
+	selected_project_pack_string = result_string
+	selected_project_pack_index = index

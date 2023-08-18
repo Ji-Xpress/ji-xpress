@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwqsoxuan5702"]
+[gd_scene load_steps=6 format=3 uid="uid://bwqsoxuan5702"]
 
 [ext_resource type="Theme" uid="uid://bpuu0k8y00f6d" path="res://themes/launcher_theme.tres" id="1_abyt1"]
 [ext_resource type="Script" path="res://launcher.gd" id="1_lw4sm"]
 [ext_resource type="PackedScene" uid="uid://ca1nmslw6vqvx" path="res://ui/dialogs.tscn" id="2_ktfgy"]
 [ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="4_y4rtg"]
+[ext_resource type="PackedScene" uid="uid://comhsg8cwwxwu" path="res://ui/launcher_dialogs.tscn" id="4_ypbil"]
 
 [node name="Launcher" type="Control"]
 layout_mode = 3
@@ -16,6 +17,9 @@ theme = ExtResource("1_abyt1")
 script = ExtResource("1_lw4sm")
 
 [node name="Dialogs" parent="." instance=ExtResource("2_ktfgy")]
+layout_mode = 1
+
+[node name="LauncherDialogs" parent="." instance=ExtResource("4_ypbil")]
 layout_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -104,6 +108,7 @@ text = "Create New Project"
 
 [connection signal="dir_opened" from="Dialogs" to="." method="_on_dialogs_dir_opened"]
 [connection signal="file_open_cancelled" from="Dialogs" to="." method="_on_dialogs_file_open_cancelled"]
+[connection signal="project_pack_dialog_result" from="LauncherDialogs" to="." method="_on_launcher_dialogs_project_pack_dialog_result"]
 [connection signal="item_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityList" to="." method="_on_project_list_item_clicked"]
 [connection signal="timeout" from="PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityListDoubleClickTimer" to="." method="_on_activity_list_double_click_timer_timeout"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]
