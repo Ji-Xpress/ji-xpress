@@ -66,5 +66,8 @@ func load_code_entry_points():
 		},
 		"update_loop": {
 			GameObjectsLoader.prop_description: "During the update loop"
+		},
+		"broadcast": {
+			GameObjectsLoader.prop_description: "When the broadcast is done"
 		}
 	}

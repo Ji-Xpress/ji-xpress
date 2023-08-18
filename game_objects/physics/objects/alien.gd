@@ -6,9 +6,7 @@ extends RigidBody2D
 @onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var camera: Camera2D = $Camera2D
-
-# Tracks to see if we are on the floor
-var is_on_floor: bool = false
+@onready var floor_detector: Area2D = $FloorDetector
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +28,7 @@ func _ready():
 func _physics_process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
-		if is_on_floor:
+		if is_on_floor():
 			if not Input.is_action_pressed("ui_accept"):
 				var force_raycast: Vector2 = get_left_right_input()
 				apply_central_force(Vector2(force_raycast.x * mass * 500, 0))
@@ -52,16 +50,14 @@ func _on_body_entered(body):
 		apply_impulse(force_vector, object_position - position)
 
 
-func _on_floor_detector_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+# Checks to see if the fellow is on the floor
+func is_on_floor():
+	var overlapping_bodies = floor_detector.get_overlapping_bodies()
+	for body in overlapping_bodies:
 		if body.is_in_group("tile"):
-			is_on_floor = true
-
-
-func _on_floor_detector_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		if body.is_in_group("tile"):
-			is_on_floor = false
+			return true
+	
+	return false
 
 
 # Property change event handling
@@ -69,8 +65,23 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 	pass # Replace with function body.
 
 
+# Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	print_debug("received: " + message_id + ". message: " + message)
+	object_coder.code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
+func _on_floor_detector_body_entered(body):
+	# Place broadcast in shared state for any broadcast entry block
+	if not SharedState.expression_variables.has("entry_collides"):
+		SharedState.expression_variables["entry_collides"] = {}
+	
+	var body_groups = body.get_groups()
+	var body_group = body_groups[0]
+	
+	SharedState.expression_variables["entry_collides"]["body"] = {
+		"group": body_group,
+		"is_on_floor": is_on_floor()
+	}
 
 
 # Block functions

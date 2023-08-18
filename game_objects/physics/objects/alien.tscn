@@ -84,5 +84,4 @@ shape = SubResource("CircleShape2D_uv24t")
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
 [connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
-[connection signal="body_shape_entered" from="FloorDetector" to="." method="_on_floor_detector_body_shape_entered"]
-[connection signal="body_shape_exited" from="FloorDetector" to="." method="_on_floor_detector_body_shape_exited"]
+[connection signal="body_entered" from="FloorDetector" to="." method="_on_floor_detector_body_entered"]

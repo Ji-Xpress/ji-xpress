@@ -40,8 +40,9 @@ func _ready():
 	var script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
 	
 	# Attach the metadata to the code execution engine instance
+	code_execution_engine = CodeExecutionEngine.new()
+	
 	if script_metadata != null:
-		code_execution_engine = CodeExecutionEngine.new()
 		code_execution_engine.initialize_metadata(parent_node, script_metadata)
 		
 	SharedState.connect("broadcast", Callable(self, "on_brodcast"))
