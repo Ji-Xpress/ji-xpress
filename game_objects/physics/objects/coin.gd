@@ -27,7 +27,7 @@ func _on_body_entered(body):
 		var body_group = body_groups[0]
 		
 		SharedState.expression_variables["entry_collides"]["body"] = {
-			"group": body_group
+			"type": body_group
 		}
 		
 		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
