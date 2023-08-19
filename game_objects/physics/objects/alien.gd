@@ -99,7 +99,7 @@ func _on_floor_detector_area_entered(area):
 		var body_group = body_groups[0]
 		
 		SharedState.expression_variables["entry_collides"]["body"] = {
-			"group": body_group,
+			"type": body_group,
 			"is_on_floor": is_on_floor()
 		}
 		
