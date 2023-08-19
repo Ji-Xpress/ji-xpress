@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://6mpukdqmb1y6"]
+[gd_scene load_steps=9 format=3 uid="uid://6mpukdqmb1y6"]
 
 [ext_resource type="Script" path="res://ui/code_canvas_ui.gd" id="1_jxaup"]
 [ext_resource type="Theme" uid="uid://cuxsw2xavxj3d" path="res://themes/code_controls_theme.tres" id="1_xl38o"]
 [ext_resource type="Texture2D" uid="uid://g710fiucdwhb" path="res://assets/icons_16/power.png" id="3_0vpoq"]
 [ext_resource type="PackedScene" uid="uid://61lfukx5wbam" path="res://ui/code_canvas/graph_edit.tscn" id="3_dinpj"]
 [ext_resource type="PackedScene" uid="uid://7jwfjk0qcv8t" path="res://ui/code_canvas/graph_edit_popup_menu.tscn" id="3_y1psk"]
+[ext_resource type="Texture2D" uid="uid://c1fd7svh1tldq" path="res://assets/icons_16/plus.png" id="4_ohwat"]
 [ext_resource type="Texture2D" uid="uid://csneey8a6hfdm" path="res://assets/icons_16/save.png" id="4_smn8n"]
 [ext_resource type="PackedScene" uid="uid://dqhkpf6dix3ye" path="res://ui/src/tab_common.tscn" id="4_xadvh"]
 
@@ -21,6 +22,13 @@ script = ExtResource("1_jxaup")
 
 [node name="PopupMenu" parent="." instance=ExtResource("3_y1psk")]
 visible = false
+item_count = 13
+item_11/text = "Add Delay"
+item_11/icon = ExtResource("4_ohwat")
+item_11/id = 11
+item_12/text = "Add Change Scene"
+item_12/icon = ExtResource("4_ohwat")
+item_12/id = 12
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

@@ -12,6 +12,8 @@ const popup_rotate_object: int = 7
 const popup_set_global_variable: int = 8
 const popup_set_object_property: int = 9
 const popup_set_object_variable: int = 10
+const popup_delay: int = 11
+const popup_change_scene: int = 12
 
 # Script name property
 @export var script_name: String = ""
@@ -121,6 +123,11 @@ func _on_popup_menu_index_pressed(index):
 			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_object_property)
 		popup_set_object_variable:
 			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_set_object_variable)
+		popup_delay:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_delay)
+		popup_change_scene:
+			block_url = graph_edit.get_block_url_by_type(BlockBase.block_type_change_scene)
+	
 	
 	var new_node: GraphNode = graph_edit.create_new_block_from_url(block_url, selected_add_position)
 	insert_new_block_to_graph(new_node)

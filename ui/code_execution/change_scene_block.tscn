@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqoccnbddt7rq"]
+
+[ext_resource type="Script" path="res://ui/code_execution/change_scene_block.gd" id="1_3l2ci"]
+
+[node name="ChangeSceneBlock" type="GraphNode"]
+title = "Change Scene"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_3l2ci")
+
+[node name="SceneExpression" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Scene Expression"

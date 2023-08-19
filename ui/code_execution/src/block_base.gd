@@ -13,6 +13,8 @@ const block_type_rotate_object: String = "rotate_object"
 const block_type_set_global_variable: String = "set_global_variable"
 const block_type_set_object_property: String = "set_object_property"
 const block_type_set_object_variable: String = "set_object_variable"
+const block_type_delay: String = "delay"
+const block_type_change_scene: String = "change_scene"
 
 const condition_true: String = "true"
 const condition_false: String = "false"

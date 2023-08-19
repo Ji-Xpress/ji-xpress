@@ -197,6 +197,11 @@ func get_block_url_by_type(block_type):
 			block_scene_url = "res://ui/code_execution/set_object_property_block.tscn"
 		BlockBase.block_type_set_object_variable:
 			block_scene_url = "res://ui/code_execution/set_object_variable_block.tscn"
+		BlockBase.block_type_delay:
+			block_scene_url = "res://ui/code_execution/delay_block.tscn"
+		BlockBase.block_type_change_scene:
+			block_scene_url = "res://ui/code_execution/change_scene_block.tscn"
+	
 	
 	return block_scene_url
 

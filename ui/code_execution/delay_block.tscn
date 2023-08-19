@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctssw7d4wug5k"]
+
+[ext_resource type="Script" path="res://ui/code_execution/delay_block.gd" id="1_lhk8v"]
+
+[node name="DelayBlock" type="GraphNode"]
+title = "Delay"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_lhk8v")
+
+[node name="DelayExpression" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Delay Expression"
