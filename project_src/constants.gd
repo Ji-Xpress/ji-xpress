@@ -20,6 +20,8 @@ const object_functionality_node: String = "ObjectFunctionality"
 const object_coder_node: String = "ObjectCoder"
 ## Node name for RectExtents node
 const object_rectextents_node: String = "RectExtents2D"
+## Link to the external documentation
+const documentation_link: String = "https://github.com/Ji-Xpress/documentation/blob/main/README.md"
 
 # Collection of project directories
 const project_directories: Array[String] = [

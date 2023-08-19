@@ -262,3 +262,8 @@ func _on_tab_container_tab_changed(tab):
 			current_scene_name = tab_number_tracker[str(tab)][prop_tab_tab_name]
 		else:
 			current_scene_name = ""
+
+
+# Display the documentation on a browser
+func _on_help_button_pressed():
+	OS.shell_open(Constants.documentation_link)
