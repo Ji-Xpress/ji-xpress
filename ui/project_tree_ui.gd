@@ -93,7 +93,7 @@ func remove_scene_at_index(scene_index: int):
 
 ## Renames a specific scene in the tree
 func rename_scene_at_index(scene_index: int, new_name: String):
-	pass
+	scenes_tree_root_item.get_child(scene_index).set_text(0, new_name)
 
 
 # Event handler for when a button is cliked on the tree

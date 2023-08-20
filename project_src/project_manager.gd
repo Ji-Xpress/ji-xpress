@@ -270,22 +270,23 @@ func open_scene(file_name: String, mute_results: bool = false):
 
 ## Renames a scene
 func rename_scene(old_name: String, new_name: String):
-	var dir_access: DirAccess = DirAccess.open(current_project_path + Constants.project_scenes_dir)
-	
-	if dir_access:
-		var error: Error = dir_access.rename(old_name, new_name)
+	if not FileAccess.file_exists(current_project_path + Constants.project_scenes_dir + "/" + new_name):
+		var dir_access: DirAccess = DirAccess.open(current_project_path + Constants.project_scenes_dir)
 		
-		if error == Error.OK:
-			# Rename in the scenes metadata
-			var scene_index: int = scenes.find(old_name)
+		if dir_access:
+			var error: Error = dir_access.rename(old_name, new_name)
 			
-			if scene_index > -1:
-				scenes[scene_index] = new_name
-				var current_scene_metadata: Dictionary = scenes_metadata[old_name].duplicate()
-				scenes_metadata.erase(old_name)
-				scenes_metadata[new_name] = current_scene_metadata
+			if error == Error.OK:
+				# Rename in the scenes metadata
+				var scene_index: int = scenes.find(old_name)
 				
-				return true
+				if scene_index > -1:
+					scenes[scene_index] = new_name
+					var current_scene_metadata: Dictionary = scenes_metadata[old_name].duplicate()
+					scenes_metadata.erase(old_name)
+					scenes_metadata[new_name] = current_scene_metadata
+					
+					return true
 	
 	return false
 

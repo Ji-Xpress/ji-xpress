@@ -12,6 +12,7 @@ const script_prefix: String = "scr_"
 const canvas_ui: PackedScene = preload("res://ui/canvas_ui.tscn")
 const script_ui: PackedScene = preload("res://ui/code_canvas_ui.tscn")
 const prompt_flag_new_scene: String = "new_scene"
+const prompt_flag_rename_scene: String = "rename_scene"
 
 const prop_tab_tab_type: String = "tab_type"
 const prop_tab_tab_name: String = "tab_name"
@@ -42,6 +43,10 @@ var current_scene_name: String = ""
 var current_script_name: String = ""
 ## Tab tracker dictionary
 var tab_number_tracker: Dictionary = {}
+## Flag for selected scene index
+var selected_scene_index: int = -1
+## Flag for selected scene name
+var selected_scene_name: String = ""
 
 
 ## When a game object dialog is requested
@@ -58,8 +63,10 @@ func on_canvas_settings_requested(node_instance: Control):
 
 
 ## Close a canvas tab
-func on_canvas_close_request(node_instance: Control, scene_id: String):
-	node_instance.save_tab()
+func on_canvas_close_request(node_instance: Control, scene_id: String, do_save: bool = true):
+	if do_save:
+		node_instance.save_tab()
+	
 	node_instance.disconnect("tab_close_request", Callable(self, "on_canvas_close_request"))
 	node_instance.queue_free()
 	
@@ -241,6 +248,27 @@ func _on_dialogs_input_prompt_result(result, flag):
 		prompt_flag_new_scene:
 			if ProjectManager.create_new_scene(result):
 				project_tree_ui.populate_scene_list()
+		prompt_flag_rename_scene:
+			var result_name: String = result + Constants.scene_extension
+			
+			if ProjectManager.rename_scene(selected_scene_name, result_name):
+				project_tree_ui.rename_scene_at_index(selected_scene_index, result_name)
+			
+			# Invalidate the tab name and indexing
+			for tabs in tab_number_tracker:
+				var tab_number: int = int(tabs)
+				var current_tab = tab_number_tracker[tabs]
+				if current_tab[prop_tab_tab_type] == TabType.TabScene:
+					if current_tab[prop_tab_tab_name] == selected_scene_name:
+						current_tab[prop_tab_tab_name] = result_name
+						
+						current_open_tabs.erase(scene_prefix + selected_scene_name)
+						current_open_tabs[scene_prefix + result_name] = tab_number
+						
+						tab_container.set_tab_title(tab_number, result_name)
+			
+			selected_scene_index = -1
+			selected_scene_name = ""
 
 
 # Game object reference addition requested
@@ -270,15 +298,28 @@ func _on_help_button_pressed():
 
 
 # Handle scene delete request
-func _on_project_tree_ui_scene_delete_request(scene_index, scene_name):
+func _on_project_tree_ui_scene_delete_request(scene_index: int, scene_name: String):
 	dialogs.show_confirmation_dialog("Are you sure you want to delete this scene?")
 	await dialogs.confirmation_dialog_result
 	
 	if dialogs.confirmation_dialog_confirm_result:
 		if ProjectManager.delete_scene(scene_name):
 			project_tree_ui.remove_scene_at_index(scene_index)
+			
+			# Invalidate the tab name and indexing. Close any open tabs also
+			for tabs in tab_number_tracker:
+				var tab_number: int = int(tabs)
+				var current_tab = tab_number_tracker[tabs]
+				if current_tab[prop_tab_tab_type] == TabType.TabScene:
+					if current_tab[prop_tab_tab_name] == scene_name:
+						var tab_control: Control = tab_container.get_child(tab_number)
+						on_canvas_close_request(tab_control, scene_name, false)
 
 
 # Handle scene rename request
-func _on_project_tree_ui_scene_rename_request(scene_index, scene_name):
-	pass
+func _on_project_tree_ui_scene_rename_request(scene_index: int, scene_name: String):
+	selected_scene_index = scene_index
+	selected_scene_name = scene_name
+	
+	var modified_scene_name: String = scene_name.replace(Constants.scene_extension, "")
+	dialogs.show_input_prompt_dialog("Change Scene Name", modified_scene_name, prompt_flag_rename_scene)

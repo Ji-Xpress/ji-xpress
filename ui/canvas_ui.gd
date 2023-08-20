@@ -21,7 +21,7 @@ signal save_scene_pressed(node_instance: Control)
 ## When the canvas settings button is pressed
 signal canvas_settings_pressed(node_instance: Control)
 ## When the tab is being closed
-signal tab_close_request(node_instance: Control, scene_id: String)
+signal tab_close_request(node_instance: Control, scene_id: String, do_save: bool)
 ## Node sends message to design canvas
 signal design_canvas_send_node_message(node: Node2D, message: Dictionary)
 
@@ -263,7 +263,7 @@ func _on_design_canvas_all_nodes_deselected():
 # Close button has been pressed
 func _on_close_tab_button_pressed():
 	save_tab()
-	emit_signal("tab_close_request", self, scene_name)
+	emit_signal("tab_close_request", self, scene_name, true)
 
 
 # Track any kind of click needing action
