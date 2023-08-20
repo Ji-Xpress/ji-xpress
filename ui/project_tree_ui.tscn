@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://csdd3cuagwfma"]
+[gd_scene load_steps=6 format=3 uid="uid://csdd3cuagwfma"]
 
 [ext_resource type="Script" path="res://ui/project_tree_ui.gd" id="1_ct0lo"]
 [ext_resource type="Texture2D" uid="uid://c1fd7svh1tldq" path="res://assets/icons_16/plus.png" id="2_4y56p"]
-[ext_resource type="Texture2D" uid="uid://o8hc2f33noqw" path="res://assets/icons_16/minus.png" id="3_emoi3"]
+[ext_resource type="Texture2D" uid="uid://47wvyf5d043m" path="res://assets/icons_16/trashcan.png" id="3_g8ymq"]
 [ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="4_111y0"]
+[ext_resource type="Texture2D" uid="uid://b1f6a5mfx0xo4" path="res://assets/icons_16/wrench.png" id="4_hxb4o"]
 
 [node name="ProjectTreeUI" type="Control"]
 layout_mode = 3
@@ -14,7 +15,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ct0lo")
 add_icon_texture = ExtResource("2_4y56p")
-delete_icon_texture = ExtResource("3_emoi3")
+delete_icon_texture = ExtResource("3_g8ymq")
+edit_icon_texture = ExtResource("4_hxb4o")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

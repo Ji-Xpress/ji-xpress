@@ -268,6 +268,48 @@ func open_scene(file_name: String, mute_results: bool = false):
 		return false
 
 
+## Renames a scene
+func rename_scene(old_name: String, new_name: String):
+	var dir_access: DirAccess = DirAccess.open(current_project_path + Constants.project_scenes_dir)
+	
+	if dir_access:
+		var error: Error = dir_access.rename(old_name, new_name)
+		
+		if error == Error.OK:
+			# Rename in the scenes metadata
+			var scene_index: int = scenes.find(old_name)
+			
+			if scene_index > -1:
+				scenes[scene_index] = new_name
+				var current_scene_metadata: Dictionary = scenes_metadata[old_name].duplicate()
+				scenes_metadata.erase(old_name)
+				scenes_metadata[new_name] = current_scene_metadata
+				
+				return true
+	
+	return false
+
+
+## Deletes a scene
+func delete_scene(scene_name: String):
+	var dir_access: DirAccess = DirAccess.open(current_project_path + Constants.project_scenes_dir)
+	
+	if dir_access:
+		var error: Error = dir_access.remove(scene_name)
+		
+		if error == Error.OK:
+			# Remove in the scenes metadata
+			var scene_index: int = scenes.find(scene_name)
+			
+			if scene_index > -1:
+				scenes.remove_at(scene_index)
+				scenes_metadata.erase(scene_name)
+				
+				return true
+	
+	return false
+
+
 ## Saves a script instance to code folder
 func save_script(file_name: String, script_metadata: ScriptMetaData):
 	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSON.stringify(script_metadata))

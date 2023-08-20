@@ -267,3 +267,18 @@ func _on_tab_container_tab_changed(tab):
 # Display the documentation on a browser
 func _on_help_button_pressed():
 	OS.shell_open(Constants.documentation_link)
+
+
+# Handle scene delete request
+func _on_project_tree_ui_scene_delete_request(scene_index, scene_name):
+	dialogs.show_confirmation_dialog("Are you sure you want to delete this scene?")
+	await dialogs.confirmation_dialog_result
+	
+	if dialogs.confirmation_dialog_confirm_result:
+		if ProjectManager.delete_scene(scene_name):
+			project_tree_ui.remove_scene_at_index(scene_index)
+
+
+# Handle scene rename request
+func _on_project_tree_ui_scene_rename_request(scene_index, scene_name):
+	pass

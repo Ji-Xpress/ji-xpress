@@ -120,5 +120,7 @@ one_shot = true
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Menu/MarginContainer/HBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="create_scene_pressed" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_create_scene_pressed"]
 [connection signal="object_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_object_selected"]
+[connection signal="scene_delete_request" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_scene_delete_request"]
+[connection signal="scene_rename_request" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_scene_rename_request"]
 [connection signal="scene_selected" from="PanelContainer/VBoxContainer/HSplitContainer/ProjectTreeUI" to="." method="_on_project_tree_ui_scene_selected"]
 [connection signal="tab_changed" from="PanelContainer/VBoxContainer/HSplitContainer/TabContainer" to="." method="_on_tab_container_tab_changed"]

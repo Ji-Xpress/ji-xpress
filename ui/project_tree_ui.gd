@@ -1,11 +1,16 @@
 extends Control
 
+# Constants
+const scene_tree_edit_button_index: int = 1
+const scene_tree_delete_button_index: int = 2
+
 # Tree node reference
 @onready var tree: Tree = $PanelContainer/VBoxContainer/MarginContainer/ScrollContainer/Tree
 
 # Icons for tree items
 @export var add_icon_texture: Texture2D
 @export var delete_icon_texture: Texture2D
+@export var edit_icon_texture: Texture2D
 
 # Tree items references
 var root_tree_item: TreeItem = null
@@ -18,6 +23,10 @@ signal create_scene_pressed()
 signal scene_selected(scene_name: String)
 ## When an object with that specific name is selected
 signal object_selected(metdata)
+## When a scene delete request is raised
+signal scene_delete_request(scene_index: int, scene_name: String)
+## When a scene rename request is raised
+signal scene_rename_request(scene_index: int, scene_name: String)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -55,6 +64,9 @@ func populate_scene_list():
 	for scene in ProjectManager.scenes:
 		var child_item: TreeItem = tree.create_item(scenes_tree_root_item)
 		child_item.set_text(0, scene)
+		
+		child_item.add_button(0, edit_icon_texture, scene_tree_edit_button_index)
+		child_item.add_button(0, delete_icon_texture, scene_tree_delete_button_index)
 
 
 # Populates the object list
@@ -74,11 +86,30 @@ func populate_objects_list():
 		object_index += 1
 
 
+## Removes a specific scene in the tree
+func remove_scene_at_index(scene_index: int):
+	scenes_tree_root_item.remove_child(scenes_tree_root_item.get_child(scene_index))
+
+
+## Renames a specific scene in the tree
+func rename_scene_at_index(scene_index: int, new_name: String):
+	pass
+
+
 # Event handler for when a button is cliked on the tree
-func _on_tree_button_clicked(item, column, id, mouse_button_index):
+func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int):
 	if item == scenes_tree_root_item:
 		if id == 0:
 			emit_signal("create_scene_pressed")
+	elif item.get_parent() == scenes_tree_root_item:
+		var scene_index: int = item.get_index()
+		var scene_name: String = item.get_text(0)
+		
+		match id:
+			scene_tree_edit_button_index:
+				emit_signal("scene_rename_request", scene_index, scene_name)
+			scene_tree_delete_button_index:
+				emit_signal("scene_delete_request", scene_index, scene_name)
 
 
 # Item has been double clicked on the tree

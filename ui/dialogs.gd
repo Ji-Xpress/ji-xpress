@@ -14,6 +14,10 @@ signal dir_saved(file_path: String, dir_name: String)
 signal file_open_cancelled
 signal file_save_cancelled
 signal input_prompt_result(result: String, flag: String)
+signal confirmation_dialog_result(result: bool)
+
+## Stores the result of confirmation
+var confirmation_dialog_confirm_result: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +43,19 @@ func show_file_save_dialog():
 ## Hides the save dialog
 func hide_file_save_dialog():
 	file_save_dialog.hide()
+
+
+## Shows the confirm dialog
+func show_confirmation_dialog(message: String):
+	confirmation_dialog_confirm_result = false
+	confirmation_dialog.dialog_text = message
+	confirmation_dialog.show()
+
+
+## Hides the confirm dialog
+func hide_confirmation_dialog():
+	confirmation_dialog.dialog_text = ""
+	confirmation_dialog.hide()
 
 
 ## Shows the accept dialog with a message
@@ -100,22 +117,24 @@ func _on_file_open_dialog_dir_selected(dir):
 
 # Confirmation dialog confirmed
 func _on_confirmation_dialog_confirmed():
-	pass # Replace with function body.
+	confirmation_dialog_confirm_result = true
+	emit_signal("confirmation_dialog_result", true)
 
 
 # Confirmation dialog cancelled
 func _on_confirmation_dialog_canceled():
-	pass # Replace with function body.
+	confirmation_dialog_confirm_result = false
+	emit_signal("confirmation_dialog_result", false)
 
 
 # Accept dialog confirmed
 func _on_accept_dialog_confirmed():
-	pass # Replace with function body.
+	pass
 
 
 # Accept dialog cancelled
 func _on_accept_dialog_canceled():
-	pass # Replace with function body.
+	pass
 
 
 # Cancel pressed
