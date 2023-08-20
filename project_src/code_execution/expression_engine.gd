@@ -24,18 +24,27 @@ func compute_expression(expression: String):
 				var_values.append(SharedState.expression_variables[current_condition_type][variable])
 	
 	# Variables and properties
+	# Game object variables
 	var_names.append("variables")
 	var_values.append(game_object_instance.object_coder.variable_values)
+	# Global variables
 	var_names.append("globals")
 	var_values.append(SharedState.state_variables)
+	# Game object properties
 	var_names.append("properties")
 	var_values.append(game_object_instance.object_metadata.prop_values)
+	# Current scene
+	var_names.append("current_scene")
+	var_values.append(SharedState.current_scene)
 	
-	# Object state
+	# Object state variables
+	# X axis position
 	var_names.append("pos_x")
 	var_values.append(game_object_instance.position.x)
+	# Y axis position
 	var_names.append("pos_y")
 	var_values.append(game_object_instance.position.y)
+	# Object rotation in degrees
 	var_names.append("rotation")
 	var_values.append(game_object_instance.rotation_degrees)
 	

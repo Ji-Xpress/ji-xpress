@@ -10,11 +10,15 @@ var canvas_ui_instance: Control = null
 
 # Load a scene
 func load_scene():
+	# Initialize the canvas UI
 	canvas_ui_instance = canvas_ui.instantiate()
 	canvas_ui_instance.canvas_mode = SharedEnums.NodeCanvasMode.ModeRun
 	canvas_ui_instance.scene_name = scene_name
 	canvas_ui_instance.connect("design_canvas_send_node_message", Callable(self, "on_design_canvas_node_message"))
 
+	# Set the shared state scene name
+	SharedState.current_scene = scene_name.replace(Constants.scene_extension, "")
+	
 	call_deferred("add_child", canvas_ui_instance)
 
 
