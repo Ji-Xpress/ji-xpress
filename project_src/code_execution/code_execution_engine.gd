@@ -247,15 +247,16 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 					})
 				
 				if recursive_execution:
-					if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
-						for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
-							current_execution_block = node_execution_metadata[prop_code_blocks][block[prop_block]]
-							execute_current_block()
-					else:
-						if block_branching_steps.size() > 0:
-							force_last_finally_execution(recursive_execution)
+					if block_connection_metadata.has(block_name):
+						if block_connection_metadata[block_name][prop_outgoing_connections].has(str(exit_port)):
+							for block in block_connection_metadata[block_name][prop_outgoing_connections][str(exit_port)]:
+								current_execution_block = node_execution_metadata[prop_code_blocks][block[prop_block]]
+								execute_current_block()
+						else:
+							if block_branching_steps.size() > 0:
+								force_last_finally_execution(recursive_execution)
 				
-				return true
+					return true
 		else:
 			# Execute only the finally block
 			execute_finally_block(block_name, recursive_execution)

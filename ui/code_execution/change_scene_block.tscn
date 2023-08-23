@@ -4,6 +4,7 @@
 
 [node name="ChangeSceneBlock" type="GraphNode"]
 title = "Change Scene"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
