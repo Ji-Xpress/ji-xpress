@@ -10,6 +10,7 @@ extends RigidBody2D
 
 var update_code_execution_engine: CodeExecutionEngine = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
