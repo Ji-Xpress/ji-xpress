@@ -2,6 +2,8 @@ extends Node
 
 # Description about what the pack is about
 const prop_description: String = "description"
+# Value of the property
+const prop_value: String = "value"
 # Path in the PCK to initialize objects
 const prop_loader: String = "loader"
 # For external packs only
@@ -49,8 +51,6 @@ var game_objects: Dictionary = {
 	prop_tile: {},
 	prop_shared_state: {}
 }
-## Shared variables between game objects
-var shared_variables = {}
 ## All entrypoints for the current pack
 var entry_points = {}
 
@@ -63,7 +63,6 @@ func reset_game_objects():
 		prop_tile: {},
 		prop_shared_state: {}
 	}
-	shared_variables = {}
 	entry_points = {}
 
 
@@ -78,7 +77,11 @@ func load_internal_pack(pack_name: String):
 	
 	game_objects = loader.load_game_objects()
 	entry_points = loader.load_code_entry_points()
-	shared_variables = loader.load_shared_variables()
+	
+	# Register global variavles
+	var shared_variables = loader.load_shared_variables()
+	for variable_key in shared_variables:
+		SharedState.set_variable(variable_key, shared_variables[variable_key][prop_value])
 
 
 ## Load externally downloaded PCKs

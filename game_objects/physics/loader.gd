@@ -52,7 +52,12 @@ func load_game_objects():
 
 ## Load all shared variables
 func load_shared_variables():
-	return {}
+	return {
+		"shared_var_sample": {
+			GameObjectsLoader.prop_description: "Sample Variable",
+			GameObjectsLoader.prop_value: 0
+		}
+	}
 
 
 ## Entry points for the visual coding environment
