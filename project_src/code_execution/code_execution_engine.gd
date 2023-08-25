@@ -141,9 +141,12 @@ func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
 ## Executes code from an entrypoint type
 func execute_from_entrypoint_type(entrypoint_type: String):
 	if entrypoint_block_metadata.has(entrypoint_type):
+		expression_engine.current_condition_type = "entry_" + entrypoint_type
+		
 		for entrypoint_block in entrypoint_block_metadata[entrypoint_type]:
 			execute_code_from_entrypoint(entrypoint_block)
 		
+		expression_engine.current_condition_type = ""
 		return true
 	
 	return false

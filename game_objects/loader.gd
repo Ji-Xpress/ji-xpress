@@ -78,7 +78,7 @@ func load_internal_pack(pack_name: String):
 	game_objects = loader.load_game_objects()
 	entry_points = loader.load_code_entry_points()
 	
-	# Register global variavles
+	# Register global variables
 	var shared_variables = loader.load_shared_variables()
 	for variable_key in shared_variables:
 		SharedState.set_variable(variable_key, shared_variables[variable_key][prop_value])

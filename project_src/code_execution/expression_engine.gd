@@ -4,15 +4,24 @@ class_name ExpressionEngine
 var game_object_instance: Node2D = null
 var current_condition_type: String = ""
 
+var additional_var_names: Array[String] = []
+var additional_var_values = []
+
 
 ## Initializes the expression engine
 func initialize_engine():
 	pass
 
 
+## Adds an extra variable to the execution
+func add_expression_variable(var_name: String, var_value):
+	additional_var_names.append(var_name)
+	additional_var_values.append(var_value)
+
+
 ## Evaluates an expression and sends back the results
 func compute_expression(expression: String):
-	var var_names = []
+	var var_names: Array[String] = []
 	var var_values = []
 	
 	# Build variable sets for the expression
@@ -47,6 +56,13 @@ func compute_expression(expression: String):
 	# Object rotation in degrees
 	var_names.append("rotation")
 	var_values.append(game_object_instance.rotation_degrees)
+	
+	# Add any additional variables
+	for var_name in additional_var_names:
+		var_names.append(var_name)
+	
+	for var_value in additional_var_values:
+		var_values.append(var_value)
 	
 	# Evaluate expression and return results
 	return evaluate(expression, var_names, var_values)
