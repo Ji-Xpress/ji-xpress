@@ -14,3 +14,9 @@ func _ready():
 	else:
 		collision_shape.set_deferred("disabled", false)
 		object_coder.code_execution_engine.execute_from_entrypoint_type("ready")
+
+
+# During the physics loop
+func _physics_process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")

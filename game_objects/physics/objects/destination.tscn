@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://clfvosf8w1i5q"]
+[gd_scene load_steps=11 format=3 uid="uid://clfvosf8w1i5q"]
 
 [ext_resource type="Script" path="res://game_objects/physics/objects/destination.gd" id="1_cpekc"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_cc8em"]
@@ -6,10 +6,8 @@
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_hrtbm"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_wwxep"]
 [ext_resource type="Texture2D" uid="uid://cjibh68lib43v" path="res://game_objects/physics/assets/objects/platformPack_tile048.png" id="5_edeni"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="5_tr5bf"]
 [ext_resource type="Texture2D" uid="uid://bd1cylbcydyb5" path="res://game_objects/physics/assets/objects/platformPack_tile057.png" id="6_33y56"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tion8"]
-size = Vector2(64, 128)
 
 [sub_resource type="Resource" id="Resource_p6w76"]
 script = ExtResource("3_hrtbm")
@@ -18,16 +16,21 @@ property_type = 0
 property_value = ""
 property_read_only = false
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tion8"]
+size = Vector2(64, 128)
+
 [node name="Destination" type="Area2D" groups=["destination"]]
 script = ExtResource("1_cpekc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_tion8")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_cc8em")]
 custom_properties = Array[ExtResource("3_hrtbm")]([SubResource("Resource_p6w76")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_bjkm1")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("5_tr5bf")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tion8")
 
 [node name="DestinationSprites" type="Node2D" parent="."]
 

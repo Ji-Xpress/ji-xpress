@@ -46,3 +46,9 @@ func set_num_blocks_for_tile(value: int):
 func _on_object_functionality_property_changed(property, value, is_custom):
 	if property == "num_blocks":
 		set_num_blocks_for_tile(value)
+
+
+# During the physics loop
+func _physics_process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")

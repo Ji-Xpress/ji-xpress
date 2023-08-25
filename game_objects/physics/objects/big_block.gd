@@ -35,3 +35,9 @@ func _on_body_entered(body):
 		}
 		
 		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# During the physics loop
+func _physics_process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")

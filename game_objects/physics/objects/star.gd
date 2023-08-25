@@ -38,3 +38,9 @@ func _on_body_entered(body):
 ## Destroys the object
 func destroy(parameters: Dictionary):
 	queue_free()
+
+
+# During the update loop
+func _process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
