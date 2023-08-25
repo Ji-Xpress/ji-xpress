@@ -7,14 +7,19 @@ extends Area2D
 @onready var transition_timer: Timer = $TransitionTimer
 @onready var object_coder: ObjectCoder = $ObjectCoder
 
+var update_code_execution_engine: CodeExecutionEngine = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
 	else:
+		update_code_execution_engine = object_coder.code_execution_engine()
+		
 		collision_shape.set_deferred("disabled", false)
-		object_coder.code_execution_engine.execute_from_entrypoint_type("ready")
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("ready")
 
 
 # Signal that we need to change the scene
@@ -36,7 +41,8 @@ func _on_body_entered(body):
 				"type": body_group
 			}
 			
-			object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+			var code_execution_engine = object_coder.code_execution_engine()
+			code_execution_engine.execute_from_entrypoint_type("collides")
 		
 		# Deal with collision with alien
 		if body.is_in_group("alien"):
@@ -47,4 +53,4 @@ func _on_body_entered(body):
 # During the physics loop
 func _process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")

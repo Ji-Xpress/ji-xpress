@@ -8,6 +8,7 @@ extends RigidBody2D
 @onready var camera: Camera2D = $Camera2D
 @onready var floor_detector: Area2D = $FloorDetector
 
+var update_code_execution_engine: CodeExecutionEngine = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,18 +17,22 @@ func _ready():
 		freeze = true
 		camera.enabled = false
 	else:
+		update_code_execution_engine = object_coder.code_execution_engine()
+		
 		collision_shape.set_deferred("disabled", false)
 		freeze = false
 		camera.enabled = true
 		mass = float(object_metadata.get_property("mass"))
 		
-		object_coder.code_execution_engine.execute_from_entrypoint_type("ready")
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("ready")
 
 
 # Physics loop
 func _physics_process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
+		
 		if is_on_floor():
 			if not Input.is_action_pressed("ui_accept"):
 				var force_raycast: Vector2 = get_left_right_input()
@@ -67,7 +72,8 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 
 # Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	object_coder.code_execution_engine.execute_from_entrypoint_type("broadcast")
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 
 # When the alien hits a physics body
@@ -85,7 +91,8 @@ func _on_floor_detector_body_entered(body):
 			"is_on_floor": is_on_floor()
 		}
 		
-		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("collides")
 
 
 # An area entered the floor detector
@@ -103,7 +110,8 @@ func _on_floor_detector_area_entered(area):
 			"is_on_floor": is_on_floor()
 		}
 		
-		object_coder.code_execution_engine.execute_from_entrypoint_type("collides")
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("collides")
 
 
 # Block functions

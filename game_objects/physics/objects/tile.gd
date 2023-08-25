@@ -11,14 +11,20 @@ const dimensions: Vector2 = Vector2(70, 70)
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var rect_extents: RectExtents2D = $RectExtents2D
 
+var update_code_execution_engine: CodeExecutionEngine = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
 	else:
+		# Initiate the update loop executor
+		update_code_execution_engine = object_coder.code_execution_engine()
+		
 		collision_shape.set_deferred("disabled", false)
-		object_coder.code_execution_engine.execute_from_entrypoint_type("ready")
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("ready")
 	
 	# Expand num blocks based on size
 	var num_blocks: int = int(object_metadata.get_property("num_blocks"))
@@ -51,4 +57,4 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 # During the physics loop
 func _physics_process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		object_coder.code_execution_engine.execute_from_entrypoint_type("update_loop")
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
