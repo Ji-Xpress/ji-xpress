@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3nrm1rbrbjyk"]
+[gd_scene load_steps=7 format=3 uid="uid://b3nrm1rbrbjyk"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_37lkf"]
 [ext_resource type="Script" path="res://game_objects/physics/objects/background.gd" id="1_oapri"]
 [ext_resource type="Texture2D" uid="uid://114bu0l4ypxy" path="res://game_objects/physics/assets/backgrounds/blue_desert.png" id="2_st4hr"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="3_8pvj5"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_o7pj4"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_78xmv"]
 
 [node name="Background" type="Node2D"]
 script = ExtResource("1_oapri")
@@ -14,6 +15,8 @@ object_description = "Blue Desert Background"
 node_kind = 1
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_o7pj4")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("4_78xmv")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_st4hr")
