@@ -31,7 +31,7 @@ signal tab_close_request(node_instance: Control, scene_id: String)
 ## Contains the position where we need to add a node
 var selected_add_position: Vector2 = Vector2.ZERO
 ## Keeps track of the current instance of the object
-var current_object_instance: Node2D = null
+var current_object_instance: Node = null
 # Function metadata
 var function_metadata: Dictionary = {}
 

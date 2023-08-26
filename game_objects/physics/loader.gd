@@ -6,37 +6,37 @@ func load_game_objects():
 	return {
 		GameObjectsLoader.prop_foreground: {
 			"alien": {
-				GameObjectsLoader.prop_description: "Alien Character",
+				GameObjectsLoader.prop_description: "Alien Character [Main Character]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/alien.tscn",
 			},
 			"coin": {
-				GameObjectsLoader.prop_description: "Coin",
+				GameObjectsLoader.prop_description: "Coin [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/coin.tscn",
 			},
 			"destination": {
-				GameObjectsLoader.prop_description: "Destination",
+				GameObjectsLoader.prop_description: "Destination [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/destination.tscn",
 			},
 			"explosive": {
-				GameObjectsLoader.prop_description: "Explosive",
+				GameObjectsLoader.prop_description: "Explosive [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/explosive.tscn",
 			},
 			"large_block": {
-				GameObjectsLoader.prop_description: "Large Block",
+				GameObjectsLoader.prop_description: "Large Block [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/big_block.tscn",
 			},
 			"small_block": {
-				GameObjectsLoader.prop_description: "Small Block",
+				GameObjectsLoader.prop_description: "Small Block [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/small_block.tscn",
 			},
 			"star": {
-				GameObjectsLoader.prop_description: "Star",
+				GameObjectsLoader.prop_description: "Star [Scene Element]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/star.tscn",
 			}
 		},
 		GameObjectsLoader.prop_background: {
 			"desert_background": {
-				GameObjectsLoader.prop_description: "Desert Background",
+				GameObjectsLoader.prop_description: "Desert Background [Background]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/background.tscn",
 			}
 		},
@@ -48,7 +48,7 @@ func load_game_objects():
 		},
 		GameObjectsLoader.prop_user_interface: {
 			"star_counter": {
-				GameObjectsLoader.prop_description: "Star Counter",
+				GameObjectsLoader.prop_description: "Star Counter [User Interface]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/star_counter.tscn",
 			}
 		}

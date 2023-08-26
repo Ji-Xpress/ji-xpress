@@ -6,6 +6,10 @@ func compute_result():
 	# Compute the message
 	var computed_message = expression_engine.compute_expression(block_parameters.message)
 	
+	# Handle when result is null
+	if computed_message == null:
+		computed_message = ""
+	
 	# Place broadcast in shared state for any broadcast entry block
 	if not SharedState.expression_variables.has("entry_broadcast"):
 		SharedState.expression_variables["entry_broadcast"] = {}
@@ -15,5 +19,5 @@ func compute_result():
 		"message": computed_message
 	}
 	
-	SharedState.do_broadcast(block_parameters.message_id, computed_message)
+	SharedState.do_broadcast(block_parameters.message_id, str(computed_message))
 	return true

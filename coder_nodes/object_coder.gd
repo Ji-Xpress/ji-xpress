@@ -31,6 +31,7 @@ var variable_metadata: Dictionary = {}
 func _ready():
 	parent_node = get_parent()
 	all_variables = get_all_variables()
+	prepare_code_variable_dict(true)
 	SharedState.connect("broadcast", Callable(self, "on_brodcast"))
 
 
@@ -59,7 +60,7 @@ func prepare_code_variable_dict(override: bool = false):
 		var variable_name: String = variable[ObjectCustomProperty.prop_prop_name]
 		var variable_value = variable[ObjectCustomProperty.prop_prop_value]
 		
-		if variable_value.has(variable_name):
+		if variable_values.has(variable_name):
 			if override:
 				set_variable(variable_name, variable_value)
 		else:
@@ -88,11 +89,10 @@ func execute_function(function_name: String, params: Dictionary = {}):
 func get_all_variables():
 	var all_variables: Array[String] = []
 	
+	# Prepare metadata and values
 	for variable in code_variables:
 		var variable_name: String = variable[ObjectCustomProperty.prop_prop_name]
 		all_variables.append(variable_name)
 		variable_metadata[variable_name] = variable
-		# Also initialize the variable metadata
-		variable.initialize_metadata()
 	
 	return all_variables
