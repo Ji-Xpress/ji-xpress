@@ -19,7 +19,7 @@ signal broadcast(message_id: String, message: String)
 ## Holder of variable values
 var variable_values: Dictionary = {}
 ## Reference to parent node
-var parent_node: Node2D = null
+var parent_node: Node = null
 
 ## Keeps track of all variable names
 var all_variables: Array[String] = []

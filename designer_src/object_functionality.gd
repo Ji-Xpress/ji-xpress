@@ -2,7 +2,7 @@ extends Node
 class_name ObjectFunctionality
 
 ## Reference to parent node
-var parent_node: Node2D = null
+var parent_node: Node = null
 
 # Triggered when a property is changed, can be handled at object level
 signal property_changed(property: String, value, is_custom: bool)

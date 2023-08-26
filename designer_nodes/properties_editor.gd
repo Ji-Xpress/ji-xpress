@@ -41,15 +41,21 @@ func clear_all_properties():
 
 
 ## Fill in properties
-func fill_properties_for_object(game_object: Node2D):
+func fill_properties_for_object(game_object: Node):
 	if game_object.has_node("ObjectMetaData"):
 		clear_all_properties()
 		var metadata_node: ObjectMetaData = game_object.get_node("ObjectMetaData")
 		
+		# Should positional metadata be editable?
+		var positional_props_readonly: bool = false
+		# If the metadata states placement is static then make position and rotation read only
+		if metadata_node.is_static_placement:
+			positional_props_readonly = true
+		
 		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id, false, true)
-		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x, false, false)
-		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y, false, false)
-		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees, false, false)
+		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x, false, positional_props_readonly)
+		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y, false, positional_props_readonly)
+		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees, false, positional_props_readonly)
 		
 		var custom_properties = metadata_node.get(ObjectMetaData.prop_custom_properties)
 		

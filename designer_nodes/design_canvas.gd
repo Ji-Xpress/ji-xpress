@@ -10,6 +10,8 @@ const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_are
 @export var canvas_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign
 
 # Node references
+## Node to store user interface controls
+@onready var user_interface_control: Control = $UserInterface/Control 
 ## Node to store foreground nodes
 @onready var foreground: Node2D = $Foreground
 ## Node to store background nodes
@@ -27,21 +29,21 @@ const canvas_mouse_hit_area = preload("res://designer_nodes/canvas_mouse_hit_are
 var node_count: int = -1
 
 ## Signal for when a node is added
-signal node_added(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_added(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
-signal node_selected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_selected(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
-signal node_deselected(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_deselected(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
-signal node_hover(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_hover(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when a node is selected
-signal node_hover_out(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_hover_out(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when node is rotated
-signal node_rotated(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_rotated(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for when node is moved
-signal node_moved(node: Node2D, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_moved(node: Node, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Signal for a node delete
-signal node_deleted(node: Node2D, object_id: String, node_index: int, node_kind: ActiveHoverNode.NodeKind)
+signal node_deleted(node: Node, object_id: String, node_index: int, node_kind: ActiveHoverNode.NodeKind)
 ## Emitted when all nodes are deactivated using the ESC button
 signal all_nodes_deselected()
 ## Signal for when the mouse button is pressed on canvas
@@ -49,7 +51,7 @@ signal mouse_clicked(mouse_button: int, mouse_position: Vector2)
 ## Signal for when the mouse button is released on canvas
 signal mouse_released(mouse_button: int, mouse_position: Vector2)
 ## Used when a child node needs to send a message to the outside world
-signal send_node_message(node: Node2D, message: Dictionary)
+signal send_node_message(node: Node, message: Dictionary)
 
 ## The nodes that currently have a hover over them
 var active_hover_nodes_foreground: Dictionary = {}
@@ -57,9 +59,11 @@ var active_hover_nodes_foreground: Dictionary = {}
 var active_hover_nodes_tiles: Dictionary = {}
 ## The nodes that currently have a hover over them
 var active_hover_nodes_backgound: Dictionary = {}
+## The nodes that currently have a hover over them
+var active_hover_nodes_user_interface: Dictionary = {}
 
 ## The current active node
-var current_active_node: Node2D = null
+var current_active_node: Node = null
 
 ## Track is mouse down or not
 var is_mouse_down: bool = false
@@ -131,16 +135,18 @@ func _input(event):
 			node_drag_start_position = Vector2.ZERO
 		
 		# Mouse motion events
-		# This section handles viewport panning and also dragging
+		# This section handles viewport panning and also dragging of individual nodes
 		if event is InputEventMouseMotion and is_panning:
 			# Viewport panning
 			camera.position = (camera.zoom * (mouse_pan_start_position - event.position) + pan_screen_start_position)
 		elif event is InputEventMouseMotion and is_dragging_node:
 			# Moving the current active node
 			if current_active_node != null:
-				current_active_node.position += (event.position - node_drag_start_position)
-				current_active_node.position = current_active_node.position.snapped(grid_snapping)
-				node_drag_start_position = event.position.snapped(grid_snapping)
+				# Make sure the metadata states the object is not statically placed
+				if not current_active_node.object_metadata.is_static_placement:
+					current_active_node.position += (event.position - node_drag_start_position)
+					current_active_node.position = current_active_node.position.snapped(grid_snapping)
+					node_drag_start_position = event.position.snapped(grid_snapping)
 		
 		# Keyboard events
 		# In this section we track the use of <ESC> key and <Ctrl> key
@@ -167,7 +173,7 @@ func _input(event):
 
 
 # Delete an active node
-func delete_node(node: Node2D):
+func delete_node(node: Node):
 	var is_current_node: bool = (node == current_active_node)
 	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
 	var node_index: int = node.object_metadata.node_index
@@ -181,10 +187,12 @@ func delete_node(node: Node2D):
 		ActiveHoverNode.NodeKind.tile:
 			active_hover_nodes_tiles.erase(str(node_index))
 			tiles.remove_child(node)
-			return tiles.get_children()
 		ActiveHoverNode.NodeKind.background:
 			active_hover_nodes_backgound.erase(str(node_index))
 			background.remove_child(node)
+		ActiveHoverNode.NodeKind.user_interface:
+			active_hover_nodes_user_interface.erase(str(node_index))
+			user_interface_control.remove_child(node)
 	
 	# Notify of node deletion to parent
 	emit_signal("node_deleted", node, object_id, node_index, node_kind)
@@ -204,12 +212,14 @@ func get_all_nodes(node_group: ActiveHoverNode.NodeKind):
 			return tiles.get_children()
 		ActiveHoverNode.NodeKind.background:
 			return background.get_children()
+		ActiveHoverNode.NodeKind.user_interface:
+			return user_interface_control.get_children()
 
 
 ## Scans a group of tiles to present which one is being selected
 func get_top_hovered_node_from_group(node_group: Dictionary):
 	var greater_node_index: int = -1
-	var greater_node_node: Node2D = null
+	var greater_node_node: Node = null
 	
 	for node_item in node_group:
 		var current_node = node_group[node_item]
@@ -235,7 +245,7 @@ func get_top_hovered_node_from_group_array(node_group_array: Array):
 
 
 ## Event handler - A node has been clicked
-func on_node_clicked(node: Node2D, node_index: int):
+func on_node_clicked(node: Node, node_index: int):
 	# These events are notorious for firing multiple times esp for overlapping controls
 	# So we need to block this if the mouse down event is already handled
 	if not is_mouse_down and not is_ctrl_key_down and not override_node_selection:
@@ -247,10 +257,11 @@ func on_node_clicked(node: Node2D, node_index: int):
 		var node_group_search_order: Array = [
 			active_hover_nodes_foreground,
 			active_hover_nodes_tiles,
-			active_hover_nodes_backgound
+			active_hover_nodes_backgound,
+			active_hover_nodes_user_interface
 		]
 		
-		var node_search: Node2D = get_top_hovered_node_from_group_array(node_group_search_order)
+		var node_search: Node = get_top_hovered_node_from_group_array(node_group_search_order)
 		
 		if node_search != null:
 			# Mouse is down on selected node
@@ -259,23 +270,22 @@ func on_node_clicked(node: Node2D, node_index: int):
 			
 			# Set current active node
 			current_active_node = node_search
+			# Check to see if the node is static or can be moved
 			current_active_node.object_functionality.set_rect_extents_visibility(true)
-			
 			# Initiate the drag position
 			node_drag_start_position = get_viewport().get_mouse_position()
-			
 			# Emit node has been selected
 			emit_signal("node_selected", node, node_index, current_active_node.object_metadata.node_kind)
 
 
 ## Event handler - A node has been unclicked
-func on_node_unclicked(node: Node2D, node_index: int):
+func on_node_unclicked(node: Node, node_index: int):
 	# Allow click processing
 	emit_signal("node_deselected", node, node_index, node.object_metadata.node_kind)
 
 
 ## Event handler - A node has hover focus
-func on_node_hover(node: Node2D, node_index: int):
+func on_node_hover(node: Node, node_index: int):
 	var node_key = str(node_index)
 	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
 	
@@ -296,13 +306,16 @@ func on_node_hover(node: Node2D, node_index: int):
 		ActiveHoverNode.NodeKind.background:
 			if not active_hover_nodes_backgound.has(node_key):
 				active_hover_nodes_backgound[node_key] = node_data
+		ActiveHoverNode.NodeKind.user_interface:
+			if not active_hover_nodes_user_interface.has(node_key):
+				active_hover_nodes_user_interface[node_key] = node_data
 	
 	# Emit node has been hovered
 	emit_signal("node_hover", node, node_index, node_kind)
 
 
 ## Event handler - A node has lost hover focus
-func on_node_hover_out(node: Node2D, node_index: int):
+func on_node_hover_out(node: Node, node_index: int):
 	var node_key = str(node_index)
 	var node_kind: ActiveHoverNode.NodeKind = node.object_metadata.node_kind
 	
@@ -317,20 +330,23 @@ func on_node_hover_out(node: Node2D, node_index: int):
 		ActiveHoverNode.NodeKind.background:
 			if active_hover_nodes_backgound.has(node_key):
 				active_hover_nodes_backgound.erase(node_key)
+		ActiveHoverNode.NodeKind.user_interface:
+			if active_hover_nodes_user_interface.has(node_key):
+				active_hover_nodes_user_interface.erase(node_key)
 	
 	# Emit node has been hovered out
 	emit_signal("node_hover_out", node, node_index, node_kind)
 
 
 ## Adds a new node to the node tree
-func add_new_node(new_node: Node2D, node_kind: \
+func add_new_node(new_node: Node, node_kind: \
 	ActiveHoverNode.NodeKind = ActiveHoverNode.NodeKind.foreground, \
 	node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign,
 	node_index: int = -1) -> int:
 	# Check to see if it has the RectExtents2D child
 	if new_node.has_node("RectExtents2D"):
 		# Check to see if the RectExtents2D child node is of the correct type
-		var rect_extents_node: Node2D = new_node.get_node("RectExtents2D")
+		var rect_extents_node: Node = new_node.get_node("RectExtents2D")
 		if rect_extents_node is RectExtents2D:
 			# Increase node count if it is a new node
 			if node_index < 0:
@@ -396,6 +412,8 @@ func add_new_node(new_node: Node2D, node_kind: \
 					tiles.call_deferred("add_child", new_node)
 				ActiveHoverNode.NodeKind.background:
 					background.call_deferred("add_child", new_node)
+				ActiveHoverNode.NodeKind.user_interface:
+					user_interface_control.call_deferred("add_child", new_node)
 
 			# Notify of an added node
 			emit_signal("node_added", new_node, node_count, node_kind)

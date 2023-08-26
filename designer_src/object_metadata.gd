@@ -23,6 +23,8 @@ const prop_prop_values: String = "prop_values"
 @export var node_kind: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
 ## Current object canvas mode
 @export var node_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign
+## Holds reference to wether it is static in placement
+@export var is_static_placement: bool = false
 
 ## X position
 var position_x: int = 0

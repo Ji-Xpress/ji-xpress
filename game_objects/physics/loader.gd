@@ -46,7 +46,12 @@ func load_game_objects():
 				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/tile.tscn",
 			}
 		},
-		GameObjectsLoader.prop_shared_state: {}
+		GameObjectsLoader.prop_user_interface: {
+			"star_counter": {
+				GameObjectsLoader.prop_description: "Star Counter",
+				GameObjectsLoader.prop_object_url: "res://game_objects/physics/objects/star_counter.tscn",
+			}
+		}
 	}
 
 

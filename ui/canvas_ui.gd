@@ -23,10 +23,10 @@ signal canvas_settings_pressed(node_instance: Control)
 ## When the tab is being closed
 signal tab_close_request(node_instance: Control, scene_id: String, do_save: bool)
 ## Node sends message to design canvas
-signal design_canvas_send_node_message(node: Node2D, message: Dictionary)
+signal design_canvas_send_node_message(node: Node, message: Dictionary)
 
 ## Tracks the current active control
-var current_active_control: Node2D = null
+var current_active_control: Node = null
 ## Keeps track of objects within the context of the canvas
 var canvas_object_tracker: Dictionary = {}
 ## Keeps track of the last object index
@@ -82,7 +82,7 @@ func populate_scene_nodes():
 ## Adds a node with a specific resource URL to canvas
 func add_game_object_url_to_canvas(url: String, project_object_index: int, created_object_index: int = -1, created_node_metadata = null, manual_position = null):
 	var new_node: PackedScene = load(url)
-	var node_instance: Node2D = new_node.instantiate()
+	var node_instance: Node = new_node.instantiate()
 	var node_kind: SharedEnums.ObjectLayer = node_instance.get_node(Constants.object_metadata_node).get("node_kind")
 	var node_mode: SharedEnums.NodeCanvasMode = canvas_mode
 	
@@ -213,14 +213,17 @@ func _on_properties_editor_property_changed(property_set_id, property_id, new_va
 		else:
 			match property_id:
 				ObjectMetaData.prop_position_x:
-					current_active_control.position.x = int(new_value)
-					current_active_control.object_metadata.position_x = int(new_value)
+					if not current_active_control.object_metadata.is_static_placement:
+						current_active_control.position.x = int(new_value)
+						current_active_control.object_metadata.position_x = int(new_value)
 				ObjectMetaData.prop_position_y:
-					current_active_control.position.y = int(new_value)
-					current_active_control.object_metadata.position_y = int(new_value)
+					if not current_active_control.object_metadata.is_static_placement:
+						current_active_control.position.y = int(new_value)
+						current_active_control.object_metadata.position_y = int(new_value)
 				ObjectMetaData.prop_rotation:
-					current_active_control.rotation_degrees = int(new_value)
-					current_active_control.object_metadata.rotation = int(new_value)
+					if not current_active_control.object_metadata.is_static_placement:
+						current_active_control.rotation_degrees = int(new_value)
+						current_active_control.object_metadata.rotation = int(new_value)
 		
 		# Set tab is invalidated
 		tab_common.is_invalidated = true

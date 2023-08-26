@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg4g54fl1mbyo"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_0tab8"]
+[ext_resource type="Script" path="res://game_objects/physics/objects/star_counter.gd" id="1_innc7"]
+[ext_resource type="Texture2D" uid="uid://b4lq4c21il5yl" path="res://game_objects/physics/assets/objects/starGold.png" id="1_nm11t"]
+[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="2_npfmo"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_w538q"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_bb6n3"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="6_0b0ih"]
+
+[node name="StarCounter" type="HBoxContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+theme_override_constants/separation = 10
+script = ExtResource("1_innc7")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_0tab8")]
+node_kind = 3
+is_static_placement = true
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_w538q")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_bb6n3")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_nm11t")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_npfmo")
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(60, 36)
+script = ExtResource("6_0b0ih")
+size = Vector2(128, 64)

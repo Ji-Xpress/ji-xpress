@@ -8,7 +8,7 @@ enum NodeCanvasMode {
 
 ## Determines what layer an object fits into
 enum ObjectLayer {
-	LayerForeground, LayerBackground, LayerTile
+	LayerForeground, LayerBackground, LayerTile, LayerUI
 }
 
 ## For property types

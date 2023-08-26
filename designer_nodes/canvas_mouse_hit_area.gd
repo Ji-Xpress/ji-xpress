@@ -1,12 +1,12 @@
 extends Area2D
 
 # Node signals
-signal node_clicked(node: Node2D, node_index: int)
-signal node_unclicked(node: Node2D, node_index: int)
-signal node_hover(node: Node2D, node_index: int)
-signal node_hover_out(node: Node2D, node_index: int)
+signal node_clicked(node: Node, node_index: int)
+signal node_unclicked(node: Node, node_index: int)
+signal node_hover(node: Node, node_index: int)
+signal node_hover_out(node: Node, node_index: int)
 
-var parent_node: Node2D = null
+var parent_node: Node = null
 var hit_box_size: Vector2 = Vector2.ZERO
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D

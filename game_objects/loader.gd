@@ -24,6 +24,8 @@ const prop_foreground: String = "foreground"
 const prop_background: String = "background"
 # For objects that will be a tile
 const prop_tile: String = "tile"
+# For objects that will be a tile
+const prop_user_interface: String = "user_interface"
 # For shared state between the various scenes
 const prop_shared_state: String = "shared_state"
 # An index of internal resource packs
