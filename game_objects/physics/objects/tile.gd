@@ -33,8 +33,10 @@ func _ready():
 
 ## Sets the number of blocks for the tile (based on width)
 func set_num_blocks_for_tile(value: int):
+	# Resize elements
 	var extents_size: Vector2 = Vector2(dimensions.x * int(value) + 6, 74)
 	sprite.region_rect = Rect2(0, 0, dimensions.x * int(value), dimensions.y)
+	sprite.texture.get_image().resize(int(value), dimensions.y)
 	rect_extents.size = extents_size
 	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
