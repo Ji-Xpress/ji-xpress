@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3sfd23yl50s2"]
+
+[ext_resource type="Texture2D" uid="uid://do86a6sni11ef" path="res://game_objects/platformer/assets/Tiles/platformPack_tile011.png" id="1_2y8e1"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/ext/elements_portal_sprite_2d.gd" id="2_tjm75"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2y8e1")
+script = ExtResource("2_tjm75")

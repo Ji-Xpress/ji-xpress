@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://crtqyclb8mpf5"]
+
+[ext_resource type="PackedScene" uid="uid://btqqngldrue61" path="res://game_objects/platformer/objects/base/tile.tscn" id="1_5weg5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0egin"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[node name="Tile" instance=ExtResource("1_5weg5")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_0egin")

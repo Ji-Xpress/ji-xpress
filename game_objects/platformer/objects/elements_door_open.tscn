@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://dajph20622ljp"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/elements_door_open.gd" id="1_riq5i"]
+[ext_resource type="PackedScene" uid="uid://c2rvu35hvxdwx" path="res://game_objects/platformer/objects/ext/elements_door_open_sprite_2d.tscn" id="2_mmk65"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_qrkag"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_mgpdu"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_di62e"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_lkdr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sp5hi"]
+size = Vector2(64, 56)
+
+[node name="OpenDoor" type="Area2D"]
+script = ExtResource("1_riq5i")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("2_qrkag")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_mgpdu")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("4_di62e")]
+
+[node name="Sprite2D" parent="." instance=ExtResource("2_mmk65")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_sp5hi")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("4_lkdr8")
+size = Vector2(62, 64)

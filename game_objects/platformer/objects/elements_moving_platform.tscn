@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://teih18pclf7c"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_d5tnv"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/elements_moving_platform.gd" id="1_gqiv4"]
+[ext_resource type="Texture2D" uid="uid://8nyct81pao50" path="res://game_objects/platformer/assets/Tiles/platformPack_tile039.png" id="1_kag3a"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_g7buq"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_ivi2h"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_orbbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hircp"]
+size = Vector2(64, 32)
+
+[node name="MovingPlatform" type="CharacterBody2D"]
+script = ExtResource("1_gqiv4")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_d5tnv")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_g7buq")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_orbbp")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kag3a")
+offset = Vector2(0, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hircp")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_ivi2h")
+size = Vector2(64, 34)

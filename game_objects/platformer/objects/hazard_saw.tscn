@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch3jaj2dsqcag"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_7mg3r"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/hazard_saw.gd" id="1_qymiu"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_xr3o5"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_pl3x6"]
+[ext_resource type="Texture2D" uid="uid://bnd6jorumf3lt" path="res://game_objects/platformer/assets/Tiles/platformPack_tile044.png" id="4_g3k56"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_76cqs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efeto"]
+radius = 32.0
+
+[node name="Saw" type="Area2D"]
+script = ExtResource("1_qymiu")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_7mg3r")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_xr3o5")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_pl3x6")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_efeto")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_g3k56")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("5_76cqs")

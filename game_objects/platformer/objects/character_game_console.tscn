@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://bb001j2gjc7uy"]
+
+[ext_resource type="PackedScene" uid="uid://billlm6eq6mrr" path="res://game_objects/platformer/objects/base/character.tscn" id="1_fomtt"]
+[ext_resource type="Texture2D" uid="uid://b4wtq5st7duep" path="res://game_objects/platformer/assets/Characters/platformChar_idle.png" id="2_1oitb"]
+[ext_resource type="Texture2D" uid="uid://bpoqnbw0s6d34" path="res://game_objects/platformer/assets/Characters/platformChar_climb1.png" id="2_vv5yd"]
+[ext_resource type="Texture2D" uid="uid://bjuy3cjl57jad" path="res://game_objects/platformer/assets/Characters/platformChar_jump.png" id="3_aekj8"]
+[ext_resource type="Texture2D" uid="uid://cxn1rwvtjafxc" path="res://game_objects/platformer/assets/Characters/platformChar_walk1.png" id="3_g1vwe"]
+[ext_resource type="Texture2D" uid="uid://c1v2tvif8a5uj" path="res://game_objects/platformer/assets/Characters/platformChar_climb2.png" id="3_iabeq"]
+[ext_resource type="Texture2D" uid="uid://wxu2r0cqepx0" path="res://game_objects/platformer/assets/Characters/platformChar_walk2.png" id="4_47ky8"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="8_w36uf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sb85a"]
+resource_local_to_scene = true
+size = Vector2(48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kux1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vv5yd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_iabeq")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1oitb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_aekj8")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_g1vwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_47ky8")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="Character" instance=ExtResource("1_fomtt")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_sb85a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
+sprite_frames = SubResource("SpriteFrames_kux1c")
+animation = &"idle"
+
+[node name="RectExtents2D" type="Node2D" parent="." index="5"]
+position = Vector2(0, 10)
+script = ExtResource("8_w36uf")
+size = Vector2(50, 46)

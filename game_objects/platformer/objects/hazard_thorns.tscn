@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://bi3w2j27fvtq2"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_cuabl"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/hazard_thorns.gd" id="1_y5fes"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_1co0g"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_xmwjk"]
+[ext_resource type="Texture2D" uid="uid://cqj2qxarjwp4o" path="res://game_objects/platformer/assets/Tiles/platformPack_tile043.png" id="5_kc4ga"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="6_je6ck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2kkm"]
+size = Vector2(64, 32)
+
+[node name="Thorns" type="Area2D"]
+script = ExtResource("1_y5fes")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_cuabl")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_1co0g")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_xmwjk")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_t2kkm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("5_kc4ga")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("6_je6ck")

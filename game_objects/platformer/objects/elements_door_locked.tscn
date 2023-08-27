@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://bo85jtaxjlx2g"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_3kgqd"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_omo56"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_5kkj0"]
+[ext_resource type="PackedScene" uid="uid://dvovw4w0cxpv1" path="res://game_objects/platformer/objects/ext/elements_door_locked_sprite_2d.tscn" id="4_030p6"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_oyg2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu1p5"]
+size = Vector2(64, 64)
+
+[node name="LockedDoor" type="Area2D"]
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_3kgqd")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_omo56")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_5kkj0")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nu1p5")
+
+[node name="Sprite2D" parent="." instance=ExtResource("4_030p6")]
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("5_oyg2m")

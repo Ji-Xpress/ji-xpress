@@ -1,0 +1,28 @@
+[gd_scene load_steps=8 format=3 uid="uid://bftyikqk405ui"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_6i6t4"]
+[ext_resource type="PackedScene" uid="uid://b3sfd23yl50s2" path="res://game_objects/platformer/objects/ext/elements_portal_sprite_2d.tscn" id="1_q5um2"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/elements_portal.gd" id="1_xty2m"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_4kprr"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_dxfux"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_wfiq1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rg3rv"]
+radius = 25.2982
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_xty2m")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_6i6t4")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_dxfux")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_wfiq1")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rg3rv")
+
+[node name="Sprite2D" parent="." instance=ExtResource("1_q5um2")]
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_4kprr")
