@@ -120,8 +120,8 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			
 			var item_index: int = 0
 			
-			for item in value:
-				popup_menu.add_item(value[item_index], item_index)
+			for item in value_array:
+				popup_menu.add_item(value_array[item_index], item_index)
 				item_index += 1
 		SharedEnums.PropertyType.TypeBool:
 			value_control = bool_property_node.instantiate()
