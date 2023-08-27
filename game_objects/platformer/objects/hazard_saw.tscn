@@ -1,11 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://ch3jaj2dsqcag"]
+[gd_scene load_steps=11 format=3 uid="uid://ch3jaj2dsqcag"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_7mg3r"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/hazard_saw.gd" id="1_qymiu"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_xr3o5"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_hk77a"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_pl3x6"]
 [ext_resource type="Texture2D" uid="uid://bnd6jorumf3lt" path="res://game_objects/platformer/assets/Tiles/platformPack_tile044.png" id="4_g3k56"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_76cqs"]
+
+[sub_resource type="Resource" id="Resource_e1jw6"]
+script = ExtResource("3_hk77a")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_n6vib"]
+script = ExtResource("3_hk77a")
+property_name = "rotation_speed"
+property_type = 1
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_efeto"]
 radius = 32.0
@@ -14,6 +31,7 @@ radius = 32.0
 script = ExtResource("1_qymiu")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_7mg3r")]
+custom_properties = Array[ExtResource("3_hk77a")]([SubResource("Resource_e1jw6"), SubResource("Resource_n6vib")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_xr3o5")]
 
@@ -27,3 +45,7 @@ texture = ExtResource("4_g3k56")
 
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("5_76cqs")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]

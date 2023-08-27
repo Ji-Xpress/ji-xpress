@@ -14,13 +14,15 @@ var current_height: int = block_dimensions.y
 @onready var object_metadata: ObjectMetaData = $ObjectMetaData
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var object_coder: ObjectCoder = $ObjectCoder
-@onready var collision_shape = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 # Keeps track of whether it collides
 @export var collides: bool = true
 
 # Keeps track of if active or not
 var is_active: bool = true
+# Update loop code execution
+var update_code_execution_engine: CodeExecutionEngine = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +41,9 @@ func _ready():
 		collision_shape.disabled = true
 	elif object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		collision_shape.disabled = not collides
+		update_code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("ready")
 	
 	# Load properties
 	current_width = int(object_metadata.get_property("width")) * block_dimensions.x
@@ -166,3 +171,9 @@ func _on_tile_sensor_body_entered(body):
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Update loop
+func _process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
