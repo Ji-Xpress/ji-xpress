@@ -125,7 +125,8 @@ func set_platform_kind():
 ## Activates or deactivates platform
 func activate_platform():
 	if collides:
-		collision_shape.disabled = not is_active
+		if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+			collision_shape.disabled = not is_active
 		
 		if is_active:
 			top_sprite.modulate = Color(1, 1, 1, 1)
