@@ -19,6 +19,9 @@ var current_height: int = block_dimensions.y
 # Keeps track of whether it collides
 @export var collides: bool = true
 
+# Keeps track of if active or not
+var is_active: bool = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,10 +44,12 @@ func _ready():
 	current_width = int(object_metadata.get_property("width")) * block_dimensions.x
 	current_height = int(object_metadata.get_property("height")) * block_dimensions.y
 	platform_kind = int(object_metadata.get_property("platform_kind"))
+	is_active = str(object_metadata.get_property("is_active")) == "true"
 	
 	# Render
 	set_platform_kind()
 	invalidate_rect()
+	activate_platform()
 
 
 ## Invalidate the rect
@@ -104,6 +109,9 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 		"platform_kind":
 			platform_kind = value
 			set_platform_kind()
+		"is_active":
+			is_active = str(value) == "true"
+			activate_platform()
 
 
 ## Sets the platform kind manually
@@ -112,6 +120,21 @@ func set_platform_kind():
 	
 	if bottom_sprite_exists:
 		bottom_sprite.set_platform_kind(platform_kind)
+
+
+## Activates or deactivates platform
+func activate_platform():
+	if collides:
+		collision_shape.disabled = not is_active
+		
+		if is_active:
+			top_sprite.modulate = Color(1, 1, 1, 1)
+			if bottom_sprite != null:
+				bottom_sprite.modulate = Color(1, 1, 1, 1)
+		else:
+			top_sprite.modulate = Color(1, 1, 1, 0.5)
+			if bottom_sprite != null:
+				bottom_sprite.modulate = Color(1, 1, 1, 0.5)
 
 
 # Area entered sensor
