@@ -52,10 +52,10 @@ func fill_properties_for_object(game_object: Node):
 		if metadata_node.is_static_placement:
 			positional_props_readonly = true
 		
-		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id, false, true)
-		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x, false, positional_props_readonly)
-		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y, false, positional_props_readonly)
-		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees, false, positional_props_readonly)
+		add_property(ObjectMetaData.prop_object_id, SharedEnums.PropertyType.TypeString, metadata_node.object_id, null, false, true)
+		add_property(ObjectMetaData.prop_position_x, SharedEnums.PropertyType.TypeInt, game_object.position.x, null, false, positional_props_readonly)
+		add_property(ObjectMetaData.prop_position_y, SharedEnums.PropertyType.TypeInt, game_object.position.y, null, false, positional_props_readonly)
+		add_property(ObjectMetaData.prop_rotation, SharedEnums.PropertyType.TypeInt, game_object.rotation_degrees, null, false, positional_props_readonly)
 		
 		var custom_properties = metadata_node.get(ObjectMetaData.prop_custom_properties)
 		
@@ -63,10 +63,15 @@ func fill_properties_for_object(game_object: Node):
 		for metadata_item in custom_properties:
 			var current_property = custom_properties[custom_prop_index]
 			var property_name: String = current_property.get(ObjectCustomProperty.prop_prop_name)
+			var property_type: SharedEnums.PropertyType = current_property.get(ObjectCustomProperty.prop_prop_type)
 			var property_read_only: bool = current_property.get(ObjectCustomProperty.prop_read_only)
+			var extra_values = null
+			
+			if property_type == SharedEnums.PropertyType.TypeDropDown:
+				extra_values = current_property.get(ObjectCustomProperty.prop_prop_value)
 			
 			add_property(property_name, current_property.get(ObjectCustomProperty.prop_prop_type), \
-				metadata_node.get_property(property_name), true, property_read_only)
+				 metadata_node.get_property(property_name), extra_values, true, property_read_only)
 			
 			custom_prop_index += 1
 
@@ -92,7 +97,7 @@ func update_property(property_id: String, value):
 
 ## Add a property to the container
 func add_property(property_id: String, property_type: SharedEnums.PropertyType, value = null, \
-	is_custom_property: bool = false, is_read_only: bool = false):
+	extra_values = null, is_custom_property: bool = false, is_read_only: bool = false):
 	var prop_name: String = property_id.capitalize()
 	var label_instance: Label = property_label_node.instantiate()
 	label_instance.text = prop_name
@@ -111,7 +116,8 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			value_control.step = 0.001
 			value_control.value = float(value)
 		SharedEnums.PropertyType.TypeDropDown:
-			var value_array = str(value).split(",")
+			var value_array = str(extra_values).split(",")
+			var selected_value_text: String = value_array[int(value)]
 			
 			value_control = dropdown_property_node.instantiate()
 			value_control.text = prop_name

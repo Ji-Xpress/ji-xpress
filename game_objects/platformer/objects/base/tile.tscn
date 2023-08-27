@@ -27,7 +27,7 @@ script = ExtResource("3_f424c")
 property_name = "platform_kind"
 property_type = 3
 property_value = "sand,concrete"
-property_default_value = "sand"
+property_default_value = "0"
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7qdc"]
