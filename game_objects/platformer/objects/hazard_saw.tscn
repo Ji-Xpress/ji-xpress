@@ -27,7 +27,7 @@ property_read_only = false
 [sub_resource type="CircleShape2D" id="CircleShape2D_efeto"]
 radius = 32.0
 
-[node name="Saw" type="Area2D"]
+[node name="Saw" type="Area2D" groups=["saw"]]
 script = ExtResource("1_qymiu")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_7mg3r")]

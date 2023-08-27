@@ -1,19 +1,45 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgs7tjbjpecyo"]
+[gd_scene load_steps=12 format=3 uid="uid://cgs7tjbjpecyo"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_ebo44"]
 [ext_resource type="PackedScene" uid="uid://blwlbx7r7j3a3" path="res://game_objects/platformer/objects/ext/elements_block_sprite_2d.tscn" id="1_ku68e"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/elements_block.gd" id="1_u1lt5"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_nn48e"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_vrnjq"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_coigi"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_nsj1h"]
+
+[sub_resource type="Resource" id="Resource_viitq"]
+script = ExtResource("3_coigi")
+property_name = "mass"
+property_type = 2
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_h20ui"]
+script = ExtResource("3_coigi")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_yfdi0"]
+script = ExtResource("3_coigi")
+property_name = "color"
+property_type = 3
+property_value = "red,green,blue"
+property_default_value = "green"
+property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3daia"]
 size = Vector2(64, 64)
 
-[node name="Block" type="RigidBody2D"]
+[node name="Block" type="RigidBody2D" groups=["block"]]
 script = ExtResource("1_u1lt5")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_ebo44")]
+custom_properties = Array[ExtResource("3_coigi")]([SubResource("Resource_viitq"), SubResource("Resource_h20ui"), SubResource("Resource_yfdi0")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_nn48e")]
 
@@ -26,3 +52,5 @@ shape = SubResource("RectangleShape2D_3daia")
 
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_vrnjq")
+
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
