@@ -131,7 +131,7 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 				item_index += 1
 		SharedEnums.PropertyType.TypeBool:
 			value_control = bool_property_node.instantiate()
-			value_control.button_pressed = bool(value)
+			value_control.button_pressed = str(value) == "true"
 	
 	if value_control != null:
 		# Track the control

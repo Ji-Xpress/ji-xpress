@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bb001j2gjc7uy"]
+[gd_scene load_steps=16 format=3 uid="uid://bb001j2gjc7uy"]
 
 [ext_resource type="PackedScene" uid="uid://billlm6eq6mrr" path="res://game_objects/platformer/objects/base/character.tscn" id="1_fomtt"]
 [ext_resource type="Texture2D" uid="uid://b4wtq5st7duep" path="res://game_objects/platformer/assets/Characters/platformChar_idle.png" id="2_1oitb"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="2_dvmwh"]
 [ext_resource type="Texture2D" uid="uid://bpoqnbw0s6d34" path="res://game_objects/platformer/assets/Characters/platformChar_climb1.png" id="2_vv5yd"]
 [ext_resource type="Texture2D" uid="uid://bjuy3cjl57jad" path="res://game_objects/platformer/assets/Characters/platformChar_jump.png" id="3_aekj8"]
 [ext_resource type="Texture2D" uid="uid://cxn1rwvtjafxc" path="res://game_objects/platformer/assets/Characters/platformChar_walk1.png" id="3_g1vwe"]
@@ -9,9 +10,37 @@
 [ext_resource type="Texture2D" uid="uid://wxu2r0cqepx0" path="res://game_objects/platformer/assets/Characters/platformChar_walk2.png" id="4_47ky8"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="8_w36uf"]
 
+[sub_resource type="Resource" id="Resource_rv865"]
+script = ExtResource("2_dvmwh")
+property_name = "is_current"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_4qnql"]
+script = ExtResource("2_dvmwh")
+property_name = "jump_force"
+property_type = 1
+property_value = "-400"
+property_default_value = "-400"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_axgcv"]
+script = ExtResource("2_dvmwh")
+property_name = "speed"
+property_type = 1
+property_value = "300"
+property_default_value = "300"
+property_read_only = false
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sb85a"]
 resource_local_to_scene = true
 size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pq7tb"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kux1c"]
 animations = [{
@@ -56,15 +85,27 @@ animations = [{
 
 [node name="Character" instance=ExtResource("1_fomtt")]
 
+[node name="ObjectMetaData" parent="." index="0"]
+custom_properties = Array[ExtResource("2_dvmwh")]([SubResource("Resource_rv865"), SubResource("Resource_4qnql"), SubResource("Resource_axgcv")])
+
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_sb85a")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="CollisionSensor" index="0"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_pq7tb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
 sprite_frames = SubResource("SpriteFrames_kux1c")
 animation = &"idle"
 
-[node name="RectExtents2D" type="Node2D" parent="." index="5"]
+[node name="RectExtents2D" type="Node2D" parent="." index="6"]
 position = Vector2(0, 10)
 script = ExtResource("8_w36uf")
 size = Vector2(50, 46)
+
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
+
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
