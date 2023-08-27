@@ -37,7 +37,8 @@ func _ready():
 	# Load properties
 	current_width = int(object_metadata.get_property("width")) * block_dimensions.x
 	current_height = int(object_metadata.get_property("height")) * block_dimensions.y
-	platform_kind = object_metadata.get_property("platform_kind")
+	var platform_kind_array_values: Array = PlatformerSingleton.platform_tile_kind.keys()
+	platform_kind = platform_kind_array_values.find(object_metadata.get_property("platform_kind"))
 	
 	# Render
 	set_platform_kind()

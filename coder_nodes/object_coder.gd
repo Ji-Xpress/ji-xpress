@@ -59,12 +59,13 @@ func prepare_code_variable_dict(override: bool = false):
 	for variable in code_variables:
 		var variable_name: String = variable[ObjectCustomProperty.prop_prop_name]
 		var variable_value = variable[ObjectCustomProperty.prop_prop_value]
+		var default_value = variable[ObjectCustomProperty.prop_prop_default_value]
 		
 		if variable_values.has(variable_name):
 			if override:
-				set_variable(variable_name, variable_value)
+				set_variable(variable_name, default_value)
 		else:
-			set_variable(variable_name, variable_value)
+			set_variable(variable_name, default_value)
 
 
 ## Gets a variable's value

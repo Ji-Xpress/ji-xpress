@@ -5,6 +5,7 @@ class_name ObjectCustomProperty
 const prop_prop_name: String = "property_name"
 const prop_prop_type: String = "property_type"
 const prop_prop_value: String = "property_value"
+const prop_prop_default_value: String = "property_default_value"
 const prop_read_only: String = "property_read_only"
 
 ## Property name
@@ -13,6 +14,8 @@ const prop_read_only: String = "property_read_only"
 @export var property_type: SharedEnums.PropertyType = SharedEnums.PropertyType.TypeString
 ## Property value
 @export var property_value: String = ""
+## Default value
+@export var property_default_value: String = ""
 ## Is read only?
 @export var property_read_only: bool = false
 

@@ -11,6 +11,7 @@ script = ExtResource("3_f424c")
 property_name = "width"
 property_type = 1
 property_value = "1"
+property_default_value = "1"
 property_read_only = false
 
 [sub_resource type="Resource" id="Resource_we8ct"]
@@ -18,6 +19,7 @@ script = ExtResource("3_f424c")
 property_name = "height"
 property_type = 1
 property_value = "1"
+property_default_value = "1"
 property_read_only = false
 
 [sub_resource type="Resource" id="Resource_olk5f"]
@@ -25,6 +27,7 @@ script = ExtResource("3_f424c")
 property_name = "platform_kind"
 property_type = 3
 property_value = "sand,concrete"
+property_default_value = "sand"
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7qdc"]
