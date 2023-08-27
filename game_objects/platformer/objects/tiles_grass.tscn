@@ -14,13 +14,13 @@ size = Vector2(64, 64)
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("RectangleShape2D_empt0")
 
-[node name="TopSprite" parent="." index="4" instance=ExtResource("2_luu0k")]
+[node name="TopSprite" parent="." index="5" instance=ExtResource("2_luu0k")]
 stretch_mode = 1
 
-[node name="BottomSprite" parent="." index="5" instance=ExtResource("3_k5t2j")]
+[node name="BottomSprite" parent="." index="6" instance=ExtResource("3_k5t2j")]
 visible = false
-offset_top = 64.0
-offset_bottom = 64.0
+offset_top = 32.0
+offset_bottom = 96.0
 
-[node name="RectExtents2D" type="Node2D" parent="." index="6"]
+[node name="RectExtents2D" type="Node2D" parent="." index="7"]
 script = ExtResource("4_46t0x")

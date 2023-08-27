@@ -37,7 +37,7 @@ enum gem_type {
 }
 
 enum gem_color {
-	none, red, green, yellow, blue
+	none, blue, yellow, green, red
 }
 
 enum key_color {
@@ -45,5 +45,5 @@ enum key_color {
 }
 
 enum moving_platform_tint {
-	none, red, green, blue
+	none, blue, green, red
 }

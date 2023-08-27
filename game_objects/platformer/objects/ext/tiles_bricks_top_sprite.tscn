@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1lcwdcwxwbm0"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/base/tile_sprite_base.gd" id="1_7qk82"]
+[ext_resource type="Texture2D" uid="uid://ckmnkxgje7lkj" path="res://game_objects/platformer/assets/Tiles/platformPack_tile034.png" id="1_b21ji"]
+[ext_resource type="Texture2D" uid="uid://bevjq0aelfsx1" path="res://game_objects/platformer/assets/Tiles/platformPack_tile040.png" id="3_h3bt5"]
+
+[node name="TopSprite" type="TextureRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b21ji")
+stretch_mode = 1
+script = ExtResource("1_7qk82")
+sand_texture = ExtResource("1_b21ji")
+concrete_texture = ExtResource("3_h3bt5")

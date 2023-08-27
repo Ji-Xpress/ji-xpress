@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://btqqngldrue61"]
+[gd_scene load_steps=11 format=3 uid="uid://btqqngldrue61"]
 
 [ext_resource type="Script" path="res://game_objects/platformer/objects/base/tile.gd" id="1_2qqby"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_dh6k1"]
@@ -34,6 +34,9 @@ property_read_only = false
 resource_local_to_scene = true
 size = Vector2(64, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jk0qx"]
+size = Vector2(64, 64)
+
 [node name="Tile" type="StaticBody2D"]
 script = ExtResource("1_2qqby")
 
@@ -47,4 +50,11 @@ custom_properties = Array[ExtResource("3_f424c")]([SubResource("Resource_olhiu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n7qdc")
 
+[node name="TileSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileSensor"]
+shape = SubResource("RectangleShape2D_jk0qx")
+
 [connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="area_entered" from="TileSensor" to="." method="_on_tile_sensor_area_entered"]
+[connection signal="body_entered" from="TileSensor" to="." method="_on_tile_sensor_body_entered"]

@@ -16,6 +16,9 @@ var current_height: int = block_dimensions.y
 @onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape = $CollisionShape2D
 
+# Keeps track of whether it collides
+@export var collides: bool = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +35,7 @@ func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.disabled = true
 	elif object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		collision_shape.disabled = false
+		collision_shape.disabled = not collides
 	
 	# Load properties
 	current_width = int(object_metadata.get_property("width")) * block_dimensions.x
@@ -109,3 +112,33 @@ func set_platform_kind():
 	
 	if bottom_sprite_exists:
 		bottom_sprite.set_platform_kind(platform_kind)
+
+
+# Area entered sensor
+func _on_tile_sensor_area_entered(area):
+	var body_groups = area.get_groups()
+	
+	if body_groups.size() > 0:
+		var body_group = body_groups[0]
+		
+		SharedState.expression_variables["entry_collides"]["body"] = {
+			"type": body_group
+		}
+		
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Body entered sensor
+func _on_tile_sensor_body_entered(body):
+	var body_groups = body.get_groups()
+	
+	if body_groups.size() > 0:
+		var body_group = body_groups[0]
+		
+		SharedState.expression_variables["entry_collides"]["body"] = {
+			"type": body_group
+		}
+		
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("collides")
