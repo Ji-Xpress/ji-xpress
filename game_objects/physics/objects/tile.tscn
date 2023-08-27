@@ -13,10 +13,11 @@ script = ExtResource("3_3nu8n")
 property_name = "num_blocks"
 property_type = 1
 property_value = "1"
+property_default_value = ""
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8h74q"]
-size = Vector2(72, 64)
+size = Vector2(64, 64)
 
 [node name="Tile" type="StaticBody2D" groups=["tile"]]
 script = ExtResource("1_mkuad")
@@ -30,19 +31,26 @@ custom_properties = Array[ExtResource("3_3nu8n")]([SubResource("Resource_v6aas")
 [node name="ObjectCoder" parent="." instance=ExtResource("4_glube")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_8h74q")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="TextureRect" parent="."]
 texture_repeat = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_5pryx")
-offset = Vector2(3, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 70, 70)
+stretch_mode = 1
 
 [node name="RectExtents2D" type="Node2D" parent="."]
-position = Vector2(4, 0)
 script = ExtResource("4_5wgqn")
-size = Vector2(76, 74)
+size = Vector2(68, 72)
 
 [connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
