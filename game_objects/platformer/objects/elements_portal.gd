@@ -99,3 +99,16 @@ func _on_body_entered(body):
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Value has changed
+func _on_object_functionality_property_changed(property, value, is_custom):
+	match property:
+		"is_active":
+			is_active = str(value) == "true"
+			activate()
+
+
+# Destroy the object
+func destroy(params: Dictionary):
+	queue_free()

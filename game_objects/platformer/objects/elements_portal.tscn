@@ -1,11 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://bftyikqk405ui"]
+[gd_scene load_steps=12 format=3 uid="uid://bftyikqk405ui"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_6i6t4"]
 [ext_resource type="PackedScene" uid="uid://b3sfd23yl50s2" path="res://game_objects/platformer/objects/ext/elements_portal_sprite_2d.tscn" id="1_q5um2"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/elements_portal.gd" id="1_xty2m"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_4kprr"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_dxfux"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_vngea"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_wfiq1"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_3tycb"]
+
+[sub_resource type="Resource" id="Resource_vgaco"]
+script = ExtResource("3_vngea")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_fqd3k"]
+script = ExtResource("6_3tycb")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("3_vngea")]([])
+function_outputs = Array[String]([])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rg3rv"]
 radius = 25.2982
@@ -14,10 +30,12 @@ radius = 25.2982
 script = ExtResource("1_xty2m")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_6i6t4")]
+custom_properties = Array[ExtResource("3_vngea")]([SubResource("Resource_vgaco")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_dxfux")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_wfiq1")]
+code_functions = Array[ExtResource("6_3tycb")]([SubResource("Resource_fqd3k")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rg3rv")
@@ -29,3 +47,4 @@ script = ExtResource("2_4kprr")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]

@@ -6,6 +6,7 @@ extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
 
+
 var is_active: bool = true
 # Update loop code execution
 var update_code_execution_engine: CodeExecutionEngine = null
@@ -20,10 +21,11 @@ func _ready():
 	else:
 		collision_shape.disabled = true
 	
+	is_active = str(object_metadata.get_property("is_active")) == "true"
 	activate()
 
 
-## Activates the gear
+## Activates the door
 func activate():
 	if is_active:
 		sprite.modulate = Color(1, 1, 1, 1)
@@ -32,12 +34,6 @@ func activate():
 	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		collision_shape.disabled = not is_active
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
 
 
 # When an area enters
@@ -68,6 +64,12 @@ func _on_body_entered(body):
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
 
 
 # Value has changed

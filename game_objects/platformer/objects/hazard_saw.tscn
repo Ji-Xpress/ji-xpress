@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch3jaj2dsqcag"]
+[gd_scene load_steps=13 format=3 uid="uid://ch3jaj2dsqcag"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_7mg3r"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/hazard_saw.gd" id="1_qymiu"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_pl3x6"]
 [ext_resource type="Texture2D" uid="uid://bnd6jorumf3lt" path="res://game_objects/platformer/assets/Tiles/platformPack_tile044.png" id="4_g3k56"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_76cqs"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_onaxn"]
 
 [sub_resource type="Resource" id="Resource_e1jw6"]
 script = ExtResource("3_hk77a")
@@ -24,6 +25,12 @@ property_value = "1"
 property_default_value = "1"
 property_read_only = false
 
+[sub_resource type="Resource" id="Resource_ptov4"]
+script = ExtResource("6_onaxn")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("3_hk77a")]([])
+function_outputs = Array[String]([])
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_efeto"]
 radius = 32.0
 
@@ -36,6 +43,7 @@ custom_properties = Array[ExtResource("3_hk77a")]([SubResource("Resource_e1jw6")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_xr3o5")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_pl3x6")]
+code_functions = Array[ExtResource("6_onaxn")]([SubResource("Resource_ptov4")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_efeto")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bi3w2j27fvtq2"]
+[gd_scene load_steps=12 format=3 uid="uid://bi3w2j27fvtq2"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_cuabl"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/hazard_thorns.gd" id="1_y5fes"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_5n2cc"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_xmwjk"]
 [ext_resource type="Texture2D" uid="uid://cqj2qxarjwp4o" path="res://game_objects/platformer/assets/Tiles/platformPack_tile043.png" id="5_kc4ga"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_afloh"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="6_je6ck"]
 
 [sub_resource type="Resource" id="Resource_67vwy"]
@@ -15,6 +16,12 @@ property_type = 4
 property_value = "true"
 property_default_value = "true"
 property_read_only = false
+
+[sub_resource type="Resource" id="Resource_ah6bl"]
+script = ExtResource("6_afloh")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("3_5n2cc")]([])
+function_outputs = Array[String]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2kkm"]
 size = Vector2(64, 32)
@@ -28,6 +35,7 @@ custom_properties = Array[ExtResource("3_5n2cc")]([SubResource("Resource_67vwy")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_1co0g")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_xmwjk")]
+code_functions = Array[ExtResource("6_afloh")]([SubResource("Resource_ah6bl")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)

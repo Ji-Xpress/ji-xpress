@@ -42,3 +42,8 @@ func _on_area_entered(area):
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Destroy the object
+func destroy(params: Dictionary):
+	queue_free()

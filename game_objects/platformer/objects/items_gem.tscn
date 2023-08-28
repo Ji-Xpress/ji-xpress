@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dytayxqb8s0u8"]
+[gd_scene load_steps=12 format=3 uid="uid://dytayxqb8s0u8"]
 
 [ext_resource type="PackedScene" uid="uid://bwgayb5a4atca" path="res://game_objects/platformer/objects/ext/items_gem_sprite_2d.tscn" id="1_stbjg"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_w73d3"]
@@ -6,6 +6,22 @@
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_8jmg1"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_mfpcv"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_d8plb"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_umupd"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_m3b4n"]
+
+[sub_resource type="Resource" id="Resource_f5j8f"]
+script = ExtResource("3_umupd")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_hd60i"]
+script = ExtResource("6_m3b4n")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("3_umupd")]([])
+function_outputs = Array[String]([])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4fi15"]
 radius = 24.0
@@ -14,10 +30,12 @@ radius = 24.0
 script = ExtResource("1_wjqt2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_w73d3")]
+custom_properties = Array[ExtResource("3_umupd")]([SubResource("Resource_f5j8f")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_mfpcv")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_d8plb")]
+code_functions = Array[ExtResource("6_m3b4n")]([SubResource("Resource_hd60i")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4fi15")
@@ -26,3 +44,7 @@ shape = SubResource("CircleShape2D_4fi15")
 
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_8jmg1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
