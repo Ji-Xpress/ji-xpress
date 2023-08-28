@@ -7,6 +7,10 @@ const prop_node_to_canvas_message_message_id: String = "message_id"
 const prop_node_to_canvas_message_message_value: String = "message_value"
 ## Message for when we need to change scene
 const node_to_canvas_change_scene_message: String = "change_scene"
+## Messages for setting the canvas camera positon
+const node_to_canvas_set_camera_position: String = "set_camera_position"
+## Messages for setting the canvas camera positon
+const node_to_canvas_enable_camera: String = "enable_camera"
 
 
 ## Constructs a payload used for scene change

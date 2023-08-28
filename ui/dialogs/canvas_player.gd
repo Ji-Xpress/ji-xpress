@@ -23,7 +23,7 @@ func load_scene():
 
 
 # When a canvas node message is received
-func on_design_canvas_node_message(node: Node2D, message: Dictionary):
+func on_design_canvas_node_message(node: Node, message: Dictionary):
 	match message[NodeToCanvasMessages.prop_node_to_canvas_message_message_id]:
 		NodeToCanvasMessages.node_to_canvas_change_scene_message:
 			# Change the current scene name
@@ -34,6 +34,10 @@ func on_design_canvas_node_message(node: Node2D, message: Dictionary):
 			canvas_ui_instance.queue_free()
 			# Load the new scene
 			load_scene()
+		NodeToCanvasMessages.node_to_canvas_set_camera_position:
+			canvas_ui_instance.design_canvas.camera.position = message.position
+		NodeToCanvasMessages.node_to_canvas_enable_camera:
+			canvas_ui_instance.design_canvas.camera.enabled = message.enabled
 
 
 # Close button pressed

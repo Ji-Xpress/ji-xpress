@@ -22,7 +22,7 @@ func set_rect_extents_visibility(visibility: bool):
 func send_message_to_canvas(message: Dictionary):
 	var node_kind: SharedEnums.ObjectLayer = parent_node.object_metadata.node_kind
 	
-	if node_kind == SharedEnums.ObjectLayer.LayerBackground:
+	if node_kind == SharedEnums.ObjectLayer.LayerBackground or node_kind == SharedEnums.ObjectLayer.LayerUI:
 		parent_node.get_parent().get_parent().get_parent().emit_signal("send_node_message", parent_node, message)
 	else:
 		parent_node.get_parent().get_parent().emit_signal("send_node_message", parent_node, message)

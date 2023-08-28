@@ -151,6 +151,19 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 func die(params: Dictionary):
 	camera.enabled = false
 	
+	# Set the canvas camera position
+	var message_to_canvas_camera_position: Dictionary = {
+		NodeToCanvasMessages.prop_node_to_canvas_message_message_id: NodeToCanvasMessages.node_to_canvas_set_camera_position,
+		"position": position
+	}
+	var message_to_canvas_enable_camera: Dictionary = {
+		NodeToCanvasMessages.prop_node_to_canvas_message_message_id: NodeToCanvasMessages.node_to_canvas_enable_camera,
+		"enabled": true
+	}
+	
+	object_functionality.send_message_to_canvas(message_to_canvas_camera_position)
+	object_functionality.send_message_to_canvas(message_to_canvas_enable_camera)
+	
 	is_dead = true
 	
 	# Disable colliders
@@ -174,10 +187,12 @@ func die(params: Dictionary):
 	animated_sprite.play()
 	
 	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "global_position", die_position + Vector2(0, -50), 0.5)
 	tween.tween_callback(func():
 		tween =  create_tween()
-		tween.tween_property(self, "global_position", die_position + Vector2(0, 1500), 3)
+		tween.set_trans(Tween.TRANS_SINE)
+		tween.tween_property(self, "global_position", die_position + Vector2(0, 1500), 5)
 		tween.play()
 		)
 	tween.play()
