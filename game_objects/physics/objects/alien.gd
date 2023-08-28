@@ -5,6 +5,7 @@ extends RigidBody2D
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var floor_detector_collision_shape: CollisionShape2D = $FloorDetector/CollisionShape2D
 @onready var camera: Camera2D = $Camera2D
 @onready var floor_detector: Area2D = $FloorDetector
 
@@ -15,12 +16,14 @@ var update_code_execution_engine: CodeExecutionEngine = null
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
+		floor_detector_collision_shape.set_deferred("disabled", true)
 		freeze = true
 		camera.enabled = false
 	else:
 		update_code_execution_engine = object_coder.code_execution_engine()
 		
 		collision_shape.set_deferred("disabled", false)
+		floor_detector_collision_shape.set_deferred("disabled", false)
 		freeze = false
 		camera.enabled = true
 		mass = float(object_metadata.get_property("mass"))

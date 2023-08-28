@@ -33,3 +33,6 @@ func _on_object_coder_broadcast(message_id, message):
 		if message_id == "increment_num_stars":
 			var stars: int = int(message) + num_stars
 			set_star_count(stars)
+	
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")

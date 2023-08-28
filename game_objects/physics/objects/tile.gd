@@ -58,6 +58,12 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 		set_num_blocks_for_tile(value)
 
 
+# Process the broadcast message
+func _on_object_coder_broadcast(message_id, message):
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
 # During the physics loop
 func _physics_process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:

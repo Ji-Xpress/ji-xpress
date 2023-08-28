@@ -40,3 +40,4 @@ script = ExtResource("4_e0jv6")
 size = Vector2(50, 50)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

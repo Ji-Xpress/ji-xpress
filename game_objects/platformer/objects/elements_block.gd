@@ -78,3 +78,9 @@ func _on_collision_sensor_body_entered(body):
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+# Process the broadcast message
+func _on_object_coder_broadcast(message_id, message):
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")

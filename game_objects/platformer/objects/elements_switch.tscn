@@ -38,3 +38,4 @@ size = Vector2(34, 32)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

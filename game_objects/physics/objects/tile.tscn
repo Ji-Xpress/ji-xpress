@@ -54,3 +54,4 @@ script = ExtResource("4_5wgqn")
 size = Vector2(68, 72)
 
 [connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

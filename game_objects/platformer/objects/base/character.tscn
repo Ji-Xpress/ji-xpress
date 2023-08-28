@@ -29,5 +29,6 @@ shape = SubResource("RectangleShape2D_h2vvs")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionSensor"]
 shape = SubResource("RectangleShape2D_8ld0w")
 
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
 [connection signal="area_entered" from="CollisionSensor" to="." method="_on_collision_sensor_area_entered"]
 [connection signal="body_entered" from="CollisionSensor" to="." method="_on_collision_sensor_body_entered"]
