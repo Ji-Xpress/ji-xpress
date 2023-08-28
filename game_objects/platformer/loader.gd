@@ -88,8 +88,11 @@ func load_game_objects():
 
 ## Load all shared variables
 func load_shared_variables():
+	# Entry shared state variables
 	SharedState.expression_variables["entry_collides"] = {}
+	SharedState.expression_variables["entry_broadcast"] = {}
 	
+	# Shared variables metadata
 	return {
 		"shared_var_sample": {
 			GameObjectsLoader.prop_description: "Sample Variable",
