@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7mk3"]
 size = Vector2(32, 32)
 
-[node name="Switch" type="Area2D"]
+[node name="Switch" type="Area2D" groups=["switch"]]
 script = ExtResource("1_t63lf")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_owna3")]
@@ -27,3 +27,6 @@ shape = SubResource("RectangleShape2D_b7mk3")
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_swp5v")
 size = Vector2(34, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

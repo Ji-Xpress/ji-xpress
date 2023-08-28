@@ -19,6 +19,8 @@ func _ready():
 		update_code_execution_engine = object_coder.code_execution_engine()
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
+	else:
+		collision_shape.disabled = true
 	
 	tween = create_tween()
 	is_active = str(object_metadata.get_property("is_active")) == "true"
@@ -32,6 +34,9 @@ func activate():
 		sprite.modulate = Color(1, 1, 1, 1)
 	else:
 		sprite.modulate = Color(1, 1, 1, 0.5)
+	
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		collision_shape.disabled = not is_active
 
 
 ## Tween callback

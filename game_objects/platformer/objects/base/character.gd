@@ -9,7 +9,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var object_metadata: ObjectMetaData = $ObjectMetaData
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var object_coder: ObjectCoder = $ObjectCoder
-@onready var collision_shape = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var sensor_collision_shape: CollisionShape2D  = $CollisionSensor/CollisionShape2D
 
 var update_code_execution_engine: CodeExecutionEngine = null
 var animated_sprite: AnimatedSprite2D = null
@@ -35,11 +36,13 @@ func _ready():
 		code_execution_engine.execute_from_entrypoint_type("ready")
 		
 		collision_shape.disabled = false
+		sensor_collision_shape.disabled = false
 		
 		jump_force = int(object_metadata.get_property("jump_force"))
 		speed = int(object_metadata.get_property("speed"))
 	else:
 		collision_shape.disabled = true
+		sensor_collision_shape.disabled = true
 	
 	if object_metadata.get_property("is_current") == null:
 		is_current = false

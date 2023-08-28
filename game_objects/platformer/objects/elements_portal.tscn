@@ -26,3 +26,6 @@ shape = SubResource("CircleShape2D_rg3rv")
 
 [node name="RectExtents2D" type="Node2D" parent="."]
 script = ExtResource("2_4kprr")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
