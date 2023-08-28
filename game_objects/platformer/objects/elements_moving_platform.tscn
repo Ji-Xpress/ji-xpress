@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://teih18pclf7c"]
+[gd_scene load_steps=17 format=3 uid="uid://teih18pclf7c"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_d5tnv"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/elements_moving_platform.gd" id="1_gqiv4"]
@@ -20,16 +20,16 @@ property_read_only = false
 script = ExtResource("3_f6dmp")
 property_name = "horizontal_start_position"
 property_type = 3
-property_value = "left,center,right"
-property_default_value = "center"
+property_value = "left,right"
+property_default_value = "left"
 property_read_only = false
 
 [sub_resource type="Resource" id="Resource_vxptv"]
 script = ExtResource("3_f6dmp")
 property_name = "vertical_start_position"
 property_type = 3
-property_value = "top,center,bottom"
-property_default_value = "center"
+property_value = "top,bottom"
+property_default_value = "bottom"
 property_read_only = false
 
 [sub_resource type="Resource" id="Resource_qctmd"]
@@ -38,7 +38,7 @@ property_name = "vertical_distance"
 property_type = 1
 property_value = "0"
 property_default_value = "0"
-property_read_only = true
+property_read_only = false
 
 [sub_resource type="Resource" id="Resource_ac7w4"]
 script = ExtResource("3_f6dmp")
@@ -48,6 +48,30 @@ property_value = "0"
 property_default_value = "0"
 property_read_only = false
 
+[sub_resource type="Resource" id="Resource_cyxgi"]
+script = ExtResource("3_f6dmp")
+property_name = "move_horizontally"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_180wp"]
+script = ExtResource("3_f6dmp")
+property_name = "move_vertically"
+property_type = 4
+property_value = "false"
+property_default_value = "false"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_uvgxg"]
+script = ExtResource("3_f6dmp")
+property_name = "movement_duration"
+property_type = 2
+property_value = "1.0"
+property_default_value = "1.0"
+property_read_only = false
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hircp"]
 size = Vector2(64, 32)
 
@@ -55,7 +79,7 @@ size = Vector2(64, 32)
 script = ExtResource("1_gqiv4")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_d5tnv")]
-custom_properties = Array[ExtResource("3_f6dmp")]([SubResource("Resource_q0f3d"), SubResource("Resource_qrimb"), SubResource("Resource_vxptv"), SubResource("Resource_qctmd"), SubResource("Resource_ac7w4")])
+custom_properties = Array[ExtResource("3_f6dmp")]([SubResource("Resource_q0f3d"), SubResource("Resource_qrimb"), SubResource("Resource_vxptv"), SubResource("Resource_qctmd"), SubResource("Resource_ac7w4"), SubResource("Resource_cyxgi"), SubResource("Resource_180wp"), SubResource("Resource_uvgxg")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_g7buq")]
 

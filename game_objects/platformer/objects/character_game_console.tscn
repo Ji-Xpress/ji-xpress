@@ -108,4 +108,3 @@ size = Vector2(50, 46)
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 
 [connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
-[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
