@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://114bu0l4ypxy"
-path="res://.godot/imported/blue_desert.png-0a8292170fbe6e0b8aa4ae91414cce06.ctex"
+uid="uid://cu0fput4ioeok"
+path="res://.godot/imported/colored_castle.png-656452039fb60df5002a14b93b6b0915.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_objects/physics/assets/backgrounds/blue_desert.png"
-dest_files=["res://.godot/imported/blue_desert.png-0a8292170fbe6e0b8aa4ae91414cce06.ctex"]
+source_file="res://game_objects/shared/assets/colored_castle.png"
+dest_files=["res://.godot/imported/colored_castle.png-656452039fb60df5002a14b93b6b0915.ctex"]
 
 [params]
 

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dolaeura5xsf8"]
+
+[node name="Player" type="Node2D"]

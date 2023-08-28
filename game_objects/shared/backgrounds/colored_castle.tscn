@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://hcurngo350l0"]
+
+[ext_resource type="Script" path="res://game_objects/shared/backgrounds/colored_castle.gd" id="1_hf3f8"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_lhpn8"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_ta26p"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_w85oe"]
+[ext_resource type="Texture2D" uid="uid://cu0fput4ioeok" path="res://game_objects/shared/assets/colored_castle.png" id="4_5aesa"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_ly121"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_hf3f8")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_lhpn8")]
+node_kind = 1
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_ta26p")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_w85oe")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_5aesa")
+centered = false
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(512, 512)
+script = ExtResource("5_ly121")
+size = Vector2(1024, 1025)

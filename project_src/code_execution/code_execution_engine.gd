@@ -36,7 +36,7 @@ var block_breaking_steps: Array[Dictionary] = []
 ## Keeps track of the current executing block
 var current_execution_block = null
 ## Keeps track of the game object instance
-var game_object_instance: Node2D = null
+var game_object_instance: Node = null
 ## Instance of Experession Engine
 var expression_engine: ExpressionEngine = null
 ## Current instance of the finally block data
@@ -78,7 +78,7 @@ static func execution_result_model_template(result: String = "", value = null):
 
 
 # Initializes internal metadata derived from a JSON file
-func initialize_metadata(object_instance: Node2D, metadata: Dictionary):
+func initialize_metadata(object_instance: Node, metadata: Dictionary):
 	# Initialize variables that build the code execution engine's base
 	game_object_instance = object_instance
 	node_execution_metadata = metadata

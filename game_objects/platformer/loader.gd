@@ -50,7 +50,28 @@ func load_game_objects():
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/hazard_saw.tscn",
 			},
 		},
-		GameObjectsLoader.prop_background: {},
+		GameObjectsLoader.prop_background: {
+			"background_colored_desert": {
+				GameObjectsLoader.prop_description: "Background: Colored Desert",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_desert.tscn",
+			},
+			"background_colored_forest": {
+				GameObjectsLoader.prop_description: "Background: Colored Forest",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_forest.tscn",
+			},
+			"background_colored_trees": {
+				GameObjectsLoader.prop_description: "Background: Colored Tree",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_trees.tscn",
+			},
+			"background_colored_tall_trees": {
+				GameObjectsLoader.prop_description: "Background: Colored Tall Trees",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_tall_trees.tscn",
+			},
+			"background_desert_background": {
+				GameObjectsLoader.prop_description: "Background: Desert Background",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/desert_background.tscn",
+			},
+		},
 		GameObjectsLoader.prop_tile: {
 			"tiles_grass": {
 				GameObjectsLoader.prop_description: "Tiles: Grass",
