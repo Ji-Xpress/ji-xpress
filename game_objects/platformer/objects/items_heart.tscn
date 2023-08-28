@@ -1,0 +1,53 @@
+[gd_scene load_steps=13 format=3 uid="uid://s8r7njjcrrcb"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/items_heart.gd" id="1_d3db7"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_guv7e"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="2_bx1uo"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_lvoq8"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_8r4e6"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="5_ta6tx"]
+[ext_resource type="PackedScene" uid="uid://bwgayb5a4atca" path="res://game_objects/platformer/objects/ext/items_gem_sprite_2d.tscn" id="6_ucuir"]
+[ext_resource type="Texture2D" uid="uid://cel8lsdsbg51u" path="res://game_objects/platformer/assets/Items/platformPack_item017.png" id="7_njwcl"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="7_u5fkt"]
+
+[sub_resource type="Resource" id="Resource_f5j8f"]
+script = ExtResource("2_bx1uo")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_hd60i"]
+script = ExtResource("5_ta6tx")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("2_bx1uo")]([])
+function_outputs = Array[String]([])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wh0c0"]
+radius = 24.0
+
+[node name="Heart" type="Area2D" groups=["heart"]]
+script = ExtResource("1_d3db7")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_guv7e")]
+custom_properties = Array[ExtResource("2_bx1uo")]([SubResource("Resource_f5j8f")])
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_lvoq8")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("4_8r4e6")]
+code_functions = Array[ExtResource("5_ta6tx")]([SubResource("Resource_hd60i")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wh0c0")
+
+[node name="Sprite2D" parent="." instance=ExtResource("6_ucuir")]
+texture = ExtResource("7_njwcl")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("7_u5fkt")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

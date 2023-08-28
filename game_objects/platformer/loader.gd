@@ -38,11 +38,11 @@ func load_game_objects():
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/items_key.tscn",
 			},
 			"items_gem": {
-				GameObjectsLoader.prop_description: "Items: Key",
+				GameObjectsLoader.prop_description: "Items: Gem",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/items_gem.tscn",
 			},
 			"items_heart": {
-				GameObjectsLoader.prop_description: "Items: Key",
+				GameObjectsLoader.prop_description: "Items: Heart",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/items_heart.tscn",
 			},
 			"hazard_saw": {

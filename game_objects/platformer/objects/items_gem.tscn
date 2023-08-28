@@ -26,7 +26,7 @@ function_outputs = Array[String]([])
 [sub_resource type="CircleShape2D" id="CircleShape2D_4fi15"]
 radius = 24.0
 
-[node name="Gem" type="Area2D"]
+[node name="Gem" type="Area2D" groups=["gem"]]
 script = ExtResource("1_wjqt2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_w73d3")]
