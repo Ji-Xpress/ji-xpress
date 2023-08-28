@@ -118,9 +118,10 @@ func _on_collision_sensor_area_entered(area):
 
 # Body entered
 func _on_collision_sensor_body_entered(body):
-	SharedGameObjectLogic.common_collision_handler(body, object_coder, {
-		"is_on_floor": is_on_floor()
-	})
+	if body != self:
+		SharedGameObjectLogic.common_collision_handler(body, object_coder, {
+			"is_on_floor": is_on_floor()
+		})
 
 
 func _on_object_functionality_property_changed(property, value, is_custom):

@@ -82,9 +82,10 @@ func _on_object_coder_broadcast(message_id, message):
 
 # When the alien hits a physics body
 func _on_floor_detector_body_entered(body):
-	SharedGameObjectLogic.common_collision_handler(body, object_coder, {
-		"is_on_floor": is_on_floor()
-	})
+	if body != self:
+		SharedGameObjectLogic.common_collision_handler(body, object_coder, {
+			"is_on_floor": is_on_floor()
+		})
 
 
 # An area entered the floor detector

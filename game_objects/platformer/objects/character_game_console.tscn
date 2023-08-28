@@ -47,7 +47,7 @@ size = Vector2(48, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pq7tb"]
 resource_local_to_scene = true
-size = Vector2(32, 32)
+size = Vector2(32, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kux1c"]
 animations = [{
