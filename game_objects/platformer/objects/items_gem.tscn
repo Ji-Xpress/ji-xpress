@@ -27,6 +27,7 @@ function_outputs = Array[String]([])
 radius = 24.0
 
 [node name="Gem" type="Area2D" groups=["gem"]]
+input_pickable = false
 script = ExtResource("1_wjqt2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_w73d3")]

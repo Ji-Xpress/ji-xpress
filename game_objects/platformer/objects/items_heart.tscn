@@ -28,6 +28,7 @@ function_outputs = Array[String]([])
 radius = 24.0
 
 [node name="Heart" type="Area2D" groups=["heart"]]
+input_pickable = false
 script = ExtResource("1_d3db7")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_guv7e")]

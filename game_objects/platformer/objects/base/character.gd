@@ -21,6 +21,9 @@ var is_current: bool = true
 var jump_force: int = JUMP_VELOCITY
 var speed: int = SPEED
 
+var is_dead: bool = false
+var die_position: Vector2 = Vector2.ZERO
+
 
 # Object initialization
 func _ready():
@@ -142,3 +145,41 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 	if property == "is_current":
 		is_current = bool(value)
 		set_camera_enabled()
+
+
+## Player dies
+func die(params: Dictionary):
+	camera.enabled = false
+	
+	is_dead = true
+	
+	# Disable colliders
+	collision_shape.set_deferred("disabled", true)
+	sensor_collision_shape.set_deferred("disabled", true)
+	
+	die_position = global_position
+	
+	# Broadcast player death (manually)
+	if not SharedState.expression_variables.has("entry_broadcast"):
+		SharedState.expression_variables["entry_broadcast"] = {}
+	
+	SharedState.expression_variables["entry_broadcast"]["broadcast_message"] = {
+		"message_id": "player_death",
+		"message": ""
+	}
+	
+	SharedState.do_broadcast("player_death", "")
+	
+	animated_sprite.animation = "jump"
+	animated_sprite.play()
+	
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "global_position", die_position + Vector2(0, -50), 0.5)
+	tween.tween_callback(func():
+		tween =  create_tween()
+		tween.tween_property(self, "global_position", die_position + Vector2(0, 1500), 3)
+		tween.play()
+		)
+	tween.play()
+	
+	return true

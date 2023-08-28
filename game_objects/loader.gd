@@ -30,16 +30,16 @@ const prop_user_interface: String = "user_interface"
 const prop_shared_state: String = "shared_state"
 # An index of internal resource packs
 const internal_resource_packs: Dictionary = {
+	"platformer": {
+		prop_description: "Platformer Pack with Kenney Assets",
+		prop_loader: "res://game_objects/platformer/loader.gd",
+		prop_pack_player: "res://game_objects/platformer/player.tscn"
+	},
 	"physics": {
 		prop_description: "Physics Pack with Kenney Assets",
 		prop_loader: "res://game_objects/physics/loader.gd",
 		prop_pack_player: "res://game_objects/physics/player.tscn"
 	},
-	"platformer": {
-		prop_description: "Platformer Pack with Kenney Assets",
-		prop_loader: "res://game_objects/platformer/loader.gd",
-		prop_pack_player: "res://game_objects/platformer/player.tscn"
-	}
 }
 
 ## Keeps track of the current game pack
