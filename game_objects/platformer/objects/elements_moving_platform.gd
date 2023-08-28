@@ -9,7 +9,7 @@ const position_right: int = 1
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: TileSpriteBase = $Sprite2D
 
 # Property Parameters
 var vertical_start_position: int = 0
