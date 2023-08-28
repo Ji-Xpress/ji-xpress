@@ -45,6 +45,9 @@ func compute_expression(expression: String):
 	# Current scene
 	var_names.append("current_scene")
 	var_values.append(SharedState.current_scene)
+	# Current object_id
+	var_names.append("object_id")
+	var_values.append(game_object_instance.object_metadata.object_id)
 	
 	# Object state variables
 	# X axis position

@@ -28,6 +28,7 @@ function_outputs = Array[String]([])
 radius = 24.0
 
 [node name="Heart" type="Area2D" groups=["heart"]]
+z_index = 1
 input_pickable = false
 script = ExtResource("1_d3db7")
 

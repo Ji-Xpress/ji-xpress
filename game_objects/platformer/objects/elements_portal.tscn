@@ -27,6 +27,7 @@ function_outputs = Array[String]([])
 radius = 25.2982
 
 [node name="Portal" type="Area2D"]
+z_index = 1
 script = ExtResource("1_xty2m")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_6i6t4")]

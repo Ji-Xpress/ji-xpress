@@ -91,6 +91,7 @@ animations = [{
 }]
 
 [node name="Character" groups=["game_console_character"] instance=ExtResource("1_fomtt")]
+z_index = 2
 
 [node name="ObjectMetaData" parent="." index="0"]
 custom_properties = Array[ExtResource("2_dvmwh")]([SubResource("Resource_rv865"), SubResource("Resource_4qnql"), SubResource("Resource_axgcv")])
