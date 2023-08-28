@@ -145,32 +145,12 @@ func activate_platform():
 
 # Area entered sensor
 func _on_tile_sensor_area_entered(area):
-	var body_groups = area.get_groups()
-	
-	if body_groups.size() > 0:
-		var body_group = body_groups[0]
-		
-		SharedState.expression_variables["entry_collides"]["body"] = {
-			"type": body_group
-		}
-		
-		var code_execution_engine = object_coder.code_execution_engine()
-		code_execution_engine.execute_from_entrypoint_type("collides")
+	SharedGameObjectLogic.common_collision_handler(area, object_coder)
 
 
 # Body entered sensor
 func _on_tile_sensor_body_entered(body):
-	var body_groups = body.get_groups()
-	
-	if body_groups.size() > 0:
-		var body_group = body_groups[0]
-		
-		SharedState.expression_variables["entry_collides"]["body"] = {
-			"type": body_group
-		}
-		
-		var code_execution_engine = object_coder.code_execution_engine()
-		code_execution_engine.execute_from_entrypoint_type("collides")
+	SharedGameObjectLogic.common_collision_handler(body, object_coder)
 
 
 # Update loop
