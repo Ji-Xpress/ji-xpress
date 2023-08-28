@@ -76,7 +76,7 @@ property_read_only = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hircp"]
 size = Vector2(64, 32)
 
-[node name="MovingPlatform" type="CharacterBody2D"]
+[node name="MovingPlatform" type="CharacterBody2D" groups=["moving_platform"]]
 z_index = 1
 script = ExtResource("1_gqiv4")
 

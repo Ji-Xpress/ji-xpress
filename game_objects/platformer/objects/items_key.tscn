@@ -26,7 +26,7 @@ function_outputs = Array[String]([])
 [sub_resource type="CircleShape2D" id="CircleShape2D_xda30"]
 radius = 24.0
 
-[node name="Key" type="Area2D"]
+[node name="Key" type="Area2D" groups=["key"]]
 z_index = 1
 script = ExtResource("1_qw3g0")
 

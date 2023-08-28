@@ -26,7 +26,7 @@ function_outputs = Array[String]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nu1p5"]
 size = Vector2(64, 64)
 
-[node name="LockedDoor" type="Area2D"]
+[node name="LockedDoor" type="Area2D" groups=["door_locked"]]
 script = ExtResource("1_sr4it")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_3kgqd")]
@@ -34,7 +34,7 @@ custom_properties = Array[ExtResource("3_3w1li")]([SubResource("Resource_36d3w")
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_omo56")]
 
-[node name="ObjectCoder" parent="." instance=ExtResource("3_5kkj0")]
+[node name="ObjectCoder" parent="." groups=["door_locked"] instance=ExtResource("3_5kkj0")]
 code_functions = Array[ExtResource("5_1wfrp")]([SubResource("Resource_flb5k")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

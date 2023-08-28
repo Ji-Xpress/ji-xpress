@@ -64,3 +64,20 @@ func _on_collision_sensor_body_entered(body):
 func _on_object_coder_broadcast(message_id, message):
 	var code_execution_engine = object_coder.code_execution_engine()
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
+# Destroy the object
+func destroy(params: Dictionary):
+	queue_free()
+
+
+## Apply central impulse block function
+func central_impulse(parameters: Dictionary):
+	apply_central_impulse(Vector2(parameters.force_x, parameters.force_y))
+	return true
+
+
+## Apply central force block function
+func central_force(parameters: Dictionary):
+	apply_central_force(Vector2(parameters.force_x, parameters.force_y))
+	return true

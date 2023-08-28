@@ -35,10 +35,6 @@ func load_game_objects():
 			}
 		},
 		GameObjectsLoader.prop_background: {
-			"desert_background": {
-				GameObjectsLoader.prop_description: "Desert Background [Background]",
-				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/desert_background.tscn",
-			},
 			"background_colored_desert": {
 				GameObjectsLoader.prop_description: "Colored Desert [Background]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_desert.tscn",
@@ -54,7 +50,11 @@ func load_game_objects():
 			"background_colored_tall_trees": {
 				GameObjectsLoader.prop_description: "Colored Tall Trees [Background]",
 				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/colored_tall_trees.tscn",
-			}
+			},
+			"desert_background": {
+				GameObjectsLoader.prop_description: "Desert Background [Background]",
+				GameObjectsLoader.prop_object_url: "res://game_objects/shared/backgrounds/desert_background.tscn",
+			},
 		},
 		GameObjectsLoader.prop_tile: {
 			"tile": {

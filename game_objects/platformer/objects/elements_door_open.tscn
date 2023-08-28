@@ -26,7 +26,7 @@ function_outputs = Array[String]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sp5hi"]
 size = Vector2(64, 56)
 
-[node name="OpenDoor" type="Area2D"]
+[node name="OpenDoor" type="Area2D" groups=["door_open"]]
 script = ExtResource("1_riq5i")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_qrkag")]

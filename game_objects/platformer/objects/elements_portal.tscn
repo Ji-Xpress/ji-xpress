@@ -26,7 +26,7 @@ function_outputs = Array[String]([])
 [sub_resource type="CircleShape2D" id="CircleShape2D_rg3rv"]
 radius = 25.2982
 
-[node name="Portal" type="Area2D"]
+[node name="Portal" type="Area2D" groups=["portal"]]
 z_index = 1
 script = ExtResource("1_xty2m")
 
