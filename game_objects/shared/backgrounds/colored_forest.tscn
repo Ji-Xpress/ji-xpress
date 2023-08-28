@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddk6rxnapchdr"]
+
+[ext_resource type="Script" path="res://game_objects/shared/backgrounds/colored_forest.gd" id="1_gl2xt"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_uieoh"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_ro4wd"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_ecli2"]
+[ext_resource type="Texture2D" uid="uid://g8nvebux821d" path="res://game_objects/shared/assets/colored_forest.png" id="4_grfbi"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_2m0tm"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_gl2xt")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_uieoh")]
+node_kind = 1
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_ro4wd")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_ecli2")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_grfbi")
+centered = false
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(512, 512)
+script = ExtResource("5_2m0tm")
+size = Vector2(1024, 1025)

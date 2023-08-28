@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://1kvnqj7r3ho5"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_owna3"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/elements_switch.gd" id="1_t63lf"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_qsusu"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_swp5v"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_rqfk5"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="5_6voie"]
+[ext_resource type="PackedScene" uid="uid://bwtwqugff21kq" path="res://game_objects/platformer/objects/ext/elements_switch_sprite_2d.tscn" id="5_lchhm"]
+
+[sub_resource type="Resource" id="Resource_rppms"]
+script = ExtResource("5_6voie")
+function_name = "destroy"
+function_block_parameters = Array[Resource("res://designer_src/object_custom_property.gd")]([])
+function_outputs = Array[String]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7mk3"]
+size = Vector2(32, 32)
+
+[node name="Switch" type="Area2D" groups=["switch"]]
+script = ExtResource("1_t63lf")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_owna3")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_qsusu")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_rqfk5")]
+code_functions = Array[ExtResource("5_6voie")]([SubResource("Resource_rppms")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b7mk3")
+
+[node name="Sprite2D" parent="." instance=ExtResource("5_lchhm")]
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("2_swp5v")
+size = Vector2(34, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

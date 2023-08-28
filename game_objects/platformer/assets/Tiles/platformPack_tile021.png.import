@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://114bu0l4ypxy"
-path="res://.godot/imported/blue_desert.png-0a8292170fbe6e0b8aa4ae91414cce06.ctex"
+uid="uid://c7wqj18xme4vf"
+path="res://.godot/imported/platformPack_tile021.png-6e80e0eac5b0118226e8c20a9a9d9cba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_objects/physics/assets/backgrounds/blue_desert.png"
-dest_files=["res://.godot/imported/blue_desert.png-0a8292170fbe6e0b8aa4ae91414cce06.ctex"]
+source_file="res://game_objects/platformer/assets/Tiles/platformPack_tile021.png"
+dest_files=["res://.godot/imported/platformPack_tile021.png-6e80e0eac5b0118226e8c20a9a9d9cba.ctex"]
 
 [params]
 

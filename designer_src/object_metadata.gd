@@ -56,12 +56,13 @@ func prepare_custom_prop_dict(override: bool = false):
 	for property in custom_properties:
 		var property_name: String = property[ObjectCustomProperty.prop_prop_name]
 		var property_value = property[ObjectCustomProperty.prop_prop_value]
+		var property_default_value = property[ObjectCustomProperty.prop_prop_default_value]
 		
 		if prop_values.has(property_name):
 			if override:
-				set_property(property_name, property_value)
+				set_property(property_name, property_default_value)
 		else:
-			set_property(property_name, property_value)
+			set_property(property_name, property_default_value)
 
 
 ## Gets a property's value

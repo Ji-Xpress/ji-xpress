@@ -34,6 +34,11 @@ const internal_resource_packs: Dictionary = {
 		prop_description: "Physics Pack with Kenney Assets",
 		prop_loader: "res://game_objects/physics/loader.gd",
 		prop_pack_player: "res://game_objects/physics/player.tscn"
+	},
+	"platformer": {
+		prop_description: "Platformer Pack with Kenney Assets",
+		prop_loader: "res://game_objects/platformer/loader.gd",
+		prop_pack_player: "res://game_objects/platformer/player.tscn"
 	}
 }
 

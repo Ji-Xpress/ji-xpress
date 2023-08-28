@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://d25ooefilwsw2"]
+
+[ext_resource type="PackedScene" uid="uid://btqqngldrue61" path="res://game_objects/platformer/objects/base/tile.tscn" id="1_b2cnd"]
+[ext_resource type="PackedScene" uid="uid://dr5podwcmc3k4" path="res://game_objects/platformer/objects/ext/tiles_grass_top_sprite.tscn" id="2_luu0k"]
+[ext_resource type="PackedScene" uid="uid://c612ms0jrssxv" path="res://game_objects/platformer/objects/ext/tiles_grass_bottom_sprite.tscn" id="3_k5t2j"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_46t0x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_empt0"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[node name="Tile" groups=["tile_grass"] instance=ExtResource("1_b2cnd")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_empt0")
+
+[node name="TopSprite" parent="." index="5" instance=ExtResource("2_luu0k")]
+stretch_mode = 1
+
+[node name="BottomSprite" parent="." index="6" instance=ExtResource("3_k5t2j")]
+visible = false
+offset_top = 32.0
+offset_bottom = 96.0
+
+[node name="RectExtents2D" type="Node2D" parent="." index="7"]
+script = ExtResource("4_46t0x")

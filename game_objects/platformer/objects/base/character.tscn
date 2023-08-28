@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://billlm6eq6mrr"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/base/character.gd" id="1_3uwia"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_r0fdn"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_eef7r"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_svwdg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2vvs"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ld0w"]
+resource_local_to_scene = true
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_3uwia")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_r0fdn")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_eef7r")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_svwdg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h2vvs")
+
+[node name="CollisionSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionSensor"]
+shape = SubResource("RectangleShape2D_8ld0w")
+
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
+[connection signal="area_entered" from="CollisionSensor" to="." method="_on_collision_sensor_area_entered"]
+[connection signal="body_entered" from="CollisionSensor" to="." method="_on_collision_sensor_body_entered"]

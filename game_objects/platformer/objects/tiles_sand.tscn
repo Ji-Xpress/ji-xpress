@@ -1,0 +1,33 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwc6sme40bdb8"]
+
+[ext_resource type="PackedScene" uid="uid://btqqngldrue61" path="res://game_objects/platformer/objects/base/tile.tscn" id="1_a56fg"]
+[ext_resource type="Texture2D" uid="uid://tp8rqw5og81v" path="res://game_objects/platformer/assets/Tiles/platformPack_tile002.png" id="2_3ynpl"]
+[ext_resource type="PackedScene" uid="uid://bk1sfc8fb0xg1" path="res://game_objects/platformer/objects/ext/tiles_sand_top_sprite.tscn" id="2_brjm5"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_q6gar"]
+[ext_resource type="PackedScene" uid="uid://qk4gtusns6ud" path="res://game_objects/platformer/objects/ext/tiles_sand_bottom_sprite.tscn" id="3_lixgy"]
+[ext_resource type="Texture2D" uid="uid://b4a7kkp0csh42" path="res://game_objects/platformer/assets/Tiles/platformPack_tile004.png" id="3_ykg6g"]
+[ext_resource type="Texture2D" uid="uid://cvwrqe6dnwj2v" path="res://game_objects/platformer/assets/Tiles/platformPack_tile014.png" id="4_mgc1j"]
+[ext_resource type="Texture2D" uid="uid://ceferdljwfhua" path="res://game_objects/platformer/assets/Tiles/platformPack_tile016.png" id="7_l4tk0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tyybe"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[node name="Tile" groups=["tile_sand"] instance=ExtResource("1_a56fg")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_tyybe")
+
+[node name="TopSprite" parent="." index="5" instance=ExtResource("2_brjm5")]
+sand_texture = ExtResource("2_3ynpl")
+concrete_texture = ExtResource("4_mgc1j")
+
+[node name="BottomSprite" parent="." index="6" instance=ExtResource("3_lixgy")]
+visible = false
+offset_top = 32.0
+offset_bottom = 96.0
+sand_texture = ExtResource("3_ykg6g")
+concrete_texture = ExtResource("7_l4tk0")
+
+[node name="RectExtents2D" type="Node2D" parent="." index="7"]
+script = ExtResource("2_q6gar")

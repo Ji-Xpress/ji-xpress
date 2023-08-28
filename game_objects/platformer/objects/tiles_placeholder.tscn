@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://crtqyclb8mpf5"]
+
+[ext_resource type="PackedScene" uid="uid://btqqngldrue61" path="res://game_objects/platformer/objects/base/tile.tscn" id="1_5weg5"]
+[ext_resource type="PackedScene" uid="uid://cggckk2reslxf" path="res://game_objects/platformer/objects/ext/tiles_placeholder_top_sprite.tscn" id="2_nyura"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="3_a602q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0egin"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[node name="Tile" groups=["tile_placeholder"] instance=ExtResource("1_5weg5")]
+collides = false
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_0egin")
+
+[node name="TopSprite" parent="." index="5" instance=ExtResource("2_nyura")]
+
+[node name="RectExtents2D" type="Node2D" parent="." index="6"]
+script = ExtResource("3_a602q")

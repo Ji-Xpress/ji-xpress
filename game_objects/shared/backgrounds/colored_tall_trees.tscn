@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://1h3mvccrmqua"]
+
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_f26pj"]
+[ext_resource type="Script" path="res://game_objects/shared/backgrounds/colored_tall_trees.gd" id="1_xmplm"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_n51fo"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_gxixe"]
+[ext_resource type="Texture2D" uid="uid://dggw8yn3t4jt5" path="res://game_objects/shared/assets/colored_talltrees.png" id="4_my2fc"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_aon1a"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_xmplm")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_f26pj")]
+node_kind = 1
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_n51fo")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_gxixe")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_my2fc")
+centered = false
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(512, 512)
+script = ExtResource("5_aon1a")
+size = Vector2(1024, 1025)

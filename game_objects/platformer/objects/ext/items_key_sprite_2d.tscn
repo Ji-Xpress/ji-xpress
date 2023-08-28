@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqaqn77sg2bpa"]
+
+[ext_resource type="Texture2D" uid="uid://dhji7m3f1aeqf" path="res://game_objects/platformer/assets/Items/platformPack_item013.png" id="1_ir26d"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/ext/items_key_sprite_2d.gd" id="2_3yl6i"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ir26d")
+script = ExtResource("2_3yl6i")

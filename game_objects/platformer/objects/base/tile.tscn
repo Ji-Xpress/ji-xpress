@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://btqqngldrue61"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/base/tile.gd" id="1_2qqby"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_dh6k1"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_4v42a"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_f424c"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_mpuof"]
+
+[sub_resource type="Resource" id="Resource_olhiu"]
+script = ExtResource("3_f424c")
+property_name = "width"
+property_type = 1
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_we8ct"]
+script = ExtResource("3_f424c")
+property_name = "height"
+property_type = 1
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_olk5f"]
+script = ExtResource("3_f424c")
+property_name = "platform_kind"
+property_type = 3
+property_value = "sand,concrete"
+property_default_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_43a16"]
+script = ExtResource("3_f424c")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7qdc"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jk0qx"]
+size = Vector2(64, 64)
+
+[node name="Tile" type="StaticBody2D"]
+script = ExtResource("1_2qqby")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_dh6k1")]
+custom_properties = Array[ExtResource("3_f424c")]([SubResource("Resource_olhiu"), SubResource("Resource_we8ct"), SubResource("Resource_olk5f"), SubResource("Resource_43a16")])
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_4v42a")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_mpuof")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n7qdc")
+
+[node name="TileSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileSensor"]
+shape = SubResource("RectangleShape2D_jk0qx")
+
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
+[connection signal="area_entered" from="TileSensor" to="." method="_on_tile_sensor_area_entered"]
+[connection signal="body_entered" from="TileSensor" to="." method="_on_tile_sensor_body_entered"]

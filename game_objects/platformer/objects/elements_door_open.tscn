@@ -1,0 +1,53 @@
+[gd_scene load_steps=12 format=3 uid="uid://dajph20622ljp"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/elements_door_open.gd" id="1_riq5i"]
+[ext_resource type="PackedScene" uid="uid://c2rvu35hvxdwx" path="res://game_objects/platformer/objects/ext/elements_door_open_sprite_2d.tscn" id="2_mmk65"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_qrkag"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_2lbeu"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_mgpdu"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_di62e"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_lkdr8"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="5_hewmj"]
+
+[sub_resource type="Resource" id="Resource_hswf5"]
+script = ExtResource("3_2lbeu")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_b5evn"]
+script = ExtResource("5_hewmj")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("3_2lbeu")]([])
+function_outputs = Array[String]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sp5hi"]
+size = Vector2(64, 56)
+
+[node name="OpenDoor" type="Area2D"]
+script = ExtResource("1_riq5i")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("2_qrkag")]
+custom_properties = Array[ExtResource("3_2lbeu")]([SubResource("Resource_hswf5")])
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_mgpdu")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("4_di62e")]
+code_functions = Array[ExtResource("5_hewmj")]([SubResource("Resource_b5evn")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_sp5hi")
+
+[node name="Sprite2D" parent="." instance=ExtResource("2_mmk65")]
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("4_lkdr8")
+size = Vector2(62, 64)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

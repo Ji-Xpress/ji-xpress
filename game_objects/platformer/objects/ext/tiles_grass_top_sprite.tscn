@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr5podwcmc3k4"]
+
+[ext_resource type="Texture2D" uid="uid://vn7iwypecf4y" path="res://game_objects/platformer/assets/Tiles/platformPack_tile001.png" id="1_bx7bb"]
+[ext_resource type="Script" path="res://game_objects/platformer/objects/ext/tiles_grass_top_sprite.gd" id="2_u0x4q"]
+[ext_resource type="Texture2D" uid="uid://c1bx0qvxecogu" path="res://game_objects/platformer/assets/Tiles/platformPack_tile013.png" id="3_o08as"]
+
+[node name="TopSprite" type="TextureRect"]
+texture_repeat = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bx7bb")
+script = ExtResource("2_u0x4q")
+sand_texture = ExtResource("1_bx7bb")
+concrete_texture = ExtResource("3_o08as")

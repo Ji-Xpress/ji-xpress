@@ -47,6 +47,12 @@ func destroy(parameters: Dictionary):
 	queue_free()
 
 
+# Process the broadcast message
+func _on_object_coder_broadcast(message_id, message):
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
 # During the update loop
 func _process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:

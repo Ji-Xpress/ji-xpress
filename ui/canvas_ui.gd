@@ -141,12 +141,13 @@ func synchronize_project_scene_metadata():
 	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
 	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
 	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.tile)
+	var user_interface = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.user_interface)
 	var current_project_manager_scene = ProjectManager.scenes_metadata[scene_name]
 	
 	# Store the last object index
 	current_project_manager_scene[SceneMetaData.prop_last_object_id] = last_object_index
 	
-	var all_nodes = [foreground_nodes, background_nodes, tiles]
+	var all_nodes = [foreground_nodes, background_nodes, tiles, user_interface]
 	
 	for node_group in all_nodes:
 		for child_node in node_group:
