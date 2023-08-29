@@ -21,3 +21,13 @@ static func common_collision_handler(body: Node, object_coder: ObjectCoder, extr
 		
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("collides")
+
+
+static func common_activate(is_active: bool, sprite: Node, object_metadata: ObjectMetaData, collision_shape: CollisionShape2D):
+	if is_active:
+		sprite.modulate = Color(1, 1, 1, 1)
+	else:
+		sprite.modulate = Color(1, 1, 1, 0.5)
+	
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		collision_shape.set_deferred("disabled", not is_active)

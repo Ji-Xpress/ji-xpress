@@ -9,9 +9,9 @@ extends Area2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		collision_shape.disabled = false
+		collision_shape.set_deferred("disabled", false)
 	else:
-		collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
 
 
 # Body entered

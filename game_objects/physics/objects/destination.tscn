@@ -14,12 +14,14 @@ script = ExtResource("3_hrtbm")
 property_name = "destination_scene"
 property_type = 0
 property_value = ""
+property_default_value = ""
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tion8"]
 size = Vector2(64, 128)
 
 [node name="Destination" type="Area2D" groups=["destination"]]
+input_pickable = false
 script = ExtResource("1_cpekc")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_cc8em")]

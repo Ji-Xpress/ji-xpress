@@ -18,20 +18,14 @@ func _ready():
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
 	else:
-		collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
 	
 	activate()
 
 
 ## Activates the gear
 func activate():
-	if is_active:
-		sprite.modulate = Color(1, 1, 1, 1)
-	else:
-		sprite.modulate = Color(1, 1, 1, 0.5)
-	
-	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		collision_shape.disabled = not is_active
+	SharedGameObjectLogic.common_activate(is_active, sprite, object_metadata, collision_shape)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

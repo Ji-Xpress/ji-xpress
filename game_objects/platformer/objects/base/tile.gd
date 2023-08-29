@@ -38,9 +38,9 @@ func _ready():
 	
 	# Disable collision shape when in run mode
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
-		collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
 	elif object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		collision_shape.disabled = not collides
+		collision_shape.set_deferred("disabled", not collides)
 		update_code_execution_engine = object_coder.code_execution_engine()
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
@@ -131,7 +131,7 @@ func set_platform_kind():
 func activate_platform():
 	if collides:
 		if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-			collision_shape.disabled = not is_active
+			collision_shape.set_deferred("disabled", not is_active)
 		
 		if is_active:
 			top_sprite.modulate = Color(1, 1, 1, 1)

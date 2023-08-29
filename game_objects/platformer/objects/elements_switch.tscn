@@ -18,6 +18,7 @@ function_outputs = Array[String]([])
 size = Vector2(32, 32)
 
 [node name="Switch" type="Area2D" groups=["switch"]]
+input_pickable = false
 script = ExtResource("1_t63lf")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_owna3")]

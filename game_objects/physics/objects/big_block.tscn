@@ -13,6 +13,7 @@ script = ExtResource("3_hrffp")
 property_name = "mass"
 property_type = 1
 property_value = "10"
+property_default_value = ""
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64syx"]

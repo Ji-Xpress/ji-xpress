@@ -41,7 +41,7 @@ func _ready():
 		
 		tween = create_tween()
 	else:
-		collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
 	
 	# Fill in property variables
 	fill_in_vars_from_props()
@@ -132,13 +132,7 @@ func do_tween():
 
 # Activate / deactivate
 func activate():
-	if is_active:
-		sprite.modulate = Color(1, 1, 1, 1)
-	else:
-		sprite.modulate = Color(1, 1, 1, 0.5)
-	
-	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		collision_shape.disabled = not is_active
+	SharedGameObjectLogic.common_activate(is_active, sprite, object_metadata, collision_shape)
 
 
 # Property has changed

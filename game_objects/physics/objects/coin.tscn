@@ -18,6 +18,7 @@ function_outputs = Array[String](["true"])
 radius = 24.0
 
 [node name="Coin" type="Area2D" groups=["coin"]]
+input_pickable = false
 script = ExtResource("1_nw5o2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_sbnum")]

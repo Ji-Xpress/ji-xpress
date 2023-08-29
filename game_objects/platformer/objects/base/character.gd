@@ -38,14 +38,14 @@ func _ready():
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
 		
-		collision_shape.disabled = false
-		sensor_collision_shape.disabled = false
+		collision_shape.set_deferred("disabled", false)
+		sensor_collision_shape.set_deferred("disabled", false)
 		
 		jump_force = int(object_metadata.get_property("jump_force"))
 		speed = int(object_metadata.get_property("speed"))
 	else:
-		collision_shape.disabled = true
-		sensor_collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
+		sensor_collision_shape.set_deferred("disabled", true)
 	
 	if object_metadata.get_property("is_current") == null:
 		is_current = false

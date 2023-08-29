@@ -89,6 +89,7 @@ code_functions = Array[ExtResource("6_70msr")]([SubResource("Resource_tbkia"), S
 shape = SubResource("RectangleShape2D_3daia")
 
 [node name="CollisionSensor" type="Area2D" parent="."]
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionSensor"]
 shape = SubResource("RectangleShape2D_u1wjw")

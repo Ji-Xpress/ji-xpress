@@ -36,6 +36,7 @@ radius = 32.0
 
 [node name="Saw" type="Area2D" groups=["saw"]]
 z_index = 1
+input_pickable = false
 script = ExtResource("1_qymiu")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_7mg3r")]

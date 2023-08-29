@@ -27,6 +27,7 @@ function_outputs = Array[String]([])
 size = Vector2(64, 56)
 
 [node name="OpenDoor" type="Area2D" groups=["door_open"]]
+input_pickable = false
 script = ExtResource("1_riq5i")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_qrkag")]
