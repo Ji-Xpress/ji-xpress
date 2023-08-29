@@ -4,7 +4,7 @@ extends BlockTypeExecutionBase
 ## Computes the result of the block's execution
 func compute_result():
 	# Evaluate
-	computed_value = expression_engine.compute_expression(block_parameters.condition)
+	computed_value = str(expression_engine.compute_expression(block_parameters.condition)) == "true"
 	return computed_value
 
 
