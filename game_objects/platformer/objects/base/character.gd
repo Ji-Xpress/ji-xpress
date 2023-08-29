@@ -20,6 +20,7 @@ var camera: Camera2D = null
 var is_current: bool = true
 var jump_force: int = JUMP_VELOCITY
 var speed: int = SPEED
+var push_force: float = 1000.0
 
 var is_dead: bool = false
 var die_position: Vector2 = Vector2.ZERO
@@ -43,6 +44,7 @@ func _ready():
 		
 		jump_force = int(object_metadata.get_property("jump_force"))
 		speed = int(object_metadata.get_property("speed"))
+		push_force = float(object_metadata.get_property("push_force"))
 	else:
 		collision_shape.set_deferred("disabled", true)
 		sensor_collision_shape.set_deferred("disabled", true)
@@ -100,7 +102,12 @@ func _physics_process(delta):
 		
 		animated_sprite.play()
 
-		move_and_slide()
+		if move_and_slide():
+			# Get any rigid bodies and push them
+			for collision in get_slide_collision_count():
+				var collider = get_slide_collision(collision)
+				if collider.get_collider() is RigidBody2D:
+					collider.get_collider().apply_force(collider.get_normal() * -push_force)
 
 
 # When a broadcast message is received

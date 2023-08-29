@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bb001j2gjc7uy"]
+[gd_scene load_steps=19 format=3 uid="uid://bb001j2gjc7uy"]
 
 [ext_resource type="PackedScene" uid="uid://billlm6eq6mrr" path="res://game_objects/platformer/objects/base/character.tscn" id="1_fomtt"]
 [ext_resource type="Texture2D" uid="uid://b4wtq5st7duep" path="res://game_objects/platformer/assets/Characters/platformChar_idle.png" id="2_1oitb"]
@@ -33,6 +33,14 @@ property_name = "speed"
 property_type = 1
 property_value = "300"
 property_default_value = "300"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_f78ia"]
+script = ExtResource("2_dvmwh")
+property_name = "push_force"
+property_type = 2
+property_value = "1000.0"
+property_default_value = "1000.0"
 property_read_only = false
 
 [sub_resource type="Resource" id="Resource_u402t"]
@@ -94,7 +102,7 @@ animations = [{
 z_index = 2
 
 [node name="ObjectMetaData" parent="." index="0"]
-custom_properties = Array[ExtResource("2_dvmwh")]([SubResource("Resource_rv865"), SubResource("Resource_4qnql"), SubResource("Resource_axgcv")])
+custom_properties = Array[ExtResource("2_dvmwh")]([SubResource("Resource_rv865"), SubResource("Resource_4qnql"), SubResource("Resource_axgcv"), SubResource("Resource_f78ia")])
 
 [node name="ObjectCoder" parent="." index="2"]
 code_functions = Array[ExtResource("3_o5goy")]([SubResource("Resource_u402t")])
