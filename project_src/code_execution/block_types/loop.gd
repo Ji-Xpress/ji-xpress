@@ -3,8 +3,12 @@ extends BlockTypeExecutionBase
 
 ## Computes the result of the block's execution
 func compute_result():
-	computed_value = bool(expression_engine.compute_expression(block_parameters.condition))
-	return computed_value
+	computed_value = str(expression_engine.compute_expression(block_parameters.condition)) == "true"
+	
+	if computed_value:
+		return true
+	else:
+		return result_finally
 
 
 ## Checks to see if the block recomputes before reverting to finally

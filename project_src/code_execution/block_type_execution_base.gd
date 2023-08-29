@@ -1,6 +1,8 @@
 extends Object
 class_name BlockTypeExecutionBase
 
+const result_finally: String = "finally"
+
 var block_parameters = {}
 var input_parameters = {}
 

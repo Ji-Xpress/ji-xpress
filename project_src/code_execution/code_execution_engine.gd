@@ -224,7 +224,7 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			# Validate that we did not have a problem in execution
 			if result != null and (result_has_exit_port or execute_finally):
 				# For a recomputing block we execute finally only if its execution result resolves to false
-				if execute_finally and bool(result) != true:
+				if execute_finally and str(result) != "true":
 					# Execute finally and exit the function
 					execute_finally_block(block_name, recursive_execution)
 					return true

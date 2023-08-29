@@ -3,7 +3,7 @@ extends BlockTypeExecutionBase
 
 ## Computes which exit route it is meant to take
 func compute_result():
-	var condition_result = bool(expression_engine.compute_expression(block_parameters.condition))
+	var condition_result = str(expression_engine.compute_expression(block_parameters.condition)) == "true"
 	return condition_result
 
 
