@@ -31,7 +31,7 @@ func load_game_objects():
 			},
 			"elements_portal": {
 				GameObjectsLoader.prop_description: "Elements: Portal",
-				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/elements_moving_portal.tscn",
+				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/elements_portal.tscn",
 			},
 			"items_key": {
 				GameObjectsLoader.prop_description: "Items: Key",
