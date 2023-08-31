@@ -30,7 +30,8 @@ func _on_body_entered(body):
 
 ## Destroys the object
 func destroy(parameters: Dictionary):
-	queue_free()
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		queue_free()
 
 
 # During the update loop

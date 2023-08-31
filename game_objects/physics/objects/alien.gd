@@ -99,11 +99,13 @@ func _on_floor_detector_area_entered(area):
 
 ## Apply central impulse block function
 func central_impulse(parameters: Dictionary):
-	apply_central_impulse(Vector2(parameters.force_x, parameters.force_y))
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		apply_central_impulse(Vector2(parameters.force_x, parameters.force_y))
 	return true
 
 
 ## Apply central force block function
 func central_force(parameters: Dictionary):
-	apply_central_force(Vector2(parameters.force_x, parameters.force_y))
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		apply_central_force(Vector2(parameters.force_x, parameters.force_y))
 	return true
