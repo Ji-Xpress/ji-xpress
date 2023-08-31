@@ -14,7 +14,7 @@ config/name="Ji-Xpress"
 run/main_scene="res://launcher.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 run/low_processor_mode=true
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 config/app_version="0.0.1"
 
 [autoload]
