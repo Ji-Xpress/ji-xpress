@@ -1,4 +1,4 @@
-extends MenuButton
+extends OptionButton
 
 signal value_updated(property_id: String, new_value, is_custom_property: bool)
 

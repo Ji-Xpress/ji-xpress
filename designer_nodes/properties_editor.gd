@@ -122,6 +122,7 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			value_control = dropdown_property_node.instantiate()
 			value_control.text = prop_name
 			value_control.values = value_array
+			
 			var popup_menu: PopupMenu = value_control.get_popup()
 			
 			var item_index: int = 0
@@ -129,6 +130,8 @@ func add_property(property_id: String, property_type: SharedEnums.PropertyType, 
 			for item in value_array:
 				popup_menu.add_item(value_array[item_index], item_index)
 				item_index += 1
+			
+			value_control.selected = int(value)
 		SharedEnums.PropertyType.TypeBool:
 			value_control = bool_property_node.instantiate()
 			value_control.button_pressed = str(value) == "true"
