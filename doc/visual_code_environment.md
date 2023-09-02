@@ -200,6 +200,32 @@ Within the scope of the current block's execution results:
 * `reverts_to_break` - marks that it needs to break the last breakable block. This for instance is the case when we need to break the execution of a loop.
 * Important to note: `reverts_to_break` overrides `reverts_to_finally` by backtracking all the blocks that have a `finally` port connection. And executes the `finally` that is in the last block with the `reverts_to_break` flag. Meaning it will ignore all other `reverts_to_finally` blocks coming after the `reverts_to_break` block.
 
+### How game objects load visual code blocks
+
+* The `ObjectCoder` node has the `code_execution_engine()` function, which creates an instance of `CodeExecutionEngine`.
+* Below is an example of how the `_ready()` function implements this:
+
+```gdscript
+var code_execution_engine = object_coder.code_execution_engine()
+code_execution_engine.execute_from_entrypoint_type("ready")
+```
+
+* The `code_execution_engine()` function by default loads the current execution engine attached to the object, as so:
+
+```gdscript
+func code_execution_engine():
+	# Load corresponding script metadata
+	var object_index: int = parent_node.get_node(Constants.object_metadata_node).project_object_index
+	var object_name: String = ProjectManager.object_ids[object_index]
+	var engine: CodeExecutionEngine = CodeExecutionEngine.new()
+	var script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
+	
+	if script_metadata != null:
+		engine.initialize_metadata(parent_node, script_metadata)
+	
+	return engine
+```
+
 ## The Expression Engine
 
 * The `ExpressionEngine` (`res://project_src/code_execution/expression_engine.gd`) computes expressions using the `compute_expression` function. The function accepts a single `String` parameter with the evaluation it needs to execute.
