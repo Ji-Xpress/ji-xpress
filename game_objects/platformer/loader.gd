@@ -13,6 +13,14 @@ func load_game_objects():
 				GameObjectsLoader.prop_description: "Character: Boy",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/character_boy.tscn",
 			},
+			"character_girl": {
+				GameObjectsLoader.prop_description: "Character: Girl",
+				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/character_girl.tscn",
+			},
+			"character_soldier": {
+				GameObjectsLoader.prop_description: "Character: Soldier",
+				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/character_soldier.tscn",
+			},
 			"elements_switch": {
 				GameObjectsLoader.prop_description: "Elements: Switch",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/elements_switch.tscn",

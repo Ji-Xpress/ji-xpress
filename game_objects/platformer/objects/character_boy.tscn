@@ -11,11 +11,11 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_copbw"]
 resource_local_to_scene = true
-size = Vector2(37, 48)
+size = Vector2(33, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vl2wy"]
 resource_local_to_scene = true
-size = Vector2(35, 45)
+size = Vector2(40, 56)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ctys"]
 animations = [{
@@ -61,11 +61,11 @@ animations = [{
 [node name="Character" instance=ExtResource("1_wfkyn")]
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2(-1.5, 4)
+position = Vector2(0.5, 4)
 shape = SubResource("RectangleShape2D_copbw")
 
 [node name="CollisionShape2D" parent="CollisionSensor" index="0"]
-position = Vector2(-1.5, 6.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_vl2wy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="6"]
@@ -76,4 +76,4 @@ animation = &"idle"
 [node name="RectExtents2D" type="Node2D" parent="." index="7"]
 position = Vector2(0, 5)
 script = ExtResource("5_885lq")
-size = Vector2(34, 48)
+size = Vector2(40, 54)
