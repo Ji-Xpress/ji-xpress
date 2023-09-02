@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvovw4w0cxpv1"]
+[gd_scene load_steps=6 format=3 uid="uid://dvovw4w0cxpv1"]
 
 [ext_resource type="Texture2D" uid="uid://b4q1umn3eddw0" path="res://game_objects/platformer/assets/Tiles/platformPack_tile058.png" id="1_ufgnl"]
+[ext_resource type="Texture2D" uid="uid://dudo6xogpqlr4" path="res://game_objects/platformer/assets/Tiles/platformPack_tile061.png" id="2_52c3d"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/ext/elements_door_locked_sprite_2d.gd" id="2_skdsc"]
+[ext_resource type="Texture2D" uid="uid://cqnsfc4nstty7" path="res://game_objects/platformer/assets/Tiles/platformPack_tile060.png" id="3_77ocn"]
+[ext_resource type="Texture2D" uid="uid://t4bbeihn782k" path="res://game_objects/platformer/assets/Tiles/platformPack_tile059.png" id="5_lf152"]
 
 [node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource("1_ufgnl")
 script = ExtResource("2_skdsc")
+red_texture = ExtResource("2_52c3d")
+green_texture = ExtResource("3_77ocn")
+blue_texture = ExtResource("1_ufgnl")
+yellow_texture = ExtResource("5_lf152")
