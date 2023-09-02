@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpoablfkc7315"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/items_pickup.gd" id="1_aarv5"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_ewhsa"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_0qk37"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="2_gr0pm"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_1du4c"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_bi8dt"]
+[ext_resource type="PackedScene" uid="uid://ci0ooltvye540" path="res://game_objects/platformer/objects/ext/item_keys_sprite_2d.tscn" id="5_fxaus"]
+
+[sub_resource type="Resource" id="Resource_t0363"]
+script = ExtResource("2_gr0pm")
+property_name = "pickup_type"
+property_type = 3
+property_value = "book,folder,laptop,coffee,phone,pen,hammer,saw,hour_glass,stearing_wheel,boul,knife,cooking_pot"
+property_default_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_a2ycm"]
+script = ExtResource("2_gr0pm")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubjla"]
+size = Vector2(64, 64)
+
+[node name="Pickup" type="Area2D"]
+z_index = 1
+script = ExtResource("1_aarv5")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("1_ewhsa")]
+custom_properties = Array[ExtResource("2_gr0pm")]([SubResource("Resource_t0363"), SubResource("Resource_a2ycm")])
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("2_0qk37")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("3_1du4c")]
+
+[node name="Sprite2D" parent="." instance=ExtResource("5_fxaus")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ubjla")
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+script = ExtResource("4_bi8dt")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

@@ -45,6 +45,10 @@ func load_game_objects():
 				GameObjectsLoader.prop_description: "Items: Heart",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/items_heart.tscn",
 			},
+			"items_pickup": {
+				GameObjectsLoader.prop_description: "Items: Pickup",
+				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/items_pickup.tscn",
+			},
 			"hazard_saw": {
 				GameObjectsLoader.prop_description: "Hazard: Saw",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/hazard_saw.tscn",

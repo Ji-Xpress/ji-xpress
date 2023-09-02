@@ -1,0 +1,35 @@
+[gd_scene load_steps=16 format=3 uid="uid://ci0ooltvye540"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/ext/item_keys_sprite_2d.gd" id="1_cpw8t"]
+[ext_resource type="Texture2D" uid="uid://dhy41xbuu3drr" path="res://game_objects/platformer/assets/Pickups/genericItem_color_035.png" id="2_61rom"]
+[ext_resource type="Texture2D" uid="uid://cewhlhtatj0ad" path="res://game_objects/platformer/assets/Pickups/genericItem_color_036.png" id="3_mloa4"]
+[ext_resource type="Texture2D" uid="uid://bqi8air2hnny6" path="res://game_objects/platformer/assets/Pickups/genericItem_color_050.png" id="4_u3irw"]
+[ext_resource type="Texture2D" uid="uid://b07q32sosl5pi" path="res://game_objects/platformer/assets/Pickups/genericItem_color_124.png" id="5_xfidc"]
+[ext_resource type="Texture2D" uid="uid://duqwcuu7wfmyu" path="res://game_objects/platformer/assets/Pickups/genericItem_color_062.png" id="6_mokf6"]
+[ext_resource type="Texture2D" uid="uid://bolde2mudp48p" path="res://game_objects/platformer/assets/Pickups/genericItem_color_025.png" id="7_uo8rv"]
+[ext_resource type="Texture2D" uid="uid://doncwsbbpv1cx" path="res://game_objects/platformer/assets/Pickups/genericItem_color_023.png" id="8_nprr7"]
+[ext_resource type="Texture2D" uid="uid://br8i7e2pgabfe" path="res://game_objects/platformer/assets/Pickups/genericItem_color_016.png" id="9_10jje"]
+[ext_resource type="Texture2D" uid="uid://crrchy2iqo1dk" path="res://game_objects/platformer/assets/Pickups/genericItem_color_087.png" id="10_r2py2"]
+[ext_resource type="Texture2D" uid="uid://ca8a5es2lds1p" path="res://game_objects/platformer/assets/Pickups/genericItem_color_147.png" id="11_ixxl1"]
+[ext_resource type="Texture2D" uid="uid://boo57ylpg1yet" path="res://game_objects/platformer/assets/Pickups/genericItem_color_128.png" id="12_vtns3"]
+[ext_resource type="Texture2D" uid="uid://smjh6pxmqinw" path="res://game_objects/platformer/assets/Pickups/genericItem_color_134.png" id="13_tkwdf"]
+[ext_resource type="Texture2D" uid="uid://bqk0l5thl8sbl" path="res://game_objects/platformer/assets/Pickups/genericItem_color_114.png" id="14_lsqg8"]
+[ext_resource type="Texture2D" uid="uid://bulneuwxaocb5" path="res://game_objects/platformer/assets/Pickups/genericItem_color_116.png" id="15_xi36o"]
+
+[node name="Sprite2D" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_cpw8t")
+book = ExtResource("2_61rom")
+folder = ExtResource("3_mloa4")
+laptop = ExtResource("4_u3irw")
+coffee = ExtResource("5_xfidc")
+phone = ExtResource("6_mokf6")
+pen = ExtResource("7_uo8rv")
+hammer = ExtResource("8_nprr7")
+saw = ExtResource("9_10jje")
+hour_glass = ExtResource("10_r2py2")
+stearing_wheel = ExtResource("11_ixxl1")
+boul = ExtResource("12_vtns3")
+knife = ExtResource("13_tkwdf")
+cooking_pot = ExtResource("14_lsqg8")
+frying_pan = ExtResource("15_xi36o")
