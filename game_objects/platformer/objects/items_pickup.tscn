@@ -27,7 +27,7 @@ property_read_only = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ubjla"]
 size = Vector2(64, 64)
 
-[node name="Pickup" type="Area2D"]
+[node name="Pickup" type="Area2D" groups=["pickup"]]
 z_index = 1
 script = ExtResource("1_aarv5")
 
