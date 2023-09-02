@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://gr017sldl3mq"]
+
+[ext_resource type="PackedScene" uid="uid://billlm6eq6mrr" path="res://game_objects/platformer/objects/base/character.tscn" id="1_wfkyn"]
+[ext_resource type="Texture2D" uid="uid://b0ksmcci57mmk" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_climb1.png" id="2_vuwpi"]
+[ext_resource type="Texture2D" uid="uid://wleuc1do5n4m" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_climb2.png" id="3_8ioya"]
+[ext_resource type="Texture2D" uid="uid://diyt6slecmvpj" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_idle.png" id="4_6fpux"]
+[ext_resource type="Texture2D" uid="uid://d2qoh21rwcj3t" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_jump.png" id="5_73nvc"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="5_885lq"]
+[ext_resource type="Texture2D" uid="uid://cyg6cucfjpumu" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_walk1.png" id="6_8pv34"]
+[ext_resource type="Texture2D" uid="uid://dj382yrgu6kfy" path="res://game_objects/platformer/assets/Characters/Adventurer/adventurer_walk2.png" id="7_vdahs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_copbw"]
+resource_local_to_scene = true
+size = Vector2(37, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vl2wy"]
+resource_local_to_scene = true
+size = Vector2(35, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ctys"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vuwpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8ioya")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6fpux")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_73nvc")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_8pv34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vdahs")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="Character" instance=ExtResource("1_wfkyn")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(-1.5, 4)
+shape = SubResource("RectangleShape2D_copbw")
+
+[node name="CollisionShape2D" parent="CollisionSensor" index="0"]
+position = Vector2(-1.5, 6.5)
+shape = SubResource("RectangleShape2D_vl2wy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="6"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2ctys")
+animation = &"idle"
+
+[node name="RectExtents2D" type="Node2D" parent="." index="7"]
+position = Vector2(0, 5)
+script = ExtResource("5_885lq")
+size = Vector2(34, 48)

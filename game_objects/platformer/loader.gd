@@ -9,6 +9,10 @@ func load_game_objects():
 				GameObjectsLoader.prop_description: "Character: Game Console",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/character_game_console.tscn",
 			},
+			"character_boy": {
+				GameObjectsLoader.prop_description: "Character: Boy",
+				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/character_boy.tscn",
+			},
 			"elements_switch": {
 				GameObjectsLoader.prop_description: "Elements: Switch",
 				GameObjectsLoader.prop_object_url: "res://game_objects/platformer/objects/elements_switch.tscn",

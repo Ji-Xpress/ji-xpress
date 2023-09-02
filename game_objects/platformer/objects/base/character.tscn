@@ -1,9 +1,42 @@
-[gd_scene load_steps=7 format=3 uid="uid://billlm6eq6mrr"]
+[gd_scene load_steps=12 format=3 uid="uid://billlm6eq6mrr"]
 
 [ext_resource type="Script" path="res://game_objects/platformer/objects/base/character.gd" id="1_3uwia"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_r0fdn"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_eef7r"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_40i0g"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_svwdg"]
+
+[sub_resource type="Resource" id="Resource_hv3rs"]
+script = ExtResource("3_40i0g")
+property_name = "is_current"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_uwac2"]
+script = ExtResource("3_40i0g")
+property_name = "jump_force"
+property_type = 1
+property_value = "-400"
+property_default_value = "-400"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_unc7l"]
+script = ExtResource("3_40i0g")
+property_name = "speed"
+property_type = 1
+property_value = "300"
+property_default_value = "300"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_j3amy"]
+script = ExtResource("3_40i0g")
+property_name = "push_force"
+property_type = 2
+property_value = "1000.0"
+property_default_value = "1000.0"
+property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2vvs"]
 resource_local_to_scene = true
@@ -16,6 +49,7 @@ resource_local_to_scene = true
 script = ExtResource("1_3uwia")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_r0fdn")]
+custom_properties = Array[ExtResource("3_40i0g")]([SubResource("Resource_hv3rs"), SubResource("Resource_uwac2"), SubResource("Resource_unc7l"), SubResource("Resource_j3amy")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_eef7r")]
 
@@ -28,6 +62,8 @@ shape = SubResource("RectangleShape2D_h2vvs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionSensor"]
 shape = SubResource("RectangleShape2D_8ld0w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
 [connection signal="area_entered" from="CollisionSensor" to="." method="_on_collision_sensor_area_entered"]
