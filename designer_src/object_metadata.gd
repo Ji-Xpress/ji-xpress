@@ -19,6 +19,8 @@ const prop_prop_values: String = "prop_values"
 @export var object_description: String = ""
 ## Custom properties for the object
 @export var custom_properties: Array[ObjectCustomProperty] = []
+## Custom expression variables
+@export var expression_variables: Array[ExpressionVariable] = []
 ## Object layer
 @export var node_kind: SharedEnums.ObjectLayer = SharedEnums.ObjectLayer.LayerForeground
 ## Current object canvas mode

@@ -7,12 +7,16 @@ extends RigidBody2D
 @onready var sensor_collision_shape: CollisionShape2D = $CollisionSensor/CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
 
+var item_color: int = 0
 var update_code_execution_engine: CodeExecutionEngine = null
 var is_active: bool = true
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	item_color = int(object_metadata.get_property("color"))
+	change_sprite()
+	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		collision_shape.set_deferred("disabled", false)
 		
@@ -31,6 +35,11 @@ func _ready():
 	activate()
 
 
+## Change the sprite and load the correct sprite type by index
+func change_sprite():
+	sprite.texture = sprite.textures[item_color]
+
+
 ## Activates or deactivates the box
 func activate():
 	SharedGameObjectLogic.common_activate(is_active, sprite, object_metadata, collision_shape)
@@ -46,6 +55,9 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 	if property == "is_active":
 		is_active = str(value) == "true"
 		activate()
+	elif property == "color":
+		item_color = int(value)
+		change_sprite()
 
 
 func _on_collision_sensor_area_entered(area):
