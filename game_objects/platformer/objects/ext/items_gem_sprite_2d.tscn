@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwgayb5a4atca"]
+[gd_scene load_steps=6 format=3 uid="uid://bwgayb5a4atca"]
 
 [ext_resource type="Texture2D" uid="uid://dwfycg5mlv0i2" path="res://game_objects/platformer/assets/Items/platformPack_item001.png" id="1_egwnt"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/ext/items_gem_sprite_2d.gd" id="2_w213s"]
+[ext_resource type="Texture2D" uid="uid://b3fs7txynqhaj" path="res://game_objects/platformer/assets/Items/platformPack_item004.png" id="3_1o4n4"]
+[ext_resource type="Texture2D" uid="uid://dcbguoqn2c5ps" path="res://game_objects/platformer/assets/Items/platformPack_item003.png" id="4_h51u1"]
+[ext_resource type="Texture2D" uid="uid://fim2s0wyhm0w" path="res://game_objects/platformer/assets/Items/platformPack_item002.png" id="5_2cq6b"]
 
 [node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource("1_egwnt")
 script = ExtResource("2_w213s")
+red_texture = ExtResource("3_1o4n4")
+green_texture = ExtResource("4_h51u1")
+blue_texture = ExtResource("1_egwnt")
+yellow_texture = ExtResource("5_2cq6b")

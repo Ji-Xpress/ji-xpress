@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnjox0dh41761"]
+[gd_scene load_steps=18 format=3 uid="uid://bnjox0dh41761"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_c2yxc"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/items_key.gd" id="1_qw3g0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_uujxv"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_fdth2"]
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_k563c"]
+[ext_resource type="Script" path="res://designer_src/expression_variable.gd" id="4_0q7vo"]
 [ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_yekdp"]
 
 [sub_resource type="Resource" id="Resource_5khon"]
@@ -16,6 +17,38 @@ property_type = 4
 property_value = "true"
 property_default_value = "true"
 property_read_only = false
+
+[sub_resource type="Resource" id="Resource_3yab3"]
+script = ExtResource("3_k563c")
+property_name = "color"
+property_type = 3
+property_value = "red,green,blue,yellow"
+property_default_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_owc6j"]
+script = ExtResource("4_0q7vo")
+variable_name = "color_red"
+variable_type = 1
+variable_value = "0"
+
+[sub_resource type="Resource" id="Resource_ts047"]
+script = ExtResource("4_0q7vo")
+variable_name = "color_green"
+variable_type = 1
+variable_value = "1"
+
+[sub_resource type="Resource" id="Resource_ctxmh"]
+script = ExtResource("4_0q7vo")
+variable_name = "color_blue"
+variable_type = 1
+variable_value = "2"
+
+[sub_resource type="Resource" id="Resource_ae01h"]
+script = ExtResource("4_0q7vo")
+variable_name = "color_yellow"
+variable_type = 1
+variable_value = "3"
 
 [sub_resource type="Resource" id="Resource_ugo3i"]
 script = ExtResource("6_yekdp")
@@ -31,7 +64,8 @@ z_index = 1
 script = ExtResource("1_qw3g0")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_c2yxc")]
-custom_properties = Array[ExtResource("3_k563c")]([SubResource("Resource_5khon")])
+custom_properties = Array[ExtResource("3_k563c")]([SubResource("Resource_5khon"), SubResource("Resource_3yab3")])
+expression_variables = Array[ExtResource("4_0q7vo")]([SubResource("Resource_owc6j"), SubResource("Resource_ts047"), SubResource("Resource_ctxmh"), SubResource("Resource_ae01h")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_uujxv")]
 

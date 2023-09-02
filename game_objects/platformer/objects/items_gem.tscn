@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dytayxqb8s0u8"]
+[gd_scene load_steps=18 format=3 uid="uid://dytayxqb8s0u8"]
 
 [ext_resource type="PackedScene" uid="uid://bwgayb5a4atca" path="res://game_objects/platformer/objects/ext/items_gem_sprite_2d.tscn" id="1_stbjg"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_w73d3"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_mfpcv"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_d8plb"]
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_umupd"]
+[ext_resource type="Script" path="res://designer_src/expression_variable.gd" id="4_2sknf"]
 [ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_m3b4n"]
 
 [sub_resource type="Resource" id="Resource_f5j8f"]
@@ -16,6 +17,38 @@ property_type = 4
 property_value = "true"
 property_default_value = "true"
 property_read_only = false
+
+[sub_resource type="Resource" id="Resource_f6fcn"]
+script = ExtResource("3_umupd")
+property_name = "color"
+property_type = 3
+property_value = "red,green,blue,yellow"
+property_default_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_gkoqf"]
+script = ExtResource("4_2sknf")
+variable_name = "color_red"
+variable_type = 1
+variable_value = "0"
+
+[sub_resource type="Resource" id="Resource_g5r1a"]
+script = ExtResource("4_2sknf")
+variable_name = "color_green"
+variable_type = 1
+variable_value = "1"
+
+[sub_resource type="Resource" id="Resource_dymjv"]
+script = ExtResource("4_2sknf")
+variable_name = "color_blue"
+variable_type = 1
+variable_value = "2"
+
+[sub_resource type="Resource" id="Resource_y3xcq"]
+script = ExtResource("4_2sknf")
+variable_name = "color_yellow"
+variable_type = 1
+variable_value = "3"
 
 [sub_resource type="Resource" id="Resource_hd60i"]
 script = ExtResource("6_m3b4n")
@@ -32,7 +65,8 @@ input_pickable = false
 script = ExtResource("1_wjqt2")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_w73d3")]
-custom_properties = Array[ExtResource("3_umupd")]([SubResource("Resource_f5j8f")])
+custom_properties = Array[ExtResource("3_umupd")]([SubResource("Resource_f5j8f"), SubResource("Resource_f6fcn")])
+expression_variables = Array[ExtResource("4_2sknf")]([SubResource("Resource_gkoqf"), SubResource("Resource_g5r1a"), SubResource("Resource_dymjv"), SubResource("Resource_y3xcq")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_mfpcv")]
 
