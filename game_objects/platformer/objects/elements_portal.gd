@@ -8,6 +8,7 @@ const rotation_speed: int = 1
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
 
+var item_color: int = 0
 var is_active: bool = true
 var tween: Tween = null
 # Update loop code execution
@@ -16,6 +17,9 @@ var update_code_execution_engine: CodeExecutionEngine = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	item_color = int(object_metadata.get_property("color"))
+	change_sprite()
+	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		update_code_execution_engine = object_coder.code_execution_engine()
 		var code_execution_engine = object_coder.code_execution_engine()
@@ -27,6 +31,11 @@ func _ready():
 	is_active = str(object_metadata.get_property("is_active")) == "true"
 	initialize_rotation()
 	activate()
+
+
+## Change the sprite and load the correct sprite type by index
+func change_sprite():
+	sprite.texture = sprite.textures[item_color]
 
 
 ## Activates the gear
@@ -81,6 +90,9 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 		"is_active":
 			is_active = str(value) == "true"
 			activate()
+		"color":
+			item_color = int(value)
+			change_sprite()
 
 
 # Process the broadcast message
