@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb001j2gjc7uy"]
+[gd_scene load_steps=12 format=3 uid="uid://bb001j2gjc7uy"]
 
 [ext_resource type="PackedScene" uid="uid://billlm6eq6mrr" path="res://game_objects/platformer/objects/base/character.tscn" id="1_fomtt"]
 [ext_resource type="Texture2D" uid="uid://b4wtq5st7duep" path="res://game_objects/platformer/assets/Characters/platformChar_idle.png" id="2_1oitb"]
@@ -6,15 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bjuy3cjl57jad" path="res://game_objects/platformer/assets/Characters/platformChar_jump.png" id="3_aekj8"]
 [ext_resource type="Texture2D" uid="uid://cxn1rwvtjafxc" path="res://game_objects/platformer/assets/Characters/platformChar_walk1.png" id="3_g1vwe"]
 [ext_resource type="Texture2D" uid="uid://c1v2tvif8a5uj" path="res://game_objects/platformer/assets/Characters/platformChar_climb2.png" id="3_iabeq"]
-[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="3_o5goy"]
 [ext_resource type="Texture2D" uid="uid://wxu2r0cqepx0" path="res://game_objects/platformer/assets/Characters/platformChar_walk2.png" id="4_47ky8"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="8_w36uf"]
-
-[sub_resource type="Resource" id="Resource_u402t"]
-script = ExtResource("3_o5goy")
-function_name = "die"
-function_block_parameters = Array[Resource("res://designer_src/object_custom_property.gd")]([])
-function_outputs = Array[String](["true"])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sb85a"]
 resource_local_to_scene = true
@@ -66,10 +59,6 @@ animations = [{
 }]
 
 [node name="Character" groups=["game_console_character"] instance=ExtResource("1_fomtt")]
-z_index = 2
-
-[node name="ObjectCoder" parent="." index="2"]
-code_functions = Array[ExtResource("3_o5goy")]([SubResource("Resource_u402t")])
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, 8)

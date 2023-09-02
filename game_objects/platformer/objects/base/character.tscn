@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://billlm6eq6mrr"]
+[gd_scene load_steps=14 format=3 uid="uid://billlm6eq6mrr"]
 
 [ext_resource type="Script" path="res://game_objects/platformer/objects/base/character.gd" id="1_3uwia"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_r0fdn"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_eef7r"]
 [ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_40i0g"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_svwdg"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_8858d"]
 
 [sub_resource type="Resource" id="Resource_hv3rs"]
 script = ExtResource("3_40i0g")
@@ -38,6 +39,12 @@ property_value = "1000.0"
 property_default_value = "1000.0"
 property_read_only = false
 
+[sub_resource type="Resource" id="Resource_plu2t"]
+script = ExtResource("6_8858d")
+function_name = "die"
+function_block_parameters = Array[ExtResource("3_40i0g")]([])
+function_outputs = Array[String](["true"])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2vvs"]
 resource_local_to_scene = true
 size = Vector2(64, 64)
@@ -46,6 +53,7 @@ size = Vector2(64, 64)
 resource_local_to_scene = true
 
 [node name="Character" type="CharacterBody2D"]
+z_index = 2
 script = ExtResource("1_3uwia")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_r0fdn")]
@@ -54,6 +62,7 @@ custom_properties = Array[ExtResource("3_40i0g")]([SubResource("Resource_hv3rs")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_eef7r")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_svwdg")]
+code_functions = Array[ExtResource("6_8858d")]([SubResource("Resource_plu2t")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_h2vvs")
