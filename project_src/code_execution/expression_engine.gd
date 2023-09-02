@@ -10,7 +10,23 @@ var additional_var_values = []
 
 ## Initializes the expression engine
 func initialize_engine():
-	pass
+	# Add extra additional variables from object metadata
+	for expression_var in game_object_instance.object_metadata.expression_variables:
+		var name: String = expression_var.variable_name
+		var type: SharedEnums.PropertyType = expression_var.variable_type
+		var value: String = expression_var.variable_value
+		
+		match type:
+			SharedEnums.PropertyType.TypeString:
+				add_expression_variable(name, value)
+			SharedEnums.PropertyType.TypeInt:
+				add_expression_variable(name, int(value))
+			SharedEnums.PropertyType.TypeFloat:
+				add_expression_variable(name, float(value))
+			SharedEnums.PropertyType.TypeDropDown:
+				add_expression_variable(name, int(value))
+			SharedEnums.PropertyType.TypeBool:
+				add_expression_variable(name, value == "true")
 
 
 ## Adds an extra variable to the execution
@@ -48,25 +64,6 @@ func compute_expression(expression: String):
 	# Current object_id
 	var_names.append("object_id")
 	var_values.append(game_object_instance.object_metadata.object_id)
-	
-	# Add extra additional variables from object metadata
-	for expression_var in game_object_instance.object_metadata.expression_variables:
-		var name: String = expression_var.variable_name
-		var type: SharedEnums.PropertyType = expression_var.variable_type
-		var value: String = expression_var.variable_value
-		
-		var_names.append(name)
-		match type:
-			SharedEnums.PropertyType.TypeString:
-				var_values.append(value)
-			SharedEnums.PropertyType.TypeInt:
-				var_values.append(int(value))
-			SharedEnums.PropertyType.TypeFloat:
-				var_values.append(float(value))
-			SharedEnums.PropertyType.TypeDropDown:
-				var_values.append(int(value))
-			SharedEnums.PropertyType.TypeBool:
-				var_values.append(value == "true")
 	
 	# Object state variables
 	# X axis position
