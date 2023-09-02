@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwtwqugff21kq"]
+[gd_scene load_steps=6 format=3 uid="uid://bwtwqugff21kq"]
 
 [ext_resource type="Texture2D" uid="uid://cfp5wj66dywoy" path="res://game_objects/platformer/assets/Tiles/platformPack_tile053.png" id="1_frbdv"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/ext/elements_switch_sprite_2d.gd" id="2_tubnd"]
+[ext_resource type="Texture2D" uid="uid://dwgw56qjwfdq5" path="res://game_objects/platformer/assets/Tiles/platformPack_tile055.png" id="3_kcm8t"]
+[ext_resource type="Texture2D" uid="uid://b2yneft55uqaf" path="res://game_objects/platformer/assets/Tiles/platformPack_tile054.png" id="4_py1c8"]
+[ext_resource type="Texture2D" uid="uid://rcvn0gdv4ya3" path="res://game_objects/platformer/assets/Tiles/platformPack_tile056.png" id="5_iqb71"]
 
 [node name="Sprite2D" type="Sprite2D"]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_frbdv")
 script = ExtResource("2_tubnd")
+blue_off_texture = ExtResource("1_frbdv")
+yellow_off_texture = ExtResource("3_kcm8t")
+blue_on_texture = ExtResource("4_py1c8")
+yellow_on_texture = ExtResource("5_iqb71")

@@ -98,9 +98,9 @@ func get_block_metadata():
 			SharedEnums.PropertyType.TypeInt:
 				metadata[control_key] = current_control.value
 			SharedEnums.PropertyType.TypeBool:
-				metadata[control_key] = current_control.value
-			SharedEnums.PropertyType.TypeFloat:
 				metadata[control_key] = current_control.button_pressed
+			SharedEnums.PropertyType.TypeFloat:
+				metadata[control_key] = current_control.value
 	
 	return metadata
 
@@ -117,6 +117,6 @@ func set_block_metadata(metadata: Dictionary):
 			SharedEnums.PropertyType.TypeInt:
 				property_controls[control_key].control.value = value
 			SharedEnums.PropertyType.TypeBool:
-				property_controls[control_key].control.value = value
-			SharedEnums.PropertyType.TypeFloat:
 				property_controls[control_key].control.button_pressed = value
+			SharedEnums.PropertyType.TypeFloat:
+				property_controls[control_key].control.value = value

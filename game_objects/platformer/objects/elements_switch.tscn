@@ -1,18 +1,70 @@
-[gd_scene load_steps=10 format=3 uid="uid://1kvnqj7r3ho5"]
+[gd_scene load_steps=19 format=3 uid="uid://1kvnqj7r3ho5"]
 
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_owna3"]
 [ext_resource type="Script" path="res://game_objects/platformer/objects/elements_switch.gd" id="1_t63lf"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="2_qsusu"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="2_swp5v"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="3_nxmqj"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_rqfk5"]
+[ext_resource type="Script" path="res://designer_src/expression_variable.gd" id="4_ogsbe"]
 [ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="5_6voie"]
 [ext_resource type="PackedScene" uid="uid://bwtwqugff21kq" path="res://game_objects/platformer/objects/ext/elements_switch_sprite_2d.tscn" id="5_lchhm"]
+
+[sub_resource type="Resource" id="Resource_6jvgk"]
+script = ExtResource("3_nxmqj")
+property_name = "is_active"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_cb3eh"]
+script = ExtResource("3_nxmqj")
+property_name = "is_pressed"
+property_type = 4
+property_value = "false"
+property_default_value = "false"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_4b112"]
+script = ExtResource("3_nxmqj")
+property_name = "color"
+property_type = 3
+property_value = "blue,yellow"
+property_default_value = "0"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_i3orp"]
+script = ExtResource("4_ogsbe")
+variable_name = "color_blue"
+variable_type = 1
+variable_value = "0"
+
+[sub_resource type="Resource" id="Resource_s6mrf"]
+script = ExtResource("4_ogsbe")
+variable_name = "color_yellow"
+variable_type = 1
+variable_value = "1"
 
 [sub_resource type="Resource" id="Resource_rppms"]
 script = ExtResource("5_6voie")
 function_name = "destroy"
-function_block_parameters = Array[Resource("res://designer_src/object_custom_property.gd")]([])
+function_block_parameters = Array[ExtResource("3_nxmqj")]([])
 function_outputs = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_vf6n3"]
+script = ExtResource("3_nxmqj")
+property_name = "is_pressed"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_rh1yu"]
+script = ExtResource("5_6voie")
+function_name = "set_pressed"
+function_block_parameters = Array[ExtResource("3_nxmqj")]([SubResource("Resource_vf6n3")])
+function_outputs = Array[String](["true"])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7mk3"]
 size = Vector2(32, 32)
@@ -22,11 +74,13 @@ input_pickable = false
 script = ExtResource("1_t63lf")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("1_owna3")]
+custom_properties = Array[ExtResource("3_nxmqj")]([SubResource("Resource_6jvgk"), SubResource("Resource_cb3eh"), SubResource("Resource_4b112")])
+expression_variables = Array[ExtResource("4_ogsbe")]([SubResource("Resource_i3orp"), SubResource("Resource_s6mrf")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_qsusu")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_rqfk5")]
-code_functions = Array[ExtResource("5_6voie")]([SubResource("Resource_rppms")])
+code_functions = Array[ExtResource("5_6voie")]([SubResource("Resource_rppms"), SubResource("Resource_rh1yu")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_b7mk3")
@@ -39,4 +93,5 @@ size = Vector2(34, 32)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
 [connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]

@@ -5,7 +5,7 @@ extends Sprite2D
 @export var blue_texture: Texture2D = null
 @export var yellow_texture: Texture2D = null
 
-var textures: Array = []
+var textures: Array[Texture2D] = []
 
 
 # Called when the node enters the scene tree for the first time.
