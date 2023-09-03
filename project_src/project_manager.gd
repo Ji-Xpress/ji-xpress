@@ -69,8 +69,10 @@ func save_file_to_folder(file_name: String, is_absolute: bool, folder_name: Arra
 		
 		# Create folders from the folder array
 		if not is_absolute:
+			var folder_path = ""
 			for folder in folder_name:
-				if not create_folder_if_not_exists(folder):
+				folder_path += folder + "/"
+				if not create_folder_if_not_exists(current_project_path + folder_path):
 					return false
 				relative_path += folder + "/"
 		
