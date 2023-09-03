@@ -13,7 +13,7 @@ script = ExtResource("3_3nu8n")
 property_name = "num_blocks"
 property_type = 1
 property_value = "1"
-property_default_value = ""
+property_default_value = "1"
 property_read_only = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8h74q"]

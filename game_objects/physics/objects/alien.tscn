@@ -80,6 +80,7 @@ size = Vector2(80, 80)
 enabled = false
 
 [node name="FloorDetector" type="Area2D" parent="."]
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
 shape = SubResource("CircleShape2D_uv24t")

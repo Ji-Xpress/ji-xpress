@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 size = Vector2(64, 64)
 
-[node name="Tile" groups=["tile_grass"] instance=ExtResource("1_b2cnd")]
+[node name="Tile" groups=["tiles_grass"] instance=ExtResource("1_b2cnd")]
 
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("RectangleShape2D_empt0")
