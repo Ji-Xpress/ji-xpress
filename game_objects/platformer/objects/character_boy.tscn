@@ -58,7 +58,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Character" instance=ExtResource("1_wfkyn")]
+[node name="Character" groups=["boy"] instance=ExtResource("1_wfkyn")]
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0.5, 4)

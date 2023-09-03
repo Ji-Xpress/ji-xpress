@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpoablfkc7315"]
+[gd_scene load_steps=13 format=3 uid="uid://cpoablfkc7315"]
 
 [ext_resource type="Script" path="res://game_objects/platformer/objects/items_pickup.gd" id="1_aarv5"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="1_ewhsa"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="3_1du4c"]
 [ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_bi8dt"]
 [ext_resource type="PackedScene" uid="uid://ci0ooltvye540" path="res://game_objects/platformer/objects/ext/item_keys_sprite_2d.tscn" id="5_fxaus"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_yohoh"]
 
 [sub_resource type="Resource" id="Resource_t0363"]
 script = ExtResource("2_gr0pm")
@@ -24,6 +25,12 @@ property_value = "true"
 property_default_value = "true"
 property_read_only = false
 
+[sub_resource type="Resource" id="Resource_y5iey"]
+script = ExtResource("6_yohoh")
+function_name = "destroy"
+function_block_parameters = Array[ExtResource("2_gr0pm")]([])
+function_outputs = Array[String]([])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ubjla"]
 size = Vector2(64, 64)
 
@@ -37,6 +44,7 @@ custom_properties = Array[ExtResource("2_gr0pm")]([SubResource("Resource_t0363")
 [node name="ObjectFunctionality" parent="." instance=ExtResource("2_0qk37")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("3_1du4c")]
+code_functions = Array[ExtResource("6_yohoh")]([SubResource("Resource_y5iey")])
 
 [node name="Sprite2D" parent="." instance=ExtResource("5_fxaus")]
 

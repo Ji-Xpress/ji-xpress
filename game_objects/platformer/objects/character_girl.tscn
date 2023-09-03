@@ -58,7 +58,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Character" instance=ExtResource("1_e6110")]
+[node name="Character" groups=["girl"] instance=ExtResource("1_e6110")]
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, 6)

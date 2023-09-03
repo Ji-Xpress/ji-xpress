@@ -10,7 +10,6 @@ extends Area2D
 var is_active: bool = true
 # Update loop code execution
 var update_code_execution_engine: CodeExecutionEngine = null
-
 # Variables
 var item_type: int = 0
 
@@ -24,6 +23,8 @@ func _ready():
 		update_code_execution_engine = object_coder.code_execution_engine()
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
+		
+		collision_shape.set_deferred("disabled", false)
 	else:
 		collision_shape.set_deferred("disabled", true)
 	
@@ -72,3 +73,9 @@ func _process(delta):
 func _on_object_coder_broadcast(message_id, message):
 	var code_execution_engine = object_coder.code_execution_engine()
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
+# Destroy the object
+func destroy(params: Dictionary):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		queue_free()
