@@ -59,6 +59,7 @@ custom_properties = Array[ExtResource("3_f424c")]([SubResource("Resource_olhiu")
 shape = SubResource("RectangleShape2D_n7qdc")
 
 [node name="TileSensor" type="Area2D" parent="."]
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileSensor"]
 shape = SubResource("RectangleShape2D_jk0qx")

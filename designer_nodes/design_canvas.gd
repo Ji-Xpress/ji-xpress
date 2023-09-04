@@ -237,7 +237,7 @@ func get_top_hovered_node_from_group(node_group: Dictionary):
 ## Scans an ordered array of tile groups and presents the first result
 func get_top_hovered_node_from_group_array(node_group_array: Array):
 	for node_group in node_group_array:
-		var node_result: Object = get_top_hovered_node_from_group(node_group)
+		var node_result: Node = get_top_hovered_node_from_group(node_group)
 		if node_result != null:
 			return node_result
 	
@@ -252,6 +252,7 @@ func on_node_clicked(node: Node, node_index: int):
 		# Deactivate the selected rect
 		if current_active_node != null:
 			current_active_node.object_functionality.set_rect_extents_visibility(false)
+			current_active_node = null
 		
 		# Iterate through all active hover nodes and find the node that has the highest order
 		var node_group_search_order: Array = [

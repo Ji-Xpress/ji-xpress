@@ -15,6 +15,7 @@ var current_height: int = block_dimensions.y
 @onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
 @onready var object_coder: ObjectCoder = $ObjectCoder
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var tile_sensor_collision_shape: CollisionShape2D = $TileSensor/CollisionShape2D
 
 # Keeps track of whether it collides
 @export var collides: bool = true
@@ -39,8 +40,10 @@ func _ready():
 	# Disable collision shape when in run mode
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeDesign:
 		collision_shape.set_deferred("disabled", true)
+		tile_sensor_collision_shape.set_deferred("disabled", true)
 	elif object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		collision_shape.set_deferred("disabled", not collides)
+		tile_sensor_collision_shape.set_deferred("disabled", false)
 		update_code_execution_engine = object_coder.code_execution_engine()
 		var code_execution_engine = object_coder.code_execution_engine()
 		code_execution_engine.execute_from_entrypoint_type("ready")
@@ -98,6 +101,10 @@ func invalidate_rect():
 		collision_shape.position.x = current_width / 2 - (block_dimensions.x / 2)
 		collision_shape.position.y = current_height / 2 - (block_dimensions.y / 2)
 		collision_shape.shape.size = extents_size
+		
+		tile_sensor_collision_shape.position.x = current_width / 2 - (block_dimensions.x / 2)
+		tile_sensor_collision_shape.position.y = current_height / 2 - (block_dimensions.y / 2)
+		tile_sensor_collision_shape.shape.size = extents_size
 
 
 # When a property is changed
