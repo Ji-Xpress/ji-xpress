@@ -277,12 +277,15 @@ func on_node_clicked(node: Node, node_index: int):
 			node_drag_start_position = get_viewport().get_mouse_position()
 			# Emit node has been selected
 			emit_signal("node_selected", node, node_index, current_active_node.object_metadata.node_kind)
+			# Emit node selected globally
+			Globals.emit_canvas_node_clicked(current_active_node, current_active_node.object_metadata.node_index)
 
 
 ## Event handler - A node has been unclicked
 func on_node_unclicked(node: Node, node_index: int):
 	# Allow click processing
 	emit_signal("node_deselected", node, node_index, node.object_metadata.node_kind)
+	Globals.emit_canvas_node_unclicked(current_active_node, current_active_node.object_metadata.node_index)
 
 
 ## Event handler - A node has hover focus

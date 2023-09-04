@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 
 [node name="CanvasMouseHitArea" type="Area2D"]
+collision_mask = 2
 monitoring = false
 monitorable = false
 script = ExtResource("1_12yj7")
@@ -16,3 +17,4 @@ shape = SubResource("RectangleShape2D_2y4f8")
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

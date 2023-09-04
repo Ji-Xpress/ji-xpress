@@ -16,6 +16,8 @@ var hit_box_size: Vector2 = Vector2.ZERO
 func _ready():
 	parent_node = get_parent()
 	collision_shape.shape.size = hit_box_size
+	Globals.connect("canvas_node_clicked", Callable(self, "on_canvas_node_clicked"))
+	Globals.connect("canvas_node_unclicked", Callable(self, "on_canvas_node_unclicked"))
 
 
 # Hit area size
@@ -42,3 +44,20 @@ func _on_mouse_entered():
 # Mouse left the hitbox area
 func _on_mouse_exited():
 	emit_signal("node_hover_out", parent_node, parent_node.object_metadata.node_index)
+
+
+## When a canvas node has been clicked
+func on_canvas_node_clicked(node: Node, node_index: int):
+	if node_index != parent_node.object_metadata.node_index:
+		collision_shape.set_deferred("disabled", true)
+
+
+## When a canvas node has been unclicked
+func on_canvas_node_unclicked(node: Node, node_index: int):
+	if node_index != parent_node.object_metadata.node_index:
+		collision_shape.set_deferred("disabled", false)
+
+
+func _on_tree_exiting():
+	Globals.disconnect("canvas_node_clicked", Callable(self, "on_canvas_node_clicked"))
+	Globals.disconnect("canvas_node_unclicked", Callable(self, "on_canvas_node_unclicked"))
