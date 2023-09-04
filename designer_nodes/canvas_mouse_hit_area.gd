@@ -48,14 +48,12 @@ func _on_mouse_exited():
 
 ## When a canvas node has been clicked
 func on_canvas_node_clicked(node: Node, node_index: int):
-	if node_index != parent_node.object_metadata.node_index:
-		collision_shape.set_deferred("disabled", true)
+	pass
 
 
 ## When a canvas node has been unclicked
 func on_canvas_node_unclicked(node: Node, node_index: int):
-	if node_index != parent_node.object_metadata.node_index:
-		collision_shape.set_deferred("disabled", false)
+	pass
 
 
 func _on_tree_exiting():
