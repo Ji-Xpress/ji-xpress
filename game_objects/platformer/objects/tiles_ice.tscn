@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba6m15ehwndhi"]
+
+[ext_resource type="PackedScene" uid="uid://btqqngldrue61" path="res://game_objects/platformer/objects/base/tile.tscn" id="1_yyqoe"]
+[ext_resource type="PackedScene" uid="uid://b1lcwdcwxwbm0" path="res://game_objects/platformer/objects/ext/tiles_bricks_top_sprite.tscn" id="2_s1w6u"]
+[ext_resource type="Texture2D" uid="uid://djlv3ltqih56t" path="res://game_objects/platformer/assets/Tiles/platformPack_tile017.png" id="3_yt5so"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="4_2760f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uclt1"]
+resource_local_to_scene = true
+size = Vector2(64, 64)
+
+[node name="Tile" instance=ExtResource("1_yyqoe")]
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_uclt1")
+
+[node name="TopSprite" parent="." index="5" instance=ExtResource("2_s1w6u")]
+texture = ExtResource("3_yt5so")
+sand_texture = ExtResource("3_yt5so")
+concrete_texture = ExtResource("3_yt5so")
+
+[node name="RectExtents2D" type="Node2D" parent="." index="6"]
+script = ExtResource("4_2760f")
