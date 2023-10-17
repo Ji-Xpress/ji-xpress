@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://dtogwn2cxuva3"]
+[gd_scene load_steps=5 format=3 uid="uid://dtogwn2cxuva3"]
+
+[ext_resource type="Script" path="res://game_objects/platformer/objects/top_bar.gd" id="1_vxwkp"]
+[ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_brnxu"]
+[ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_vaach"]
+[ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_mesk6"]
 
 [node name="TopBar" type="Control"]
 layout_mode = 3
@@ -7,3 +12,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vxwkp")
+
+[node name="ObjectMetaData" parent="." instance=ExtResource("2_brnxu")]
+
+[node name="ObjectFunctionality" parent="." instance=ExtResource("3_vaach")]
+
+[node name="ObjectCoder" parent="." instance=ExtResource("4_mesk6")]
