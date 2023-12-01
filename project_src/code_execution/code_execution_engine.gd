@@ -101,8 +101,8 @@ func initialize_metadata(object_instance: Node, metadata: Dictionary):
 	
 	# Build metadata on connections on each block
 	for connection in metadata[prop_connections]:
-		var block_from: String = connection.from
-		var block_to: String = connection.to
+		var block_from: String = connection.from_node
+		var block_to: String = connection.to_node
 		var port_from: int = connection.from_port
 		var port_to: int = connection.to_port
 		var port_from_metadata = connection[prop_connection_from_metadata]

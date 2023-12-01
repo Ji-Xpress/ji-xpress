@@ -98,8 +98,8 @@ func save_script():
 		metadata_dict[CodeExecutionEngine.prop_connections] = all_connections
 		
 		for connection in metadata_dict[CodeExecutionEngine.prop_connections]:
-			var connection_from_metadata = get_node(NodePath(connection.from)).get_input_port_metadata(connection.from_port)
-			var connection_to_metadata = get_node(NodePath(connection.to)).get_exit_port_metadata(connection.to_port)
+			var connection_from_metadata = get_node(NodePath(connection.from_node)).get_input_port_metadata(connection.from_port)
+			var connection_to_metadata = get_node(NodePath(connection.to_node)).get_exit_port_metadata(connection.to_port)
 			connection[CodeExecutionEngine.prop_connection_from_metadata] = connection_from_metadata
 			connection[CodeExecutionEngine.prop_connection_to_metadata] = connection_to_metadata
 		
