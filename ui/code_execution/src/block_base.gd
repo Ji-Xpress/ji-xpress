@@ -46,7 +46,7 @@ var contains_finally: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect signals
-	connect("close_request", Callable(self, "on_close_request"))
+	connect("delete_request", Callable(self, "on_close_request"))
 	connect("dragged", Callable(self, "on_dragged"))
 
 

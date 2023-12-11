@@ -1,9 +1,58 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cuxsw2xavxj3d"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cuxsw2xavxj3d"]
 
 [ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="1_oe0io"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_622re"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_334bq"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgf4i"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.207843, 0.207843, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7rna"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfotw"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+
 [resource]
 Button/fonts/font = ExtResource("1_oe0io")
+Button/styles/disabled = SubResource("StyleBoxFlat_622re")
+Button/styles/focus = SubResource("StyleBoxFlat_334bq")
+Button/styles/hover = SubResource("StyleBoxFlat_kgf4i")
+Button/styles/normal = SubResource("StyleBoxFlat_c7rna")
+Button/styles/pressed = SubResource("StyleBoxFlat_xfotw")
 CheckBox/fonts/font = ExtResource("1_oe0io")
 GraphNode/fonts/title_font = ExtResource("1_oe0io")
 Label/font_sizes/font_size = 14
