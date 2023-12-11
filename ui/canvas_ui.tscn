@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_umxca")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -25,6 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -33,6 +35,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
+mouse_filter = 1
 
 [node name="ControlContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/LeftPanel"]
 layout_mode = 2

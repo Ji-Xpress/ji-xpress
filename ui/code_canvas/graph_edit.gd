@@ -144,24 +144,24 @@ func load_script():
 			code_blocks[block_name] = block_instance
 		
 		for connection in connection_metadata:
-			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
-			connections[connection["from"] + "_" + str(connection["from_port"])] = true
+			connect_node(connection["from_node"], connection["from_port"], connection["to_node"], connection["to_port"])
+			connections[connection["from_node"] + "_" + str(connection["from_port"])] = true
 			
-			if not node_connections_from.has(connection["from"]):
-				node_connections_from[connection["from"]] = []
+			if not node_connections_from.has(connection["from_node"]):
+				node_connections_from[connection["from_node"]] = []
 			
-			if not node_connections_to.has(connection["to"]):
-				node_connections_to[connection["to"]] = []
+			if not node_connections_to.has(connection["to_node"]):
+				node_connections_to[connection["to_node"]] = []
 			
-			node_connections_from[connection["from"]].append({
+			node_connections_from[connection["from_node"]].append({
 				"from_port": connection["from_port"],
-				"to_node": connection["to"],
+				"to_node": connection["to_node"],
 				"to_port": connection["to_port"]
 			})
 			
-			node_connections_to[connection["to"]].append({
+			node_connections_to[connection["to_node"]].append({
 				"from_port": connection["from_port"],
-				"from_node": connection["from"],
+				"from_node": connection["from_node"],
 				"to_port": connection["to_port"]
 			})
 			
