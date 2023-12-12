@@ -5,7 +5,6 @@
 [node name="SetObjectPropertyBlock" type="GraphNode"]
 custom_minimum_size = Vector2(160, 0)
 title = "Set Object Property"
-show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

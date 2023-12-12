@@ -36,6 +36,8 @@ var last_block_index: int = 0
 var has_loaded: bool = false
 # Function metadata
 var function_metadata: Dictionary = {}
+# The currently selected node
+var current_selected_graph_node: GraphNode = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -52,6 +54,10 @@ func _on_gui_input(event):
 			emit_signal("right_mouse_clicked", event.button_index, selected_add_position)
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			emit_signal("left_mouse_clicked", event.button_index, selected_add_position)
+	elif event is InputEventKey:
+		if event.keycode == KEY_DELETE:
+			if current_selected_graph_node != null:
+				current_selected_graph_node.queue_free()
 
 
 # Saves the script
@@ -98,8 +104,8 @@ func save_script():
 		metadata_dict[CodeExecutionEngine.prop_connections] = all_connections
 		
 		for connection in metadata_dict[CodeExecutionEngine.prop_connections]:
-			var connection_from_metadata = get_node(NodePath(connection.from)).get_input_port_metadata(connection.from_port)
-			var connection_to_metadata = get_node(NodePath(connection.to)).get_exit_port_metadata(connection.to_port)
+			var connection_from_metadata = get_node(NodePath(connection.from_node)).get_input_port_metadata(connection.from_port)
+			var connection_to_metadata = get_node(NodePath(connection.to_node)).get_exit_port_metadata(connection.to_port)
 			connection[CodeExecutionEngine.prop_connection_from_metadata] = connection_from_metadata
 			connection[CodeExecutionEngine.prop_connection_to_metadata] = connection_to_metadata
 		
@@ -144,24 +150,24 @@ func load_script():
 			code_blocks[block_name] = block_instance
 		
 		for connection in connection_metadata:
-			connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
-			connections[connection["from"] + "_" + str(connection["from_port"])] = true
+			connect_node(connection["from_node"], connection["from_port"], connection["to_node"], connection["to_port"])
+			connections[connection["from_node"] + "_" + str(connection["from_port"])] = true
 			
-			if not node_connections_from.has(connection["from"]):
-				node_connections_from[connection["from"]] = []
+			if not node_connections_from.has(connection["from_node"]):
+				node_connections_from[connection["from_node"]] = []
 			
-			if not node_connections_to.has(connection["to"]):
-				node_connections_to[connection["to"]] = []
+			if not node_connections_to.has(connection["to_node"]):
+				node_connections_to[connection["to_node"]] = []
 			
-			node_connections_from[connection["from"]].append({
+			node_connections_from[connection["from_node"]].append({
 				"from_port": connection["from_port"],
-				"to_node": connection["to"],
+				"to_node": connection["to_node"],
 				"to_port": connection["to_port"]
 			})
 			
-			node_connections_to[connection["to"]].append({
+			node_connections_to[connection["to_node"]].append({
 				"from_port": connection["from_port"],
-				"from_node": connection["from"],
+				"from_node": connection["from_node"],
 				"to_port": connection["to_port"]
 			})
 			
@@ -312,3 +318,13 @@ func _on_child_exiting_tree(node):
 func _on_end_node_move():
 	if has_loaded:
 		emit_signal("node_invalidated")
+
+
+# When a node is deselected
+func _on_node_deselected(node):
+	current_selected_graph_node = null
+
+
+# When a node is selected
+func _on_node_selected(node):
+	current_selected_graph_node = node
