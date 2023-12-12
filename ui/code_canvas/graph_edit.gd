@@ -36,6 +36,8 @@ var last_block_index: int = 0
 var has_loaded: bool = false
 # Function metadata
 var function_metadata: Dictionary = {}
+# The currently selected node
+var current_selected_graph_node: GraphNode = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -52,6 +54,10 @@ func _on_gui_input(event):
 			emit_signal("right_mouse_clicked", event.button_index, selected_add_position)
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			emit_signal("left_mouse_clicked", event.button_index, selected_add_position)
+	elif event is InputEventKey:
+		if event.keycode == KEY_DELETE:
+			if current_selected_graph_node != null:
+				current_selected_graph_node.queue_free()
 
 
 # Saves the script
@@ -312,3 +318,13 @@ func _on_child_exiting_tree(node):
 func _on_end_node_move():
 	if has_loaded:
 		emit_signal("node_invalidated")
+
+
+# When a node is deselected
+func _on_node_deselected(node):
+	current_selected_graph_node = null
+
+
+# When a node is selected
+func _on_node_selected(node):
+	current_selected_graph_node = node
