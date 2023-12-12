@@ -208,8 +208,9 @@ func execute_current_block(recursive_execution: bool = true, execute_finally: bo
 			# If it reverts back to a finally block and also breaks execution of the last breakable block
 			if reverts_to_finally and reverts_to_break:
 				# Remove all other finally blocks after the forced break
-				while block_branching_steps[block_branching_steps.size() - 1][prop_block] != block_breaking_steps[block_breaking_steps.size() - 1][prop_block]:
-					block_branching_steps.pop_back()
+				if block_branching_steps.size() > 0 and block_breaking_steps.size() > 0:
+					while block_branching_steps[block_branching_steps.size() - 1][prop_block] != block_breaking_steps[block_breaking_steps.size() - 1][prop_block]:
+						block_branching_steps.pop_back()
 				
 				force_last_finally_execution(recursive_execution, true)
 				return true
@@ -298,10 +299,11 @@ func get_block_execution_metadata(block_name: String):
 
 ## Forces the execution of the last finally block
 func force_last_finally_execution(recursive_execution: bool, override_recompute: bool = false):
-	current_finally_block_data = block_branching_steps.pop_back()
-	var current_block_name: String = current_finally_block_data[prop_block]
-	current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
-	execute_current_block(recursive_execution, true, override_recompute)
+	if block_branching_steps.size() > 0:
+		current_finally_block_data = block_branching_steps.pop_back()
+		var current_block_name: String = current_finally_block_data[prop_block]
+		current_execution_block = node_execution_metadata[prop_code_blocks][current_block_name]
+		execute_current_block(recursive_execution, true, override_recompute)
 
 
 ## Only does execution for the finally block
