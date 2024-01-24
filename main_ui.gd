@@ -156,7 +156,7 @@ func _on_project_tree_ui_object_selected(object_metadata):
 	var object_index: int = object_metadata[GameObjectsLoader.prop_object_index]
 	var object_id: String = object_metadata[GameObjectsLoader.prop_object_id]
 	var object_url: String = object_metadata[GameObjectsLoader.prop_object_url]
-	var script_file_name = object_id + Constants.scripts_extension
+	var script_file_name: String = object_id + Constants.scripts_extension
 	
 	# Set the current tab type to Scene Type
 	current_tab_type = TabType.TabCode
