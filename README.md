@@ -40,3 +40,8 @@ Ji-Xpress can also be developed as a standalone game builder, in which case you 
 ## Product Roadmap
 
 * [Product Roadmap](doc/roadmap.md)
+
+## Community
+
+* Join us on [The Ji-Xpress Discord Server](https://discord.gg/qyawbcWS)
+* Find us on [itch.io](https://ahmedmaawy.itch.io/ji-xpress)
