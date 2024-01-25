@@ -2,7 +2,9 @@
 
 ### What is Ji-Xpress?
 
-Ji-Xpress is a 2D Custom Game Builder developed on Godot using GDScript.
+Ji-Xpress is a 2D Custom Game Builder developed on Godot using GDScript and available as Open Source on GitHub. It will allow Game Developers to create Game Environments in which they can expose a Game Builder interface for their Game Players using the Godot Engine.
+
+What makes Ji-Xpress different is that you can embed the Game Builder into your Godot Game project and totally customize how you want the Game Building experience to work. So in essence Ji-Xpress is a tool that allows you to define your own Game Building experience on the Godot Engine.
 
 ### Ji-Xpress as Game Builder
 
