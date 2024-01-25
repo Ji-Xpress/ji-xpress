@@ -106,6 +106,10 @@ text = "Open External Project"
 layout_mode = 2
 text = "Create New Project"
 
+[node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
 [connection signal="dir_opened" from="Dialogs" to="." method="_on_dialogs_dir_opened"]
 [connection signal="file_open_cancelled" from="Dialogs" to="." method="_on_dialogs_file_open_cancelled"]
 [connection signal="project_pack_dialog_result" from="LauncherDialogs" to="." method="_on_launcher_dialogs_project_pack_dialog_result"]
@@ -113,3 +117,4 @@ text = "Create New Project"
 [connection signal="timeout" from="PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityListDoubleClickTimer" to="." method="_on_activity_list_double_click_timer_timeout"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/OpenExternalProject" to="." method="_on_open_external_project_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CreateNewProject" to="." method="_on_create_new_project_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Exit" to="." method="_on_exit_pressed"]

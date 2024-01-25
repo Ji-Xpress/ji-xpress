@@ -76,3 +76,10 @@ You will only need to specify 2 properties for these players:
 
 * `project_path`: Path to the saved project on disk.
 * `scene_name`: Name of the startup scene.
+
+## Game Customization: Implementing an `exit` for the launcher
+
+You may want to implement a custom experience for your game, and then implement a custom integration with the project launcher, and handle an exit from the launcher back to your game experience:
+
+* You can embed the Launcher interface (`res://launcher.tscn`) into your scene and set the `custom_exit_active` property to true. This will show the `exit` button on the launcher.
+* You can then handle the `exit_pressed` signal.

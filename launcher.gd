@@ -4,11 +4,17 @@ enum FileDialogResult {
 	Success, Cancelled, None
 }
 
+signal exit_pressed
+
+## Defines if we have custom exit triggered by the exit button
+@export var custom_exit_active: bool = false
+
 @onready var no_activity_label: Label = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/NoRecentActivity
 @onready var activity_list: ItemList = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityList
 @onready var dialogs: Control = $Dialogs
 @onready var activity_list_double_click_timer: Timer = $PanelContainer/MarginContainer/VBoxContainer/ActivityList/ActivityListDoubleClickTimer
 @onready var launcher_dialogs: Control = $LauncherDialogs
+@onready var exit_button: Button = $PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Exit
 
 # Checks on the file dialog result status
 var file_dialog_result: FileDialogResult = FileDialogResult.None
@@ -30,6 +36,9 @@ signal file_dialog_result_triggered
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_recent_projects()
+	
+	if not custom_exit_active:
+		exit_button.visible = false
 
 
 # Reset status flags for file dialogs
@@ -187,3 +196,8 @@ func _on_activity_list_double_click_timer_timeout():
 func _on_launcher_dialogs_project_pack_dialog_result(result_string, index):
 	selected_project_pack_string = result_string
 	selected_project_pack_index = index
+
+
+## Exit button has been pressed
+func _on_exit_pressed():
+	emit_signal("exit_pressed")
