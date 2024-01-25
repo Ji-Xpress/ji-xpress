@@ -21,6 +21,10 @@ The Ji-Xpress editor is useful as is, but it can always get better. There is a s
 
 * The current code execution model is run using a simple algorithm. For efficiency, we can instead compile the visual model into GDScript (at run time or at build time - this is when exporting the project) - and execute the GDScript instead.
 
+### Extending to 3D
+
+* Extend Ji-Xpress to also include 3D editing and 3D scene capabilities. Currently Ji-Xpress is only 2D.
+
 ### User Experience
 
 The user experience can always improve. Ideas are welcome for this.
