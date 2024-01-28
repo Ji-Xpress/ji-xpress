@@ -414,3 +414,25 @@ func get_dir_files(path: String, extension: String):
 		return file_array
 	else:
 		return []
+
+
+## Gets a list of all recent projects
+func get_recent_projects():
+	if FileAccess.file_exists(Constants.recent_projects_file_name):
+		var recent_projects_file = FileAccess.open(Constants.recent_projects_file_name, FileAccess.READ)
+		
+		if recent_projects_file == null:
+			return false
+		
+		# Get the JSON and process it from the file
+		var all_files: String = recent_projects_file.get_as_text()
+		recent_projects_file.close()
+		
+		var all_files_dict = JSON.parse_string(all_files)
+		
+		if all_files_dict == null:
+			return false
+		
+		return all_files_dict
+		
+	return false

@@ -55,23 +55,10 @@ func invalidate_file_dialog_result_flags():
 
 # Load recent projects
 func load_recent_projects():
-	if FileAccess.file_exists(Constants.recent_projects_file_name):
-		var recent_projects_file = FileAccess.open(Constants.recent_projects_file_name, FileAccess.READ)
-		
-		if recent_projects_file == null:
-			return false
-		
-		# Get the JSON and process it from the file
-		var all_files: String = recent_projects_file.get_as_text()
-		recent_projects_file.close()
-		
-		var all_files_dict = JSON.parse_string(all_files)
-		
-		if all_files_dict == null:
-			return false
-		
-		# Assign to class variable
-		all_current_files = all_files_dict
+	var all_projects = ProjectManager.get_recent_projects()
+	
+	if all_projects:
+		all_current_files = all_projects
 		
 		var num_items: int = 0
 		
@@ -83,8 +70,8 @@ func load_recent_projects():
 		# Do not show the no activity label if projects exist
 		if num_items > 0:
 			no_activity_label.visible = false
-		
-	return false
+	else:
+		return false
 
 
 ## Save the current recent projects dict to file

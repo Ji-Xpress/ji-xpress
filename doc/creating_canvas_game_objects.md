@@ -118,3 +118,22 @@ The project metadata has the following keys:
 * `project_pack` : (or `ProjectMetadata.prop_project_pack`) - Name of the pack that was used for the project (useful in a multipack setting)
 * `window_width` : (or `ProjectMetadata.prop_window_width`) - Game Canvas Width setting.
 * `window_height` : (or `ProjectMetadata.prop_window_height`) - Game Canvas Height setting.
+
+#### Getting a list of recent Projects
+
+To get all recent projects:
+
+* `ProjectManager.get_recent_projects()` : Returns a dictionary of recent projects, or `false` if no recent projects are recorded. As so:
+
+```json
+"34223930": {
+	"path": "path_to_project",
+	"time": "2023-12-12"
+},
+"28347829": {
+	"path": "path_to_project",
+	"time": "2023-07-28"
+}
+```
+
+* As above, each project is tagged against a **unique hash** as its key, the `path` is the path on the file system and the `time` is the creation time of the project.
