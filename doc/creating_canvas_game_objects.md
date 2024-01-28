@@ -76,7 +76,9 @@ You will only need to specify 2 properties for these players:
 * `project_path`: Path to the saved project on disk.
 * `scene_name`: Name of the startup scene.
 
-## Game Customization: Implementing an `exit` for the launcher
+## Integrating with a Game Customization
+
+### Implementing an `exit` for the launcher
 
 You may want to implement a custom experience for your game, and then implement a custom integration with the project launcher, and handle an exit from the launcher back to your game experience:
 
@@ -85,5 +87,34 @@ You may want to implement a custom experience for your game, and then implement 
 
 ### Other launcher signals
 
+You can capture launcher signals to keep track of opened and created projects using the following signals:
+
 * `project_opened` : When a project is opened. Contains the path of the project as a parameter.
 * `project_created` : When a project is created. Contains the path of the project as a parameter.
+
+### Loading and working with projects
+
+The `ProjectManager` singleton can be used to load and keep track of project metadata. 
+
+You can make use of the following functions:
+
+* `open_project(project_path: String)`
+
+This will expose the project Metadata using the following properties:
+
+* `scenes` : An array of Scene names.
+* `scenes_metadata` : A dictionary of metadata for each scene (tagged against its name as the key).
+* `objects` : An array of Object names.
+* `objects_metadata` : A dictionary of object metadata for each object (tagged against its name as the key).
+
+**Note:** You can also skip the launcher and directly load the main game builder interface at: `res://main_ui.tscn` if you load projects properly.
+
+#### Project Metadata
+
+The project metadata has the following keys:
+
+* `app_version` : (or `ProjectMetadata.prop_app_version`)
+* `startup_scene` : (or `ProjectMetadata.prop_startup_scene`) - References the startup scene - if set in the Game Builder UI's settings for the project.
+* `project_pack` : (or `ProjectMetadata.prop_project_pack`) - Name of the pack that was used for the project (useful in a multipack setting)
+* `window_width` : (or `ProjectMetadata.prop_window_width`) - Game Canvas Width setting.
+* `window_height` : (or `ProjectMetadata.prop_window_height`) - Game Canvas Height setting.
