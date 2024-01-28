@@ -89,8 +89,8 @@ You may want to implement a custom experience for your game, and then implement 
 
 You can capture launcher signals to keep track of opened and created projects using the following signals:
 
-* `project_opened` : When a project is opened. Contains the path of the project as a parameter.
-* `project_created` : When a project is created. Contains the path of the project as a parameter.
+* `project_opened(project_path: String)` : When a project is opened. Contains the path of the project as a parameter.
+* `project_created(project_path: String)` : When a project is created. Contains the path of the project as a parameter.
 
 ### Loading and working with projects
 
