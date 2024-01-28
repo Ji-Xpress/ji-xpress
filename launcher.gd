@@ -4,7 +4,12 @@ enum FileDialogResult {
 	Success, Cancelled, None
 }
 
+## When exit is pressed
 signal exit_pressed
+## When a project is opened
+signal project_opened(project_path: String)
+## When a project is created
+signal project_created(project_path: String)
 
 ## Defines if we have custom exit triggered by the exit button
 @export var custom_exit_active: bool = false
@@ -115,6 +120,7 @@ func _on_project_list_item_clicked(index, at_position, mouse_button_index):
 			var path: String = activity_list.get_item_text(index)
 			
 			if ProjectManager.open_project(path):
+				emit_signal("project_opened", path)
 				get_tree().change_scene_to_file("res://main_ui.tscn")
 	else:
 		list_click_index = index
@@ -136,6 +142,7 @@ func _on_open_external_project_pressed():
 		if ProjectManager.open_project(current_selected_dir_path):
 			save_recent_project_to_dict(current_selected_dir_path)
 			save_recent_projects_to_file()
+			emit_signal("project_opened", current_selected_dir_path)
 			get_tree().change_scene_to_file("res://main_ui.tscn")
 		else:
 			dialogs.show_accept_dialog("The folder does not contain a valid project")
@@ -165,6 +172,7 @@ func _on_create_new_project_pressed():
 			if ProjectManager.create_new_project(current_selected_dir_path, selected_project_pack_string):
 				save_recent_project_to_dict(current_selected_dir_path)
 				save_recent_projects_to_file()
+				emit_signal("project_created", current_selected_dir_path)
 				get_tree().change_scene_to_file("res://main_ui.tscn")
 			else:
 				dialogs.show_accept_dialog("There was a problem creating the project")

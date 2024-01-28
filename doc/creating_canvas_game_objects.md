@@ -25,14 +25,14 @@ These nodes are created seperately so that they can have flexibility to grow ind
 ### `ObjectCoder`
 
 * The `ObjectCoder` object has the `code_functions` and `code_variables` properties. `code_functions` are an array of  `ObjectCodeFunction` resource and `code_variables` are an array of `ObjectCustomProperty` resource.
-* It also contains the `broadcast` which is used to handle broadcast events triggered form the visual coder.
+* It also contains the `broadcast` which is used to handle broadcast events triggered from the visual coder.
 * The code contained in the `code_functions` entries will be defined in the parent object's script. The following is an example of the `die` function for a player:
 
 ```gdscript
 ## Player dies
 func die(params: Dictionary):
 	# Implement the code functionality
-    # The params parameter will contain a dictionary of the parameters passed form the visual code editor's node
+    # The params parameter will contain a dictionary of the parameters passed from the visual code editor's node
 ```
 
 ## Creating new Game Objects and loading them into the canvas environment
@@ -82,3 +82,8 @@ You may want to implement a custom experience for your game, and then implement 
 
 * You can embed the Launcher interface (`res://launcher.tscn`) into your scene and set the `custom_exit_active` property to true. This will show the `exit` button on the launcher.
 * You can then handle the `exit_pressed` signal.
+
+### Other launcher signals
+
+* `project_opened` : When a project is opened. Contains the path of the project as a parameter.
+* `project_created` : When a project is created. Contains the path of the project as a parameter.
