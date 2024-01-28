@@ -98,7 +98,7 @@ The `ProjectManager` singleton can be used to load and keep track of project met
 
 You can make use of the following functions:
 
-* `open_project(project_path: String)`
+* `open_project(project_path: String)` : returns `true` if the path is valid, returns `false` if there was a problem opening the project.
 
 This will expose the project Metadata using the following properties:
 
