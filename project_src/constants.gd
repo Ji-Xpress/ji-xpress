@@ -22,6 +22,13 @@ const object_coder_node: String = "ObjectCoder"
 const object_rectextents_node: String = "RectExtents2D"
 ## Link to the external documentation
 const documentation_link: String = "https://github.com/Ji-Xpress/documentation/blob/main/README.md"
+## Sets the drag node type
+const drag_node_type: String = "drag_node_type"
+## Sets the drag node data
+const drag_node_data: String = "drag_node_data"
+
+# Drag node types
+const drag_node_type_game_object: String = "drag_node_type_game_object"
 
 # Collection of project directories
 const project_directories: Array[String] = [

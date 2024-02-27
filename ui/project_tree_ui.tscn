@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://ui/project_tree_ui.gd" id="1_ct0lo"]
 [ext_resource type="Texture2D" uid="uid://c1fd7svh1tldq" path="res://assets/icons_16/plus.png" id="2_4y56p"]
 [ext_resource type="Texture2D" uid="uid://47wvyf5d043m" path="res://assets/icons_16/trashcan.png" id="3_g8ymq"]
-[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="4_111y0"]
 [ext_resource type="Texture2D" uid="uid://b1f6a5mfx0xo4" path="res://assets/icons_16/wrench.png" id="4_hxb4o"]
+[ext_resource type="PackedScene" uid="uid://dwaxbjy0ebb35" path="res://ui/src/project_tree_ui_tree.tscn" id="5_8m4et"]
 
 [node name="ProjectTreeUI" type="Control"]
 layout_mode = 3
@@ -57,12 +57,8 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Tree" type="Tree" parent="PanelContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="Tree" parent="PanelContainer/VBoxContainer/MarginContainer/ScrollContainer" instance=ExtResource("5_8m4et")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("4_111y0")
-theme_override_font_sizes/font_size = 14
 
 [connection signal="button_clicked" from="PanelContainer/VBoxContainer/MarginContainer/ScrollContainer/Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_activated" from="PanelContainer/VBoxContainer/MarginContainer/ScrollContainer/Tree" to="." method="_on_tree_item_activated"]

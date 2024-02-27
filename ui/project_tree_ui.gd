@@ -47,6 +47,9 @@ func _ready():
 	
 	scenes_tree_root_item.add_button(0, add_icon_texture, 0)
 	
+	# Set the tree parent control
+	tree.parent_control = self
+	
 	# Initialize children
 	populate_scene_list()
 	populate_objects_list()
@@ -81,8 +84,10 @@ func populate_objects_list():
 	var object_index = 0
 	for object in ProjectManager.objects:
 		var child_item: TreeItem = tree.create_item(objects_tree_root_item)
+		
 		child_item.set_text(0, object)
 		child_item.set_metadata(0, ProjectManager.objects_metadata[str(object_index)])
+		
 		object_index += 1
 
 

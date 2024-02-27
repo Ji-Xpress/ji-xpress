@@ -52,9 +52,9 @@ radius = 40.0
 radius = 48.0
 
 [node name="Alien" type="RigidBody2D" groups=["alien"]]
+freeze_mode = 1
 max_contacts_reported = 1
 contact_monitor = true
-freeze_mode = 1
 script = ExtResource("1_t3meq")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("4_831n7")]

@@ -8,6 +8,7 @@ extends Control
 
 # Node references
 @onready var properties_editor: Control = %PropertiesEditor
+@onready var sub_viewport_container = %SubViewportContainer
 @onready var design_canvas: Node2D = %DesignCanvas
 @onready var tab_common: Node = $TabCommon
 @onready var right_panel: Control = $PanelContainer/HSplitContainer/RightPanel
@@ -47,6 +48,9 @@ func _on_tree_entered():
 
 # Initialize
 func _ready():
+	# Set reference for the canvas ui to this parent
+	sub_viewport_container.canvas_ui = self
+	
 	# Generic stuff
 	if ProjectManager.scenes_metadata.has(scene_name):
 		populate_scene_nodes()
