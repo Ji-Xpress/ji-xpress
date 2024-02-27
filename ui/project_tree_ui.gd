@@ -47,6 +47,9 @@ func _ready():
 	
 	scenes_tree_root_item.add_button(0, add_icon_texture, 0)
 	
+	# Set the tree parent control
+	tree.parent_control = self
+	
 	# Initialize children
 	populate_scene_list()
 	populate_objects_list()

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwaxbjy0ebb35"]
+
+[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="1_va3gn"]
+[ext_resource type="Script" path="res://ui/src/project_tree_ui_tree.gd" id="2_uxsdc"]
+
+[node name="Tree" type="Tree"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_va3gn")
+theme_override_font_sizes/font_size = 14
+script = ExtResource("2_uxsdc")
