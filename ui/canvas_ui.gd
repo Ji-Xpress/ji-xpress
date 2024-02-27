@@ -129,7 +129,6 @@ func add_game_object_url_to_canvas(url: String, project_object_index: int, creat
 		tab_common.is_invalidated = true
 	
 	last_canvas_mouse_position = Vector2.ZERO
-	sub_viewport_container.last_canvas_mouse_position = Vector2.ZERO
 	mouse_position_request_performed = false
 
 
@@ -280,7 +279,6 @@ func _on_design_canvas_mouse_released(mouse_button, mouse_position):
 	if mouse_button == MOUSE_BUTTON_RIGHT:
 		add_to_canvas_mouse_position = true
 		last_canvas_mouse_position = mouse_position
-		sub_viewport_container.last_canvas_mouse_position = last_canvas_mouse_position
 		mouse_position_request_performed = false
 		
 		var current_global_positon: Vector2 = get_global_mouse_position()

@@ -4,8 +4,6 @@ extends SubViewportContainer
 var canvas_ui: Control = null
 ## Tracks the design canvas
 var design_canvas: Node2D = null
-## Tracks the last mouse position on the canvas
-var last_canvas_mouse_position: Vector2 = Vector2.ZERO
 
 
 func _ready():
@@ -23,4 +21,4 @@ func _drop_data(position, data):
 	var object_url: String = ProjectManager.objects_metadata[str(data_dict[ObjectProperties.prop_object_index])][GameObjectsLoader.prop_object_url]
 	var object_index: int = data_dict[ObjectProperties.prop_object_index]
 	
-	canvas_ui.add_game_object_url_to_canvas(object_url, object_index, -1, null, last_canvas_mouse_position)
+	canvas_ui.add_game_object_url_to_canvas(object_url, object_index, -1, null, canvas_ui.design_canvas.get_global_mouse_position())
