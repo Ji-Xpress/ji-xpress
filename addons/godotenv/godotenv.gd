@@ -32,7 +32,8 @@ func prompt_message(msg: String, error: bool = false) -> void:
 func get_parsed_env() -> Dictionary:
 	var env_variables: Dictionary
 	var dot_env: FileAccess = FileAccess.open(FILE_PATH, FileAccess.READ)
-	if not dot_env == null:
+	
+	if dot_env == null:
 		prompt_message(prompt.creating_dotenv_file)
 		_create_dotenv()
 		return env_variables

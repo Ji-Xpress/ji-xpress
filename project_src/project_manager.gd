@@ -18,11 +18,27 @@ var objects_metadata: Dictionary = {}
 var scripts = []
 ## Holds metadata for all script
 var scripts_metadata: Dictionary = {}
+## Code environment. Default to visual
+var coding_environment: String = Constants.code_environment_env_visual
 
 
 # When initializing
 func _ready():
 	clear_project_metadata()
+	load_coding_environment_setting()
+
+
+## Loads the coding environment going to be used
+func load_coding_environment_setting():
+	if OS.has_feature("code_environment_" + Constants.code_environment_env_visual):
+		coding_environment = Constants.code_environment_env_visual
+	elif OS.has_feature("code_environment_" + Constants.code_environment_env_code):
+		coding_environment = Constants.code_environment_env_code
+	else:
+		var env_var: String = GodotEnv.get_var(Constants.code_environment_env)
+		if env_var != "":
+			coding_environment = env_var
+		print(env_var)
 
 
 ## Clears project metadata
