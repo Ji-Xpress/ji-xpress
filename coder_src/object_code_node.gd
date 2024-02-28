@@ -5,21 +5,25 @@ class_name ObjectCodeNode
 var object: Node2D = null
 
 
-# Initialize the object
-func _ready():
-	SharedState.connect("broadcast", Callable(self, "_on_broadcast"))
-
-
-# Cleanup routines
-func _exit_tree():
-	SharedState.disconnect("broadcast", Callable(self, "_on_broadcast"))
-
-
 ## Does a broadcast
 func do_broadcast(message_id: String, message):
 	SharedState.do_broadcast(message_id, message)
 
 
-## Handles broadcast messages
-func _on_broadcast(message_id: String, message):
-	pass
+## Gets a parameter
+func get_entry_param(entry_type: String, param_name: String, sub_param: String = ""):
+	var entry_name: String = "entry_" + entry_type
+	
+	if not SharedState.expression_variables.has(entry_name):
+		return null
+	
+	if not SharedState.expression_variables[entry_name].has(param_name):
+		return null
+	
+	if sub_param != "":
+		if not SharedState.expression_variables["entry_" + entry_type][param_name].has(sub_param):
+			return null
+		
+		return SharedState.expression_variables["entry_" + entry_type][param_name][sub_param]
+	else:
+		return SharedState.expression_variables["entry_" + entry_type][param_name]

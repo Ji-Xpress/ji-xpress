@@ -138,7 +138,7 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 
 
 ## Player dies
-func die(params: Dictionary):
+func die(params: Dictionary = {}):
 	camera.enabled = false
 	
 	# Set the canvas camera position

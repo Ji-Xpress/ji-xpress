@@ -71,10 +71,6 @@ func code_execution_engine():
 		object_code_node.set_script(gd_script)
 		object_code_node.set("object", parent_node)
 		
-		# Attach function pointers
-		for function: ObjectCodeFunction in code_functions:
-			object_code_node.set(function.function_name, Callable(parent_node, function.function_name))
-		
 		# Embed instance into CodeExectionEngine
 		engine.object_code_node_instance = object_code_node
 	return engine
