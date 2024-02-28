@@ -51,7 +51,7 @@ func _physics_process(delta):
 		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
 
 
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	if property == "is_active":
 		is_active = str(value) == "true"
 		activate()

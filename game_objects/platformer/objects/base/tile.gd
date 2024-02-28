@@ -108,22 +108,23 @@ func invalidate_rect():
 
 
 # When a property is changed
-func _on_object_functionality_property_changed(property, value, is_custom):
-	match property:
-		"width":
-			var width: int = int(value)
-			current_width = width * block_dimensions.x
-			invalidate_rect()
-		"height":
-			var height: int = int(value)
-			current_height = height * block_dimensions.y
-			invalidate_rect()
-		"platform_kind":
-			platform_kind = value
-			set_platform_kind()
-		"is_active":
-			is_active = str(value) == "true"
-			activate_platform()
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
+	if run_mode == object_metadata.node_mode:
+		match property:
+			"width":
+				var width: int = int(value)
+				current_width = width * block_dimensions.x
+				invalidate_rect()
+			"height":
+				var height: int = int(value)
+				current_height = height * block_dimensions.y
+				invalidate_rect()
+			"platform_kind":
+				platform_kind = value
+				set_platform_kind()
+			"is_active":
+				is_active = str(value) == "true"
+				activate_platform()
 
 
 ## Sets the platform kind manually

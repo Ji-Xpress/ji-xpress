@@ -70,7 +70,7 @@ func is_on_floor():
 
 
 # Property change event handling
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	if property == "mass":
 		if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 			if str(value).is_valid_float():

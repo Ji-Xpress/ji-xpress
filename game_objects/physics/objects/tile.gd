@@ -53,7 +53,7 @@ func set_num_blocks_for_tile(value: int):
 
 
 # Handle when a property changes
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	if property == "num_blocks":
 		set_num_blocks_for_tile(value)
 

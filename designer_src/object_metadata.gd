@@ -62,9 +62,9 @@ func prepare_custom_prop_dict(override: bool = false):
 		
 		if prop_values.has(property_name):
 			if override:
-				set_property(property_name, property_default_value)
+				set_property(property_name, property_default_value, node_mode)
 		else:
-			set_property(property_name, property_default_value)
+			set_property(property_name, property_default_value, node_mode)
 
 
 ## Gets a property's value
@@ -76,6 +76,6 @@ func get_property(prop: String):
 
 
 ## Set's a properties value
-func set_property(prop: String, value, is_custom_prop: bool = true):
-	if is_custom_prop:
+func set_property(prop: String, value, is_custom_prop: bool = true, run_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeRun):
+	if is_custom_prop and node_mode == run_mode:
 		prop_values[prop] = value

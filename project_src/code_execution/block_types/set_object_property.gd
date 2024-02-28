@@ -3,7 +3,7 @@ extends BlockTypeExecutionBase
 
 ## Computes the result of the block's execution
 func compute_result():
-	game_object_instance.object_metadata.set_property(block_parameters.property, expression_engine.compute_expression(block_parameters.value))
+	game_object_instance.object_metadata.set_property(block_parameters.property, expression_engine.compute_expression(block_parameters.value), game_object_instance.object_metadata.node_mode)
 	return true
 
 

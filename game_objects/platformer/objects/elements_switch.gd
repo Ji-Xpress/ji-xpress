@@ -63,7 +63,7 @@ func destroy(params: Dictionary = {}):
 
 
 # When a property changes
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	match property:
 		"is_pressed":
 			is_pressed = str(value) == "true"

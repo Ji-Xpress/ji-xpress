@@ -131,7 +131,7 @@ func _on_collision_sensor_body_entered(body):
 		})
 
 
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	if property == "is_current":
 		is_current = bool(value)
 		set_camera_enabled()

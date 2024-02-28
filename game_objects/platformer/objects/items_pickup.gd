@@ -43,7 +43,7 @@ func change_sprite():
 
 
 # When a property changes
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	match property:
 		"pickup_type":
 			item_type = int(value)

@@ -5,7 +5,7 @@ class_name ObjectFunctionality
 var parent_node: Node = null
 
 # Triggered when a property is changed, can be handled at object level
-signal property_changed(property: String, value, is_custom: bool)
+signal property_changed(property: String, value, is_custom: bool, run_mode: SharedEnums.NodeCanvasMode)
 
 
 # Initialization
@@ -28,7 +28,7 @@ func send_message_to_canvas(message: Dictionary):
 		parent_node.get_parent().get_parent().emit_signal("send_node_message", parent_node, message)
 
 
-
 ## Sets the value of a property
-func set_property(prop: String, value, is_custom: bool = true):
-	emit_signal("property_changed", prop, value, is_custom)
+func set_property(prop: String, value, is_custom: bool = true, run_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeRun):
+	if run_mode == parent_node.object_metadata.node_mode:
+		emit_signal("property_changed", prop, value, is_custom, parent_node.object_metadata.node_mode)
