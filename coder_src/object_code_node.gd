@@ -38,3 +38,13 @@ func set_property(property: String, value):
 ## Sets the property of the current object
 func get_property(property: String):
 	object.object_metadata.get_property(property)
+
+
+## Sets the value of a global variable
+func set_global_variable(variable: String, value):
+	SharedState.set_variable(variable, value)
+
+
+## Gets the value of a global variable
+func get_global_variable(variable: String):
+	return SharedState.get_variable(variable)
