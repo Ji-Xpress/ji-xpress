@@ -223,3 +223,9 @@ func _on_object_coder_broadcast(message_id, message):
 func _process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
+
+
+# Destroy the object
+func destroy(params: Dictionary = {}):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		queue_free()

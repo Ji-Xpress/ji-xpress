@@ -94,6 +94,6 @@ func _on_object_coder_broadcast(message_id, message):
 
 
 # Destroy the object
-func destroy(params: Dictionary):
+func destroy(params: Dictionary = {}):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		queue_free()

@@ -27,3 +27,14 @@ func get_entry_param(entry_type: String, param_name: String, sub_param: String =
 		return SharedState.expression_variables["entry_" + entry_type][param_name][sub_param]
 	else:
 		return SharedState.expression_variables["entry_" + entry_type][param_name]
+
+
+## Sets the property of the current object
+func set_property(property: String, value):
+	object.object_metadata.set_property(property, value)
+	object.object_functionality.set_property(property, value)
+
+
+## Sets the property of the current object
+func get_property(property: String):
+	object.object_metadata.get_property(property)
