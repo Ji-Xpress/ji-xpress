@@ -55,8 +55,15 @@ func code_execution_engine():
 			engine.initialize_metadata(parent_node, script_metadata)
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
 		var script: String = ProjectManager.open_code(object_name + Constants.code_extension)
+		
+		# Prepare object script
 		script = "extends ObjectCodeNode\n" + script
 		object_code_node.set_script(script)
+		object_code_node.object = parent_node
+		
+		# Prepare function pointers
+		for function: ObjectCodeFunction in code_functions:
+			object_code_node[function.function_name] = parent_node[function.function_name]
 	
 	return engine
 

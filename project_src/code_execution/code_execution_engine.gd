@@ -139,8 +139,6 @@ func initialize_metadata(object_instance: Node, metadata: Dictionary):
 				prop_connection_from_metadata: port_from_metadata,
 				prop_connection_to_metadata: port_to_metadata
 			})
-	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-		pass
 
 
 ## Executes code from an entrypoint type
@@ -155,7 +153,9 @@ func execute_from_entrypoint_type(entrypoint_type: String):
 			expression_engine.current_condition_type = ""
 			return true
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-		pass
+		var method_name: String = "_on_" + entrypoint_type
+		if object_code_node_instance.has_method(method_name):
+			object_code_node_instance.call(method_name)
 	
 	return false
 

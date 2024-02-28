@@ -4,7 +4,7 @@ var state_variables: Dictionary = {}
 var expression_variables: Dictionary = {}
 var current_scene: String = ""
 
-signal broadcast(message_id: String, message: String)
+signal broadcast(message_id: String, message)
 
 
 ## Clears variables in the shared state

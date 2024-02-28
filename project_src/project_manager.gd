@@ -333,6 +333,11 @@ func save_script(file_name: String, script_metadata: ScriptMetaData):
 	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSON.stringify(script_metadata))
 
 
+## Saves textual code
+func save_code(file_name: String, code: String):
+	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], code)
+
+
 ## Opens a script instance
 func open_script(file_name: String, mute_results: bool = false):
 	if current_project_path != "":
@@ -360,8 +365,27 @@ func open_script(file_name: String, mute_results: bool = false):
 
 
 ## Opens a code file and loads it
-func open_code(file_name: String):
-	pass
+func open_code(file_name: String, mute_results: bool = false):
+	if current_project_path != "":
+		var script_filename: String = current_project_path + Constants.project_scripts_dir + "\\" + file_name
+		if FileAccess.file_exists(script_filename):
+			var file: FileAccess = FileAccess.open(script_filename, FileAccess.READ)
+			
+			if file == null:
+				return false
+			
+			# Get file contents
+			var code: String = file.get_as_text()
+			file.close()
+			
+			scripts_metadata[file_name] = code
+			# Return results
+			if mute_results:
+				return true
+			
+			return scripts_metadata[file_name]
+	else:
+		return false
 
 
 ## Gets the status of script file exists
