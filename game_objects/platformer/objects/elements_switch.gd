@@ -78,4 +78,4 @@ func _on_object_functionality_property_changed(property, value, is_custom, run_m
 
 ## Sets if pressed or not
 func set_pressed(parameters: Dictionary):
-	object_functionality.set_property("is_pressed", parameters.is_pressed)
+	object_functionality.set_property("is_pressed", parameters.is_pressed, object_metadata.node_mode)

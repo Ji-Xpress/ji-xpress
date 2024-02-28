@@ -48,3 +48,33 @@ func set_global_variable(variable: String, value):
 ## Gets the value of a global variable
 func get_global_variable(variable: String):
 	return SharedState.get_variable(variable)
+
+
+## Gets the position of the object
+func get_object_position():
+	return object.position
+
+
+## Sets the position of the object
+func set_object_position(position: Vector2, smoothing: bool = false, duration: float= 1.0):
+	if smoothing:
+		var tween: Tween = object.create_tween()
+		tween.tween_property(object, "position", Vector2(position.x, position.y), duration)
+		await tween.finished
+	else:
+		object.position = position
+
+
+## Gets the rotation of the object in degrees
+func get_object_rotation():
+	return object.rotation_degrees
+
+
+## Sets the position of the object
+func set_object_rotation(degrees: float, smoothing: bool = false, duration: float= 1.0):
+	if smoothing:
+		var tween: Tween = object.create_tween()
+		tween.tween_property(object, "rotation_degrees", degrees, duration)
+		await tween.finished
+	else:
+		object.rotation_degrees = degrees
