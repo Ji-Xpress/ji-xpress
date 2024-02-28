@@ -55,22 +55,28 @@ func code_execution_engine():
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
 		object_code_node = ObjectCodeNode.new()
 		
-		# Prepare object script
+		# Prepare script text
 		var script = ProjectManager.open_code(object_name + Constants.code_extension)
-		
 		if not script or script == null:
 			script = ""
 		
 		script = "extends ObjectCodeNode\n" + script
-		object_code_node.set_script(script)
+		
+		# Prepare GDScript object
+		var gd_script: GDScript = GDScript.new()
+		gd_script.set_source_code(script)
+		gd_script.reload()
+		
+		# Attach GDScript
+		object_code_node.set_script(gd_script)
 		object_code_node.set("object", parent_node)
 		
-		engine.object_code_node_instance = object_code_node
-		
-		# Prepare function pointers
+		# Attach function pointers
 		for function: ObjectCodeFunction in code_functions:
 			object_code_node.set(function.function_name, Callable(parent_node, function.function_name))
-	
+		
+		# Embed instance into CodeExectionEngine
+		engine.object_code_node_instance = object_code_node
 	return engine
 
 

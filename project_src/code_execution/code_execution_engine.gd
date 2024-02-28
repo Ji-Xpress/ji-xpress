@@ -38,7 +38,7 @@ var current_execution_block = null
 ## Keeps track of the game object instance
 var game_object_instance: Node = null
 ## Contains a reference to the object code node if executed as textual code
-var object_code_node_instance: ObjectCodeNode = null
+var object_code_node_instance = null
 ## Instance of Experession Engine
 var expression_engine: ExpressionEngine = null
 ## Current instance of the finally block data
