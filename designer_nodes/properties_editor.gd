@@ -24,8 +24,8 @@ signal property_changed(property_set_id: String, property_id: String, new_value,
 
 
 ## Used to handle when a property field changes
-func property_value_changed(property_id: String, value, is_custom_property: bool, run_mode: SharedEnums.NodeCanvasMode):
-	emit_signal("property_changed", property_set_id, property_id, value, is_custom_property, run_mode)
+func property_value_changed(property_id: String, value, is_custom_property: bool):
+	emit_signal("property_changed", property_set_id, property_id, value, is_custom_property, SharedEnums.NodeCanvasMode.ModeDesign)
 
 
 ## Clears every property fields
