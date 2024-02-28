@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://v758p44ninq5"]
+
+[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="1_tjdwm"]
+
+[resource]
+CodeEdit/fonts/font = ExtResource("1_tjdwm")

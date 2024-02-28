@@ -38,7 +38,6 @@ func load_coding_environment_setting():
 		var env_var: String = GodotEnv.get_var(Constants.code_environment_env)
 		if env_var != "":
 			coding_environment = env_var
-		print(env_var)
 
 
 ## Clears project metadata
