@@ -1,18 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://omnw1wh7srom"]
+[gd_scene load_steps=3 format=3 uid="uid://omnw1wh7srom"]
 
 [ext_resource type="Theme" uid="uid://v758p44ninq5" path="res://themes/code_editor_ui_theme.tres" id="1_s68o1"]
 [ext_resource type="Script" path="res://ui/code_editor/code_edit.gd" id="2_qb24e"]
-
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_5chcs"]
-number_color = Color(0.372549, 0.619608, 0.627451, 1)
-symbol_color = Color(1, 0.764706, 0, 1)
-function_color = Color(1, 0.341176, 0.2, 1)
-member_variable_color = Color(0.372549, 0.619608, 0.627451, 1)
 
 [node name="CodeEdit" type="CodeEdit"]
 size_flags_vertical = 3
 theme = ExtResource("1_s68o1")
 minimap_draw = true
-syntax_highlighter = SubResource("CodeHighlighter_5chcs")
 gutters_draw_line_numbers = true
 script = ExtResource("2_qb24e")
