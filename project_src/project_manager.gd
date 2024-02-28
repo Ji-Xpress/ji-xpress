@@ -24,8 +24,8 @@ var coding_environment: String = Constants.code_environment_env_visual
 
 # When initializing
 func _ready():
-	clear_project_metadata()
 	load_coding_environment_setting()
+	clear_project_metadata()
 
 
 ## Loads the coding environment going to be used
@@ -357,6 +357,11 @@ func open_script(file_name: String, mute_results: bool = false):
 			return scripts_metadata[file_name]
 	else:
 		return false
+
+
+## Opens a code file and loads it
+func open_code(file_name: String):
+	pass
 
 
 ## Gets the status of script file exists

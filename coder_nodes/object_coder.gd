@@ -16,6 +16,9 @@ signal broadcast(message_id: String, message: String)
 ## Variables to be used by the coding environment
 @export var code_variables: Array[ObjectCustomProperty] = []
 
+## Contains the instance of the code if executed by text code
+@onready var object_code_node: ObjectCodeNode = $ObjectCodeNode
+
 ## Holder of variable values
 var variable_values: Dictionary = {}
 ## Reference to parent node
@@ -40,11 +43,20 @@ func code_execution_engine():
 	# Load corresponding script metadata
 	var object_index: int = parent_node.get_node(Constants.object_metadata_node).project_object_index
 	var object_name: String = ProjectManager.object_ids[object_index]
-	var engine: CodeExecutionEngine = CodeExecutionEngine.new()
-	var script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
+	var script_metadata = null
 	
-	if script_metadata != null:
-		engine.initialize_metadata(parent_node, script_metadata)
+	# Prepare the engine
+	var engine: CodeExecutionEngine = CodeExecutionEngine.new()
+	engine.object_code_node_instance = object_code_node
+	
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
+		if script_metadata != null:
+			engine.initialize_metadata(parent_node, script_metadata)
+	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+		var script: String = ProjectManager.open_code(object_name + Constants.code_extension)
+		script = "extends ObjectCodeNode\n" + script
+		object_code_node.set_script(script)
 	
 	return engine
 
@@ -61,24 +73,32 @@ func prepare_code_variable_dict(override: bool = false):
 		var variable_value = variable[ObjectCustomProperty.prop_prop_value]
 		var default_value = variable[ObjectCustomProperty.prop_prop_default_value]
 		
-		if variable_values.has(variable_name):
-			if override:
+		if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+			if variable_values.has(variable_name):
+				if override:
+					set_variable(variable_name, default_value)
+			else:
 				set_variable(variable_name, default_value)
-		else:
-			set_variable(variable_name, default_value)
+		elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+			object_code_node[variable_name] = default_value
 
 
 ## Gets a variable's value
 func get_variable(variable: String):
-	if variable_values.has(variable):
-		return variable_values[variable]
-	
-	return null
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		if variable_values.has(variable):
+			return variable_values[variable]
+		return null
+	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+		return object_code_node.get(variable)
 
 
 ## Set's a variable value
 func set_variable(variable: String, value):
-	variable_values[variable] = value
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		variable_values[variable] = value
+	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+		object_code_node[variable] = value
 
 
 ## Executes a function from the parent object
