@@ -154,8 +154,9 @@ func execute_from_entrypoint_type(entrypoint_type: String):
 			return true
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
 		var method_name: String = "_on_" + entrypoint_type
-		if object_code_node_instance.has_method(method_name):
-			object_code_node_instance.call(method_name)
+		if object_code_node_instance != null:
+			if object_code_node_instance.has_method(method_name):
+				object_code_node_instance.call(method_name)
 	
 	return false
 

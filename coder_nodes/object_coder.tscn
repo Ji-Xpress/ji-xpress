@@ -4,5 +4,3 @@
 
 [node name="ObjectCoder" type="Node"]
 script = ExtResource("1_a0fdi")
-
-[node name="ObjectCodeNode" type="Node" parent="."]

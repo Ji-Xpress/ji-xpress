@@ -17,7 +17,7 @@ signal broadcast(message_id: String, message: String)
 @export var code_variables: Array[ObjectCustomProperty] = []
 
 ## Contains the instance of the code if executed by text code
-@onready var object_code_node: ObjectCodeNode = $ObjectCodeNode
+var object_code_node: ObjectCodeNode = null
 
 ## Holder of variable values
 var variable_values: Dictionary = {}
@@ -47,23 +47,29 @@ func code_execution_engine():
 	
 	# Prepare the engine
 	var engine: CodeExecutionEngine = CodeExecutionEngine.new()
-	engine.object_code_node_instance = object_code_node
 	
 	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
 		script_metadata = ProjectManager.open_script(object_name + Constants.scripts_extension)
 		if script_metadata != null:
 			engine.initialize_metadata(parent_node, script_metadata)
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-		var script: String = ProjectManager.open_code(object_name + Constants.code_extension)
+		object_code_node = ObjectCodeNode.new()
 		
 		# Prepare object script
+		var script = ProjectManager.open_code(object_name + Constants.code_extension)
+		
+		if not script or script == null:
+			script = ""
+		
 		script = "extends ObjectCodeNode\n" + script
 		object_code_node.set_script(script)
-		object_code_node.object = parent_node
+		object_code_node.set("object", parent_node)
+		
+		engine.object_code_node_instance = object_code_node
 		
 		# Prepare function pointers
 		for function: ObjectCodeFunction in code_functions:
-			object_code_node[function.function_name] = parent_node[function.function_name]
+			object_code_node.set(function.function_name, Callable(parent_node, function.function_name))
 	
 	return engine
 
