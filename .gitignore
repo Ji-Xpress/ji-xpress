@@ -4,5 +4,4 @@
 .env
 *.tmp
 # Assets for custom compilation of logo and icon
-assets/custom-logo.png
-custom-icon.png
+assets/ignore
