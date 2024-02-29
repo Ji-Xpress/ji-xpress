@@ -173,7 +173,6 @@ func do_tween():
 		tween.tween_property(self, "global_position", new_position, movement_duration)
 		tween.tween_callback(tween_callback)
 		tween.play()
-	
 
 
 # Activate / deactivate
@@ -182,35 +181,36 @@ func activate():
 
 
 # Property has changed
-func _on_object_functionality_property_changed(property, value, is_custom):
-	match property:
-		"is_active":
-			is_active = str(value) == "true"
-			activate()
-		"vertical_start_position":
-			vertical_start_position = int(value)
-			if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-				tween.stop()
-				do_tween()
-		"horizontal_start_position":
-			horizontal_start_position = int(value)
-			if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-				tween.stop()
-				do_tween()
-		"vertical_distance":
-			vertical_distance = int(value)
-			if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-				tween.stop()
-				do_tween()
-		"horizontal_distance":
-			horizontal_distance = int(value)
-			if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-				tween.stop()
-				do_tween()
-		"width":
-			var width: int = int(value)
-			current_width = width * block_dimensions.x
-			invalidate_rect()
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
+	if run_mode == object_metadata.node_mode:
+		match property:
+			"is_active":
+				is_active = str(value) == "true"
+				activate()
+			"vertical_start_position":
+				vertical_start_position = int(value)
+				if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+					tween.stop()
+					do_tween()
+			"horizontal_start_position":
+				horizontal_start_position = int(value)
+				if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+					tween.stop()
+					do_tween()
+			"vertical_distance":
+				vertical_distance = int(value)
+				if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+					tween.stop()
+					do_tween()
+			"horizontal_distance":
+				horizontal_distance = int(value)
+				if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+					tween.stop()
+					do_tween()
+			"width":
+				var width: int = int(value)
+				current_width = width * block_dimensions.x
+				invalidate_rect()
 
 
 # Process the broadcast message
@@ -223,3 +223,9 @@ func _on_object_coder_broadcast(message_id, message):
 func _process(delta):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
+
+
+# Destroy the object
+func destroy(params: Dictionary = {}):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		queue_free()

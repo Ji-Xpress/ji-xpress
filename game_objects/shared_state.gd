@@ -4,7 +4,7 @@ var state_variables: Dictionary = {}
 var expression_variables: Dictionary = {}
 var current_scene: String = ""
 
-signal broadcast(message_id: String, message: String)
+signal broadcast(message_id: String, message)
 
 
 ## Clears variables in the shared state
@@ -32,5 +32,10 @@ func set_variable(variable: String, value):
 
 
 ## Perform a broadcast
-func do_broadcast(message_id: String, message: String):
+func do_broadcast(message_id: String, message):
+	SharedState.expression_variables["entry_broadcast"]["broadcast_message"] = {
+		"message_id": message_id,
+		"message": message
+	}
+	
 	emit_signal("broadcast", message_id, message)

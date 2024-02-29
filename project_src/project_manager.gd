@@ -18,11 +18,26 @@ var objects_metadata: Dictionary = {}
 var scripts = []
 ## Holds metadata for all script
 var scripts_metadata: Dictionary = {}
+## Code environment. Default to visual
+var coding_environment: String = Constants.code_environment_env_visual
 
 
 # When initializing
 func _ready():
+	load_coding_environment_setting()
 	clear_project_metadata()
+
+
+## Loads the coding environment going to be used
+func load_coding_environment_setting():
+	if OS.has_feature("code_environment_" + Constants.code_environment_env_visual):
+		coding_environment = Constants.code_environment_env_visual
+	elif OS.has_feature("code_environment_" + Constants.code_environment_env_code):
+		coding_environment = Constants.code_environment_env_code
+	else:
+		var env_var: String = GodotEnv.get_var(Constants.code_environment_env)
+		if env_var != "":
+			coding_environment = env_var
 
 
 ## Clears project metadata
@@ -318,6 +333,11 @@ func save_script(file_name: String, script_metadata: ScriptMetaData):
 	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], JSON.stringify(script_metadata))
 
 
+## Saves textual code
+func save_code(file_name: String, code: String):
+	save_file_to_folder(file_name, false, [ Constants.project_scripts_dir ], code)
+
+
 ## Opens a script instance
 func open_script(file_name: String, mute_results: bool = false):
 	if current_project_path != "":
@@ -335,6 +355,30 @@ func open_script(file_name: String, mute_results: bool = false):
 			var script_dict = JSON.parse_string(scene_metadata_str)
 			scripts_metadata[file_name] = script_dict
 			
+			# Return results
+			if mute_results:
+				return true
+			
+			return scripts_metadata[file_name]
+	else:
+		return false
+
+
+## Opens a code file and loads it
+func open_code(file_name: String, mute_results: bool = false):
+	if current_project_path != "":
+		var script_filename: String = current_project_path + Constants.project_scripts_dir + "\\" + file_name
+		if FileAccess.file_exists(script_filename):
+			var file: FileAccess = FileAccess.open(script_filename, FileAccess.READ)
+			
+			if file == null:
+				return false
+			
+			# Get file contents
+			var code: String = file.get_as_text()
+			file.close()
+			
+			scripts_metadata[file_name] = code
 			# Return results
 			if mute_results:
 				return true

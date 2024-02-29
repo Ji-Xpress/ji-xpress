@@ -208,13 +208,13 @@ func _on_design_canvas_node_rotated(node, node_index, node_kind):
 
 
 # Properties editor event handling
-func _on_properties_editor_property_changed(property_set_id, property_id, new_value, is_property_custom):
+func _on_properties_editor_property_changed(property_set_id, property_id, new_value, is_property_custom, run_mode):
 	if current_active_control != null:
 		var object_index: int = current_active_control.object_metadata.object_index
 		
 		if is_property_custom:
-			current_active_control.object_metadata.set_property(property_id, new_value, is_property_custom)
-			current_active_control.object_functionality.set_property(property_id, new_value, is_property_custom)
+			current_active_control.object_metadata.set_property(property_id, new_value, is_property_custom, canvas_mode)
+			current_active_control.object_functionality.set_property(property_id, new_value, is_property_custom, canvas_mode)
 		else:
 			match property_id:
 				ObjectMetaData.prop_position_x:

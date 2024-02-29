@@ -11,6 +11,7 @@ const scene_prefix: String = "scn_"
 const script_prefix: String = "scr_"
 const canvas_ui: PackedScene = preload("res://ui/canvas_ui.tscn")
 const script_ui: PackedScene = preload("res://ui/code_canvas_ui.tscn")
+const code_ui: PackedScene = preload("res://ui/code_editor_ui.tscn")
 const prompt_flag_new_scene: String = "new_scene"
 const prompt_flag_rename_scene: String = "rename_scene"
 
@@ -156,7 +157,13 @@ func _on_project_tree_ui_object_selected(object_metadata):
 	var object_index: int = object_metadata[GameObjectsLoader.prop_object_index]
 	var object_id: String = object_metadata[GameObjectsLoader.prop_object_id]
 	var object_url: String = object_metadata[GameObjectsLoader.prop_object_url]
-	var script_file_name: String = object_id + Constants.scripts_extension
+	var script_file_name: String = ""
+	
+	match ProjectManager.coding_environment:
+		Constants.code_environment_env_visual:
+			script_file_name = object_id + Constants.scripts_extension
+		Constants.code_environment_env_code:
+			script_file_name = object_id + Constants.code_extension
 	
 	# Set the current tab type to Scene Type
 	current_tab_type = TabType.TabCode
@@ -164,7 +171,14 @@ func _on_project_tree_ui_object_selected(object_metadata):
 	# Open or create the relevant tab's content
 	if not current_open_tabs.has(script_prefix + script_file_name):
 		# New canvas scene instance
-		var new_script_canvas: Control = script_ui.instantiate()
+		var new_script_canvas: Control = null
+		
+		match ProjectManager.coding_environment:
+			Constants.code_environment_env_visual:
+				new_script_canvas = script_ui.instantiate()
+			Constants.code_environment_env_code:
+				new_script_canvas = code_ui.instantiate()
+		
 		# Track the scene name in the new control
 		new_script_canvas.script_name = script_file_name
 		new_script_canvas.is_new_file = not ProjectManager.script_file_exists(script_file_name)

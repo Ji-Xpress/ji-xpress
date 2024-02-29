@@ -15,8 +15,9 @@ const popup_set_object_variable: int = 10
 const popup_delay: int = 11
 const popup_change_scene: int = 12
 
-# Script name property
+## Script name property
 @export var script_name: String = ""
+## Object index
 @export var object_index: int = -1
 
 # Node references

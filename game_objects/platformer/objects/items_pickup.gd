@@ -43,7 +43,7 @@ func change_sprite():
 
 
 # When a property changes
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	match property:
 		"pickup_type":
 			item_type = int(value)
@@ -76,6 +76,6 @@ func _on_object_coder_broadcast(message_id, message):
 
 
 # Destroy the object
-func destroy(params: Dictionary):
+func destroy(params: Dictionary = {}):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		queue_free()

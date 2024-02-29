@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://omnw1wh7srom"]
+
+[ext_resource type="Theme" uid="uid://v758p44ninq5" path="res://themes/code_editor_ui_theme.tres" id="1_s68o1"]
+[ext_resource type="Script" path="res://ui/code_editor/code_edit.gd" id="2_qb24e"]
+
+[node name="CodeEdit" type="CodeEdit"]
+size_flags_vertical = 3
+theme = ExtResource("1_s68o1")
+minimap_draw = true
+gutters_draw_line_numbers = true
+script = ExtResource("2_qb24e")

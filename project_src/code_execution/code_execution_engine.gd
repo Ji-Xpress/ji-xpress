@@ -37,6 +37,8 @@ var block_breaking_steps: Array[Dictionary] = []
 var current_execution_block = null
 ## Keeps track of the game object instance
 var game_object_instance: Node = null
+## Contains a reference to the object code node if executed as textual code
+var object_code_node_instance = null
 ## Instance of Experession Engine
 var expression_engine: ExpressionEngine = null
 ## Current instance of the finally block data
@@ -79,95 +81,107 @@ static func execution_result_model_template(result: String = "", value = null):
 
 # Initializes internal metadata derived from a JSON file
 func initialize_metadata(object_instance: Node, metadata: Dictionary):
-	# Initialize variables that build the code execution engine's base
-	game_object_instance = object_instance
-	node_execution_metadata = metadata
-	expression_engine = ExpressionEngine.new()
-	expression_engine.game_object_instance = game_object_instance
-	expression_engine.initialize_engine()
-	
-	# Build entrypoint metadata entries
-	entrypoint_block_metadata = {}
-	
-	for entrypoint_block in metadata[prop_entry_blocks]:
-		var metadata_item = metadata[prop_entry_blocks][entrypoint_block]
-		var block_id: String = metadata_item.block_id
-		var block_sub_type: String = metadata_item.block_sub_type
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		# Initialize variables that build the code execution engine's base
+		game_object_instance = object_instance
+		node_execution_metadata = metadata
+		expression_engine = ExpressionEngine.new()
+		expression_engine.game_object_instance = game_object_instance
+		expression_engine.initialize_engine()
 		
-		if not entrypoint_block_metadata.has(block_sub_type):
-			entrypoint_block_metadata[block_sub_type] = []
+		# Build entrypoint metadata entries
+		entrypoint_block_metadata = {}
 		
-		entrypoint_block_metadata[block_sub_type].append(block_id)
-	
-	# Build metadata on connections on each block
-	for connection in metadata[prop_connections]:
-		var block_from: String = connection.from_node
-		var block_to: String = connection.to_node
-		var port_from: int = connection.from_port
-		var port_to: int = connection.to_port
-		var port_from_metadata = connection[prop_connection_from_metadata]
-		var port_to_metadata = connection[prop_connection_to_metadata]
+		for entrypoint_block in metadata[prop_entry_blocks]:
+			var metadata_item = metadata[prop_entry_blocks][entrypoint_block]
+			var block_id: String = metadata_item.block_id
+			var block_sub_type: String = metadata_item.block_sub_type
+			
+			if not entrypoint_block_metadata.has(block_sub_type):
+				entrypoint_block_metadata[block_sub_type] = []
+			
+			entrypoint_block_metadata[block_sub_type].append(block_id)
 		
-		# Create metadata templates for for from and to blocks if they do not exist
-		if not block_connection_metadata.has(block_from):
-			block_connection_metadata[block_from] = block_connection_metdata_template()
-		
-		if not block_connection_metadata.has(block_to):
-			block_connection_metadata[block_to] = block_connection_metdata_template()
-		
-		# Prepare data for outgoing connections
-		if not block_connection_metadata[block_from][prop_outgoing_connections].has(str(port_from)):
-			block_connection_metadata[block_from][prop_outgoing_connections][str(port_from)] = []
-		
-		block_connection_metadata[block_from][prop_outgoing_connections][str(port_from)].append({
-			prop_block: block_to,
-			prop_port: port_to,
-			prop_connection_from_metadata: port_from_metadata,
-			prop_connection_to_metadata: port_to_metadata
-		})
-		
-		# Prepare data for incoming connections
-		if not block_connection_metadata[block_to][prop_incoming_connections].has(str(port_to)):
-			block_connection_metadata[block_to][prop_incoming_connections][str(port_to)] = []
-		
-		block_connection_metadata[block_to][prop_incoming_connections][str(port_to)].append({
-			prop_block: block_from,
-			prop_port: port_from,
-			prop_connection_from_metadata: port_from_metadata,
-			prop_connection_to_metadata: port_to_metadata
-		})
+		# Build metadata on connections on each block
+		for connection in metadata[prop_connections]:
+			var block_from: String = connection.from_node
+			var block_to: String = connection.to_node
+			var port_from: int = connection.from_port
+			var port_to: int = connection.to_port
+			var port_from_metadata = connection[prop_connection_from_metadata]
+			var port_to_metadata = connection[prop_connection_to_metadata]
+			
+			# Create metadata templates for for from and to blocks if they do not exist
+			if not block_connection_metadata.has(block_from):
+				block_connection_metadata[block_from] = block_connection_metdata_template()
+			
+			if not block_connection_metadata.has(block_to):
+				block_connection_metadata[block_to] = block_connection_metdata_template()
+			
+			# Prepare data for outgoing connections
+			if not block_connection_metadata[block_from][prop_outgoing_connections].has(str(port_from)):
+				block_connection_metadata[block_from][prop_outgoing_connections][str(port_from)] = []
+			
+			block_connection_metadata[block_from][prop_outgoing_connections][str(port_from)].append({
+				prop_block: block_to,
+				prop_port: port_to,
+				prop_connection_from_metadata: port_from_metadata,
+				prop_connection_to_metadata: port_to_metadata
+			})
+			
+			# Prepare data for incoming connections
+			if not block_connection_metadata[block_to][prop_incoming_connections].has(str(port_to)):
+				block_connection_metadata[block_to][prop_incoming_connections][str(port_to)] = []
+			
+			block_connection_metadata[block_to][prop_incoming_connections][str(port_to)].append({
+				prop_block: block_from,
+				prop_port: port_from,
+				prop_connection_from_metadata: port_from_metadata,
+				prop_connection_to_metadata: port_to_metadata
+			})
 
 
 ## Executes code from an entrypoint type
 func execute_from_entrypoint_type(entrypoint_type: String):
-	if entrypoint_block_metadata.has(entrypoint_type):
-		expression_engine.current_condition_type = "entry_" + entrypoint_type
-		
-		for entrypoint_block in entrypoint_block_metadata[entrypoint_type]:
-			execute_code_from_entrypoint(entrypoint_block)
-		
-		expression_engine.current_condition_type = ""
-		return true
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		if entrypoint_block_metadata.has(entrypoint_type):
+			expression_engine.current_condition_type = "entry_" + entrypoint_type
+			
+			for entrypoint_block in entrypoint_block_metadata[entrypoint_type]:
+				execute_code_from_entrypoint(entrypoint_block)
+			
+			expression_engine.current_condition_type = ""
+			return true
+	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+		var method_name: String = "_on_" + entrypoint_type
+		if object_code_node_instance != null:
+			if object_code_node_instance.has_method(method_name):
+				object_code_node_instance.call(method_name)
 	
 	return false
 
 
 ## Executes code from entry blocks
 func execute_code_from_entrypoint(block_name: String):
-	if node_execution_metadata[prop_entry_blocks].has(block_name):
-		# Clear all branching steps
-		block_branching_steps = []
-		# Start execution
-		current_execution_block = node_execution_metadata[prop_entry_blocks][block_name]
-		execute_current_block(true)
-	else:
-		current_execution_block = null
-		return false
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
+		if node_execution_metadata[prop_entry_blocks].has(block_name):
+			# Clear all branching steps
+			block_branching_steps = []
+			# Start execution
+			current_execution_block = node_execution_metadata[prop_entry_blocks][block_name]
+			execute_current_block(true)
+		else:
+			current_execution_block = null
+			return false
+	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
+		var method_name: String = "_on_" + block_name
+		if object_code_node_instance.has_method(method_name):
+			object_code_node_instance.call(method_name)
 
 
 ## Executes a single block
 func execute_current_block(recursive_execution: bool = true, execute_finally: bool = false, override_recompute: bool = false):
-	if current_execution_block != null:
+	if ProjectManager.coding_environment == Constants.code_environment_env_visual and current_execution_block != null:
 		var block_type: String = current_execution_block[BlockExecutionMetadata.prop_block_type]
 		var block_instance: BlockTypeExecutionBase = load("res://project_src/code_execution/block_types/" + block_type + ".gd").new()
 		# Set the block sub type

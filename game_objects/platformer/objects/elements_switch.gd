@@ -57,13 +57,13 @@ func _on_object_coder_broadcast(message_id, message):
 
 
 # Destroy the object
-func destroy(params: Dictionary):
+func destroy(params: Dictionary = {}):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		queue_free()
 
 
 # When a property changes
-func _on_object_functionality_property_changed(property, value, is_custom):
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
 	match property:
 		"is_pressed":
 			is_pressed = str(value) == "true"
@@ -78,4 +78,4 @@ func _on_object_functionality_property_changed(property, value, is_custom):
 
 ## Sets if pressed or not
 func set_pressed(parameters: Dictionary):
-	object_functionality.set_property("is_pressed", parameters.is_pressed)
+	object_functionality.set_property("is_pressed", parameters.is_pressed, object_metadata.node_mode)

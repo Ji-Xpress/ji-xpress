@@ -42,6 +42,7 @@ func on_design_canvas_node_message(node: Node, message: Dictionary):
 
 # Close button pressed
 func _on_close_requested():
+	canvas_ui_instance.disconnect("design_canvas_send_node_message", Callable(self, "on_design_canvas_node_message"))
 	canvas_ui_instance.queue_free()
 	canvas_ui_instance = null
 	hide()
