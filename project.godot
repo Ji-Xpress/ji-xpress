@@ -14,9 +14,9 @@ config/name="Ji-Xpress"
 run/main_scene="res://launcher.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/low_processor_mode=true
-boot_splash/image="res://assets/logo-2-256.png"
+boot_splash/image="res://assets/ignore/custom-logo.png"
 boot_splash/fullsize=false
-config/icon="res://icon.png"
+config/icon="res://assets/ignore/custom-icon.png"
 config/app_version="0.0.1"
 
 [autoload]
