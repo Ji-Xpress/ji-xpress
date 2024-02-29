@@ -1,4 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
+# Environment vars
 .env
 *.tmp
+# Assets for custom compilation of logo and icon
+assets/custom-logo.png
+custom-icon.png

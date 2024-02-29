@@ -50,9 +50,10 @@ icon = ExtResource("3_bojr5")
 
 [node name="CodeEdit" parent="PanelContainer/VBoxContainer" instance=ExtResource("5_pdpbs")]
 layout_mode = 2
-delimiter_strings = Array[String](["' '", "\" \""])
+delimiter_strings = Array[String](["\" \"", "' '"])
 
 [node name="TabCommon" parent="." instance=ExtResource("6_r2w43")]
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/SaveSceneButton" to="." method="_on_save_scene_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/Toolbar/CloseTabButton" to="." method="_on_close_tab_button_pressed"]
+[connection signal="text_changed" from="PanelContainer/VBoxContainer/CodeEdit" to="." method="_on_code_edit_text_changed"]

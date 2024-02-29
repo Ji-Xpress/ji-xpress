@@ -8,6 +8,7 @@ extends Control
 var is_new_file: bool = false
 
 @onready var code_edit: CodeEdit = $PanelContainer/VBoxContainer/CodeEdit
+@onready var tab_common: Node = $TabCommon
 
 ## When the tab is being closed
 signal tab_close_request(node_instance: Control, scene_id: String)
@@ -37,3 +38,8 @@ func _on_close_tab_button_pressed():
 ## Save the tab's content
 func save_tab():
 	ProjectManager.save_code(script_name, code_edit.text)
+	tab_common.is_invalidated = false
+
+
+func _on_code_edit_text_changed():
+	tab_common.is_invalidated = true
