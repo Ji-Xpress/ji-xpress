@@ -19,6 +19,7 @@ func _ready():
 		"set_object_position": Color(0.97254902124405, 0.5137255191803, 0.4745098054409),
 		"get_object_rotation": Color(0.97254902124405, 0.5137255191803, 0.4745098054409),
 		"set_object_rotation": Color(0.97254902124405, 0.5137255191803, 0.4745098054409),
+		"change_scene": Color(0.97254902124405, 0.5137255191803, 0.4745098054409),
 	}
 	
 	code_higlighter.symbol_color = Color(1, 0.76470589637756, 0)

@@ -78,3 +78,9 @@ func set_object_rotation(degrees: float, smoothing: bool = false, duration: floa
 		await tween.finished
 	else:
 		object.rotation_degrees = degrees
+
+
+## Change the scene
+func change_scene(scene_name: String):
+	var message_payload = NodeToCanvasMessages.construct_scene_change_message(scene_name + Constants.scene_extension)
+	object.object_functionality.send_message_to_canvas(message_payload)
