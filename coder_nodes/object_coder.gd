@@ -44,7 +44,7 @@ func _ready():
 
 
 ## Create an initialize a new instance of code execution engine
-func code_execution_engine():
+func code_execution_engine(one_shot: bool = false):
 	# Load corresponding script metadata
 	var object_index: int = parent_node.get_node(Constants.object_metadata_node).project_object_index
 	var object_name: String = ProjectManager.object_ids[object_index]
@@ -71,11 +71,19 @@ func code_execution_engine():
 		gd_script.reload()
 		
 		# Attach GDScript
-		object_code_node.set_script(gd_script)
-		object_code_node.set("object", parent_node)
+		if not one_shot:
+			object_code_node.set_script(gd_script)
+			object_code_node.set("object", parent_node)
+			
+			# Embed instance into CodeExectionEngine
+			engine.object_code_node_instance = object_code_node
+		else:
+			var new_object_code_node: ObjectCodeNode = ObjectCodeNode.new()
+			new_object_code_node.set_script(gd_script)
+			new_object_code_node.set("object", parent_node)
 		
-		# Embed instance into CodeExectionEngine
-		engine.object_code_node_instance = object_code_node
+			# Embed instance into CodeExectionEngine
+			engine.object_code_node_instance = new_object_code_node
 	return engine
 
 

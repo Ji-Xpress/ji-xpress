@@ -36,7 +36,7 @@ func _ready():
 	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		update_code_execution_engine = object_coder.code_execution_engine()
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 		
 		collision_shape.set_deferred("disabled", false)
@@ -112,7 +112,7 @@ func _physics_process(delta):
 
 # When a broadcast message is received
 func _on_object_coder_broadcast(message_id, message):
-	var code_execution_engine = object_coder.code_execution_engine()
+	var code_execution_engine = object_coder.code_execution_engine(true)
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 

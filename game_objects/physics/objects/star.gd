@@ -18,7 +18,7 @@ func _ready():
 		update_code_execution_engine = object_coder.code_execution_engine()
 		
 		collision_shape.set_deferred("disabled", false)
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 
 
@@ -37,7 +37,7 @@ func destroy(parameters: Dictionary = {}):
 
 # Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	var code_execution_engine = object_coder.code_execution_engine()
+	var code_execution_engine = object_coder.code_execution_engine(true)
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 

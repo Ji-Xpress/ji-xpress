@@ -47,7 +47,7 @@ func _ready():
 	
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		update_code_execution_engine = object_coder.code_execution_engine()
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 		
 		tween = create_tween()
@@ -215,7 +215,7 @@ func _on_object_functionality_property_changed(property, value, is_custom, run_m
 
 # Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	var code_execution_engine = object_coder.code_execution_engine()
+	var code_execution_engine = object_coder.code_execution_engine(true)
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 

@@ -19,7 +19,7 @@ static func common_collision_handler(body: Node, object_coder: ObjectCoder, extr
 		for extra in extras:
 			SharedState.expression_variables["entry_collides"]["body"][extra] = extras[extra]
 		
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("collides")
 
 

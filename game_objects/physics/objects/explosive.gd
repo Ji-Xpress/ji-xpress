@@ -16,7 +16,7 @@ func _ready():
 	else:
 		update_code_execution_engine = object_coder.code_execution_engine()
 		collision_shape.set_deferred("disabled", false)
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 
 

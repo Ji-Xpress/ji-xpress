@@ -28,7 +28,7 @@ func _ready():
 		camera.enabled = true
 		mass = float(object_metadata.get_property("mass"))
 		
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 
 
@@ -79,7 +79,7 @@ func _on_object_functionality_property_changed(property, value, is_custom, run_m
 
 # Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	var code_execution_engine = object_coder.code_execution_engine()
+	var code_execution_engine = object_coder.code_execution_engine(true)
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 

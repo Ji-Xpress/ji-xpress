@@ -21,7 +21,7 @@ func _ready():
 		freeze = false
 		mass = float(object_metadata.get_property("mass"))
 		
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 
 

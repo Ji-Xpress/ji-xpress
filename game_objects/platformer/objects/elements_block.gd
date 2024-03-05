@@ -21,7 +21,7 @@ func _ready():
 		collision_shape.set_deferred("disabled", false)
 		
 		update_code_execution_engine = object_coder.code_execution_engine()
-		var code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine(true)
 		code_execution_engine.execute_from_entrypoint_type("ready")
 		mass = float(object_metadata.get_property("mass"))
 		
@@ -70,7 +70,7 @@ func _on_collision_sensor_body_entered(body):
 
 # Process the broadcast message
 func _on_object_coder_broadcast(message_id, message):
-	var code_execution_engine = object_coder.code_execution_engine()
+	var code_execution_engine = object_coder.code_execution_engine(true)
 	code_execution_engine.execute_from_entrypoint_type("broadcast")
 
 
