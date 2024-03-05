@@ -8,8 +8,10 @@ extends Control
 @onready var keys_counter: HBoxContainer = $KeysCounter
 @onready var gems_counter: HBoxContainer = $GemCounter
 
-var num_keys: int = 0
-var num_gems: int = 0
+var update_code_execution_engine: CodeExecutionEngine = null
+
+var key_count: int = 0
+var gem_count: int = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,22 +21,32 @@ func _ready():
 	
 	keys_counter.visible = keys_visible
 	gems_counter.visible = gems_visible
+	
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		update_code_execution_engine = object_coder.code_execution_engine()
+		var code_execution_engine = object_coder.code_execution_engine()
+		code_execution_engine.execute_from_entrypoint_type("ready")
+
+
+func _process(delta):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		update_code_execution_engine.execute_from_entrypoint_type("update_loop")
 
 
 ## Sets the star count
 func set_key_count(keys: int):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		num_keys = keys
-		num_keys_count.text = str(num_keys)
-		object_coder.set_variable("num_keys", num_keys)
+		key_count = keys
+		num_keys_count.text = str(key_count)
+		object_coder.set_variable("num_keys", key_count)
 
 
 ## Sets the star count
 func set_gem_count(gems: int):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
-		num_gems = gems
-		num_gems_count.text = str(num_gems)
-		object_coder.set_variable("num_gems", num_gems)
+		gem_count = gems
+		num_gems_count.text = str(gem_count)
+		object_coder.set_variable("num_gems", gem_count)
 
 
 ## Sets the number of stars and updates the dispplay
@@ -53,12 +65,11 @@ func set_num_gems(parameters: Dictionary):
 func _on_object_coder_broadcast(message_id, message):
 	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
 		if message_id == "increment_num_keys":
-			var keys: int = int(message) + num_keys
+			var keys: int = int(message) + key_count
 			set_key_count(keys)
 		elif message_id == "increment_num_gems":
-			var gems: int = int(message) + num_gems
+			var gems: int = int(message) + gem_count
 			set_gem_count(gems)
-			
 	
 	var code_execution_engine = object_coder.code_execution_engine()
 	code_execution_engine.execute_from_entrypoint_type("broadcast")

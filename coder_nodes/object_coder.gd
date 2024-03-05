@@ -34,6 +34,11 @@ var variable_metadata: Dictionary = {}
 func _ready():
 	parent_node = get_parent()
 	all_variables = get_all_variables()
+	
+	# Prepare the text coding environment if needed
+	if ProjectManager.coding_environment == Constants.code_environment_env_code:
+		object_code_node = ObjectCodeNode.new()
+	
 	prepare_code_variable_dict(true)
 	SharedState.connect("broadcast", Callable(self, "on_brodcast"))
 
@@ -53,8 +58,6 @@ func code_execution_engine():
 		if script_metadata != null:
 			engine.initialize_metadata(parent_node, script_metadata)
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-		object_code_node = ObjectCodeNode.new()
-		
 		# Prepare script text
 		var script = ProjectManager.open_code(object_name + Constants.code_extension)
 		if not script or script == null:
@@ -95,7 +98,7 @@ func prepare_code_variable_dict(override: bool = false):
 			else:
 				set_variable(variable_name, default_value)
 		elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-			object_code_node[variable_name] = default_value
+			object_code_node.set(variable_name, default_value)
 
 
 ## Gets a variable's value
@@ -113,7 +116,7 @@ func set_variable(variable: String, value):
 	if ProjectManager.coding_environment == Constants.code_environment_env_visual:
 		variable_values[variable] = value
 	elif ProjectManager.coding_environment == Constants.code_environment_env_code:
-		object_code_node[variable] = value
+		object_code_node.set(variable, value)
 
 
 ## Executes a function from the parent object

@@ -2,7 +2,7 @@ extends Node
 class_name ObjectCodeNode
 
 ## Contains reference to the parent object
-var object: Node2D = null
+var object: Node = null
 
 
 ## Does a broadcast
