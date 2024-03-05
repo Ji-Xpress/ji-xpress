@@ -1,11 +1,71 @@
 extends Control
 
+@onready var object_metadata: ObjectMetaData = $ObjectMetaData
+@onready var object_functionality: ObjectFunctionality = $ObjectFunctionality
+@onready var object_coder: ObjectCoder = $ObjectCoder
+@onready var num_keys_count: Label = $KeysCounter/MarginContainer/NumCount
+@onready var num_gems_count: Label = $GemCounter/MarginContainer/NumCount
+@onready var keys_counter: HBoxContainer = $KeysCounter
+@onready var gems_counter: HBoxContainer = $GemCounter
+
+var num_keys: int = 0
+var num_gems: int = 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var keys_visible: bool = bool(object_metadata.get_property("keys_visible"))
+	var gems_visible: bool = bool(object_metadata.get_property("gems_visible"))
+	
+	keys_counter.visible = keys_visible
+	gems_counter.visible = gems_visible
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+## Sets the star count
+func set_key_count(keys: int):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		num_keys = keys
+		num_keys_count.text = str(num_keys)
+		object_coder.set_variable("num_keys", num_keys)
+
+
+## Sets the star count
+func set_gem_count(gems: int):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		num_gems = gems
+		num_gems_count.text = str(num_gems)
+		object_coder.set_variable("num_gems", num_gems)
+
+
+## Sets the number of stars and updates the dispplay
+func set_num_keys(parameters: Dictionary):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		set_key_count(int(parameters.keys))
+
+
+## Sets the number of stars and updates the dispplay
+func set_num_gems(parameters: Dictionary):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		set_gem_count(int(parameters.gems))
+
+
+## Handle number of stars collected
+func _on_object_coder_broadcast(message_id, message):
+	if object_metadata.node_mode == SharedEnums.NodeCanvasMode.ModeRun:
+		if message_id == "increment_num_keys":
+			var keys: int = int(message) + num_keys
+			set_key_count(keys)
+		elif message_id == "increment_num_gems":
+			var gems: int = int(message) + num_gems
+			set_gem_count(gems)
+			
+	
+	var code_execution_engine = object_coder.code_execution_engine()
+	code_execution_engine.execute_from_entrypoint_type("broadcast")
+
+
+func _on_object_functionality_property_changed(property, value, is_custom, run_mode):
+	if property == "keys_visible":
+		keys_counter.visible = bool(value)
+	elif property == "gems_visible":
+		gems_counter.visible = bool(value)

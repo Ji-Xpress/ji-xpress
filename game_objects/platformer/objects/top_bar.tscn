@@ -1,21 +1,124 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtogwn2cxuva3"]
+[gd_scene load_steps=17 format=3 uid="uid://dtogwn2cxuva3"]
 
 [ext_resource type="Script" path="res://game_objects/platformer/objects/top_bar.gd" id="1_vxwkp"]
 [ext_resource type="PackedScene" uid="uid://c5ytv63w64aps" path="res://designer_src/object_metadata.tscn" id="2_brnxu"]
 [ext_resource type="PackedScene" uid="uid://b04xmainp6ixm" path="res://designer_src/object_functionality.tscn" id="3_vaach"]
 [ext_resource type="PackedScene" uid="uid://c541h1l1hdn14" path="res://coder_nodes/object_coder.tscn" id="4_mesk6"]
+[ext_resource type="Texture2D" uid="uid://b8hgpeuj764n2" path="res://game_objects/platformer/assets/Items/platformPack_item014.png" id="5_51laf"]
+[ext_resource type="Script" path="res://designer_src/object_custom_property.gd" id="5_wf6da"]
+[ext_resource type="Script" path="res://coder_src/object_code_function.gd" id="6_lmr26"]
+[ext_resource type="FontFile" uid="uid://8flxsv3oaan4" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="6_na418"]
+[ext_resource type="Script" path="res://addons/rect_extents_2D/RectExtents2D.gd" id="7_fl8df"]
+[ext_resource type="Texture2D" uid="uid://ders7j6ybo84i" path="res://game_objects/platformer/assets/Items/platformPack_item010.png" id="7_jekrl"]
 
-[node name="TopBar" type="Control"]
-layout_mode = 3
-anchors_preset = 15
+[sub_resource type="Resource" id="Resource_ldnco"]
+script = ExtResource("5_wf6da")
+property_name = "keys_visible"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_6w804"]
+script = ExtResource("5_wf6da")
+property_name = "gems_visible"
+property_type = 4
+property_value = "true"
+property_default_value = "true"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_0hbpr"]
+script = ExtResource("5_wf6da")
+property_name = "keys"
+property_type = 1
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_7juik"]
+script = ExtResource("6_lmr26")
+function_name = "set_num_keys"
+function_block_parameters = Array[ExtResource("5_wf6da")]([SubResource("Resource_0hbpr")])
+function_outputs = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_sccyr"]
+script = ExtResource("5_wf6da")
+property_name = "gems"
+property_type = 1
+property_value = "1"
+property_default_value = "1"
+property_read_only = false
+
+[sub_resource type="Resource" id="Resource_q3gnf"]
+script = ExtResource("6_lmr26")
+function_name = "set_num_gems"
+function_block_parameters = Array[ExtResource("5_wf6da")]([SubResource("Resource_sccyr")])
+function_outputs = Array[String]([])
+
+[node name="TopBar" type="HBoxContainer"]
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -226.0
+offset_bottom = 70.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+alignment = 2
 script = ExtResource("1_vxwkp")
 
 [node name="ObjectMetaData" parent="." instance=ExtResource("2_brnxu")]
+custom_properties = Array[ExtResource("5_wf6da")]([SubResource("Resource_ldnco"), SubResource("Resource_6w804")])
 
 [node name="ObjectFunctionality" parent="." instance=ExtResource("3_vaach")]
 
 [node name="ObjectCoder" parent="." instance=ExtResource("4_mesk6")]
+code_functions = Array[ExtResource("6_lmr26")]([SubResource("Resource_7juik"), SubResource("Resource_q3gnf")])
+
+[node name="KeysCounter" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="KeysCounter"]
+layout_mode = 2
+texture = ExtResource("5_51laf")
+
+[node name="MarginContainer" type="MarginContainer" parent="KeysCounter"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="NumCount" type="Label" parent="KeysCounter/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_na418")
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="GemCounter" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GemCounter"]
+layout_mode = 2
+texture = ExtResource("7_jekrl")
+
+[node name="MarginContainer" type="MarginContainer" parent="GemCounter"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="NumCount" type="Label" parent="GemCounter/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_na418")
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="RectExtents2D" type="Node2D" parent="."]
+position = Vector2(96, 32)
+script = ExtResource("7_fl8df")
+size = Vector2(256, 64)
+
+[connection signal="property_changed" from="ObjectFunctionality" to="." method="_on_object_functionality_property_changed"]
+[connection signal="broadcast" from="ObjectCoder" to="." method="_on_object_coder_broadcast"]
