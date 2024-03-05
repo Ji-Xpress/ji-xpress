@@ -150,7 +150,8 @@ func create_new_scene(scene_name: String):
 
 
 ## Creates a new object in an existing scene
-func create_new_scene_object(scene_name: String, node_id: String, object_id: String, object_position: Vector2, custom_properties: Dictionary):
+func create_new_scene_object(scene_name: String, node_id: String, object_id: String, object_position: Vector2, custom_properties: Dictionary,
+	canvas_mode: SharedEnums.NodeCanvasMode = SharedEnums.NodeCanvasMode.ModeDesign):
 	if not scenes_metadata.has(scene_name):
 		return false
 	
@@ -158,7 +159,10 @@ func create_new_scene_object(scene_name: String, node_id: String, object_id: Str
 	
 	# Just return existing object metadata if it exists
 	if scene_instance[SceneMetaData.prop_nodes].has(object_id):
-		return scene_instance[SceneMetaData.prop_nodes][object_id]
+		if canvas_mode == SharedEnums.NodeCanvasMode.ModeDesign:
+			return scene_instance[SceneMetaData.prop_nodes][object_id]
+		elif canvas_mode == SharedEnums.NodeCanvasMode.ModeRun:
+			return scene_instance[SceneMetaData.prop_nodes][object_id].duplicate()
 	
 	# Create new object properties sets
 	var new_object_properties: Dictionary = ObjectProperties.model_template()

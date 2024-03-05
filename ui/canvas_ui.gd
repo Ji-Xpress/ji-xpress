@@ -118,7 +118,7 @@ func add_game_object_url_to_canvas(url: String, project_object_index: int, creat
 	# Scene metadata instance
 	var node_position = Vector2(node_instance_metadata.position_x, node_instance_metadata.position_y)
 	canvas_object_tracker[str(object_index)] = ProjectManager.create_new_scene_object(scene_name, url, object_id, \
-		node_position, node_instance_metadata.prop_values)
+		node_position, node_instance_metadata.prop_values, canvas_mode)
 	
 	# Track last object index
 	if created_object_index < 0:
