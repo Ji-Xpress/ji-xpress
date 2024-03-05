@@ -142,31 +142,32 @@ func apply_canvas_settings(settings):
 
 ## Synchronizes the project's metadata with the metadata of all the current objects on canvas
 func synchronize_project_scene_metadata():
-	var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
-	var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
-	var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.tile)
-	var user_interface = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.user_interface)
-	var current_project_manager_scene = ProjectManager.scenes_metadata[scene_name]
-	
-	# Store the last object index
-	current_project_manager_scene[SceneMetaData.prop_last_object_id] = last_object_index
-	
-	var all_nodes = [foreground_nodes, background_nodes, tiles, user_interface]
-	
-	for node_group in all_nodes:
-		for child_node in node_group:
-			var object_metadata: ObjectMetaData = child_node.object_metadata
-			var object_index: int = object_metadata.object_index
-			var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
-			var object_project_object_index: int = object_metadata.project_object_index
-			
-			project_object_index[ObjectProperties.prop_position_x] = object_metadata[ObjectMetaData.prop_position_x]
-			project_object_index[ObjectProperties.prop_position_y] = object_metadata[ObjectMetaData.prop_position_y]
-			project_object_index[ObjectProperties.prop_object_index] = object_index
-			project_object_index[ObjectProperties.prop_project_object_index] = object_project_object_index
-			project_object_index[ObjectProperties.prop_rotation] = object_metadata[ObjectMetaData.prop_rotation]
-			project_object_index[ObjectProperties.prop_custom_properties] = object_metadata.prop_values
-			project_object_index[ObjectProperties.prop_object_id] = object_metadata.object_id
+	if canvas_mode == SharedEnums.NodeCanvasMode.ModeDesign:
+		var foreground_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.foreground)
+		var background_nodes = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.background)
+		var tiles = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.tile)
+		var user_interface = design_canvas.get_all_nodes(ActiveHoverNode.NodeKind.user_interface)
+		var current_project_manager_scene = ProjectManager.scenes_metadata[scene_name]
+		
+		# Store the last object index
+		current_project_manager_scene[SceneMetaData.prop_last_object_id] = last_object_index
+		
+		var all_nodes = [foreground_nodes, background_nodes, tiles, user_interface]
+		
+		for node_group in all_nodes:
+			for child_node in node_group:
+				var object_metadata: ObjectMetaData = child_node.object_metadata
+				var object_index: int = object_metadata.object_index
+				var project_object_index: Dictionary = canvas_object_tracker[str(object_index)]
+				var object_project_object_index: int = object_metadata.project_object_index
+				
+				project_object_index[ObjectProperties.prop_position_x] = object_metadata[ObjectMetaData.prop_position_x]
+				project_object_index[ObjectProperties.prop_position_y] = object_metadata[ObjectMetaData.prop_position_y]
+				project_object_index[ObjectProperties.prop_object_index] = object_index
+				project_object_index[ObjectProperties.prop_project_object_index] = object_project_object_index
+				project_object_index[ObjectProperties.prop_rotation] = object_metadata[ObjectMetaData.prop_rotation]
+				project_object_index[ObjectProperties.prop_custom_properties] = object_metadata.prop_values
+				project_object_index[ObjectProperties.prop_object_id] = object_metadata.object_id
 
 
 # Save the tab's content

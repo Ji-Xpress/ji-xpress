@@ -78,7 +78,7 @@ script = ExtResource("6_o08n2")
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer"]
 handle_input_locally = false
 physics_object_picking = true
-size = Vector2i(816, 600)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="DesignCanvas" parent="PanelContainer/HSplitContainer/LeftPanel/ControlContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_swthp")]
