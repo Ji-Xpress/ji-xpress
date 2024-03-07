@@ -45,5 +45,5 @@ Ji-Xpress can also be developed as a standalone game builder, in which case you 
 
 ## Community
 
-* Join us on [The Ji-Xpress Discord Server](https://discord.gg/qyawbcWS)
+* Join us on [The Ji-Xpress Discord Server](https://discord.gg/Z3Gu8JwGcn)
 * Find us on [itch.io](https://ahmedmaawy.itch.io/ji-xpress)
